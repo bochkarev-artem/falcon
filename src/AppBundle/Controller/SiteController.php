@@ -18,8 +18,6 @@ class SiteController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('site/index.html.twig', [
-            //
-        ]);
+        return $this->render('site/index.html.twig');
     }
 }
