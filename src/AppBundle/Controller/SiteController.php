@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author Artem Bochkarev
+ */
 
 namespace AppBundle\Controller;
 
