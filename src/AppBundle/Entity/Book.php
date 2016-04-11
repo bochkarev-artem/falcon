@@ -39,7 +39,7 @@ class Book
     /**
      * @var $isSale
      *
-     * @ORM\Column(name="is_saleale", type="boolean")
+     * @ORM\Column(name="is_sale", type="boolean")
      */
     private $isSale;
 
@@ -190,10 +190,14 @@ class Book
 
     /**
      * @param mixed $price
+     *
+     * @return Book
      */
     public function setPrice($price)
     {
         $this->price = $price;
+
+        return $this;
     }
 
     /**
@@ -206,10 +210,14 @@ class Book
 
     /**
      * @param mixed $cover
+     *
+     * @return Book
      */
     public function setCover($cover)
     {
         $this->cover = $cover;
+
+        return $this;
     }
 
     /**
@@ -222,10 +230,14 @@ class Book
 
     /**
      * @param mixed $isSale
+     *
+     * @return Book
      */
     public function setIsSale($isSale)
     {
         $this->isSale = $isSale;
+
+        return $this;
     }
 
     /**
@@ -238,10 +250,14 @@ class Book
 
     /**
      * @param mixed $fileIntId
+     *
+     * @return Book
      */
     public function setFileIntId($fileIntId)
     {
         $this->fileIntId = $fileIntId;
+
+        return $this;
     }
 
     /**
@@ -254,10 +270,14 @@ class Book
 
     /**
      * @param mixed $type
+     *
+     * @return Book
      */
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
     }
 
     /**
@@ -270,10 +290,14 @@ class Book
 
     /**
      * @param mixed $isShowPreview
+     *
+     * @return Book
      */
     public function setIsShowPreview($isShowPreview)
     {
         $this->isShowPreview = $isShowPreview;
+
+        return $this;
     }
 
     /**
@@ -286,10 +310,14 @@ class Book
 
     /**
      * @param mixed $isAllowRead
+     *
+     * @return Book
      */
     public function setIsAllowRead($isAllowRead)
     {
         $this->isAllowRead = $isAllowRead;
+
+        return $this;
     }
 
     /**
@@ -302,10 +330,14 @@ class Book
 
     /**
      * @param mixed $genre
+     *
+     * @return Book
      */
     public function setGenre($genre)
     {
         $this->genre = $genre;
+
+        return $this;
     }
 
     /**
@@ -318,10 +350,14 @@ class Book
 
     /**
      * @param mixed $author
+     *
+     * @return Book
      */
     public function setAuthor($author)
     {
         $this->author = $author;
+
+        return $this;
     }
 
     /**
@@ -334,10 +370,14 @@ class Book
 
     /**
      * @param mixed $sequence
+     *
+     * @return Book
      */
     public function setSequence($sequence)
     {
         $this->sequence = $sequence;
+
+        return $this;
     }
 
     /**
@@ -350,10 +390,14 @@ class Book
 
     /**
      * @param mixed $title
+     *
+     * @return Book
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -366,10 +410,14 @@ class Book
 
     /**
      * @param mixed $annotation
+     *
+     * @return Book
      */
     public function setAnnotation($annotation)
     {
         $this->annotation = $annotation;
+
+        return $this;
     }
 
     /**
@@ -382,10 +430,14 @@ class Book
 
     /**
      * @param mixed $date
+     *
+     * @return Book
      */
     public function setDate($date)
     {
         $this->date = $date;
+
+        return $this;
     }
 
     /**
@@ -398,10 +450,14 @@ class Book
 
     /**
      * @param mixed $lang
+     *
+     * @return Book
      */
     public function setLang($lang)
     {
         $this->lang = $lang;
+
+        return $this;
     }
 
     /**
@@ -414,10 +470,14 @@ class Book
 
     /**
      * @param mixed $litresIntId
+     *
+     * @return Book
      */
     public function setLitresIntId($litresIntId)
     {
         $this->litresIntId = $litresIntId;
+
+        return $this;
     }
 
     /**
@@ -430,10 +490,14 @@ class Book
 
     /**
      * @param mixed $litresUrl
+     *
+     * @return Book
      */
     public function setLitresUrl($litresUrl)
     {
         $this->litresUrl = $litresUrl;
+
+        return $this;
     }
 
     /**
@@ -446,10 +510,14 @@ class Book
 
     /**
      * @param mixed $litresId
+     *
+     * @return Book
      */
     public function setLitresId($litresId)
     {
         $this->litresId = $litresId;
+
+        return $this;
     }
 
     /**
@@ -462,10 +530,14 @@ class Book
 
     /**
      * @param mixed $publisher
+     *
+     * @return Book
      */
     public function setPublisher($publisher)
     {
         $this->publisher = $publisher;
+
+        return $this;
     }
 
     /**
@@ -478,10 +550,14 @@ class Book
 
     /**
      * @param mixed $cityPublished
+     *
+     * @return Book
      */
     public function setCityPublished($cityPublished)
     {
         $this->cityPublished = $cityPublished;
+
+        return $this;
     }
 
     /**
@@ -494,10 +570,14 @@ class Book
 
     /**
      * @param mixed $yearPublished
+     *
+     * @return Book
      */
     public function setYearPublished($yearPublished)
     {
         $this->yearPublished = $yearPublished;
+
+        return $this;
     }
 
     /**
@@ -510,9 +590,13 @@ class Book
 
     /**
      * @param mixed $isbn
+     *
+     * @return Book
      */
     public function setIsbn($isbn)
     {
         $this->isbn = $isbn;
+
+        return $this;
     }
 }
