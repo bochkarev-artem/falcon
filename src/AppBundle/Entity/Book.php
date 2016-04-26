@@ -23,53 +23,46 @@ class Book
     private $id;
 
     /**
-     * @var $price
+     * @var $litresHubId
+     *
+     * @ORM\Column(name="litres_hub_id", type="integer")
+     */
+    private $litresHubId;
+
+    /**
+     * @var string $price
      *
      * @ORM\Column(name="price", type="string")
      */
     private $price;
 
     /**
-     * @var $cover
+     * @var string $cover
      *
      * @ORM\Column(name="cover", type="string")
      */
     private $cover;
 
     /**
-     * @var $isSale
+     * @var string $coverPreview
      *
-     * @ORM\Column(name="is_sale", type="boolean")
+     * @ORM\Column(name="cover_preview", type="string")
      */
-    private $isSale;
+    private $coverPreview;
 
     /**
-     * @var $fileIntId
+     * @var string $filename
      *
-     * @ORM\Column(name="file_int_id", type="integer")
+     * @ORM\Column(name="filename", type="integer")
      */
-    private $fileIntId;
+    private $filename;
 
     /**
-     * @var $type
+     * @var integer $type
      *
-     * @ORM\Column(name="type", type="string")
+     * @ORM\Column(name="type", type="integer")
      */
     private $type;
-
-    /**
-     * @var $isShowPreview
-     *
-     * @ORM\Column(name="is_show_preview", type="boolean")
-     */
-    private $isShowPreview;
-
-    /**
-     * @var $isAllowRead
-     *
-     * @ORM\Column(name="is_allow_read", type="boolean")
-     */
-    private $isAllowRead;
 
     /**
      * @var Genre $genre
@@ -96,72 +89,65 @@ class Book
     private $sequence;
 
     /**
-     * @var $title
+     * @var string $title
      *
      * @ORM\Column(name="title", type="string")
      */
     private $title;
 
     /**
-     * @var $annotation
+     * @var string $annotation
      *
-     * @ORM\Column(name="annotation", type="string")
+     * @ORM\Column(name="annotation", type="text")
      */
     private $annotation;
 
     /**
-     * @var $date
+     * @var string $date
      *
      * @ORM\Column(name="date", type="string")
      */
     private $date;
 
     /**
-     * @var $lang
+     * @var string $lang
      *
      * @ORM\Column(name="lang", type="string")
      */
     private $lang;
 
     /**
-     * @var $litresIntId
+     * @var string $documentUrl
      *
-     * @ORM\Column(name="litres_int_id", type="integer")
+     * @ORM\Column(name="document_url", type="string")
      */
-    private $litresIntId;
+    private $documentUrl;
 
     /**
-     * @var $litresUrl
+     * @var string $documentId
      *
-     * @ORM\Column(name="litres_url", type="string")
+     * @ORM\Column(name="document_id", type="integer")
      */
-    private $litresUrl;
+    private $documentId;
 
     /**
-     * @var $litresId
-     *
-     * @ORM\Column(name="litres_id", type="integer")
-     */
-    private $litresId;
-
-    /**
-     * @var $publisher
+     * @var string $publisher
      *
      * @ORM\Column(name="publisher", type="string")
      */
     private $publisher;
 
     /**
-     * @var $cityPublished
+     * @var string $cityPublished
      *
      * @ORM\Column(name="city_published", type="string")
      */
     private $cityPublished;
 
     /**
-     * @var $yearPublished
+     * @var string $yearPublished
      *
-     * @ORM\Column(name="year_published", type="string")
+     * @ORM\Column(name="year_published", type="string", length="4")
      */
     private $yearPublished;
 
@@ -181,7 +167,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPrice()
     {
@@ -189,7 +175,7 @@ class Book
     }
 
     /**
-     * @param mixed $price
+     * @param string $price
      *
      * @return Book
      */
@@ -201,7 +187,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCover()
     {
@@ -209,7 +195,7 @@ class Book
     }
 
     /**
-     * @param mixed $cover
+     * @param string $cover
      *
      * @return Book
      */
@@ -221,47 +207,7 @@ class Book
     }
 
     /**
-     * @return mixed
-     */
-    public function getIsSale()
-    {
-        return $this->isSale;
-    }
-
-    /**
-     * @param mixed $isSale
-     *
-     * @return Book
-     */
-    public function setIsSale($isSale)
-    {
-        $this->isSale = $isSale;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFileIntId()
-    {
-        return $this->fileIntId;
-    }
-
-    /**
-     * @param mixed $fileIntId
-     *
-     * @return Book
-     */
-    public function setFileIntId($fileIntId)
-    {
-        $this->fileIntId = $fileIntId;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
+     * @return integer
      */
     public function getType()
     {
@@ -269,7 +215,7 @@ class Book
     }
 
     /**
-     * @param mixed $type
+     * @param integer $type
      *
      * @return Book
      */
@@ -281,47 +227,7 @@ class Book
     }
 
     /**
-     * @return mixed
-     */
-    public function getIsShowPreview()
-    {
-        return $this->isShowPreview;
-    }
-
-    /**
-     * @param mixed $isShowPreview
-     *
-     * @return Book
-     */
-    public function setIsShowPreview($isShowPreview)
-    {
-        $this->isShowPreview = $isShowPreview;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIsAllowRead()
-    {
-        return $this->isAllowRead;
-    }
-
-    /**
-     * @param mixed $isAllowRead
-     *
-     * @return Book
-     */
-    public function setIsAllowRead($isAllowRead)
-    {
-        $this->isAllowRead = $isAllowRead;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
+     * @return Genre
      */
     public function getGenre()
     {
@@ -329,7 +235,7 @@ class Book
     }
 
     /**
-     * @param mixed $genre
+     * @param Genre $genre
      *
      * @return Book
      */
@@ -341,7 +247,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return Author
      */
     public function getAuthor()
     {
@@ -349,7 +255,7 @@ class Book
     }
 
     /**
-     * @param mixed $author
+     * @param Author $author
      *
      * @return Book
      */
@@ -361,7 +267,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return Sequence
      */
     public function getSequence()
     {
@@ -369,7 +275,7 @@ class Book
     }
 
     /**
-     * @param mixed $sequence
+     * @param Sequence $sequence
      *
      * @return Book
      */
@@ -381,7 +287,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {
@@ -389,7 +295,7 @@ class Book
     }
 
     /**
-     * @param mixed $title
+     * @param string $title
      *
      * @return Book
      */
@@ -401,7 +307,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAnnotation()
     {
@@ -409,7 +315,7 @@ class Book
     }
 
     /**
-     * @param mixed $annotation
+     * @param string $annotation
      *
      * @return Book
      */
@@ -421,7 +327,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDate()
     {
@@ -429,7 +335,7 @@ class Book
     }
 
     /**
-     * @param mixed $date
+     * @param string $date
      *
      * @return Book
      */
@@ -441,7 +347,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLang()
     {
@@ -449,7 +355,7 @@ class Book
     }
 
     /**
-     * @param mixed $lang
+     * @param string $lang
      *
      * @return Book
      */
@@ -461,67 +367,7 @@ class Book
     }
 
     /**
-     * @return mixed
-     */
-    public function getLitresIntId()
-    {
-        return $this->litresIntId;
-    }
-
-    /**
-     * @param mixed $litresIntId
-     *
-     * @return Book
-     */
-    public function setLitresIntId($litresIntId)
-    {
-        $this->litresIntId = $litresIntId;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLitresUrl()
-    {
-        return $this->litresUrl;
-    }
-
-    /**
-     * @param mixed $litresUrl
-     *
-     * @return Book
-     */
-    public function setLitresUrl($litresUrl)
-    {
-        $this->litresUrl = $litresUrl;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLitresId()
-    {
-        return $this->litresId;
-    }
-
-    /**
-     * @param mixed $litresId
-     *
-     * @return Book
-     */
-    public function setLitresId($litresId)
-    {
-        $this->litresId = $litresId;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
+     * @return string
      */
     public function getPublisher()
     {
@@ -529,7 +375,7 @@ class Book
     }
 
     /**
-     * @param mixed $publisher
+     * @param string $publisher
      *
      * @return Book
      */
@@ -541,7 +387,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCityPublished()
     {
@@ -549,7 +395,7 @@ class Book
     }
 
     /**
-     * @param mixed $cityPublished
+     * @param string $cityPublished
      *
      * @return Book
      */
@@ -561,7 +407,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getYearPublished()
     {
@@ -569,7 +415,7 @@ class Book
     }
 
     /**
-     * @param mixed $yearPublished
+     * @param string $yearPublished
      *
      * @return Book
      */
@@ -581,7 +427,7 @@ class Book
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getIsbn()
     {
@@ -589,7 +435,7 @@ class Book
     }
 
     /**
-     * @param mixed $isbn
+     * @param string $isbn
      *
      * @return Book
      */
@@ -599,4 +445,106 @@ class Book
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getLitresHubId()
+    {
+        return $this->litresHubId;
+    }
+
+    /**
+     * @param string $litresHubId
+     *
+     * @return Book
+     */
+    public function setLitresHubId($litresHubId)
+    {
+        $this->litresHubId = $litresHubId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverPreview()
+    {
+        return $this->coverPreview;
+    }
+
+    /**
+     * @param string $coverPreview
+     *
+     * @return Book
+     */
+    public function setCoverPreview($coverPreview)
+    {
+        $this->coverPreview = $coverPreview;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return Book
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocumentUrl()
+    {
+        return $this->documentUrl;
+    }
+
+    /**
+     * @param string $documentUrl
+     *
+     * @return Book
+     */
+    public function setDocumentUrl($documentUrl)
+    {
+        $this->documentUrl = $documentUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocumentId()
+    {
+        return $this->documentId;
+    }
+
+    /**
+     * @param string $documentId
+     *
+     * @return Book
+     */
+    public function setDocumentId($documentId)
+    {
+        $this->documentId = $documentId;
+
+        return $this;
+    }
+
+
 }

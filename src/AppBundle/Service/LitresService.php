@@ -44,14 +44,14 @@ class LitresService
                     $data[$name] = $attribute;
                 }
                 if (!empty($data)) {
-                    $book->setLitresIntId($data['int_id']);
-                    $book->setPrice($data['price']);
-                    $book->setCover($data['cover']);
-                    $book->setIsSale($data['on_sale']);
-                    $book->setFileIntId($data['file_id']);
-                    $book->setType($data['type']);
-                    $book->setIsShowPreview($data['show_preview']);
-                    $book->setIsAllowRead($data['allow_read']);
+                    $book->setLitresIntId($data['int_id'])
+                    ->setPrice($data['price'])
+                    ->setCover($data['cover'])
+                    ->setIsSale($data['on_sale'])
+                    ->setFileIntId($data['file_id'])
+                    ->setType($data['type'])
+                    ->setIsShowPreview($data['show_preview'])
+                    ->setIsAllowRead($data['allow_read']);
                 }
             }
             gzclose($file);
