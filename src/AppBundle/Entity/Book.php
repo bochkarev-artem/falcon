@@ -5,9 +5,12 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * AppBundle\Entity\Book
+ *
  * @ORM\Entity
  * @ORM\Table(name="book")
  */
@@ -65,20 +68,51 @@ class Book
     private $type;
 
     /**
-     * @var Genre $genre
+     * @var boolean $hasTrial
      *
-     * @ORM\ManyToOne(targetEntity="Genre")
-     * @ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")
+     * @ORM\Column(name="has_trial", type="boolean")
+     */
+    private $hasTrial;
+
+    /**
+     * @var string $reader
+     *
+     * @ORM\Column(name="reader", type="string")
+     */
+    private $reader;
+
+    /**
+     * @var ArrayCollection $genre
+     *
+     * @ORM\ManyToMany(targetEntity="Genre")
+     * @ORM\JoinTable(name="book_genres",
+     *      joinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")}
+     * )
      */
     private $genre;
 
     /**
-     * @var Author $author
+     * @var ArrayCollection $author
      *
-     * @ORM\ManyToOne(targetEntity="Author")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="author_id")
+     * @ORM\ManyToMany(targetEntity="Author")
+     * @ORM\JoinTable(name="book_authors",
+     *      joinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")}
+     * )
      */
     private $author;
+
+    /**
+     * @var ArrayCollection $tag
+     *
+     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\JoinTable(name="book_authors",
+     *      joinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")}
+     * )
+     */
+    private $tag;
 
     /**
      * @var Sequence $sequence
@@ -546,5 +580,63 @@ class Book
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getReader()
+    {
+        return $this->reader;
+    }
 
+    /**
+     * @param string $reader
+     *
+     * @return Book
+     */
+    public function setReader($reader)
+    {
+        $this->reader = $reader;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isHasTrial()
+    {
+        return $this->hasTrial;
+    }
+
+    /**
+     * @param boolean $hasTrial
+     *
+     * @return Book
+     */
+    public function setHasTrial($hasTrial)
+    {
+        $this->hasTrial = $hasTrial;
+
+        return $this;
+    }
+
+    /**
+     * @return Tag
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param Tag $tag
+     *
+     * @return Book
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
 }
