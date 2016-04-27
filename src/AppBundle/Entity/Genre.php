@@ -41,7 +41,7 @@ class Genre
     /**
      * @var string $token
      *
-     * @ORM\Column(name="token", type="string", nullable="true")
+     * @ORM\Column(name="token", type="string", nullable=true)
      */
     private $token;
 
