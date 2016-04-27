@@ -10,4 +10,4 @@ services:
 
     litres:
         class: AppBundle\Service\LitresService
-        arguments: []
+        arguments: ["@doctrine.orm.default_entity_manager"]

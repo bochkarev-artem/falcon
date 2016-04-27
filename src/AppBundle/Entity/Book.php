@@ -186,11 +186,25 @@ class Book
     private $yearPublished;
 
     /**
-     * @var $isbn
+     * @var string $isbn
      *
      * @ORM\Column(name="isbn", type="string")
      */
     private $isbn;
+
+    /**
+     * @var float $rating
+     *
+     * @ORM\Column(name="rating", type="float")
+     */
+    private $rating;
+
+    /**
+     * @var integer $recensesCount
+     *
+     * @ORM\Column(name="recenses_count", type="integer")
+     */
+    private $recensesCount;
 
     /**
      * @return int
@@ -269,7 +283,7 @@ class Book
     }
 
     /**
-     * @param Genre $genre
+     * @param ArrayCollection $genre
      *
      * @return Book
      */
@@ -289,7 +303,7 @@ class Book
     }
 
     /**
-     * @param Author $author
+     * @param ArrayCollection $author
      *
      * @return Book
      */
@@ -629,7 +643,7 @@ class Book
     }
 
     /**
-     * @param Tag $tag
+     * @param ArrayCollection $tag
      *
      * @return Book
      */
@@ -639,4 +653,45 @@ class Book
 
         return $this;
     }
+
+    /**
+     * @return float
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param float $rating
+     *
+     * @return Book
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRecensesCount()
+    {
+        return $this->recensesCount;
+    }
+
+    /**
+     * @param int $recensesCount
+     *
+     * @return Book
+     */
+    public function setRecensesCount($recensesCount)
+    {
+        $this->recensesCount = $recensesCount;
+
+        return $this;
+    }
+
 }
