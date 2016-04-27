@@ -14,6 +14,7 @@ use AppBundle\Entity\Book;
 class LitresService
 {
     CONST DETAILED_DATA_FILE = 'http://www.litres.ru/static/ds/detailed_data.xml.gz';
+    CONST BOOKS_ENDPOINT     = 'http://www.litres.ru/pages/catalit_browser/';
 
     /**
      * @param $file
@@ -34,27 +35,25 @@ class LitresService
      */
     public function getDetailedData()
     {
-        $file = $this->getFile(self::DETAILED_DATA_FILE);
+        $endpoint = self::BOOKS_ENDPOINT;
 
-        if ($file) {
-            $xml = new \SimpleXMLElement($file);
+        if ($endpoint) {
+            $xml = new \SimpleXMLElement($endpoint);
             $book = new Book();
             foreach ($xml->{'litres-updates'} as $art) {
                 foreach ($art->attributes() as $name => $attribute) {
                     $data[$name] = $attribute;
                 }
                 if (!empty($data)) {
-                    $book->setLitresIntId($data['int_id'])
-                    ->setPrice($data['price'])
-                    ->setCover($data['cover'])
-                    ->setIsSale($data['on_sale'])
-                    ->setFileIntId($data['file_id'])
-                    ->setType($data['type'])
-                    ->setIsShowPreview($data['show_preview'])
-                    ->setIsAllowRead($data['allow_read']);
+                    $book->setLitresHubId($data['hub_id'])
+                        ->setPrice($data['price'])
+                        ->setCover($data['cover'])
+                        ->setHasTrial($data['on_sale'])
+                        ->setFilename($data['file_id'])
+                        ->setType($data['type'])
+                    ;
                 }
             }
-            gzclose($file);
         }
 
     }

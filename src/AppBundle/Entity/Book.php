@@ -181,7 +181,7 @@ class Book
     /**
      * @var string $yearPublished
      *
-     * @ORM\Column(name="year_published", type="string", length="4")
+     * @ORM\Column(name="year_published", type="string", length=4)
      */
     private $yearPublished;
 
