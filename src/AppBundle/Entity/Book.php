@@ -86,8 +86,8 @@ class Book
      *
      * @ORM\ManyToMany(targetEntity="Genre")
      * @ORM\JoinTable(name="book_genres",
-     *      joinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")}
+     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
      * )
      */
     private $genre;
@@ -97,8 +97,8 @@ class Book
      *
      * @ORM\ManyToMany(targetEntity="Author")
      * @ORM\JoinTable(name="book_authors",
-     *      joinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")}
+     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
      * )
      */
     private $author;
@@ -107,9 +107,9 @@ class Book
      * @var ArrayCollection $tag
      *
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="book_authors",
-     *      joinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")}
+     * @ORM\JoinTable(name="book_tags",
+     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
      * )
      */
     private $tag;
