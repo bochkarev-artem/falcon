@@ -39,7 +39,7 @@ class ImportLitresData extends ContainerAwareCommand
         $output->writeln("<info>Import data started. Start at $startTime</info>");
         $type        = $input->getArgument('type');
         $endpoint    = $input->getArgument('endpoint');
-        $litres      = $this->getContainer()->get('litres-service');
+        $litres      = $this->getContainer()->get('litres_service');
         $nowDateTime = new \DateTime();
         $endTime     = $nowDateTime->format('Y-m-d H:i:s');
         if ($litres->getData($type, $endpoint)) {

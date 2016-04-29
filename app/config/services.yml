@@ -8,7 +8,7 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
-    litres-service:
+    litres_service:
         class: AppBundle\Service\LitresService
         arguments:
           - "@doctrine.orm.default_entity_manager"
