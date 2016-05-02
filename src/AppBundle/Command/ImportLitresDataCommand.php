@@ -11,10 +11,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportLitresData
+ * Class ImportLitresDataCommand
  * @package AppBundle\Command
  */
-class ImportLitresData extends ContainerAwareCommand
+class ImportLitresDataCommand extends ContainerAwareCommand
 {
     /**
      * {@inheritdoc}
@@ -23,7 +23,7 @@ class ImportLitresData extends ContainerAwareCommand
     {
         $this
             ->setName('app:update-litres-data')
-            ->setDescription('Update Litres Data. ')
+            ->setDescription('Update Litres Data.')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of entity to process. Allowed: "books", "genres"', 'books')
             ->addArgument('endpoint', InputArgument::OPTIONAL, 'Endpoint')
         ;
