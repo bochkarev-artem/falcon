@@ -11,7 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * AppBundle\Entity\Genre
  *
  * @ORM\Entity
- * @ORM\Table(name="genre")
+ * @ORM\Table(
+ *     name="genre",
+ *     uniqueConstraints={
+ *           @ORM\UniqueConstraint(name="genre_ids", columns={"litres_id", "title"})
+ *     }
+ * )
  */
 class Genre
 {
@@ -34,7 +39,7 @@ class Genre
     /**
      * @var string $title
      *
-     * @ORM\Column(name="title", type="string")
+     * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
 
@@ -48,7 +53,7 @@ class Genre
     /**
      * @var integer $type
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\Column(name="type", type="integer", nullable=true)
      */
     private $type;
 
@@ -70,10 +75,14 @@ class Genre
 
     /**
      * @param string $token
+     *
+     * @return Genre
      */
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
     }
 
     /**

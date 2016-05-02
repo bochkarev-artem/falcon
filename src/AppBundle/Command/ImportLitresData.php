@@ -24,7 +24,7 @@ class ImportLitresData extends ContainerAwareCommand
         $this
             ->setName('app:update-litres-data')
             ->setDescription('Update Litres Data. ')
-            ->addArgument('type', InputArgument::REQUIRED, 'Type of entity to process. Allowed: "books"', 'books')
+            ->addArgument('type', InputArgument::REQUIRED, 'Type of entity to process. Allowed: "books", "genres"', 'books')
             ->addArgument('endpoint', InputArgument::OPTIONAL, 'Endpoint')
         ;
     }

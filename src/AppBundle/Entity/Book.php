@@ -12,7 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  * AppBundle\Entity\Book
  *
  * @ORM\Entity
- * @ORM\Table(name="book")
+ * @ORM\Table(
+ *     name="book",
+ *     uniqueConstraints={
+ *           @ORM\UniqueConstraint(name="book_ids", columns={"litres_hub_id"})
+ *     }
+ * )
  */
 class Book
 {
@@ -35,49 +40,49 @@ class Book
     /**
      * @var string $price
      *
-     * @ORM\Column(name="price", type="string")
+     * @ORM\Column(name="price", type="string", nullable=true)
      */
     private $price;
 
     /**
      * @var string $cover
      *
-     * @ORM\Column(name="cover", type="string")
+     * @ORM\Column(name="cover", type="string", nullable=true)
      */
     private $cover;
 
     /**
      * @var string $coverPreview
      *
-     * @ORM\Column(name="cover_preview", type="string")
+     * @ORM\Column(name="cover_preview", type="string", nullable=true)
      */
     private $coverPreview;
 
     /**
      * @var string $filename
      *
-     * @ORM\Column(name="filename", type="integer")
+     * @ORM\Column(name="filename", type="integer", nullable=true)
      */
     private $filename;
 
     /**
      * @var integer $type
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\Column(name="type", type="integer", nullable=true)
      */
     private $type;
 
     /**
      * @var boolean $hasTrial
      *
-     * @ORM\Column(name="has_trial", type="boolean")
+     * @ORM\Column(name="has_trial", type="boolean", nullable=true)
      */
     private $hasTrial;
 
     /**
      * @var string $reader
      *
-     * @ORM\Column(name="reader", type="string")
+     * @ORM\Column(name="reader", type="string", nullable=true)
      */
     private $reader;
 
@@ -125,84 +130,84 @@ class Book
     /**
      * @var string $title
      *
-     * @ORM\Column(name="title", type="string")
+     * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
 
     /**
      * @var string $annotation
      *
-     * @ORM\Column(name="annotation", type="text")
+     * @ORM\Column(name="annotation", type="text", nullable=true)
      */
     private $annotation;
 
     /**
      * @var string $date
      *
-     * @ORM\Column(name="date", type="string")
+     * @ORM\Column(name="date", type="string", nullable=true)
      */
     private $date;
 
     /**
      * @var string $lang
      *
-     * @ORM\Column(name="lang", type="string")
+     * @ORM\Column(name="lang", type="string", nullable=true)
      */
     private $lang;
 
     /**
      * @var string $documentUrl
      *
-     * @ORM\Column(name="document_url", type="string")
+     * @ORM\Column(name="document_url", type="string", nullable=true)
      */
     private $documentUrl;
 
     /**
      * @var string $documentId
      *
-     * @ORM\Column(name="document_id", type="integer")
+     * @ORM\Column(name="document_id", type="integer", nullable=true)
      */
     private $documentId;
 
     /**
      * @var string $publisher
      *
-     * @ORM\Column(name="publisher", type="string")
+     * @ORM\Column(name="publisher", type="string", nullable=true)
      */
     private $publisher;
 
     /**
      * @var string $cityPublished
      *
-     * @ORM\Column(name="city_published", type="string")
+     * @ORM\Column(name="city_published", type="string", nullable=true)
      */
     private $cityPublished;
 
     /**
      * @var string $yearPublished
      *
-     * @ORM\Column(name="year_published", type="string", length=4)
+     * @ORM\Column(name="year_published", type="string", length=4, nullable=true)
      */
     private $yearPublished;
 
     /**
      * @var string $isbn
      *
-     * @ORM\Column(name="isbn", type="string")
+     * @ORM\Column(name="isbn", type="string", nullable=true)
      */
     private $isbn;
 
     /**
      * @var float $rating
      *
-     * @ORM\Column(name="rating", type="float")
+     * @ORM\Column(name="rating", type="float", nullable=true)
      */
     private $rating;
 
     /**
      * @var integer $recensesCount
      *
-     * @ORM\Column(name="recenses_count", type="integer")
+     * @ORM\Column(name="recenses_count", type="integer", nullable=true)
      */
     private $recensesCount;
 

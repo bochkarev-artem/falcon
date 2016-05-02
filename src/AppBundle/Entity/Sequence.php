@@ -11,7 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * AppBundle\Entity\Sequence
  *
  * @ORM\Entity
- * @ORM\Table(name="sequence")
+ * @ORM\Table(
+ *     name="sequence",
+ *     uniqueConstraints={
+ *           @ORM\UniqueConstraint(name="sequence_ids", columns={"litres_id"})
+ *     }
+ * )
  */
 class Sequence
 {
@@ -34,7 +39,7 @@ class Sequence
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", nullable=true)
      */
     private $name;
 

@@ -9,7 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="author")
+ * @ORM\Table(
+ *     name="author",
+ *     uniqueConstraints={
+ *           @ORM\UniqueConstraint(name="author_ids", columns={"litres_hub_id", "document_id"})
+ *     }
+ * )
  */
 class Author
 {
@@ -25,70 +30,70 @@ class Author
     /**
      * @var integer $litresHubId
      *
-     * @ORM\Column(name="litres_hub_id", type="integer")
+     * @ORM\Column(name="litres_hub_id", type="integer", nullable=true)
      */
     private $litresHubId;
 
     /**
-     * @var integer $documentId
+     * @var string $documentId
      *
-     * @ORM\Column(name="document_id", type="integer")
+     * @ORM\Column(name="document_id", type="string")
      */
     private $documentId;
 
     /**
      * @var string $firstName
      *
-     * @ORM\Column(name="first_name", type="string")
+     * @ORM\Column(name="first_name", type="string", nullable=true)
      */
     private $firstName;
 
     /**
      * @var string $lastName
      *
-     * @ORM\Column(name="last_name", type="string")
+     * @ORM\Column(name="last_name", type="string", nullable=true)
      */
     private $lastName;
 
     /**
      * @var string $middleName
      *
-     * @ORM\Column(name="middle_name", type="string")
+     * @ORM\Column(name="middle_name", type="string", nullable=true)
      */
     private $middleName;
 
     /**
      * @var integer $level
      *
-     * @ORM\Column(name="level", type="integer")
+     * @ORM\Column(name="level", type="integer", nullable=true)
      */
     private $level;
 
     /**
      * @var integer $recensesCount
      *
-     * @ORM\Column(name="recenses_count", type="integer")
+     * @ORM\Column(name="recenses_count", type="integer", nullable=true)
      */
     private $recensesCount;
 
     /**
      * @var integer $artsCount
      *
-     * @ORM\Column(name="arts_count", type="integer")
+     * @ORM\Column(name="arts_count", type="integer", nullable=true)
      */
     private $artsCount;
 
     /**
      * @var string $photo
      *
-     * @ORM\Column(name="photo", type="string")
+     * @ORM\Column(name="photo", type="string", nullable=true)
      */
     private $photo;
 
     /**
      * @var string $description
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -121,7 +126,7 @@ class Author
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getDocumentId()
     {
@@ -129,7 +134,7 @@ class Author
     }
 
     /**
-     * @param int $documentId
+     * @param string $documentId
      *
      * @return Author
      */

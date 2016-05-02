@@ -2,7 +2,6 @@
 /**
  * @author Artem Bochkarev
  */
-
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Author;
@@ -22,8 +21,6 @@ use Psr\Log\LogLevel;
  */
 class LitresService
 {
-//    CONST DETAILED_DATA_FILE = 'http://www.litres.ru/static/ds/detailed_data.xml.gz';
-
     /**
      * @var EntityManager
      */
@@ -54,11 +51,10 @@ class LitresService
      */
     private $logger;
 
-
     /**
      * @var int $batchSize
      */
-    private $batchSize = 20;
+    private $batchSize = 50;
 
     /**
      * @param EntityManager $em
@@ -68,20 +64,6 @@ class LitresService
     {
         $this->em     = $em;
         $this->logger = $logger;
-    }
-
-    /**
-     * @param $file
-     * @return resource|bool
-     */
-    public function getFile($file)
-    {
-        $filename = 'detailed_data.xml.gz';
-        if (file_put_contents($filename, fopen($file, 'r'))) {
-            return gzopen($filename, 'r');
-        }
-
-        return false;
     }
 
     /**
@@ -96,11 +78,95 @@ class LitresService
             case 'books':
                 return $this->getBooksData($endpoint);
                 break;
-            case 'authors':
+            case 'genres':
+                return $this->getGenresData($endpoint);
                 break;
             default:
                 return false;
         }
+    }
+
+    /**
+     * @param string $endpoint
+     *
+     * @throws \ErrorException
+     * @return bool
+     */
+    public function getGenresData($endpoint = 'http://robot.litres.ru/pages/catalit_genres/')
+    {
+        try {
+            $xml = new \SimpleXMLElement($endpoint, 0, true);
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->log(
+                    LogLevel::ERROR,
+                    sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
+                );
+            }
+            throw new \ErrorException;
+        }
+
+        foreach ($xml->{'catalit-genres'}->{'genre'} as $genreNode) {
+            $genre = new Genre();
+            $genre
+                ->setTitle($genreNode->title)
+                ->setType('root')
+            ;
+            $this->em->persist($genre);
+            foreach ($genreNode as $node) {
+                $genre = new Genre();
+                $genre
+                    ->setLitresId($node->id)
+                    ->setTitle($node->title)
+                    ->setToken($node->token)
+                    ->setType('child')
+                ;
+                $this->em->persist($genre);
+            }
+        }
+
+        $this->em->flush();
+        $this->em->clear();
+
+        return true;
+    }
+
+    /**
+     * @param string $documentId
+     * @param string $endpoint
+     *
+     * @throws \ErrorException
+     * @return Author
+     */
+    public function getAuthorData($documentId, $endpoint = 'http://robot.litres.ru/pages/catalit_persons/')
+    {
+        try {
+            $xml = new \SimpleXMLElement($endpoint . '?' . $documentId, 0, true);
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->log(
+                    LogLevel::ERROR,
+                    sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
+                );
+            }
+            throw new \ErrorException;
+        }
+
+        $author  = new Author();
+        $subject = $xml->{'catalit-persons'}->{'subject'};
+        $author
+            ->setLitresHubId($subject->{'hub_id'})
+            ->setLevel($subject->level)
+            ->setArtsCount($subject->{'arts-count'})
+            ->setFirstName($subject->{'first-name'})
+            ->setMiddleName($subject->{'middle-name'})
+            ->setLastName($subject->{'last-name'})
+            ->setDescription($subject->{'text_descr_html'}->hidden)
+            ->setPhoto($subject->{'photo'})
+            ->setRecensesCount($subject->{'recenses-count'})
+        ;
+
+        return $author;
     }
 
     /**
@@ -116,7 +182,8 @@ class LitresService
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $this->em->persist($sequence);
-            $this->em->flush($sequence);
+            $this->em->flush();
+            $this->em->clear();
         }
 
         return $sequence;
@@ -129,14 +196,15 @@ class LitresService
     public function saveAuthor($authorId, ArrayCollection $authors)
     {
         /** @var Author $author */
-        if ($author = $this->authorRepo->findByDocumentID($authorId)) {
-            $authors->add($author);
-        } else {
-            $author = new Author();
-            $author->setDocumentId($authorId);
+        $author = $this->authorRepo->findByDocumentID($authorId);
+        if (!$author) {
+            $author = $this->getAuthorData($authorId);
             $this->em->persist($author);
-            $this->em->flush($author);
+            $this->em->flush();
+            $this->em->clear();
         }
+
+        $authors->add($author);
     }
 
     /**
@@ -146,14 +214,16 @@ class LitresService
     public function saveGenre($genreToken, ArrayCollection $genres)
     {
         /** @var Genre $genre */
-        if ($genre = $this->genreRepo->findByToken($genreToken)) {
-            $genres->add($genre);
-        } else {
+        $genre = $this->genreRepo->findByToken($genreToken);
+        if (!$genre) {
             $genre = new Genre();
             $genre->setToken($genreToken);
             $this->em->persist($genre);
-            $this->em->flush($genre);
+            $this->em->flush();
+            $this->em->clear();
         }
+
+        $genres->add($genre);
     }
 
     /**
@@ -163,14 +233,16 @@ class LitresService
     public function saveTag($tagId, ArrayCollection $tags)
     {
         /** @var Tag $tag */
-        if ($tag = $this->tagRepo->findByLitresId($tagId)) {
-            $tags->add($tag);
-        } else {
+        $tag = $this->tagRepo->findByLitresId($tagId);
+        if (!$tag) {
             $tag = new Tag();
             $tag->setLitresId($tagId);
             $this->em->persist($tag);
-            $this->em->flush($tag);
+            $this->em->flush();
+            $this->em->clear();
         }
+
+        $tags->add($tag);
     }
 
     /**
@@ -179,7 +251,7 @@ class LitresService
      * @throws \ErrorException
      * @return bool
      */
-    public function getBooksData($endpoint = 'http://www.litres.ru/pages/catalit_browser/')
+    public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
         try {
             $xml = new \SimpleXMLElement($endpoint, 0, true);
@@ -190,7 +262,7 @@ class LitresService
                     sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
                 );
             }
-            throw new \ErrorException();
+            throw new \ErrorException;
         }
 
         $processed = 1;
@@ -199,22 +271,22 @@ class LitresService
             $genres             = new ArrayCollection();
             $tags               = new ArrayCollection();
             $authors            = new ArrayCollection();
-            $bookInfo           = $data->{'text_description'}->hidden->{'title-info'};
+            $titleInfo          = $data->{'text_description'}->hidden->{'title-info'};
             $documentInfo       = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo        = $data->{'text_description'}->hidden->{'publish-info'};
             $this->authorRepo   = $this->em->getRepository('AppBundle:Author');
             $this->genreRepo    = $this->em->getRepository('AppBundle:Genre');
             $this->tagRepo      = $this->em->getRepository('AppBundle:Tag');
-            $this->sequenceRepo = $this->em->getRepository('AppBundle:Tag');
+            $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
 
-            $sequence           = $this->saveSequence($bookInfo->sequences->sequence['id']);
-            foreach ($bookInfo->author as $author) {
+            $sequence           = $this->saveSequence($titleInfo->sequences->sequence['id']);
+            foreach ($titleInfo->author as $author) {
                 $this->saveAuthor($author->id, $authors);
             }
-            foreach ($bookInfo->genre as $genre) {
+            foreach ($titleInfo->genre as $genre) {
                 $this->saveGenre($genre, $genres);
             }
-            foreach ($bookInfo->{'art_tags'}->tag as $tag) {
+            foreach ($titleInfo->{'art_tags'}->tag as $tag) {
                 $this->saveTag($tag['id'], $tags);
             }
 
@@ -230,9 +302,9 @@ class LitresService
                 ->setPrice($data['price'])
                 ->setHasTrial($data['has_trial'])
                 ->setType($data['type'])
-                ->setTitle($bookInfo->{'book-title'})
-                ->setAnnotation($bookInfo->annotation)
-                ->setDate($bookInfo->date['value'])
+                ->setTitle($titleInfo->{'book-title'})
+                ->setAnnotation($titleInfo->annotation)
+                ->setDate($titleInfo->date['value'])
                 ->setDocumentUrl($documentInfo->{'src-url'})
                 ->setDocumentId($documentInfo->id)
                 ->setPublisher($publishInfo->annotation)
@@ -247,7 +319,7 @@ class LitresService
 
             $this->em->persist($book);
             if (($processed % $this->batchSize) === 0) {
-                $this->em->flush($book);
+                $this->em->flush();
                 $this->em->clear();
                 $processed++;
             }

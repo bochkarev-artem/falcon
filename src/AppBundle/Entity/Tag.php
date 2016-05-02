@@ -11,7 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  * AppBundle\Entity\Tag
  *
  * @ORM\Entity
- * @ORM\Table(name="tag")
+ * @ORM\Table(
+ *     name="tag",
+ *     uniqueConstraints={
+ *           @ORM\UniqueConstraint(name="tag_ids", columns={"litres_id"})
+ *     }
+ * )
  */
 class Tag
 {
@@ -34,7 +39,7 @@ class Tag
     /**
      * @var string $title
      *
-     * @ORM\Column(name="title", type="string")
+     * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
 
