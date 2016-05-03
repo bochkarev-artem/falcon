@@ -68,18 +68,17 @@ class LitresService
 
     /**
      * @param string $param
-     * @param string $endpoint
      *
      * @return bool
      */
-    public function getData($param, $endpoint)
+    public function getData($param)
     {
         switch ($param) {
             case 'books':
-                return $this->getBooksData($endpoint);
+                return $this->getBooksData();
                 break;
             case 'genres':
-                return $this->getGenresData($endpoint);
+                return $this->getGenresData();
                 break;
             default:
                 return false;
@@ -94,8 +93,9 @@ class LitresService
      */
     public function getGenresData($endpoint = 'http://robot.litres.ru/pages/catalit_genres/')
     {
+        $content = file_get_contents($endpoint);
         try {
-            $xml = simplexml_load_file($endpoint);
+            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
         } catch (\Exception $e) {
             if ($this->logger) {
                 $this->logger->log(
@@ -106,20 +106,20 @@ class LitresService
             throw new \ErrorException;
         }
 
-        foreach ($xml->{'catalit-genres'}->{'genre'} as $genreNode) {
+        foreach ($xml->genre as $genreNode) {
             $genre = new Genre();
             $genre
-                ->setTitle($genreNode->title)
-                ->setType('root')
+                ->setTitle((string) $genreNode['title'])
+                ->setType(Genre::TYPE_ROOT)
             ;
             $this->em->persist($genre);
             foreach ($genreNode as $node) {
                 $genre = new Genre();
                 $genre
-                    ->setLitresId($node->id)
-                    ->setTitle($node->title)
-                    ->setToken($node->token)
-                    ->setType('child')
+                    ->setLitresId((string) $node['id'])
+                    ->setTitle((string) $node['title'])
+                    ->setToken((string) $node['token'])
+                    ->setType(Genre::TYPE_CHILD)
                 ;
                 $this->em->persist($genre);
             }
@@ -140,8 +140,9 @@ class LitresService
      */
     public function getAuthorData($documentId, $endpoint = 'http://robot.litres.ru/pages/catalit_persons/')
     {
+        $content = file_get_contents($endpoint . '?' . $documentId);
         try {
-            $xml = new \SimpleXMLElement($endpoint . '?' . $documentId, 0, true);
+            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
         } catch (\Exception $e) {
             if ($this->logger) {
                 $this->logger->log(
@@ -153,17 +154,17 @@ class LitresService
         }
 
         $author  = new Author();
-        $subject = $xml->{'catalit-persons'}->{'subject'};
+        $subject = $xml->{'subject'};
         $author
-            ->setLitresHubId($subject->{'hub_id'})
-            ->setLevel($subject->level)
-            ->setArtsCount($subject->{'arts-count'})
-            ->setFirstName($subject->{'first-name'})
-            ->setMiddleName($subject->{'middle-name'})
-            ->setLastName($subject->{'last-name'})
-            ->setDescription($subject->{'text_descr_html'}->hidden)
-            ->setPhoto($subject->{'photo'})
-            ->setRecensesCount($subject->{'recenses-count'})
+            ->setLitresHubId((string)$subject['hub_id'])
+            ->setLevel((string) $subject->level)
+            ->setArtsCount((string) $subject->{'arts-count'})
+            ->setFirstName((string) $subject->{'first-name'})
+            ->setMiddleName((string) $subject->{'middle-name'})
+            ->setLastName((string) $subject->{'last-name'})
+            ->setDescription((string) $subject->{'text_descr_html'}->hidden)
+            ->setPhoto((string) $subject->{'photo'})
+            ->setRecensesCount((string) $subject->{'recenses-count'})
         ;
 
         return $author;
@@ -253,8 +254,9 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
+        $content = file_get_contents($endpoint);
         try {
-            $xml = new \SimpleXMLElement($endpoint, 0, true);
+            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
         } catch (\Exception $e) {
             if ($this->logger) {
                 $this->logger->log(

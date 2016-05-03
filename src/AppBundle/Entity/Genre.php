@@ -11,15 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
  * AppBundle\Entity\Genre
  *
  * @ORM\Entity
- * @ORM\Table(
- *     name="genre",
- *     uniqueConstraints={
- *           @ORM\UniqueConstraint(name="genre_ids", columns={"litres_id", "title"})
- *     }
- * )
+ * @ORM\Table(name="genre")
  */
 class Genre
 {
+    CONST TYPE_ROOT  = 1;
+    CONST TYPE_CHILD = 2;
+
     /**
      * @var integer $id
      *
@@ -32,7 +30,7 @@ class Genre
     /**
      * @var integer $litresId
      *
-     * @ORM\Column(name="litres_id", type="integer")
+     * @ORM\Column(name="litres_id", type="integer", nullable=true)
      */
     private $litresId;
 
@@ -53,7 +51,7 @@ class Genre
     /**
      * @var integer $type
      *
-     * @ORM\Column(name="type", type="integer", nullable=true)
+     * @ORM\Column(name="type", type="smallint", nullable=true)
      */
     private $type;
 

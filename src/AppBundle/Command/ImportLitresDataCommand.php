@@ -25,7 +25,6 @@ class ImportLitresDataCommand extends ContainerAwareCommand
             ->setName('app:update-litres-data')
             ->setDescription('Update Litres Data.')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of entity to process. Allowed: "books", "genres"')
-            ->addArgument('endpoint', InputArgument::REQUIRED, 'Url')
         ;
     }
 
@@ -34,18 +33,17 @@ class ImportLitresDataCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $nowDateTime = new \DateTime();
-        $startTime   = $nowDateTime->format('Y-m-d H:i:s');
-        $output->writeln("<info>Import data started. Start at $startTime</info>");
+        $startTime   = time();
+        $output->writeln("<info>Import data started.</info>");
         $type        = $input->getArgument('type');
-        $endpoint    = $input->getArgument('endpoint');
         $litres      = $this->getContainer()->get('litres_service');
-        $nowDateTime = new \DateTime();
-        $endTime     = $nowDateTime->format('Y-m-d H:i:s');
-        if ($litres->getData($type, $endpoint)) {
-            $output->writeln("<info>Import data finished at $endTime. Total time: $endTime - $startTime</info>");
+        $result      = $litres->getData($type);
+        $endTime     = time();
+        $totalTime   = $endTime - $startTime;
+        if ($result) {
+            $output->writeln("<info>Import data finished. Total time: $totalTime seconds</info>");
         } else {
-            $output->writeln("<info>Import data errored. Total time: $endTime - $startTime</info>");
+            $output->writeln("<info>Import data errored. Total time: $totalTime seconds</info>");
         }
     }
 }
