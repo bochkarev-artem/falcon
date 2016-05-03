@@ -37,7 +37,8 @@ class Version20160429154935 extends AbstractMigration
         $this->addSql('CREATE TABLE book_tags (book_id INT NOT NULL, tag_id INT NOT NULL, PRIMARY KEY(book_id, tag_id))');
         $this->addSql('CREATE INDEX IDX_7621DF2E16A2B381 ON book_tags (book_id)');
         $this->addSql('CREATE INDEX IDX_7621DF2EBAD26311 ON book_tags (tag_id)');
-        $this->addSql('CREATE TABLE genre (genre_id INT NOT NULL, litres_id INT DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, token VARCHAR(255) DEFAULT NULL, type SMALLINT DEFAULT NULL, PRIMARY KEY(genre_id))');
+        $this->addSql('CREATE TABLE genre (genre_id INT NOT NULL, litres_id INT DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, token VARCHAR(255) DEFAULT NULL, PRIMARY KEY(genre_id))');
+        $this->addSql('CREATE UNIQUE INDEX genre_ids ON genre (token)');
         $this->addSql('CREATE TABLE sequence (sequence_id INT NOT NULL, litres_id INT NOT NULL, name VARCHAR(255) DEFAULT NULL, PRIMARY KEY(sequence_id))');
         $this->addSql('CREATE UNIQUE INDEX sequence_ids ON sequence (litres_id)');
         $this->addSql('CREATE TABLE tag (tag_id INT NOT NULL, litres_id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, PRIMARY KEY(tag_id))');

@@ -11,13 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
  * AppBundle\Entity\Genre
  *
  * @ORM\Entity
- * @ORM\Table(name="genre")
+ * @ORM\Table(
+ *     name="genre",
+ *     uniqueConstraints={
+ *           @ORM\UniqueConstraint(name="genre_ids", columns={"token"})
+ *     }
+ * )
  */
 class Genre
 {
-    CONST TYPE_ROOT  = 1;
-    CONST TYPE_CHILD = 2;
-
     /**
      * @var integer $id
      *
@@ -49,13 +51,6 @@ class Genre
     private $token;
 
     /**
-     * @var integer $type
-     *
-     * @ORM\Column(name="type", type="smallint", nullable=true)
-     */
-    private $type;
-
-    /**
      * @return int
      */
     public function getId()
@@ -79,26 +74,6 @@ class Genre
     public function setToken($token)
     {
         $this->token = $token;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param integer $type
-     *
-     * @return Genre
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
         return $this;
     }

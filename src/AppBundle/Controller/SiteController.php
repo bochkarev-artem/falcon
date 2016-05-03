@@ -22,7 +22,7 @@ class SiteController extends Controller
     public function indexAction(Request $request)
     {
         $litres = $this->get('litres_service');
-        $litres->getGenresData();
+//        $litres->getGenresData();
 
         return $this->render('site/index.html.twig');
     }

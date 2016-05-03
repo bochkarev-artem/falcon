@@ -62,8 +62,12 @@ class LitresService
      */
     public function __construct(EntityManager $em, Logger $logger)
     {
-        $this->em     = $em;
-        $this->logger = $logger;
+        $this->em           = $em;
+        $this->logger       = $logger;
+        $this->authorRepo   = $this->em->getRepository('AppBundle:Author');
+        $this->genreRepo    = $this->em->getRepository('AppBundle:Genre');
+        $this->tagRepo      = $this->em->getRepository('AppBundle:Tag');
+        $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
     }
 
     /**
@@ -93,36 +97,27 @@ class LitresService
      */
     public function getGenresData($endpoint = 'http://robot.litres.ru/pages/catalit_genres/')
     {
-        $content = file_get_contents($endpoint);
-        try {
-            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
-        } catch (\Exception $e) {
-            if ($this->logger) {
-                $this->logger->log(
-                    LogLevel::ERROR,
-                    sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
-                );
+        $xml    = $this->getXml($endpoint);
+        $genres = [];
+        foreach ($xml->genre as $genreNode) {
+            foreach ($genreNode as $node) {
+                $id    = (string) $node['id'];
+                $token = (string) $node['token'];
+                $title = (string) $node['title'];
+                if(!is_null($token) && !$this->genreRepo->findByToken($token)) {
+                    $genre = new Genre();
+                    $genre
+                        ->setLitresId($id)
+                        ->setTitle($title)
+                        ->setToken($token)
+                    ;
+                    $genres[$token] = $genre;
+                }
             }
-            throw new \ErrorException;
         }
 
-        foreach ($xml->genre as $genreNode) {
-            $genre = new Genre();
-            $genre
-                ->setTitle((string) $genreNode['title'])
-                ->setType(Genre::TYPE_ROOT)
-            ;
+        foreach ($genres as $genre) {
             $this->em->persist($genre);
-            foreach ($genreNode as $node) {
-                $genre = new Genre();
-                $genre
-                    ->setLitresId((string) $node['id'])
-                    ->setTitle((string) $node['title'])
-                    ->setToken((string) $node['token'])
-                    ->setType(Genre::TYPE_CHILD)
-                ;
-                $this->em->persist($genre);
-            }
         }
 
         $this->em->flush();
@@ -140,21 +135,10 @@ class LitresService
      */
     public function getAuthorData($documentId, $endpoint = 'http://robot.litres.ru/pages/catalit_persons/')
     {
-        $content = file_get_contents($endpoint . '?' . $documentId);
-        try {
-            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
-        } catch (\Exception $e) {
-            if ($this->logger) {
-                $this->logger->log(
-                    LogLevel::ERROR,
-                    sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
-                );
-            }
-            throw new \ErrorException;
-        }
-
-        $author  = new Author();
-        $subject = $xml->{'subject'};
+        $endpoint = $endpoint . '?person=' . $documentId;
+        $xml      = $this->getXml($endpoint);
+        $author   = new Author();
+        $subject  = $xml->{'subject'};
         $author
             ->setLitresHubId((string)$subject['hub_id'])
             ->setLevel((string) $subject->level)
@@ -254,34 +238,17 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
-        $content = file_get_contents($endpoint);
-        try {
-            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
-        } catch (\Exception $e) {
-            if ($this->logger) {
-                $this->logger->log(
-                    LogLevel::ERROR,
-                    sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
-                );
-            }
-            throw new \ErrorException;
-        }
-
+        $xml       = $this->getXml($endpoint);
         $processed = 1;
         foreach ($xml->{'catalit-fb2-books'}->{'fb2-book'} as $data) {
-            $book               = new Book;
-            $genres             = new ArrayCollection();
-            $tags               = new ArrayCollection();
-            $authors            = new ArrayCollection();
-            $titleInfo          = $data->{'text_description'}->hidden->{'title-info'};
-            $documentInfo       = $data->{'text_description'}->hidden->{'document-info'};
-            $publishInfo        = $data->{'text_description'}->hidden->{'publish-info'};
-            $this->authorRepo   = $this->em->getRepository('AppBundle:Author');
-            $this->genreRepo    = $this->em->getRepository('AppBundle:Genre');
-            $this->tagRepo      = $this->em->getRepository('AppBundle:Tag');
-            $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
-
-            $sequence           = $this->saveSequence($titleInfo->sequences->sequence['id']);
+            $book         = new Book;
+            $genres       = new ArrayCollection();
+            $tags         = new ArrayCollection();
+            $authors      = new ArrayCollection();
+            $titleInfo    = $data->{'text_description'}->hidden->{'title-info'};
+            $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
+            $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
+            $sequence     = $this->saveSequence($titleInfo->sequences->sequence['id']);
             foreach ($titleInfo->author as $author) {
                 $this->saveAuthor($author->id, $authors);
             }
@@ -331,5 +298,29 @@ class LitresService
         $this->em->clear();
 
         return true;
+    }
+
+    /**
+     * @param string $endpoint
+     *
+     * @return \SimpleXMLElement
+     * @throws \ErrorException
+     */
+    private function getXml($endpoint)
+    {
+        $content = file_get_contents($endpoint);
+        try {
+            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
+        } catch (\Exception $e) {
+            if ($this->logger) {
+                $this->logger->log(
+                    LogLevel::ERROR,
+                    sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
+                );
+            }
+            throw new \ErrorException;
+        }
+
+        return $xml;
     }
 }
