@@ -95,7 +95,7 @@ class LitresService
     public function getGenresData($endpoint = 'http://robot.litres.ru/pages/catalit_genres/')
     {
         try {
-            $xml = new \SimpleXMLElement($endpoint, 0, true);
+            $xml = simplexml_load_file($endpoint);
         } catch (\Exception $e) {
             if ($this->logger) {
                 $this->logger->log(
