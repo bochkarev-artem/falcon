@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Sequence
 {
     /**
-     * @var integer $id
+     * @var int $id
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -30,7 +30,7 @@ class Sequence
     private $id;
 
     /**
-     * @var integer $litresId
+     * @var int $litresId
      *
      * @ORM\Column(name="litres_id", type="integer")
      */

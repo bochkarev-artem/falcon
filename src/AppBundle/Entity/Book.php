@@ -90,7 +90,7 @@ class Book
      * @var ArrayCollection $genre
      *
      * @ORM\ManyToMany(targetEntity="Genre")
-     * @ORM\JoinTable(name="book_genres",
+     * @ORM\JoinTable(name="book_genre",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
      * )
@@ -101,7 +101,7 @@ class Book
      * @var ArrayCollection $author
      *
      * @ORM\ManyToMany(targetEntity="Author")
-     * @ORM\JoinTable(name="book_authors",
+     * @ORM\JoinTable(name="book_author",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
      * )
@@ -112,7 +112,7 @@ class Book
      * @var ArrayCollection $tag
      *
      * @ORM\ManyToMany(targetEntity="Tag")
-     * @ORM\JoinTable(name="book_tags",
+     * @ORM\JoinTable(name="book_tag",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
      * )
@@ -120,10 +120,13 @@ class Book
     private $tag;
 
     /**
-     * @var Sequence $sequence
+     * @var ArrayCollection $sequence
      *
-     * @ORM\ManyToOne(targetEntity="Sequence")
-     * @ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")
+     * @ORM\ManyToMany(targetEntity="Sequence")
+     * @ORM\JoinTable(name="book_sequence",
+     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")}
+     * )
      */
     private $sequence;
 
@@ -328,7 +331,7 @@ class Book
     }
 
     /**
-     * @param Sequence $sequence
+     * @param ArrayCollection $sequence
      *
      * @return Book
      */

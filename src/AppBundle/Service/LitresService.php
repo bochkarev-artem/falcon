@@ -101,7 +101,7 @@ class LitresService
         $genres = [];
         foreach ($xml->genre as $genreNode) {
             foreach ($genreNode as $node) {
-                $id    = (string) $node['id'];
+                $id    = (integer) $node['id'];
                 $token = (string) $node['token'];
                 $title = (string) $node['title'];
                 if(!is_null($token) && !$this->genreRepo->findByToken($token)) {
@@ -140,38 +140,40 @@ class LitresService
         $author   = new Author();
         $subject  = $xml->{'subject'};
         $author
-            ->setLitresHubId((string)$subject['hub_id'])
-            ->setLevel((string) $subject->level)
-            ->setArtsCount((string) $subject->{'arts-count'})
+            ->setDocumentId((string)$subject['id'])
+            ->setLitresHubId((integer)$subject['hub_id'])
+            ->setLevel((integer) $subject->{'level'})
+            ->setArtsCount((integer) $subject->{'arts-count'})
             ->setFirstName((string) $subject->{'first-name'})
             ->setMiddleName((string) $subject->{'middle-name'})
             ->setLastName((string) $subject->{'last-name'})
             ->setDescription((string) $subject->{'text_descr_html'}->hidden)
             ->setPhoto((string) $subject->{'photo'})
-            ->setRecensesCount((string) $subject->{'recenses-count'})
+            ->setRecensesCount((integer) $subject->{'recenses-count'})
         ;
 
         return $author;
     }
 
     /**
-     * @param string $sequenceId
-     *
-     * @return Sequence
+     * @param \SimpleXMLElement $sequence
+     * @param ArrayCollection   $sequences
      */
-    public function saveSequence($sequenceId)
+    public function saveSequence($sequence, $sequences)
     {
+        $sequenceId   = (integer) $sequence['id'];
+        $sequenceName = (string) $sequence['name'];
         /** @var Sequence $sequence */
         $sequence = $this->sequenceRepo->findByLitresId($sequenceId);
         if (!$sequence) {
-            $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
+            $sequence->setName($sequenceName);
             $this->em->persist($sequence);
             $this->em->flush();
             $this->em->clear();
         }
 
-        return $sequence;
+        $sequences->add($sequence);
     }
 
     /**
@@ -181,7 +183,7 @@ class LitresService
     public function saveAuthor($authorId, ArrayCollection $authors)
     {
         /** @var Author $author */
-        $author = $this->authorRepo->findByDocumentID($authorId);
+        $author = $this->authorRepo->findByDocumentId($authorId);
         if (!$author) {
             $author = $this->getAuthorData($authorId);
             $this->em->persist($author);
@@ -240,50 +242,57 @@ class LitresService
     {
         $xml       = $this->getXml($endpoint);
         $processed = 1;
-        foreach ($xml->{'catalit-fb2-books'}->{'fb2-book'} as $data) {
+//        ld((string) $xml['pages']);
+//        ld((string) $xml['records']);
+
+        foreach ($xml->{'fb2-book'} as $data) {
             $book         = new Book;
             $genres       = new ArrayCollection();
             $tags         = new ArrayCollection();
             $authors      = new ArrayCollection();
+            $sequences    = new ArrayCollection();
             $titleInfo    = $data->{'text_description'}->hidden->{'title-info'};
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
-            $sequence     = $this->saveSequence($titleInfo->sequences->sequence['id']);
+
             foreach ($titleInfo->author as $author) {
-                $this->saveAuthor($author->id, $authors);
+                $this->saveAuthor((string) $author->id, $authors);
             }
-            foreach ($titleInfo->genre as $genre) {
-                $this->saveGenre($genre, $genres);
+            foreach ($titleInfo->genre as $genreToken) {
+                $this->saveGenre((string) $genreToken, $genres);
             }
-            foreach ($titleInfo->{'art_tags'}->tag as $tag) {
-                $this->saveTag($tag['id'], $tags);
+            foreach ($data->{'art_tags'}->tag as $tag) {
+                $this->saveTag((string) $tag['id'], $tags);
+            }
+            foreach ($data->sequence as $sequence) {
+                $this->saveSequence($sequence, $sequences);
             }
 
             $book
-                ->setLitresHubId($data['hub_id'])
-                ->setType($data['type'])
-                ->setCover($data['cover'])
-                ->setCoverPreview($data['cover_preview'])
-                ->setFilename($data['file_id'])
-                ->setPrice($data['price'])
-                ->setRating($data['rating'])
-                ->setRecensesCount($data['recenses'])
-                ->setPrice($data['price'])
-                ->setHasTrial($data['has_trial'])
-                ->setType($data['type'])
-                ->setTitle($titleInfo->{'book-title'})
-                ->setAnnotation($titleInfo->annotation)
-                ->setDate($titleInfo->date['value'])
-                ->setDocumentUrl($documentInfo->{'src-url'})
-                ->setDocumentId($documentInfo->id)
-                ->setPublisher($publishInfo->annotation)
-                ->setYearPublished($publishInfo->annotation)
-                ->setCityPublished($publishInfo->annotation)
-                ->setIsbn($publishInfo->annotation)
+                ->setLitresHubId((string) $data['hub_id'])
+                ->setType((string) $data['type'])
+                ->setCover((string) $data['cover'])
+                ->setCoverPreview((string) $data['cover_preview'])
+                ->setFilename((string) $data['file_id'])
+                ->setPrice((string) $data['price'])
+                ->setRating((string) $data['rating'])
+                ->setRecensesCount((string) $data['recenses'])
+                ->setPrice((string) $data['price'])
+                ->setHasTrial((string) $data['has_trial'])
+                ->setType((string) $data['type'])
+                ->setTitle((string) $titleInfo->{'book-title'})
+                ->setAnnotation((string) $titleInfo->annotation)
+                ->setDate((string) $titleInfo->date['value'])
+                ->setDocumentUrl((string) $documentInfo->{'src-url'})
+                ->setDocumentId((string) $documentInfo->id)
+                ->setPublisher((string) $publishInfo->annotation)
+                ->setYearPublished((string) $publishInfo->annotation)
+                ->setCityPublished((string) $publishInfo->annotation)
+                ->setIsbn((string) $publishInfo->annotation)
                 ->setAuthor($authors)
                 ->setGenre($genres)
                 ->setTag($tags)
-                ->setSequence($sequence)
+                ->setSequence($sequences)
             ;
 
             $this->em->persist($book);

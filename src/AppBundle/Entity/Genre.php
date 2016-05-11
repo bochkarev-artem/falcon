@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Genre
 {
     /**
-     * @var integer $id
+     * @var int $id
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -30,7 +30,7 @@ class Genre
     private $id;
 
     /**
-     * @var integer $litresId
+     * @var int $litresId
      *
      * @ORM\Column(name="litres_id", type="integer", nullable=true)
      */
