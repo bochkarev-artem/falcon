@@ -90,4 +90,12 @@ class Tag
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getLitresId();
+    }
 }

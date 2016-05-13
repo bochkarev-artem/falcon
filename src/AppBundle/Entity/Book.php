@@ -61,7 +61,7 @@ class Book
     /**
      * @var string $filename
      *
-     * @ORM\Column(name="filename", type="integer", nullable=true)
+     * @ORM\Column(name="filename", type="string", nullable=true)
      */
     private $filename;
 
@@ -87,7 +87,7 @@ class Book
     private $reader;
 
     /**
-     * @var ArrayCollection $genre
+     * @var ArrayCollection $genres
      *
      * @ORM\ManyToMany(targetEntity="Genre")
      * @ORM\JoinTable(name="book_genre",
@@ -95,10 +95,10 @@ class Book
      *      inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
      * )
      */
-    private $genre;
+    private $genres;
 
     /**
-     * @var ArrayCollection $author
+     * @var ArrayCollection $authors
      *
      * @ORM\ManyToMany(targetEntity="Author")
      * @ORM\JoinTable(name="book_author",
@@ -106,10 +106,10 @@ class Book
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
      * )
      */
-    private $author;
+    private $authors;
 
     /**
-     * @var ArrayCollection $tag
+     * @var ArrayCollection $tags
      *
      * @ORM\ManyToMany(targetEntity="Tag")
      * @ORM\JoinTable(name="book_tag",
@@ -117,10 +117,10 @@ class Book
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
      * )
      */
-    private $tag;
+    private $tags;
 
     /**
-     * @var ArrayCollection $sequence
+     * @var ArrayCollection $sequences
      *
      * @ORM\ManyToMany(targetEntity="Sequence")
      * @ORM\JoinTable(name="book_sequence",
@@ -128,7 +128,7 @@ class Book
      *      inverseJoinColumns={@ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")}
      * )
      */
-    private $sequence;
+    private $sequences;
 
     /**
      * @var string $title
@@ -168,7 +168,7 @@ class Book
     /**
      * @var string $documentId
      *
-     * @ORM\Column(name="document_id", type="integer", nullable=true)
+     * @ORM\Column(name="document_id", type="string", nullable=true)
      */
     private $documentId;
 
@@ -213,6 +213,17 @@ class Book
      * @ORM\Column(name="recenses_count", type="integer", nullable=true)
      */
     private $recensesCount;
+
+    /**
+     * Initialize fields
+     */
+    public function __construct()
+    {
+        $this->authors   = new ArrayCollection();
+        $this->genres    = new ArrayCollection();
+        $this->sequences = new ArrayCollection();
+        $this->tags      = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -285,19 +296,19 @@ class Book
     /**
      * @return Genre
      */
-    public function getGenre()
+    public function getGenres()
     {
-        return $this->genre;
+        return $this->genres;
     }
 
     /**
-     * @param ArrayCollection $genre
+     * @param Genre $genre
      *
      * @return Book
      */
-    public function setGenre($genre)
+    public function addGenre($genre)
     {
-        $this->genre = $genre;
+        $this->genres->add($genre);
 
         return $this;
     }
@@ -305,19 +316,19 @@ class Book
     /**
      * @return Author
      */
-    public function getAuthor()
+    public function getAuthors()
     {
-        return $this->author;
+        return $this->authors;
     }
 
     /**
-     * @param ArrayCollection $author
+     * @param Author $author
      *
      * @return Book
      */
-    public function setAuthor($author)
+    public function addAuthor($author)
     {
-        $this->author = $author;
+        $this->authors->add($author);
 
         return $this;
     }
@@ -325,19 +336,19 @@ class Book
     /**
      * @return Sequence
      */
-    public function getSequence()
+    public function getSequences()
     {
-        return $this->sequence;
+        return $this->sequences;
     }
 
     /**
-     * @param ArrayCollection $sequence
+     * @param Sequence $sequence
      *
      * @return Book
      */
-    public function setSequence($sequence)
+    public function addSequence($sequence)
     {
-        $this->sequence = $sequence;
+        $this->sequences->add($sequence);
 
         return $this;
     }
@@ -645,19 +656,19 @@ class Book
     /**
      * @return Tag
      */
-    public function getTag()
+    public function getTags()
     {
-        return $this->tag;
+        return $this->tags;
     }
 
     /**
-     * @param ArrayCollection $tag
+     * @param Tag $tag
      *
      * @return Book
      */
-    public function setTag($tag)
+    public function addTag($tag)
     {
-        $this->tag = $tag;
+        $this->tags->add($tag);
 
         return $this;
     }
@@ -702,4 +713,11 @@ class Book
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getLitresHubId();
+    }
 }

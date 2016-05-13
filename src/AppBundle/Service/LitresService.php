@@ -9,7 +9,6 @@ use AppBundle\Entity\Book;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Monolog\Logger;
@@ -47,6 +46,11 @@ class LitresService
     private $sequenceRepo;
 
     /**
+     * @var EntityRepository
+     */
+    private $bookRepo;
+
+    /**
      * @var Logger
      */
     private $logger;
@@ -68,6 +72,7 @@ class LitresService
         $this->genreRepo    = $this->em->getRepository('AppBundle:Genre');
         $this->tagRepo      = $this->em->getRepository('AppBundle:Tag');
         $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
+        $this->bookRepo     = $this->em->getRepository('AppBundle:Book');
     }
 
     /**
@@ -157,79 +162,76 @@ class LitresService
 
     /**
      * @param \SimpleXMLElement $sequence
-     * @param ArrayCollection   $sequences
+     *
+     * @return Sequence
      */
-    public function saveSequence($sequence, $sequences)
+    public function getSequence($sequence)
     {
         $sequenceId   = (integer) $sequence['id'];
         $sequenceName = (string) $sequence['name'];
-        /** @var Sequence $sequence */
-        $sequence = $this->sequenceRepo->findByLitresId($sequenceId);
+        $sequence = $this->sequenceRepo->findOneByLitresId($sequenceId);
         if (!$sequence) {
+            $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
             $this->em->persist($sequence);
             $this->em->flush();
-            $this->em->clear();
         }
 
-        $sequences->add($sequence);
+        return $sequence;
     }
 
     /**
-     * @param string          $authorId
-     * @param ArrayCollection $authors
+     * @param string $authorId
+     *
+     * @return Author
      */
-    public function saveAuthor($authorId, ArrayCollection $authors)
+    public function getAuthor($authorId)
     {
-        /** @var Author $author */
-        $author = $this->authorRepo->findByDocumentId($authorId);
+        $author = $this->authorRepo->findOneByDocumentId($authorId);
         if (!$author) {
             $author = $this->getAuthorData($authorId);
             $this->em->persist($author);
             $this->em->flush();
-            $this->em->clear();
         }
 
-        $authors->add($author);
+        return $author;
     }
 
     /**
-     * @param string          $genreToken
-     * @param ArrayCollection $genres
+     * @param string $genreToken
+     *
+     * @return Genre
      */
-    public function saveGenre($genreToken, ArrayCollection $genres)
+    public function getGenre($genreToken)
     {
-        /** @var Genre $genre */
-        $genre = $this->genreRepo->findByToken($genreToken);
+        $genre = $this->genreRepo->findOneByToken($genreToken);
         if (!$genre) {
             $genre = new Genre();
             $genre->setToken($genreToken);
             $this->em->persist($genre);
             $this->em->flush();
-            $this->em->clear();
         }
 
-        $genres->add($genre);
+       return $genre;
     }
 
     /**
-     * @param string          $tagId
-     * @param ArrayCollection $tags
+     * @param string $tagId
+     *
+     * @return Tag
      */
-    public function saveTag($tagId, ArrayCollection $tags)
+    public function getTag($tagId)
     {
-        /** @var Tag $tag */
-        $tag = $this->tagRepo->findByLitresId($tagId);
+        $tag = $this->tagRepo->findOneByLitresId($tagId);
         if (!$tag) {
             $tag = new Tag();
             $tag->setLitresId($tagId);
             $this->em->persist($tag);
             $this->em->flush();
-            $this->em->clear();
         }
 
-        $tags->add($tag);
+        return $tag;
     }
 
     /**
@@ -240,32 +242,39 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
+        $endpoint  = $endpoint . '?limit=0,1';
         $xml       = $this->getXml($endpoint);
         $processed = 1;
-//        ld((string) $xml['pages']);
-//        ld((string) $xml['records']);
 
         foreach ($xml->{'fb2-book'} as $data) {
+            $annotation   = '';
             $book         = new Book;
-            $genres       = new ArrayCollection();
-            $tags         = new ArrayCollection();
-            $authors      = new ArrayCollection();
-            $sequences    = new ArrayCollection();
             $titleInfo    = $data->{'text_description'}->hidden->{'title-info'};
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
 
             foreach ($titleInfo->author as $author) {
-                $this->saveAuthor((string) $author->id, $authors);
+                $author = $this->getAuthor((string) $author->id);
+                $book->addAuthor($author);
             }
             foreach ($titleInfo->genre as $genreToken) {
-                $this->saveGenre((string) $genreToken, $genres);
+                $genre = $this->getGenre((string) $genreToken);
+                $book->addGenre($genre);
             }
             foreach ($data->{'art_tags'}->tag as $tag) {
-                $this->saveTag((string) $tag['id'], $tags);
+                $tag = $this->getTag((string) $tag['id']);
+                $book->addTag($tag);
             }
             foreach ($data->sequence as $sequence) {
-                $this->saveSequence($sequence, $sequences);
+                $sequence = $this->getSequence($sequence);
+                $book->addSequence($sequence);
+            }
+            foreach ($titleInfo->annotation->p as $p) {
+                $annotation .= '<p>' . (string) $p . '</p>';
+            }
+
+            if($this->bookRepo->findOneByLitresHubId((string) $data['hub_id'])) {
+                return true;
             }
 
             $book
@@ -273,7 +282,7 @@ class LitresService
                 ->setType((string) $data['type'])
                 ->setCover((string) $data['cover'])
                 ->setCoverPreview((string) $data['cover_preview'])
-                ->setFilename((string) $data['file_id'])
+                ->setFilename((string) $data['filename'])
                 ->setPrice((string) $data['price'])
                 ->setRating((string) $data['rating'])
                 ->setRecensesCount((string) $data['recenses'])
@@ -281,18 +290,15 @@ class LitresService
                 ->setHasTrial((string) $data['has_trial'])
                 ->setType((string) $data['type'])
                 ->setTitle((string) $titleInfo->{'book-title'})
-                ->setAnnotation((string) $titleInfo->annotation)
+                ->setAnnotation($annotation)
+                ->setLang((string) $titleInfo->lang)
                 ->setDate((string) $titleInfo->date['value'])
                 ->setDocumentUrl((string) $documentInfo->{'src-url'})
                 ->setDocumentId((string) $documentInfo->id)
-                ->setPublisher((string) $publishInfo->annotation)
-                ->setYearPublished((string) $publishInfo->annotation)
-                ->setCityPublished((string) $publishInfo->annotation)
-                ->setIsbn((string) $publishInfo->annotation)
-                ->setAuthor($authors)
-                ->setGenre($genres)
-                ->setTag($tags)
-                ->setSequence($sequences)
+                ->setPublisher((string) $publishInfo->publisher)
+                ->setYearPublished((string) $publishInfo->year)
+                ->setCityPublished((string) $publishInfo->city)
+                ->setIsbn((string) $publishInfo->isbn)
             ;
 
             $this->em->persist($book);

@@ -304,4 +304,12 @@ class Author
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getLitresHubId();
+    }
 }
