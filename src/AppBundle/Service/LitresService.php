@@ -174,8 +174,6 @@ class LitresService
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
-            $this->em->persist($sequence);
-            $this->em->flush();
         }
 
         return $sequence;
@@ -191,8 +189,6 @@ class LitresService
         $author = $this->authorRepo->findOneByDocumentId($authorId);
         if (!$author) {
             $author = $this->getAuthorData($authorId);
-            $this->em->persist($author);
-            $this->em->flush();
         }
 
         return $author;
@@ -209,26 +205,25 @@ class LitresService
         if (!$genre) {
             $genre = new Genre();
             $genre->setToken($genreToken);
-            $this->em->persist($genre);
-            $this->em->flush();
         }
 
        return $genre;
     }
 
     /**
-     * @param string $tagId
+     * @param \SimpleXMLElement $tag
      *
      * @return Tag
      */
-    public function getTag($tagId)
+    public function getTag($tag)
     {
-        $tag = $this->tagRepo->findOneByLitresId($tagId);
+        $tagId    = $tag['id'];
+        $tagTitle = $tag['tag_title'];
+        $tag      = $this->tagRepo->findOneByLitresId($tagId);
         if (!$tag) {
             $tag = new Tag();
             $tag->setLitresId($tagId);
-            $this->em->persist($tag);
-            $this->em->flush();
+            $tag->setTitle($tagTitle);
         }
 
         return $tag;
@@ -262,7 +257,7 @@ class LitresService
                 $book->addGenre($genre);
             }
             foreach ($data->{'art_tags'}->tag as $tag) {
-                $tag = $this->getTag((string) $tag['id']);
+                $tag = $this->getTag($tag);
                 $book->addTag($tag);
             }
             foreach ($data->sequence as $sequence) {

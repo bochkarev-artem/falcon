@@ -54,7 +54,7 @@ class Tag
     /**
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -64,7 +64,7 @@ class Tag
      *
      * @return Tag
      */
-    public function setName($title)
+    public function setTitle($title)
     {
         $this->title = $title;
 

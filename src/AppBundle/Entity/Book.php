@@ -89,7 +89,7 @@ class Book
     /**
      * @var ArrayCollection $genres
      *
-     * @ORM\ManyToMany(targetEntity="Genre")
+     * @ORM\ManyToMany(targetEntity="Genre", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="book_genre",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
@@ -100,7 +100,7 @@ class Book
     /**
      * @var ArrayCollection $authors
      *
-     * @ORM\ManyToMany(targetEntity="Author")
+     * @ORM\ManyToMany(targetEntity="Author", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="book_author",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
@@ -111,7 +111,7 @@ class Book
     /**
      * @var ArrayCollection $tags
      *
-     * @ORM\ManyToMany(targetEntity="Tag")
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="book_tag",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
@@ -122,7 +122,7 @@ class Book
     /**
      * @var ArrayCollection $sequences
      *
-     * @ORM\ManyToMany(targetEntity="Sequence")
+     * @ORM\ManyToMany(targetEntity="Sequence", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="book_sequence",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")}
