@@ -140,10 +140,19 @@ class LitresService
      */
     public function getAuthorData($documentId, $endpoint = 'http://robot.litres.ru/pages/catalit_persons/')
     {
-        $endpoint = $endpoint . '?person=' . $documentId;
-        $xml      = $this->getXml($endpoint);
-        $author   = new Author();
-        $subject  = $xml->{'subject'};
+        $description = '';
+        $endpoint    = $endpoint . '?person=' . $documentId;
+        $xml         = $this->getXml($endpoint);
+        $author      = new Author();
+        $subject     = $xml->{'subject'};
+        if (!$xml->{'subject'}) {
+            return false;
+        }
+        if ($subject->{'text_descr_html'}->hidden) {
+            foreach ($subject->{'text_descr_html'}->hidden->p as $p) {
+                $description .= '<p>' . (string) $p . '</p>';
+            }
+        }
         $author
             ->setDocumentId((string)$subject['id'])
             ->setLitresHubId((integer)$subject['hub_id'])
@@ -152,10 +161,13 @@ class LitresService
             ->setFirstName((string) $subject->{'first-name'})
             ->setMiddleName((string) $subject->{'middle-name'})
             ->setLastName((string) $subject->{'last-name'})
-            ->setDescription((string) $subject->{'text_descr_html'}->hidden)
+            ->setDescription($description)
             ->setPhoto((string) $subject->{'photo'})
             ->setRecensesCount((integer) $subject->{'recenses-count'})
         ;
+
+        $this->em->persist($author);
+        $this->em->flush();
 
         return $author;
     }
@@ -174,6 +186,9 @@ class LitresService
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
+
+            $this->em->persist($sequence);
+            $this->em->flush();
         }
 
         return $sequence;
@@ -205,6 +220,9 @@ class LitresService
         if (!$genre) {
             $genre = new Genre();
             $genre->setToken($genreToken);
+
+            $this->em->persist($genre);
+            $this->em->flush();
         }
 
        return $genre;
@@ -224,6 +242,9 @@ class LitresService
             $tag = new Tag();
             $tag->setLitresId($tagId);
             $tag->setTitle($tagTitle);
+
+            $this->em->persist($tag);
+            $this->em->flush();
         }
 
         return $tag;
@@ -237,75 +258,103 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
-        $endpoint  = $endpoint . '?limit=0,1';
-        $xml       = $this->getXml($endpoint);
-        $processed = 1;
+        for ($i = 0; $i <= 20; $i++) {
+            $per_page  = 20;
+            $start     = $i * $per_page;
+            $endpoint  = $endpoint . "?limit=$start,$per_page";
+            $xml       = $this->getXml($endpoint);
+            $processed = 1;
 
-        foreach ($xml->{'fb2-book'} as $data) {
-            $annotation   = '';
-            $book         = new Book;
-            $titleInfo    = $data->{'text_description'}->hidden->{'title-info'};
-            $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
-            $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
+            foreach ($xml->{'fb2-book'} as $data) {
+                $hubId = (string) $data['hub_id'];
+                if ($this->bookRepo->findOneByLitresHubId($hubId)) {
+                    continue;
+                }
+                $annotation   = '';
+                $book         = new Book;
+                $titleInfo    = $data->{'text_description'}->hidden->{'title-info'};
+                $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
+                $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
 
-            foreach ($titleInfo->author as $author) {
-                $author = $this->getAuthor((string) $author->id);
-                $book->addAuthor($author);
-            }
-            foreach ($titleInfo->genre as $genreToken) {
-                $genre = $this->getGenre((string) $genreToken);
-                $book->addGenre($genre);
-            }
-            foreach ($data->{'art_tags'}->tag as $tag) {
-                $tag = $this->getTag($tag);
-                $book->addTag($tag);
-            }
-            foreach ($data->sequence as $sequence) {
-                $sequence = $this->getSequence($sequence);
-                $book->addSequence($sequence);
-            }
-            foreach ($titleInfo->annotation->p as $p) {
-                $annotation .= '<p>' . (string) $p . '</p>';
+                foreach ($titleInfo->author as $author) {
+                    $authorId = (string) $author->id;
+                    $author   = $this->getAuthor($authorId);
+                    if ($author) {
+                        $book->addAuthor($author);
+                    } elseif($this->logger) {
+                        $this->logger->log(
+                            LogLevel::CRITICAL,
+                            sprintf('Author %s not found', $authorId)
+                        );
+                    }
+                }
+                $genres = [];
+                foreach ($titleInfo->genre as $token) {
+                    $token = (string) $token;
+                    $genres[$token] = $token;
+                }
+                if (count($genres)) {
+                    foreach ($genres as $token) {
+                        $genre = $this->getGenre($token);
+                        $book->addGenre($genre);
+                    }
+                }
+                foreach ($data->{'art_tags'}->tag as $tag) {
+                    $tag = $this->getTag($tag);
+                    $book->addTag($tag);
+                }
+                foreach ($data->sequence as $sequence) {
+                    $sequence = $this->getSequence($sequence);
+                    $book->addSequence($sequence);
+                }
+                if ($titleInfo->annotation) {
+                    foreach ($titleInfo->annotation->p as $p) {
+                        $annotation .= '<p>' . (string) $p . '</p>';
+                    }
+                }
+
+                $book
+                    ->setLitresHubId($hubId)
+                    ->setType((string) $data['type'])
+                    ->setCover((string) $data['cover'])
+                    ->setCoverPreview((string) $data['cover_preview'])
+                    ->setFilename((string) $data['filename'])
+                    ->setPrice((string) $data['price'])
+                    ->setRating((string) $data['rating'])
+                    ->setRecensesCount((string) $data['recenses'])
+                    ->setPrice((string) $data['price'])
+                    ->setHasTrial((string) $data['has_trial'])
+                    ->setType((string) $data['type'])
+                    ->setTitle((string) $titleInfo->{'book-title'})
+                    ->setAnnotation($annotation)
+                    ->setLang((string) $titleInfo->lang)
+                    ->setDate((string) $titleInfo->date['value'])
+                    ->setDocumentUrl((string) $documentInfo->{'src-url'})
+                    ->setDocumentId((string) $documentInfo->id)
+                    ->setPublisher((string) $publishInfo->publisher)
+                    ->setYearPublished((string) $publishInfo->year)
+                    ->setCityPublished((string) $publishInfo->city)
+                    ->setIsbn((string) $publishInfo->isbn)
+                ;
+
+                $this->em->persist($book);
+                if (($processed % $this->batchSize) === 0) {
+                    $this->em->flush();
+                    $this->em->clear();
+                    $processed++;
+                }
             }
 
-            if($this->bookRepo->findOneByLitresHubId((string) $data['hub_id'])) {
-                return true;
-            }
+            $this->em->flush();
+            $this->em->clear();
 
-            $book
-                ->setLitresHubId((string) $data['hub_id'])
-                ->setType((string) $data['type'])
-                ->setCover((string) $data['cover'])
-                ->setCoverPreview((string) $data['cover_preview'])
-                ->setFilename((string) $data['filename'])
-                ->setPrice((string) $data['price'])
-                ->setRating((string) $data['rating'])
-                ->setRecensesCount((string) $data['recenses'])
-                ->setPrice((string) $data['price'])
-                ->setHasTrial((string) $data['has_trial'])
-                ->setType((string) $data['type'])
-                ->setTitle((string) $titleInfo->{'book-title'})
-                ->setAnnotation($annotation)
-                ->setLang((string) $titleInfo->lang)
-                ->setDate((string) $titleInfo->date['value'])
-                ->setDocumentUrl((string) $documentInfo->{'src-url'})
-                ->setDocumentId((string) $documentInfo->id)
-                ->setPublisher((string) $publishInfo->publisher)
-                ->setYearPublished((string) $publishInfo->year)
-                ->setCityPublished((string) $publishInfo->city)
-                ->setIsbn((string) $publishInfo->isbn)
-            ;
-
-            $this->em->persist($book);
-            if (($processed % $this->batchSize) === 0) {
-                $this->em->flush();
-                $this->em->clear();
-                $processed++;
+            if ($this->logger) {
+                $this->logger->log(
+                    LogLevel::NOTICE,
+                    sprintf('%s books processed', $i * $per_page)
+                );
             }
         }
-
-        $this->em->flush();
-        $this->em->clear();
 
         return true;
     }

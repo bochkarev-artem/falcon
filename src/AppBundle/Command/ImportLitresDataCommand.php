@@ -33,13 +33,13 @@ class ImportLitresDataCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $startTime   = time();
+        $startTime = time();
         $output->writeln("<info>Import data started.</info>");
-        $type        = $input->getArgument('type');
-        $litres      = $this->getContainer()->get('litres_service');
-        $result      = $litres->getData($type);
-        $endTime     = time();
-        $totalTime   = $endTime - $startTime;
+        $type      = $input->getArgument('type');
+        $litres    = $this->getContainer()->get('litres_service');
+        $result    = $litres->getData($type);
+        $endTime   = time();
+        $totalTime = $endTime - $startTime;
         if ($result) {
             $output->writeln("<info>Import data finished. Total time: $totalTime seconds</info>");
         } else {
