@@ -179,13 +179,15 @@ class LitresService
      */
     public function getSequence($sequence)
     {
-        $sequenceId   = (integer) $sequence['id'];
-        $sequenceName = (string) $sequence['name'];
-        $sequence = $this->sequenceRepo->findOneByLitresId($sequenceId);
+        $sequenceId     = (integer) $sequence['id'];
+        $sequenceName   = (string) $sequence['name'];
+        $sequenceNumber = (integer) $sequence['number'];
+        $sequence       = $this->sequenceRepo->findOneByLitresId($sequenceId);
         if (!$sequence) {
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
+            $sequence->setNumber($sequenceNumber);
 
             $this->em->persist($sequence);
             $this->em->flush();
@@ -195,15 +197,38 @@ class LitresService
     }
 
     /**
-     * @param string $authorId
+     * @param \SimpleXMLElement $author
      *
      * @return Author
      */
-    public function getAuthor($authorId)
+    public function getAuthor($author)
     {
-        $author = $this->authorRepo->findOneByDocumentId($authorId);
+        $id     = (string) $author->id;
+        $fName  = (string) $author->{'first-name'};
+        $mName  = (string) $author->{'middle-name'};
+        $lName  = (string) $author->{'last-name'};
+        $author = $this->authorRepo->findOneByDocumentId($id);
         if (!$author) {
-            $author = $this->getAuthorData($authorId);
+            $author = $this->getAuthorData($id);
+        }
+        if (!$author) {
+            $author = new Author();
+            $author
+                ->setDocumentId($id)
+                ->setFirstName($fName)
+                ->setMiddleName($mName)
+                ->setLastName($lName)
+            ;
+
+            $this->em->persist($author);
+            $this->em->flush();
+
+            if ($this->logger) {
+                $this->logger->log(
+                    LogLevel::CRITICAL,
+                    sprintf('Author %s not found', $id)
+                );
+            }
         }
 
         return $author;
@@ -258,11 +283,10 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
-        for ($i = 0; $i <= 20; $i++) {
-            $per_page  = 20;
-            $start     = $i * $per_page;
-            $endpoint  = $endpoint . "?limit=$start,$per_page";
-            $xml       = $this->getXml($endpoint);
+        for ($i = 0; $i <= 10; $i++) {
+            $per_page  = 50;
+            $start     = $i * $per_page + 1;
+            $xml       = $this->getXml($endpoint . "?limit=$start,$per_page");
             $processed = 1;
 
             foreach ($xml->{'fb2-book'} as $data) {
@@ -277,15 +301,9 @@ class LitresService
                 $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
 
                 foreach ($titleInfo->author as $author) {
-                    $authorId = (string) $author->id;
-                    $author   = $this->getAuthor($authorId);
+                    $author = $this->getAuthor($author);
                     if ($author) {
                         $book->addAuthor($author);
-                    } elseif($this->logger) {
-                        $this->logger->log(
-                            LogLevel::CRITICAL,
-                            sprintf('Author %s not found', $authorId)
-                        );
                     }
                 }
                 $genres = [];
@@ -303,9 +321,11 @@ class LitresService
                     $tag = $this->getTag($tag);
                     $book->addTag($tag);
                 }
-                foreach ($data->sequence as $sequence) {
-                    $sequence = $this->getSequence($sequence);
-                    $book->addSequence($sequence);
+                if ($data->{'sequences'}) {
+                    foreach ($data->{'sequences'}->sequence as $sequence) {
+                        $sequence = $this->getSequence($sequence);
+                        $book->addSequence($sequence);
+                    }
                 }
                 if ($titleInfo->annotation) {
                     foreach ($titleInfo->annotation->p as $p) {
@@ -338,6 +358,12 @@ class LitresService
                 ;
 
                 $this->em->persist($book);
+                if ($this->logger) {
+                    $this->logger->log(
+                        LogLevel::CRITICAL,
+                        sprintf('%s book ID was saved', $book->getId())
+                    );
+                }
                 if (($processed % $this->batchSize) === 0) {
                     $this->em->flush();
                     $this->em->clear();
@@ -350,8 +376,8 @@ class LitresService
 
             if ($this->logger) {
                 $this->logger->log(
-                    LogLevel::NOTICE,
-                    sprintf('%s books processed', $i * $per_page)
+                    LogLevel::CRITICAL,
+                    sprintf('%s books processed', ($i + 1) * $per_page)
                 );
             }
         }

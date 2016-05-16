@@ -44,6 +44,13 @@ class Sequence
     private $name;
 
     /**
+     * @var int $number
+     *
+     * @ORM\Column(name="number", type="integer", nullable=true)
+     */
+    private $number;
+
+    /**
      * @return int
      */
     public function getId()
@@ -67,6 +74,26 @@ class Sequence
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @param string $number
+     *
+     * @return Sequence
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
 
         return $this;
     }

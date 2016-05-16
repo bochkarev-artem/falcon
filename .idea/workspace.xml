@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="04c0bcdb-aa4d-4a2e-9d57-4db815b27b0e" name="Default" comment="new installation staging">
+    <list default="true" id="04c0bcdb-aa4d-4a2e-9d57-4db815b27b0e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config_prod.yml" afterPath="$PROJECT_DIR$/app/config/config_prod.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Command/ImportLitresDataCommand.php" afterPath="$PROJECT_DIR$/src/AppBundle/Command/ImportLitresDataCommand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/DoctrineMigrations/Version20160429154935.php" afterPath="$PROJECT_DIR$/app/DoctrineMigrations/Version20160429154935.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Sequence.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Sequence.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Service/LitresService.php" afterPath="$PROJECT_DIR$/src/AppBundle/Service/LitresService.php" />
     </list>
     <ignored path="peregrine_falcon.iws" />
@@ -28,21 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="config_prod.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SiteController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+            <state relative-caret-position="357">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,8 +40,18 @@
       <file leaf-file-name="LitresService.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/LitresService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
+            <state relative-caret-position="170">
+              <caret line="178" column="7" selection-start-line="178" selection-start-column="7" selection-end-line="178" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Sequence.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Sequence.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -61,9 +60,54 @@
       <file leaf-file-name="Book.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Book.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="130" column="23" selection-start-line="130" selection-start-column="23" selection-end-line="130" selection-end-column="23" />
+            <state relative-caret-position="205">
+              <caret line="328" column="20" selection-start-line="328" selection-start-column="20" selection-end-line="328" selection-end-column="20" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Version20160429154935.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/DoctrineMigrations/Version20160429154935.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="20" column="94" selection-start-line="20" selection-start-column="94" selection-end-line="20" selection-end-column="94" />
+              <folding>
+                <marker date="1463434930374" expanded="true" signature="1071:1230" placeholder="CREATE TABLE... genre" />
+                <marker date="1463434930374" expanded="true" signature="1330:1446" placeholder="CREATE TABLE... tag" />
+                <marker date="1463434930374" expanded="true" signature="1546:1945" placeholder="CREATE TABLE... author" />
+                <marker date="1463434930374" expanded="true" signature="2068:2223" placeholder="CREATE TABLE... sequence" />
+                <marker date="1463434930374" expanded="true" signature="2333:3083" placeholder="CREATE TABLE... book" />
+                <marker date="1463434930374" expanded="true" signature="3189:3290" placeholder="CREATE TABLE... book_genre" />
+                <marker date="1463434930374" expanded="true" signature="3486:3590" placeholder="CREATE TABLE... book_author" />
+                <marker date="1463434930374" expanded="true" signature="3789:3884" placeholder="CREATE TABLE... book_tag" />
+                <marker date="1463434930374" expanded="true" signature="4074:4184" placeholder="CREATE TABLE... book_sequence" />
+                <marker date="1463434930374" expanded="true" signature="4389:4529" placeholder="ALTER TABLE book_genre... " />
+                <marker date="1463434930374" expanded="true" signature="4556:4699" placeholder="ALTER TABLE book_genre... " />
+                <marker date="1463434930374" expanded="true" signature="4726:4867" placeholder="ALTER TABLE book_author... " />
+                <marker date="1463434930374" expanded="true" signature="4894:5041" placeholder="ALTER TABLE book_author... " />
+                <marker date="1463434930374" expanded="true" signature="5068:5206" placeholder="ALTER TABLE book_tag... " />
+                <marker date="1463434930374" expanded="true" signature="5233:5368" placeholder="ALTER TABLE book_tag... " />
+                <marker date="1463434930374" expanded="true" signature="5395:5538" placeholder="ALTER TABLE book_sequence... " />
+                <marker date="1463434930374" expanded="true" signature="5565:5720" placeholder="ALTER TABLE book_sequence... " />
+                <marker date="1463434930374" expanded="true" signature="6083:6141" placeholder="ALTER TABLE book_genre... " />
+                <marker date="1463434930374" expanded="true" signature="6168:6224" placeholder="ALTER TABLE book_tag... " />
+                <marker date="1463434930374" expanded="true" signature="6251:6310" placeholder="ALTER TABLE book_author... " />
+                <marker date="1463434930374" expanded="true" signature="6337:6398" placeholder="ALTER TABLE book_sequence... " />
+                <marker date="1463434930374" expanded="true" signature="6425:6483" placeholder="ALTER TABLE book_genre... " />
+                <marker date="1463434930374" expanded="true" signature="6510:6569" placeholder="ALTER TABLE book_author... " />
+                <marker date="1463434930374" expanded="true" signature="6596:6652" placeholder="ALTER TABLE book_tag... " />
+                <marker date="1463434930374" expanded="true" signature="6679:6740" placeholder="ALTER TABLE book_sequence... " />
+                <marker date="1463434930374" expanded="true" signature="7104:7120" placeholder="DROP TABLE g... " />
+                <marker date="1463434930374" expanded="true" signature="7147:7161" placeholder="DROP TABLE t... " />
+                <marker date="1463434930374" expanded="true" signature="7188:7205" placeholder="DROP TABLE a... " />
+                <marker date="1463434930374" expanded="true" signature="7232:7251" placeholder="DROP TABLE s... " />
+                <marker date="1463434930374" expanded="true" signature="7278:7293" placeholder="DROP TABLE b... " />
+                <marker date="1463434930374" expanded="true" signature="7320:7341" placeholder="DROP TABLE b... " />
+                <marker date="1463434930374" expanded="true" signature="7368:7390" placeholder="DROP TABLE b... " />
+                <marker date="1463434930374" expanded="true" signature="7417:7436" placeholder="DROP TABLE b... " />
+                <marker date="1463434930374" expanded="true" signature="7463:7487" placeholder="DROP TABLE b... " />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,9 +122,12 @@
       <list>
         <option value="$PROJECT_DIR$/app/config/parameters.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Command/ImportLitresDataCommand.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php" />
-        <option value="$PROJECT_DIR$/app/config/config_prod.yml" />
         <option value="$PROJECT_DIR$/src/AppBundle/Entity/Book.php" />
+        <option value="$PROJECT_DIR$/app/config/config_prod.yml" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Sequence.php" />
+        <option value="$PROJECT_DIR$/app/DoctrineMigrations/Version20160517003800.php" />
+        <option value="$PROJECT_DIR$/app/DoctrineMigrations/Version20160429154935.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Service/LitresService.php" />
       </list>
     </option>
@@ -96,10 +143,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-4" />
-    <option name="y" value="-4" />
-    <option name="width" value="1374" />
-    <option name="height" value="744" />
+    <option name="width" value="1366" />
+    <option name="height" value="736" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -126,10 +171,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
-      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -369,18 +410,22 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="config">
+            <PATH_ELEMENT USER_OBJECT="DoctrineMigrations">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager">
@@ -433,7 +478,10 @@
       <workItem from="1462474671803" duration="2300000" />
       <workItem from="1463264276064" duration="80000" />
       <workItem from="1463264422523" duration="8798000" />
-      <workItem from="1463337816285" duration="1791000" />
+      <workItem from="1463337816285" duration="1850000" />
+      <workItem from="1463426758277" duration="21000" />
+      <workItem from="1463426793787" duration="1046000" />
+      <workItem from="1463432059148" duration="4402000" />
     </task>
     <task id="LOCAL-00001" summary="new installation staging">
       <created>1462477880404</created>
@@ -442,18 +490,25 @@
       <option name="project" value="LOCAL" />
       <updated>1462477880404</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="working litres service with pagination set to constant">
+      <created>1463343667231</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1463343667231</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14402000" />
+    <option name="totallyTimeSpent" value="19930000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1374" height="744" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="736" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18814056" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23133236" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -486,13 +541,110 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="new installation staging" />
-    <option name="LAST_COMMIT_MESSAGE" value="new installation staging" />
+    <MESSAGE value="working litres service with pagination set to constant" />
+    <option name="LAST_COMMIT_MESSAGE" value="working litres service with pagination set to constant" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/LitresService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4284">
+          <caret line="262" column="43" selection-start-line="262" selection-start-column="43" selection-end-line="262" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Book.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2159">
+          <caret line="130" column="23" selection-start-line="130" selection-start-column="23" selection-end-line="130" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/LitresService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Book.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2286">
+          <caret line="130" column="23" selection-start-line="130" selection-start-column="23" selection-end-line="130" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/LitresService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Book.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2286">
+          <caret line="130" column="23" selection-start-line="130" selection-start-column="23" selection-end-line="130" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -594,16 +746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Command/ImportLitresDataCommand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
-          <folding>
-            <element signature="e#72#137#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Genre.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-227">
@@ -632,34 +774,108 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Command/ImportLitresDataCommand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        <state relative-caret-position="-91">
+          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/psr/log/Psr/Log/LogLevel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config_prod.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+        <state relative-caret-position="255">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/DoctrineMigrations/Version20160517003800.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="65" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/DoctrineMigrations/Version20160429154935.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="20" column="94" selection-start-line="20" selection-start-column="94" selection-end-line="20" selection-end-column="94" />
+          <folding>
+            <marker date="1463434930374" expanded="true" signature="1071:1230" placeholder="CREATE TABLE... genre" />
+            <marker date="1463434930374" expanded="true" signature="1330:1446" placeholder="CREATE TABLE... tag" />
+            <marker date="1463434930374" expanded="true" signature="1546:1945" placeholder="CREATE TABLE... author" />
+            <marker date="1463434930374" expanded="true" signature="2068:2223" placeholder="CREATE TABLE... sequence" />
+            <marker date="1463434930374" expanded="true" signature="2333:3083" placeholder="CREATE TABLE... book" />
+            <marker date="1463434930374" expanded="true" signature="3189:3290" placeholder="CREATE TABLE... book_genre" />
+            <marker date="1463434930374" expanded="true" signature="3486:3590" placeholder="CREATE TABLE... book_author" />
+            <marker date="1463434930374" expanded="true" signature="3789:3884" placeholder="CREATE TABLE... book_tag" />
+            <marker date="1463434930374" expanded="true" signature="4074:4184" placeholder="CREATE TABLE... book_sequence" />
+            <marker date="1463434930374" expanded="true" signature="4389:4529" placeholder="ALTER TABLE book_genre... " />
+            <marker date="1463434930374" expanded="true" signature="4556:4699" placeholder="ALTER TABLE book_genre... " />
+            <marker date="1463434930374" expanded="true" signature="4726:4867" placeholder="ALTER TABLE book_author... " />
+            <marker date="1463434930374" expanded="true" signature="4894:5041" placeholder="ALTER TABLE book_author... " />
+            <marker date="1463434930374" expanded="true" signature="5068:5206" placeholder="ALTER TABLE book_tag... " />
+            <marker date="1463434930374" expanded="true" signature="5233:5368" placeholder="ALTER TABLE book_tag... " />
+            <marker date="1463434930374" expanded="true" signature="5395:5538" placeholder="ALTER TABLE book_sequence... " />
+            <marker date="1463434930374" expanded="true" signature="5565:5720" placeholder="ALTER TABLE book_sequence... " />
+            <marker date="1463434930374" expanded="true" signature="6083:6141" placeholder="ALTER TABLE book_genre... " />
+            <marker date="1463434930374" expanded="true" signature="6168:6224" placeholder="ALTER TABLE book_tag... " />
+            <marker date="1463434930374" expanded="true" signature="6251:6310" placeholder="ALTER TABLE book_author... " />
+            <marker date="1463434930374" expanded="true" signature="6337:6398" placeholder="ALTER TABLE book_sequence... " />
+            <marker date="1463434930374" expanded="true" signature="6425:6483" placeholder="ALTER TABLE book_genre... " />
+            <marker date="1463434930374" expanded="true" signature="6510:6569" placeholder="ALTER TABLE book_author... " />
+            <marker date="1463434930374" expanded="true" signature="6596:6652" placeholder="ALTER TABLE book_tag... " />
+            <marker date="1463434930374" expanded="true" signature="6679:6740" placeholder="ALTER TABLE book_sequence... " />
+            <marker date="1463434930374" expanded="true" signature="7104:7120" placeholder="DROP TABLE g... " />
+            <marker date="1463434930374" expanded="true" signature="7147:7161" placeholder="DROP TABLE t... " />
+            <marker date="1463434930374" expanded="true" signature="7188:7205" placeholder="DROP TABLE a... " />
+            <marker date="1463434930374" expanded="true" signature="7232:7251" placeholder="DROP TABLE s... " />
+            <marker date="1463434930374" expanded="true" signature="7278:7293" placeholder="DROP TABLE b... " />
+            <marker date="1463434930374" expanded="true" signature="7320:7341" placeholder="DROP TABLE b... " />
+            <marker date="1463434930374" expanded="true" signature="7368:7390" placeholder="DROP TABLE b... " />
+            <marker date="1463434930374" expanded="true" signature="7417:7436" placeholder="DROP TABLE b... " />
+            <marker date="1463434930374" expanded="true" signature="7463:7487" placeholder="DROP TABLE b... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/SiteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Sequence.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Book.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="130" column="23" selection-start-line="130" selection-start-column="23" selection-end-line="130" selection-end-column="23" />
+        <state relative-caret-position="205">
+          <caret line="328" column="20" selection-start-line="328" selection-start-column="20" selection-end-line="328" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/LitresService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="103" column="5" selection-start-line="103" selection-start-column="5" selection-end-line="103" selection-end-column="5" />
+        <state relative-caret-position="170">
+          <caret line="178" column="7" selection-start-line="178" selection-start-column="7" selection-end-line="178" selection-end-column="7" />
           <folding />
         </state>
       </provider>
