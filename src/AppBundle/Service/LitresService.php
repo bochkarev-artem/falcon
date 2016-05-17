@@ -342,6 +342,9 @@ class LitresService
                         $annotation .= '<p>' . (string) $p . '</p>';
                     }
                 }
+                if ($titleInfo->reader) {
+                    $book->setReader((string) $titleInfo->reader->nickname);
+                }
 
                 $book
                     ->setLitresHubId($hubId)
@@ -349,10 +352,9 @@ class LitresService
                     ->setCover((string) $data['cover'])
                     ->setCoverPreview((string) $data['cover_preview'])
                     ->setFilename((string) $data['filename'])
-                    ->setPrice((string) $data['price'])
+                    ->setPrice((string) $data['base_price'])
                     ->setRating((string) $data['rating'])
                     ->setRecensesCount((string) $data['recenses'])
-                    ->setPrice((string) $data['price'])
                     ->setHasTrial((string) $data['has_trial'])
                     ->setType((string) $data['type'])
                     ->setTitle((string) $titleInfo->{'book-title'})
