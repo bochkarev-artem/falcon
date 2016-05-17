@@ -109,20 +109,32 @@ class LitresService
                 $id    = (integer) $node['id'];
                 $token = (string) $node['token'];
                 $title = (string) $node['title'];
-                if(!is_null($token) && !$this->genreRepo->findByToken($token)) {
-                    $genre = new Genre();
-                    $genre
-                        ->setLitresId($id)
-                        ->setTitle($title)
-                        ->setToken($token)
-                    ;
+                if(!is_null($token)) {
+                    /** @var Genre $genre */
+                    if ($genre = $this->genreRepo->findOneByToken($token)) {
+                        if (!$genre->getTitle()) {
+                            $genre->setTitle($title);
+                        }
+                        if (!$genre->getLitresId()) {
+                            $genre->setLitresId($id);
+                        }
+                    } else {
+                        $genre = new Genre();
+                        $genre
+                            ->setLitresId($id)
+                            ->setTitle($title)
+                            ->setToken($token)
+                        ;
+                    }
                     $genres[$token] = $genre;
                 }
             }
         }
 
         foreach ($genres as $genre) {
-            $this->em->persist($genre);
+            if (is_null($genre->getId())) {
+                $this->em->persist($genre);
+            }
         }
 
         $this->em->flush();
@@ -148,19 +160,29 @@ class LitresService
         if (!$xml->{'subject'}) {
             return false;
         }
+        $litresId = (integer) $subject['hub_id'];
+        if (!$litresId) { // no author
+            return false;
+        }
+        $fName = (string) $subject->{'first-name'};
+        $mName = (string) $subject->{'middle-name'};
+        $lName = (string) $subject->{'last-name'};
+        if (!($fName || $mName || $lName)) { // no real name
+            return false;
+        }
         if ($subject->{'text_descr_html'}->hidden) {
             foreach ($subject->{'text_descr_html'}->hidden->p as $p) {
                 $description .= '<p>' . (string) $p . '</p>';
             }
         }
         $author
-            ->setDocumentId((string)$subject['id'])
-            ->setLitresHubId((integer)$subject['hub_id'])
+            ->setDocumentId((string) $subject['id'])
+            ->setLitresHubId($litresId)
             ->setLevel((integer) $subject->{'level'})
             ->setArtsCount((integer) $subject->{'arts-count'})
-            ->setFirstName((string) $subject->{'first-name'})
-            ->setMiddleName((string) $subject->{'middle-name'})
-            ->setLastName((string) $subject->{'last-name'})
+            ->setFirstName($fName)
+            ->setMiddleName($mName)
+            ->setLastName($lName)
             ->setDescription($description)
             ->setPhoto((string) $subject->{'photo'})
             ->setRecensesCount((integer) $subject->{'recenses-count'})
@@ -197,38 +219,16 @@ class LitresService
     }
 
     /**
-     * @param \SimpleXMLElement $author
+     * Let`s not create Author from Book data
+     * @param string $authorId
      *
-     * @return Author
+     * @return Author|false
      */
-    public function getAuthor($author)
+    public function getAuthor($authorId)
     {
-        $id     = (string) $author->id;
-        $fName  = (string) $author->{'first-name'};
-        $mName  = (string) $author->{'middle-name'};
-        $lName  = (string) $author->{'last-name'};
-        $author = $this->authorRepo->findOneByDocumentId($id);
+        $author = $this->authorRepo->findOneByDocumentId($authorId);
         if (!$author) {
-            $author = $this->getAuthorData($id);
-        }
-        if (!$author) {
-            $author = new Author();
-            $author
-                ->setDocumentId($id)
-                ->setFirstName($fName)
-                ->setMiddleName($mName)
-                ->setLastName($lName)
-            ;
-
-            $this->em->persist($author);
-            $this->em->flush();
-
-            if ($this->logger) {
-                $this->logger->log(
-                    LogLevel::CRITICAL,
-                    sprintf('Author %s not found', $id)
-                );
-            }
+            $author = $this->getAuthorData($authorId);
         }
 
         return $author;
@@ -301,9 +301,19 @@ class LitresService
                 $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
 
                 foreach ($titleInfo->author as $author) {
-                    $author = $this->getAuthor($author);
+                    $authorId = $author->id;
+                    $author   = $this->getAuthor($authorId);
                     if ($author) {
                         $book->addAuthor($author);
+                    } else {
+                        if ($this->logger) {
+                            $this->logger->log(
+                                LogLevel::CRITICAL,
+                                sprintf('Author %s not found', $authorId)
+                            );
+                        }
+
+                        continue;
                     }
                 }
                 $genres = [];
