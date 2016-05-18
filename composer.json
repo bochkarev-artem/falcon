@@ -29,7 +29,9 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "sensio/generator-bundle": "^3.0",
         "raulfraile/ladybug-bundle": "~1.0",
-        "doctrine/doctrine-migrations-bundle": "^1.0"
+        "doctrine/doctrine-migrations-bundle": "^1.0",
+        "sonata-project/admin-bundle": "^3.1",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
