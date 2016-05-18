@@ -283,8 +283,8 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
-        for ($i = 0; $i <= 10; $i++) {
-            $per_page  = 50;
+        for ($i = 0; $i <= 1; $i++) {
+            $per_page  = 1;
             $start     = $i * $per_page + 1;
             $xml       = $this->getXml($endpoint . "?limit=$start,$per_page");
             $processed = 1;
@@ -370,7 +370,7 @@ class LitresService
                 ;
 
                 $this->em->persist($book);
-                echo '>>> ' . $book->getId() . ' books persisted';
+                echo ">>> " . $book->getId() . " books persisted\n";
 
                 if (($processed % $this->batchSize) === 0) {
                     $this->em->flush();
@@ -388,7 +388,7 @@ class LitresService
                     LogLevel::INFO,
                     sprintf('%s books processed', $number_processed)
                 );
-                echo ">>> $number_processed books processed";
+                echo ">>> $number_processed books processed\n";
             }
         }
 
