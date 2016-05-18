@@ -313,7 +313,7 @@ class LitresService
                             );
                         }
 
-                        continue;
+                        continue 2;
                     }
                 }
                 $genres = [];
@@ -370,12 +370,8 @@ class LitresService
                 ;
 
                 $this->em->persist($book);
-                if ($this->logger) {
-                    $this->logger->log(
-                        LogLevel::CRITICAL,
-                        sprintf('%s book ID was saved', $book->getId())
-                    );
-                }
+                echo '>>> ' . $book->getId() . ' books persisted';
+
                 if (($processed % $this->batchSize) === 0) {
                     $this->em->flush();
                     $this->em->clear();
@@ -387,10 +383,12 @@ class LitresService
             $this->em->clear();
 
             if ($this->logger) {
+                $number_processed = ($i + 1) * $per_page;
                 $this->logger->log(
-                    LogLevel::CRITICAL,
-                    sprintf('%s books processed', ($i + 1) * $per_page)
+                    LogLevel::INFO,
+                    sprintf('%s books processed', $number_processed)
                 );
+                echo ">>> $number_processed books processed";
             }
         }
 
