@@ -283,8 +283,8 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
-        for ($i = 0; $i <= 1; $i++) {
-            $per_page  = 1;
+        for ($i = 0; $i <= 10; $i++) {
+            $per_page  = 50;
             $start     = $i * $per_page + 1;
             $xml       = $this->getXml($endpoint . "?limit=$start,$per_page");
             $processed = 1;
