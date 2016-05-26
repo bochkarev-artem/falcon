@@ -308,6 +308,16 @@ class Author
     /**
      * @return string
      */
+    public function getFullName()
+    {
+        $middleName = $this->getMiddleName() ? ' ' . $this->getMiddleName() . ' ' : ' ';
+
+        return $this->getFirstName() . $middleName . $this->getLastName();
+    }
+    
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->getLitresHubId();

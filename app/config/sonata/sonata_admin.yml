@@ -1,0 +1,8 @@
+sonata_admin:
+    title:      Admin
+    title_logo: bundles/app/images/logo.jpg
+    dashboard:
+        groups:
+            catalog:
+                items:
+                    - admin.author

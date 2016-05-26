@@ -1,0 +1,11 @@
+services:
+    admin.author:
+        class: AdminBundle\Admin\AuthorAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.author" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Author
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
