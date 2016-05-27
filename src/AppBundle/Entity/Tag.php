@@ -96,6 +96,6 @@ class Tag
      */
     public function __toString()
     {
-        return (string) $this->getLitresId();
+        return (string) $this->getTitle();
     }
 }

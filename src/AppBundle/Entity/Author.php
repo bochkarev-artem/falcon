@@ -314,12 +314,12 @@ class Author
 
         return $this->getFirstName() . $middleName . $this->getLastName();
     }
-    
+
     /**
      * @return string
      */
     public function __toString()
     {
-        return (string) $this->getLitresHubId();
+        return (string) $this->getFullName();
     }
 }

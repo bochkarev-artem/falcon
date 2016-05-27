@@ -123,6 +123,6 @@ class Sequence
      */
     public function __toString()
     {
-        return (string) $this->getLitresId();
+        return (string) $this->getName();
     }
 }

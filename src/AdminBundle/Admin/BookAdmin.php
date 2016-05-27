@@ -11,7 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class AuthorAdmin extends AbstractAdmin
+class BookAdmin extends AbstractAdmin
 {
     /**
      * @param FormMapper $formMapper
@@ -21,15 +21,29 @@ class AuthorAdmin extends AbstractAdmin
         $formMapper
             ->add('id', null, [], ['value_type' => 'show'])
             ->add('litresHubId')
+            ->add('price')
+            ->add('cover')
+            ->add('coverPreview')
+            ->add('filename')
+            ->add('type')
+            ->add('hasTrial')
+            ->add('reader')
+            ->add('genres')
+            ->add('authors')
+            ->add('tags')
+            ->add('sequences')
+            ->add('title')
+            ->add('annotation')
+            ->add('date')
+            ->add('lang')
+            ->add('documentUrl')
             ->add('documentId')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('middleName')
-            ->add('level')
+            ->add('publisher')
+            ->add('cityPublished')
+            ->add('yearPublished')
+            ->add('isbn')
+            ->add('rating')
             ->add('recensesCount')
-            ->add('artsCount')
-            ->add('photo')
-            ->add('description')
         ;
     }
 
@@ -42,8 +56,10 @@ class AuthorAdmin extends AbstractAdmin
             ->add('id')
             ->add('litresHubId')
             ->add('documentId')
-            ->add('artsCount')
-            ->add('lastName')
+            ->add('type')
+            ->add('title')
+            ->add('documentUrl')
+            ->add('rating')
         ;
     }
 
@@ -56,8 +72,10 @@ class AuthorAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('litresHubId')
             ->add('documentId')
-            ->add('fullName')
-            ->add('artsCount')
+            ->add('type')
+            ->add('title')
+            ->add('documentUrl')
+            ->add('rating')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -76,15 +94,29 @@ class AuthorAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('litresHubId')
+            ->add('price')
+            ->add('cover')
+            ->add('coverPreview')
+            ->add('filename')
+            ->add('type')
+            ->add('hasTrial')
+            ->add('reader')
+            ->add('genres')
+            ->add('authors')
+            ->add('tags')
+            ->add('sequences')
+            ->add('title')
+            ->add('annotation')
+            ->add('date')
+            ->add('lang')
+            ->add('documentUrl')
             ->add('documentId')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('middleName')
-            ->add('level')
+            ->add('publisher')
+            ->add('cityPublished')
+            ->add('yearPublished')
+            ->add('isbn')
+            ->add('rating')
             ->add('recensesCount')
-            ->add('artsCount')
-            ->add('photo')
-            ->add('description')
         ;
     }
 }

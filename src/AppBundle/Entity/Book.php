@@ -718,6 +718,6 @@ class Book
      */
     public function __toString()
     {
-        return (string) $this->getLitresHubId();
+        return (string) $this->getTitle();
     }
 }

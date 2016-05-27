@@ -11,7 +11,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class AuthorAdmin extends AbstractAdmin
+class TagAdmin extends AbstractAdmin
 {
     /**
      * @param FormMapper $formMapper
@@ -20,16 +20,8 @@ class AuthorAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('id', null, [], ['value_type' => 'show'])
-            ->add('litresHubId')
-            ->add('documentId')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('middleName')
-            ->add('level')
-            ->add('recensesCount')
-            ->add('artsCount')
-            ->add('photo')
-            ->add('description')
+            ->add('litresId')
+            ->add('title')
         ;
     }
 
@@ -40,10 +32,8 @@ class AuthorAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('litresHubId')
-            ->add('documentId')
-            ->add('artsCount')
-            ->add('lastName')
+            ->add('litresId')
+            ->add('title')
         ;
     }
 
@@ -54,10 +44,8 @@ class AuthorAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('litresHubId')
-            ->add('documentId')
-            ->add('fullName')
-            ->add('artsCount')
+            ->add('litresId')
+            ->add('title')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -75,16 +63,8 @@ class AuthorAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('litresHubId')
-            ->add('documentId')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('middleName')
-            ->add('level')
-            ->add('recensesCount')
-            ->add('artsCount')
-            ->add('photo')
-            ->add('description')
+            ->add('litresId')
+            ->add('title')
         ;
     }
 }

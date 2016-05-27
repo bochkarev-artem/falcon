@@ -6,3 +6,7 @@ sonata_admin:
             catalog:
                 items:
                     - admin.author
+                    - admin.book
+                    - admin.genre
+                    - admin.tag
+                    - admin.sequence

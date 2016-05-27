@@ -123,6 +123,6 @@ class Genre
      */
     public function __toString()
     {
-        return $this->getToken();
+        return $this->getTitle();
     }
 }
