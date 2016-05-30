@@ -21,6 +21,27 @@ class BookAdmin extends Admin
         $formMapper
             ->add('id', null, [], ['value_type' => 'show'])
             ->add('litresHubId')
+            ->add('title')
+            ->add('authors', 'sonata_type_model', [
+                'class'    => 'AppBundle\Entity\Author',
+                'expanded' => false,
+                'multiple' => true
+            ])
+            ->add('genres', 'sonata_type_model', [
+                'class'    => 'AppBundle\Entity\Genre',
+                'expanded' => false,
+                'multiple' => true
+            ])
+            ->add('tags', 'sonata_type_model', [
+                'class'    => 'AppBundle\Entity\Tag',
+                'expanded' => false,
+                'multiple' => true
+            ])
+            ->add('sequences', 'sonata_type_model', [
+                'class'    => 'AppBundle\Entity\Sequence',
+                'expanded' => false,
+                'multiple' => true
+            ])
             ->add('price')
             ->add('cover')
             ->add('coverPreview')
@@ -28,11 +49,6 @@ class BookAdmin extends Admin
             ->add('type')
             ->add('hasTrial')
             ->add('reader')
-            ->add('genres')
-            ->add('authors')
-            ->add('tags')
-            ->add('sequences')
-            ->add('title')
             ->add('annotation')
             ->add('date')
             ->add('lang')
