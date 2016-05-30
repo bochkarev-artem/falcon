@@ -5,13 +5,13 @@
 
 namespace AdminBundle\Admin;
 
-use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class AuthorAdmin extends AbstractAdmin
+class AuthorAdmin extends Admin
 {
     /**
      * @param FormMapper $formMapper
