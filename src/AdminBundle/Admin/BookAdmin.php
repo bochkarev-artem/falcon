@@ -70,6 +70,18 @@ class BookAdmin extends Admin
     {
         $datagridMapper
             ->add('id')
+            ->add('authors', null, [], 'entity', [
+                'class' => 'AppBundle\Entity\Author',
+            ])
+            ->add('genres', null, [], 'entity', [
+                'class' => 'AppBundle\Entity\Genre',
+            ])
+            ->add('tags', null, [], 'entity', [
+                'class' => 'AppBundle\Entity\Tag',
+            ])
+            ->add('sequences', null, [], 'entity', [
+                'class' => 'AppBundle\Entity\Sequence',
+            ])
             ->add('litresHubId')
             ->add('documentId')
             ->add('type')
