@@ -22,6 +22,11 @@ class AuthorAdmin extends Admin
             ->add('id', null, [], ['value_type' => 'show'])
             ->add('litresHubId')
             ->add('documentId')
+            ->add('books', 'sonata_type_model', [
+                'class'    => 'AppBundle\Entity\Book',
+                'expanded' => false,
+                'multiple' => true
+            ])
             ->add('firstName')
             ->add('lastName')
             ->add('middleName')

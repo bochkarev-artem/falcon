@@ -21,6 +21,11 @@ class SequenceAdmin extends Admin
         $formMapper
             ->add('id', null, [], ['value_type' => 'show'])
             ->add('litresId')
+            ->add('books', 'sonata_type_model', [
+                'class'    => 'AppBundle\Entity\Book',
+                'expanded' => false,
+                'multiple' => true
+            ])
             ->add('name')
             ->add('number')
         ;

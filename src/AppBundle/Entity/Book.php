@@ -16,9 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="book",
  *     uniqueConstraints={
  *           @ORM\UniqueConstraint(name="book_ids", columns={"litres_hub_id"})
- *     },
- *     indexes={
- *          @ORM\Index(name="book_search", columns={"litres_hub_id"})
  *     }
  * )
  */
@@ -103,7 +100,7 @@ class Book
     /**
      * @var ArrayCollection $authors
      *
-     * @ORM\ManyToMany(targetEntity="Author", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Author", cascade={"persist", "remove"}, inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_author",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
@@ -125,7 +122,7 @@ class Book
     /**
      * @var ArrayCollection $sequences
      *
-     * @ORM\ManyToMany(targetEntity="Sequence", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Sequence", cascade={"persist", "remove"}, inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_sequence",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")}
@@ -329,9 +326,25 @@ class Book
      *
      * @return Book
      */
-    public function addAuthor($author)
+    public function addAuthor(Author $author)
     {
-        $this->authors->add($author);
+        if (!$this->authors->contains($author)) {
+            $this->authors->add($author);
+        };
+
+        return $this;
+    }
+
+    /**
+     * @param Author $author
+     *
+     * @return Book
+     */
+    public function removeAuthor(Author $author)
+    {
+        if ($this->authors->contains($author)) {
+            $this->authors->removeElement($author);
+        };
 
         return $this;
     }
@@ -349,9 +362,25 @@ class Book
      *
      * @return Book
      */
-    public function addSequence($sequence)
+    public function addSequence(Sequence $sequence)
     {
-        $this->sequences->add($sequence);
+        if (!$this->sequences->contains($sequence)) {
+            $this->sequences->add($sequence);
+        };
+
+        return $this;
+    }
+
+    /**
+     * @param Sequence $sequence
+     *
+     * @return Book
+     */
+    public function removeSequence(Sequence $sequence)
+    {
+        if ($this->sequences->contains($sequence)) {
+            $this->sequences->removeElement($sequence);
+        };
 
         return $this;
     }

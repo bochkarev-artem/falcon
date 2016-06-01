@@ -5,6 +5,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,9 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="sequence",
  *     uniqueConstraints={
  *           @ORM\UniqueConstraint(name="sequence_ids", columns={"litres_id"})
- *     },
- *     indexes={
- *          @ORM\Index(name="sequence_search", columns={"litres_id"})
  *     }
  * )
  */
@@ -40,6 +38,13 @@ class Sequence
     private $litresId;
 
     /**
+     * @var ArrayCollection $books
+     *
+     * @ORM\ManyToMany(targetEntity="Book", cascade={"persist", "remove"}, mappedBy="sequences", fetch="EXTRA_LAZY")
+     */
+    private $books;
+
+    /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", nullable=true)
@@ -52,6 +57,14 @@ class Sequence
      * @ORM\Column(name="number", type="integer", nullable=true)
      */
     private $number;
+
+    /**
+     * Initialize fields
+     */
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -117,6 +130,54 @@ class Sequence
     public function setLitresId($litresId)
     {
         $this->litresId = $litresId;
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    /**
+     * @param ArrayCollection $books
+     *
+     * @return Sequence
+     */
+    public function setBooks($books)
+    {
+        $this->books = $books;
+
+        return $this;
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return self
+     */
+    public function addBook(Book $book)
+    {
+        if (!$this->books->contains($book)) {
+            $book->addSequence($this);
+        };
+
+        return $this;
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return self
+     */
+    public function removeBook(Book $book)
+    {
+        if ($this->books->contains($book)) {
+            $book->removeSequence($this);
+        };
 
         return $this;
     }

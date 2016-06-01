@@ -56,9 +56,9 @@ class LitresService
     private $logger;
 
     /**
-     * @var int $batchSize
+     * @var int $perPage
      */
-    private $batchSize = 50;
+    private $perPage = 50;
 
     /**
      * @param EntityManager $em
@@ -283,11 +283,10 @@ class LitresService
      */
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
-        for ($i = 0; $i <= 10; $i++) {
-            $per_page  = 50;
-            $start     = $i * $per_page + 1;
-            $xml       = $this->getXml($endpoint . "?limit=$start,$per_page");
-            $processed = 1;
+        $skipped = 0;
+        for ($i = 0; $i < 10; $i++) {
+            $start = $i * $this->perPage + 1;
+            $xml   = $this->getXml($endpoint . "?limit=$start,$this->perPage");
 
             foreach ($xml->{'fb2-book'} as $data) {
                 $hubId = (string) $data['hub_id'];
@@ -313,6 +312,7 @@ class LitresService
                             );
                         }
 
+                        $skipped++;
                         continue 2;
                     }
                 }
@@ -357,7 +357,7 @@ class LitresService
                     ->setRecensesCount((string) $data['recenses'])
                     ->setHasTrial((string) $data['has_trial'])
                     ->setType((string) $data['type'])
-                    ->setTitle((string) $titleInfo->{'book-title'})
+                    ->setTitle(substr((string) $titleInfo->{'book-title'}, 0, 254))
                     ->setAnnotation($annotation)
                     ->setLang((string) $titleInfo->lang)
                     ->setDate((string) $titleInfo->date['value'])
@@ -370,27 +370,23 @@ class LitresService
                 ;
 
                 $this->em->persist($book);
-                echo ">>> " . $book->getId() . " books persisted\n";
+                echo ">>> " . $book->getId() . " book persisted\n";
 
-                if (($processed % $this->batchSize) === 0) {
-                    $this->em->flush();
-                    $this->em->clear();
-                    $processed++;
-                }
-            }
-
-            $this->em->flush();
-            $this->em->clear();
-
-            if ($this->logger) {
-                $number_processed = ($i + 1) * $per_page;
-                $this->logger->log(
-                    LogLevel::INFO,
-                    sprintf('%s books processed', $number_processed)
-                );
-                echo ">>> $number_processed books processed\n";
+                $this->em->flush();
+                $this->em->clear();
             }
         }
+
+        if ($this->logger) {
+            $numberProcessed = $i * $this->perPage - $skipped;
+            $this->logger->log(
+                LogLevel::INFO,
+                sprintf('%s books flushed', $numberProcessed)
+            );
+            echo ">>> $numberProcessed books flushed\n";
+        }
+        $this->em->flush();
+        $this->em->clear();
 
         return true;
     }

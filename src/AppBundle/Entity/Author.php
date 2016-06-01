@@ -5,6 +5,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,10 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(
  *     name="author",
  *     uniqueConstraints={
- *           @ORM\UniqueConstraint(name="author_ids", columns={"litres_hub_id", "document_id"})
- *     },
- *     indexes={
- *          @ORM\Index(name="author_search", columns={"document_id"})
+ *           @ORM\UniqueConstraint(name="author_ids", columns={"document_id"})
  *     }
  * )
  */
@@ -43,6 +41,13 @@ class Author
      * @ORM\Column(name="document_id", type="string")
      */
     private $documentId;
+
+    /**
+     * @var ArrayCollection $books
+     *
+     * @ORM\ManyToMany(targetEntity="Book", cascade={"persist", "remove"}, mappedBy="authors", fetch="EXTRA_LAZY")
+     */
+    private $books;
 
     /**
      * @var string $firstName
@@ -99,6 +104,14 @@ class Author
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * Initialize fields
+     */
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -316,6 +329,54 @@ class Author
         $middleName = $this->getMiddleName() ? ' ' . $this->getMiddleName() . ' ' : ' ';
 
         return $this->getFirstName() . $middleName . $this->getLastName();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    /**
+     * @param ArrayCollection $books
+     *
+     * @return Author
+     */
+    public function setBooks($books)
+    {
+        $this->books = $books;
+
+        return $this;
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return Author
+     */
+    public function addBook(Book $book)
+    {
+        if (!$this->books->contains($book)) {
+            $book->addAuthor($this);
+        };
+
+        return $this;
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return Author
+     */
+    public function removeBook(Book $book)
+    {
+        if ($this->books->contains($book)) {
+            $book->removeAuthor($this);
+        };
+
+        return $this;
     }
 
     /**

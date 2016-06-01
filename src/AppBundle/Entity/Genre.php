@@ -15,9 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="genre",
  *     uniqueConstraints={
  *           @ORM\UniqueConstraint(name="genre_ids", columns={"token"})
- *     },
- *     indexes={
- *          @ORM\Index(name="genre_search", columns={"token"})
  *     }
  * )
  */
