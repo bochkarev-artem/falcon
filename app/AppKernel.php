@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\SeoBundle\SonataSeoBundle(),
             new AppBundle\AppBundle(),
             new AdminBundle\AdminBundle(),
         ];

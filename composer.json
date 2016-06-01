@@ -33,7 +33,8 @@
         "sonata-project/admin-bundle": "3.*",
         "sonata-project/doctrine-orm-admin-bundle": "3.*",
         "ext-mbstring": "*",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "sonata-project/seo-bundle": "^2.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",

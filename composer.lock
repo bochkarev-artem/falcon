@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ac619368bf7fb1199d2858a8298deaf8",
-    "content-hash": "f29e1b2e7c4235e034c510066579e19a",
+    "hash": "213c52d3dd393d7df4c54cf1f742f979",
+    "content-hash": "9adae9d053dd50c47acaf88a30d9e874",
     "packages": [
         {
             "name": "cocur/slugify",
@@ -2014,16 +2014,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "3.0.0",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "6555a6d0c6f5d97dcaa9b78f03f86f1cbdee7eaf"
+                "reference": "53850de35eb88ebadeb21ad09487d9edfcd357ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/6555a6d0c6f5d97dcaa9b78f03f86f1cbdee7eaf",
-                "reference": "6555a6d0c6f5d97dcaa9b78f03f86f1cbdee7eaf",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/53850de35eb88ebadeb21ad09487d9edfcd357ed",
+                "reference": "53850de35eb88ebadeb21ad09487d9edfcd357ed",
                 "shasum": ""
             },
             "require": {
@@ -2103,7 +2103,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-05-08 13:14:58"
+            "time": "2016-05-16 23:39:58"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -2307,16 +2307,16 @@
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataDoctrineORMAdminBundle.git",
-                "reference": "9b5f196aedb921c9a6b2b6543ea8d56513821d78"
+                "reference": "0249566cf8a4028ecb45191b0d6bc61dea48d70b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/9b5f196aedb921c9a6b2b6543ea8d56513821d78",
-                "reference": "9b5f196aedb921c9a6b2b6543ea8d56513821d78",
+                "url": "https://api.github.com/repos/sonata-project/SonataDoctrineORMAdminBundle/zipball/0249566cf8a4028ecb45191b0d6bc61dea48d70b",
+                "reference": "0249566cf8a4028ecb45191b0d6bc61dea48d70b",
                 "shasum": ""
             },
             "require": {
@@ -2336,6 +2336,7 @@
                 "sonata-project/admin-bundle-persistency-layer": "1.0.0"
             },
             "require-dev": {
+                "knplabs/knp-menu-bundle": "^2.1.1",
                 "simplethings/entity-audit-bundle": "~0.1",
                 "symfony/phpunit-bridge": "^2.7 || ^3.0"
             },
@@ -2377,7 +2378,7 @@
                 "generator",
                 "sonata"
             ],
-            "time": "2016-05-10 13:25:22"
+            "time": "2016-05-22 09:41:06"
         },
         {
             "name": "sonata-project/exporter",
@@ -2441,6 +2442,74 @@
                 "xls"
             ],
             "time": "2015-11-25 09:33:45"
+        },
+        {
+            "name": "sonata-project/seo-bundle",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sonata-project/SonataSeoBundle.git",
+                "reference": "3b2012e926a615a70efa444f49f6a3bddef4a976"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sonata-project/SonataSeoBundle/zipball/3b2012e926a615a70efa444f49f6a3bddef4a976",
+                "reference": "3b2012e926a615a70efa444f49f6a3bddef4a976",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3 || ^7.0",
+                "sonata-project/block-bundle": "^2.3.9 || ^3.0",
+                "sonata-project/exporter": "^1.2.2",
+                "symfony/framework-bundle": "^2.3 || ^3.0",
+                "symfony/options-resolver": "^2.3 || ^3.0",
+                "twig/twig": "^1.12"
+            },
+            "require-dev": {
+                "guzzle/guzzle": "3.*",
+                "sllh/php-cs-fixer-styleci-bridge": "^2.0",
+                "sonata-project/admin-bundle": "^3.0",
+                "symfony/console": "^2.3 || ^3.0",
+                "symfony/finder": "^2.3 || ^3.0",
+                "symfony/phpunit-bridge": "^2.7 || ^3.0"
+            },
+            "suggest": {
+                "guzzle/guzzle": "3.*",
+                "knplabs/knp-menu-bundle": "Used by the BreadcrumbMenuBuilder"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sonata\\SeoBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sonata Community",
+                    "homepage": "https://github.com/sonata-project/SonataSeoBundle/contributors"
+                },
+                {
+                    "name": "Thomas Rabaix",
+                    "email": "thomas.rabaix@sonata-project.org",
+                    "homepage": "https://sonata-project.org"
+                }
+            ],
+            "description": "Symfony SonataSeoBundle",
+            "homepage": "https://sonata-project.org/bundles/seo",
+            "keywords": [
+                "seo",
+                "sonata"
+            ],
+            "time": "2016-05-12 20:08:58"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3146,16 +3215,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.24.0",
+            "version": "v1.24.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
-                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3566d311a92aae4deec6e48682dc5a4528c4a512",
+                "reference": "3566d311a92aae4deec6e48682dc5a4528c4a512",
                 "shasum": ""
             },
             "require": {
@@ -3203,7 +3272,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-01-25 21:22:18"
+            "time": "2016-05-30 09:11:59"
         },
         {
             "name": "zendframework/zend-code",
@@ -3315,16 +3384,16 @@
     "packages-dev": [
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1bcdf03b068a530ac1962ce671dead356eeba43b"
+                "reference": "fb72ed32f8418db5e7770be1653e62e0d6f5dd3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1bcdf03b068a530ac1962ce671dead356eeba43b",
-                "reference": "1bcdf03b068a530ac1962ce671dead356eeba43b",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/fb72ed32f8418db5e7770be1653e62e0d6f5dd3d",
+                "reference": "fb72ed32f8418db5e7770be1653e62e0d6f5dd3d",
                 "shasum": ""
             },
             "require": {
@@ -3389,7 +3458,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2016-04-03 22:58:34"
+            "time": "2016-05-30 22:24:32"
         },
         {
             "name": "symfony/phpunit-bridge",
