@@ -15,6 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="tag",
  *     uniqueConstraints={
  *           @ORM\UniqueConstraint(name="tag_ids", columns={"litres_id"})
+ *     },
+ *     indexes={
+ *          @ORM\Index(name="tag_search", columns={"litres_id"})
  *     }
  * )
  */

@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="author",
  *     uniqueConstraints={
  *           @ORM\UniqueConstraint(name="author_ids", columns={"litres_hub_id", "document_id"})
+ *     },
+ *     indexes={
+ *          @ORM\Index(name="author_search", columns={"document_id"})
  *     }
  * )
  */

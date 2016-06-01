@@ -16,6 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="book",
  *     uniqueConstraints={
  *           @ORM\UniqueConstraint(name="book_ids", columns={"litres_hub_id"})
+ *     },
+ *     indexes={
+ *          @ORM\Index(name="book_search", columns={"litres_hub_id"})
  *     }
  * )
  */

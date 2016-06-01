@@ -15,6 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  *     name="sequence",
  *     uniqueConstraints={
  *           @ORM\UniqueConstraint(name="sequence_ids", columns={"litres_id"})
+ *     },
+ *     indexes={
+ *          @ORM\Index(name="sequence_search", columns={"litres_id"})
  *     }
  * )
  */
