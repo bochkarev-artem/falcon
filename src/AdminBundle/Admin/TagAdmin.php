@@ -5,13 +5,13 @@
 
 namespace AdminBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class TagAdmin extends Admin
+class TagAdmin extends AbstractAdmin
 {
     /**
      * @param FormMapper $formMapper
@@ -19,9 +19,9 @@ class TagAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id', null, [], ['value_type' => 'show'])
             ->add('litresId')
-            ->add('title')
+            ->add('title', null, ['required' => true])
+
         ;
     }
 

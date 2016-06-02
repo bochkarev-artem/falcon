@@ -5,13 +5,13 @@
 
 namespace AdminBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class BookAdmin extends Admin
+class BookAdmin extends AbstractAdmin
 {
     /**
      * @param FormMapper $formMapper
@@ -19,28 +19,31 @@ class BookAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id', null, [], ['value_type' => 'show'])
             ->add('litresHubId')
             ->add('title')
             ->add('authors', 'sonata_type_model', [
                 'class'    => 'AppBundle\Entity\Author',
                 'expanded' => false,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false,
             ])
             ->add('genres', 'sonata_type_model', [
                 'class'    => 'AppBundle\Entity\Genre',
                 'expanded' => false,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false,
             ])
             ->add('tags', 'sonata_type_model', [
                 'class'    => 'AppBundle\Entity\Tag',
                 'expanded' => false,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false,
             ])
             ->add('sequences', 'sonata_type_model', [
                 'class'    => 'AppBundle\Entity\Sequence',
                 'expanded' => false,
-                'multiple' => true
+                'multiple' => true,
+                'required' => false,
             ])
             ->add('price')
             ->add('cover')

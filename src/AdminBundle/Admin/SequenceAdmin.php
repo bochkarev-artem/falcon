@@ -5,13 +5,13 @@
 
 namespace AdminBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
-class SequenceAdmin extends Admin
+class SequenceAdmin extends AbstractAdmin
 {
     /**
      * @param FormMapper $formMapper
@@ -19,14 +19,15 @@ class SequenceAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id', null, [], ['value_type' => 'show'])
             ->add('litresId')
             ->add('books', 'sonata_type_model', [
-                'class'    => 'AppBundle\Entity\Book',
-                'expanded' => false,
-                'multiple' => true
+                'class'        => 'AppBundle\Entity\Book',
+                'expanded'     => false,
+                'multiple'     => true,
+                'required'     => false,
+                'by_reference' => false,
             ])
-            ->add('name')
+            ->add('name', null, ['required' => true])
             ->add('number')
         ;
     }
