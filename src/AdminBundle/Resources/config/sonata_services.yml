@@ -1,0 +1,51 @@
+services:
+    admin.author:
+        class: AdminBundle\Admin\AuthorAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "label.author" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Author
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
+    admin.genre:
+        class: AdminBundle\Admin\GenreAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.genre" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Genre
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
+    admin.sequence:
+        class: AdminBundle\Admin\SequenceAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.sequence" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Sequence
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
+    admin.tag:
+        class: AdminBundle\Admin\TagAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.tag" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Tag
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
+    admin.book:
+        class: AdminBundle\Admin\BookAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.book" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Book
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
