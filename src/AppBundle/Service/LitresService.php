@@ -284,13 +284,19 @@ class LitresService
     public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
         $skipped = 0;
+        $step    = 0;
         for ($i = 0; $i < 10; $i++) {
             $start = $i * $this->perPage + 1;
             $xml   = $this->getXml($endpoint . "?limit=$start,$this->perPage");
 
             foreach ($xml->{'fb2-book'} as $data) {
+                $step++;
                 $hubId = (string) $data['hub_id'];
-                if ($this->bookRepo->findOneByLitresHubId($hubId)) {
+                if ($book = $this->bookRepo->findOneByLitresHubId($hubId)) {
+                    /** @var Book $book */
+                    echo ">>> " . $book->getId() . " book already exists ($step)\n";
+                    $skipped++;
+
                     continue;
                 }
                 $annotation   = '';
@@ -370,7 +376,7 @@ class LitresService
                 ;
 
                 $this->em->persist($book);
-                echo ">>> " . $book->getId() . " book persisted\n";
+                echo ">>> " . $book->getId() . " book persisted ($step)\n";
 
                 $this->em->flush();
                 $this->em->clear();
