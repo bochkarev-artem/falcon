@@ -367,7 +367,6 @@ class LitresService
                     ->setAnnotation($annotation)
                     ->setLang((string) $titleInfo->lang)
                     ->setDate((string) $titleInfo->date['value'])
-                    ->setDocumentUrl((string) $documentInfo->{'src-url'})
                     ->setDocumentId((string) $documentInfo->id)
                     ->setPublisher((string) $publishInfo->publisher)
                     ->setYearPublished((string) $publishInfo->year)

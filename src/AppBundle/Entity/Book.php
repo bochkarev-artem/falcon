@@ -159,13 +159,6 @@ class Book
     private $lang;
 
     /**
-     * @var string $documentUrl
-     *
-     * @ORM\Column(name="document_url", type="string", nullable=true)
-     */
-    private $documentUrl;
-
-    /**
      * @var string $documentId
      *
      * @ORM\Column(name="document_id", type="string", nullable=true)
@@ -601,26 +594,6 @@ class Book
     public function setFilename($filename)
     {
         $this->filename = $filename;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDocumentUrl()
-    {
-        return $this->documentUrl;
-    }
-
-    /**
-     * @param string $documentUrl
-     *
-     * @return Book
-     */
-    public function setDocumentUrl($documentUrl)
-    {
-        $this->documentUrl = $documentUrl;
 
         return $this;
     }

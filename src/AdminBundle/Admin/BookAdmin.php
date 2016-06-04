@@ -55,7 +55,6 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentUrl')
             ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
@@ -89,7 +88,6 @@ class BookAdmin extends AbstractAdmin
             ->add('documentId')
             ->add('type')
             ->add('title')
-            ->add('documentUrl')
             ->add('rating')
         ;
     }
@@ -105,7 +103,7 @@ class BookAdmin extends AbstractAdmin
             ->add('documentId')
             ->add('type')
             ->add('title')
-            ->add('documentUrl')
+            ->add('publisher')
             ->add('rating')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -140,7 +138,6 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentUrl')
             ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
