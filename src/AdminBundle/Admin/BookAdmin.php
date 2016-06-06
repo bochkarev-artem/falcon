@@ -22,7 +22,7 @@ class BookAdmin extends AbstractAdmin
         $formMapper
             ->add('litresHubId')
             ->add('title')
-            ->add('authors', 'sonata_type_model', [
+            ->add('authors', 'entity', [
                 'class'    => 'AppBundle\Entity\Author',
                 'expanded' => false,
                 'multiple' => true,
@@ -40,7 +40,7 @@ class BookAdmin extends AbstractAdmin
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('sequences', 'sonata_type_model', [
+            ->add('sequences', 'entity', [
                 'class'    => 'AppBundle\Entity\Sequence',
                 'expanded' => false,
                 'multiple' => true,
