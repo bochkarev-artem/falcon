@@ -57,8 +57,8 @@ class SequenceAdmin extends AbstractAdmin
             ->add('number')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
+                    'show'   => array(),
+                    'edit'   => array(),
                     'delete' => array(),
                 )
             ))

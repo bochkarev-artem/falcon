@@ -21,6 +21,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Book
 {
+    const ELECTRONIC_BOOK      = 0;
+    const AUDIO_BOOK           = 1;
+    const MULTIMEDIA_BOOK      = 2;
+    const READER               = 3;
+    const PDF_BOOK             = 4;
+    const PRINT_ON_DEMAND_BOOK = 5;
+    const DB                   = 6;
+    const VIDEO                = 7;
+    const GAME                 = 8;
+    const SOFT                 = 9;
+    const ADOBE_DRM            = 11;
+
     /**
      * @var integer $id
      *

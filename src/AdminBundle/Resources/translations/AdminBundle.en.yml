@@ -4,3 +4,16 @@ label:
     book:     Books
     tag:      Tags
     sequence: Sequences
+
+choice:
+    book0:  Электронная книга
+    book1:  Аудиокнига
+    book2:  Мультимедиа-книга
+    book3:  Устройство для чтения
+    book4:  PDF-книга
+    book5:  Print-on-Demand-книга
+    book6:  База данных
+    book7:  Видео
+    book8:  Компьютерная игра
+    book9:  Софт
+    book11: Книги Gardners (Adobe DRM)
