@@ -21,7 +21,7 @@ class AuthorAdmin extends AbstractAdmin
         $formMapper
             ->add('litresHubId')
             ->add('documentId')
-            ->add('books', 'sonata_type_model', [
+            ->add('books', 'entity', [
                 'class'        => 'AppBundle\Entity\Book',
                 'expanded'     => false,
                 'multiple'     => true,
@@ -66,8 +66,8 @@ class AuthorAdmin extends AbstractAdmin
             ->add('artsCount')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
+                    'show'   => array(),
+                    'edit'   => array(),
                     'delete' => array(),
                 )
             ))

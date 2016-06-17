@@ -61,6 +61,11 @@ class LitresService
     private $perPage = 50;
 
     /**
+     * @var bool $debug
+     */
+    private $debug;
+
+    /**
      * @param EntityManager $em
      * @param Logger        $logger
      */
@@ -77,11 +82,14 @@ class LitresService
 
     /**
      * @param string $param
+     * @param string $debug
      *
      * @return bool
      */
-    public function getData($param)
+    public function getData($param, $debug)
     {
+        $this->debug = $debug == 'y' ? true : false;
+
         switch ($param) {
             case 'books':
                 return $this->getBooksData();
@@ -294,7 +302,9 @@ class LitresService
                 $hubId = (string) $data['hub_id'];
                 if ($book = $this->bookRepo->findOneByLitresHubId($hubId)) {
                     /** @var Book $book */
-                    echo ">>> " . $book->getId() . " book already exists ($step)\n";
+                    if ($this->debug) {
+                        echo ">>> " . $book->getId() . " book already exists ($step)\n";
+                    }
                     $skipped++;
 
                     continue;
@@ -311,7 +321,7 @@ class LitresService
                     if ($author) {
                         $book->addAuthor($author);
                     } else {
-                        if ($this->logger) {
+                        if ($this->logger && $this->debug) {
                             $this->logger->log(
                                 LogLevel::CRITICAL,
                                 sprintf('Author %s not found', $authorId)
@@ -367,7 +377,6 @@ class LitresService
                     ->setAnnotation($annotation)
                     ->setLang((string) $titleInfo->lang)
                     ->setDate((string) $titleInfo->date['value'])
-                    ->setDocumentUrl((string) $documentInfo->{'src-url'})
                     ->setDocumentId((string) $documentInfo->id)
                     ->setPublisher((string) $publishInfo->publisher)
                     ->setYearPublished((string) $publishInfo->year)
@@ -376,14 +385,15 @@ class LitresService
                 ;
 
                 $this->em->persist($book);
-                echo ">>> " . $book->getId() . " book persisted ($step)\n";
-
+                if ($this->debug) {
+                    echo ">>> " . $book->getId() . " book persisted ($step)\n";
+                }
                 $this->em->flush();
                 $this->em->clear();
             }
         }
 
-        if ($this->logger) {
+        if ($this->logger && $this->debug) {
             $numberProcessed = $i * $this->perPage - $skipped;
             $this->logger->log(
                 LogLevel::INFO,
@@ -409,7 +419,7 @@ class LitresService
         try {
             $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
         } catch (\Exception $e) {
-            if ($this->logger) {
+            if ($this->logger && $this->debug) {
                 $this->logger->log(
                     LogLevel::ERROR,
                     sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)

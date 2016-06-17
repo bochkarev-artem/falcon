@@ -5,6 +5,7 @@
 
 namespace AdminBundle\Admin;
 
+use AppBundle\Entity\Book;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -21,7 +22,7 @@ class BookAdmin extends AbstractAdmin
         $formMapper
             ->add('litresHubId')
             ->add('title')
-            ->add('authors', 'sonata_type_model', [
+            ->add('authors', 'entity', [
                 'class'    => 'AppBundle\Entity\Author',
                 'expanded' => false,
                 'multiple' => true,
@@ -39,7 +40,7 @@ class BookAdmin extends AbstractAdmin
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('sequences', 'sonata_type_model', [
+            ->add('sequences', 'entity', [
                 'class'    => 'AppBundle\Entity\Sequence',
                 'expanded' => false,
                 'multiple' => true,
@@ -49,13 +50,15 @@ class BookAdmin extends AbstractAdmin
             ->add('cover')
             ->add('coverPreview')
             ->add('filename')
-            ->add('type')
+            ->add('type', 'choice', [
+                'choices'            => $this->getBookTypeChoices(),
+                'translation_domain' => 'AdminBundle',
+            ])
             ->add('hasTrial')
             ->add('reader')
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentUrl')
             ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
@@ -89,7 +92,6 @@ class BookAdmin extends AbstractAdmin
             ->add('documentId')
             ->add('type')
             ->add('title')
-            ->add('documentUrl')
             ->add('rating')
         ;
     }
@@ -103,14 +105,18 @@ class BookAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('litresHubId')
             ->add('documentId')
-            ->add('type')
+            ->add('type', null, [
+                    'template' => 'AdminBundle:Book:list_book_custom.html.twig',
+                    'widget'   => 'type',
+                ]
+            )
             ->add('title')
-            ->add('documentUrl')
+            ->add('publisher')
             ->add('rating')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
+                    'show'   => array(),
+                    'edit'   => array(),
                     'delete' => array(),
                 )
             ))
@@ -129,7 +135,11 @@ class BookAdmin extends AbstractAdmin
             ->add('cover')
             ->add('coverPreview')
             ->add('filename')
-            ->add('type')
+            ->add('type', null, [
+                    'template' => 'AdminBundle:Book:show_book_custom.html.twig',
+                    'widget'   => 'type',
+                ]
+            )
             ->add('hasTrial')
             ->add('reader')
             ->add('genres')
@@ -140,7 +150,6 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentUrl')
             ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
@@ -149,5 +158,35 @@ class BookAdmin extends AbstractAdmin
             ->add('rating')
             ->add('recensesCount')
         ;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getBookTypeChoices()
+    {
+        return [
+            'choice.book0'  => Book::ELECTRONIC_BOOK,
+            'choice.book1'  => Book::AUDIO_BOOK,
+            'choice.book2'  => Book::MULTIMEDIA_BOOK,
+            'choice.book3'  => Book::READER,
+            'choice.book4'  => Book::PDF_BOOK,
+            'choice.book5'  => Book::PRINT_ON_DEMAND_BOOK,
+            'choice.book6'  => Book::DB,
+            'choice.book7'  => Book::VIDEO,
+            'choice.book8'  => Book::GAME,
+            'choice.book9'  => Book::SOFT,
+            'choice.book11' => Book::ADOBE_DRM,
+        ];
+    }
+
+    /**
+     * @param integer $value
+     *
+     * @return string
+     */
+    public function getBookTypeLabel($value)
+    {
+        return $this->trans(array_search($value, self::getBookTypeChoices()));
     }
 }

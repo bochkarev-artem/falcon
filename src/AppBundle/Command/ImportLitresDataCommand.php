@@ -25,6 +25,7 @@ class ImportLitresDataCommand extends ContainerAwareCommand
             ->setName('app:update-litres-data')
             ->setDescription('Update Litres Data.')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of entity to process. Allowed: "books", "genres"')
+            ->addArgument('debug', InputArgument::OPTIONAL, 'Debug flag. Allowed: "y", "n"', 'y')
         ;
     }
 
@@ -36,8 +37,9 @@ class ImportLitresDataCommand extends ContainerAwareCommand
         $startTime = time();
         $output->writeln("<info>Import data started.</info>");
         $type      = $input->getArgument('type');
+        $debug     = $input->getArgument('debug');
         $litres    = $this->getContainer()->get('litres_service');
-        $result    = $litres->getData($type);
+        $result    = $litres->getData($type, $debug);
         $endTime   = time();
         $totalTime = $endTime - $startTime;
         if ($result) {

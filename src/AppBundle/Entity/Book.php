@@ -21,6 +21,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Book
 {
+    const ELECTRONIC_BOOK      = 0;
+    const AUDIO_BOOK           = 1;
+    const MULTIMEDIA_BOOK      = 2;
+    const READER               = 3;
+    const PDF_BOOK             = 4;
+    const PRINT_ON_DEMAND_BOOK = 5;
+    const DB                   = 6;
+    const VIDEO                = 7;
+    const GAME                 = 8;
+    const SOFT                 = 9;
+    const ADOBE_DRM            = 11;
+
     /**
      * @var integer $id
      *
@@ -157,13 +169,6 @@ class Book
      * @ORM\Column(name="lang", type="string", nullable=true)
      */
     private $lang;
-
-    /**
-     * @var string $documentUrl
-     *
-     * @ORM\Column(name="document_url", type="string", nullable=true)
-     */
-    private $documentUrl;
 
     /**
      * @var string $documentId
@@ -601,26 +606,6 @@ class Book
     public function setFilename($filename)
     {
         $this->filename = $filename;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDocumentUrl()
-    {
-        return $this->documentUrl;
-    }
-
-    /**
-     * @param string $documentUrl
-     *
-     * @return Book
-     */
-    public function setDocumentUrl($documentUrl)
-    {
-        $this->documentUrl = $documentUrl;
 
         return $this;
     }

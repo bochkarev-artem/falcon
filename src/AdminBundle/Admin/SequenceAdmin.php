@@ -20,7 +20,7 @@ class SequenceAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('litresId')
-            ->add('books', 'sonata_type_model', [
+            ->add('books', 'entity', [
                 'class'        => 'AppBundle\Entity\Book',
                 'expanded'     => false,
                 'multiple'     => true,
@@ -57,8 +57,8 @@ class SequenceAdmin extends AbstractAdmin
             ->add('number')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
+                    'show'   => array(),
+                    'edit'   => array(),
                     'delete' => array(),
                 )
             ))
