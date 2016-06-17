@@ -17,13 +17,12 @@ class SiteController extends Controller
 {
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(Request $request)
     {
-//        $litres = $this->get('litres_service');
-//        $litres->getBooksData();
 
-        return $this->render('site/index.html.twig');
+        return $this->render('AppBundle:Site:index.html.twig');
     }
 }

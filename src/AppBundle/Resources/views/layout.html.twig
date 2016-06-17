@@ -1,0 +1,35 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        {% block meta %}
+            <meta name="description" content="{{ meta_data.description|default('meta.description'|trans) }}">
+            <meta name="keywords" content="{{ meta_data.keywords|default('meta.keywords'|trans) }}">
+        {% endblock meta %}
+
+        <title>{% block title %}Falcon library{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        {% block favicons %}
+            <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block analytics %}{% endblock %}
+
+        {%- block header %}
+            {% include 'AppBundle:Header/header.html.twig' %}
+        {%- endblock header %}
+
+        {% block body %}{% endblock %}
+
+        {%- block footer %}
+            {% include 'AppBundle:Footer/footer.html.twig' %}
+        {%- endblock footer %}
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
+{% endspaceless %}
