@@ -2,10 +2,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
+        <meta charset="UTF-8">
         {% block meta %}
             <meta name="description" content="{{ meta_data.description|default('meta.description'|trans) }}">
             <meta name="keywords" content="{{ meta_data.keywords|default('meta.keywords'|trans) }}">
+            <link rel="dns-prefetch" href="">
+            <meta property="og:title" content=""/>
+            <meta property="og:description" content="">
+            <meta name="twitter:title" content=""/>
+            <meta name="twitter:description" content="">
         {% endblock meta %}
 
         <title>{% block title %}Falcon library{% endblock %}</title>
@@ -30,6 +35,7 @@
         {%- endblock footer %}
 
         {% block javascripts %}{% endblock %}
+        {% block counters %}{% endblock %}
     </body>
 </html>
 {% endspaceless %}

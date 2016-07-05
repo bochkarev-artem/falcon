@@ -16,7 +16,7 @@ _sonata_admin:
 
 site_index:
     path: /
-    defaults: { _controller: AppBundle:Site:index }
+    defaults: { _controller: AppBundle:Home:index }
 
 show_book:
     path: /book/show/{id}
