@@ -1,57 +1,51 @@
 <header>
     <div class="header-inner">
         <div class="header-blocks">
-            <div class="falcon-logo"></div>
+            {% block logo %}
+                <div class="logo"></div>
+            {% endblock %}
 
-            <nav class="nav">
-                <ul class="items">
-                    <li class="item"></li>
-                </ul>
-            </nav>
+            {% block search %}
+                <div class="search">
+                    <div class="searchbox"></div>
+                </div>
+            {% endblock %}
 
-            <div class="search">
-                <div class="searchbox"></div>
-            </div>
-            <!-- User panel -->
-            <div class="user-panel"></div>
-            <!-- / User panel -->
+            {% block userMenu %}
+                <div class="user"></div>
+            {% endblock %}
         </div>
     </div>
 
-    <div class="catalog-header-tools">
-        <div class="catalog-all-genres">
-            <div class="link-selector">
-                <div class="link-selector-control">
-                    <span class="link-selector-label">Все жанры</span>
-                </div>
-                <div class="book-classification">
-                    <div class="genres">
-                        <ul class="items">
-                            <li class="item"></li>
-                        </ul>
+    <menu>
+        {% block headerMenu %}
+            <div class="catalog-all-genres">
+                <div class="link-selector">
+                    <div class="link-selector-control">
+                        <span class="label"></span>
+                    </div>
+                    <div class="book-classification">
+                        <div class="genres">
+                            <ul class="items">
+                                <li class="item"></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endblock %}
+    </menu>
 
-        <!-- Breadcrumbs -->
-        <div class="catalog-header-genre">
-            <div class="catalog-header-breadcrumbs">
-                <nav class="breadcrumbs">
-                    <ul itemscope itemtype="http://schema.org/BreadcrumbList" class="items">
-                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="item -home">
-                            <a itemprop="item" href="/">
-                                <span itemprop="name" class="item-name">Главная</span>
-                            </a>
-                            <meta itemprop="position" content="1" />
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="catalog-header-title hyphenate">
-                <h1 class="capitalized">Эротика и секс</h1>
-            </div>
-        </div>
-        <!-- / Breadcrumbs -->
-    </div>
+    <nav class="breadcrumbs">
+        {% block breadcrumbs %}
+            <ul itemscope itemtype="http://schema.org/BreadcrumbList" class="items">
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="item">
+                    <a itemprop="item" href="/">
+                        <span itemprop="name" class="item-name"></span>
+                    </a>
+                    <meta itemprop="position" content="1" />
+                </li>
+            </ul>
+        {% endblock %}
+    </nav>
 </header>

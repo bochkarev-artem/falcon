@@ -1,28 +1,24 @@
 <footer>
     <div class="footer-inner">
-        <!-- First nav column -->
-        <div class="footer-section">
-            <nav class="link-list -dark">
+        {% block footerMenu %}
+            <nav class="link-list">
                 <ul class="items">
                     <li class="item"></li>
                 </ul>
             </nav>
-        </div>
-        <!-- / First nav column -->
-        <!-- Second nav column -->
-        <div class="footer-section">
-            <nav class="link-list -dark">
+            <nav class="link-list">
                 <ul class="items">
                     <li class="item"></li>
                 </ul>
             </nav>
-        </div>
-        <!-- / Second nav column -->
-        <div class="footer-section">
-            <div class="copyright">&copy;&nbsp;2016 Falcon</div>
-            <!-- Social network groups -->
-            <div class="sn-groups"></div>
-            <!-- / Social network groups -->
-        </div>
+        {% endblock %}
+
+        {% block copyright %}
+            <div class="copyright">&copy;</div>
+        {% endblock %}
+
+        {% block copyright %}
+            <div class="social"></div>
+        {% endblock %}
     </div>
 </footer>
