@@ -1,8 +1,12 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
+    {% for genre in genres %}
+        <a href="/genre/{{ genre.id }}">{{ genre.title }}</a>
+        <br>
+    {% endfor %}
     <div class="page">
         <div class="catalog lt-pc">
             <div class="catalog-base">

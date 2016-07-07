@@ -25,17 +25,17 @@
         {% block analytics %}{% endblock %}
 
         {%- block header %}
-            {% include 'AppBundle:Header/header.html.twig' %}
+            {% include '@App/Header/header.html.twig' %}
         {%- endblock header %}
 
         {% block body %}{% endblock %}
 
         {%- block footer %}
-            {% include 'AppBundle:Footer/footer.html.twig' %}
+            {% include '@App/Footer/footer.html.twig' %}
         {%- endblock footer %}
 
-        {% block javascripts %}{% endblock %}
         {% block counters %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
 {% endspaceless %}

@@ -19,9 +19,17 @@ site_index:
     defaults: { _controller: AppBundle:Home:index }
 
 show_book:
-    path: /book/show/{id}
+    path: /book/{id}
     defaults: { _controller: AppBundle:Book:show }
 
 list_book:
-    path: /book/list
+    path: /books
     defaults: { _controller: AppBundle:Book:list }
+
+list_genre:
+    path: /genres
+    defaults: { _controller: AppBundle:Genre:list }
+
+show_genre:
+    path: /genre/{id}
+    defaults: { _controller: AppBundle:Genre:show }

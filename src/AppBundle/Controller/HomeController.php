@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class SiteController
+ * Class HomeController
  * @package AppBundle\Controller
  */
-class SiteController extends Controller
+class HomeController extends Controller
 {
     /**
      * @param Request $request
@@ -23,6 +23,6 @@ class SiteController extends Controller
     public function indexAction(Request $request)
     {
 
-        return $this->render('AppBundle:Site:index.html.twig');
+        return $this->render('AppBundle:Home:index.html.twig');
     }
 }
