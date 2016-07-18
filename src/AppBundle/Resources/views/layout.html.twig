@@ -1,8 +1,8 @@
 {% spaceless %}
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html lang="en">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         {% block meta %}
             <meta name="description" content="{{ meta_data.description|default('meta.description'|trans) }}">
             <meta name="keywords" content="{{ meta_data.keywords|default('meta.keywords'|trans) }}">
@@ -22,20 +22,20 @@
     </head>
 
     <body>
-        {% block analytics %}{% endblock %}
+    {% block analytics %}{% endblock %}
 
-        {%- block header %}
-            {% include '@App/Header/header.html.twig' %}
-        {%- endblock header %}
+    {%- block header %}
+        {% include '@App/Header/header.html.twig' %}
+    {%- endblock header %}
 
-        {% block body %}{% endblock %}
+    {% block body %}{% endblock %}
 
-        {%- block footer %}
-            {% include '@App/Footer/footer.html.twig' %}
-        {%- endblock footer %}
+    {%- block footer %}
+        {% include '@App/Footer/footer.html.twig' %}
+    {%- endblock footer %}
 
-        {% block counters %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block counters %}{% endblock %}
+    {% block javascripts %}{% endblock %}
     </body>
-</html>
+    </html>
 {% endspaceless %}
