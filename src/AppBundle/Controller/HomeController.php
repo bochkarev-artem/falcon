@@ -10,20 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class SiteController
+ * Class HomeController
  * @package AppBundle\Controller
  */
-class SiteController extends Controller
+class HomeController extends Controller
 {
     /**
      * @param Request $request
+     *
      * @return Response
      */
     public function indexAction(Request $request)
     {
-//        $litres = $this->get('litres_service');
-//        $litres->getBooksData();
 
-        return $this->render('site/index.html.twig');
+        return $this->render('AppBundle:Home:index.html.twig');
     }
 }
