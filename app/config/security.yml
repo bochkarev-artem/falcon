@@ -9,7 +9,7 @@ security:
                 users:
                     admin:
                         roles: "ROLE_ADMIN"
-                        password: "$2a$12$XX1KvgB7FaBHUK1XvbnWK.ZC8uAOoVIzBw1o2z2iT/aHVCzwD55M."
+                        password: "$2y$12$Rmyf3TsFUF3Kq6G.iyjk9OHHlfDaPyxBi6ud477dMmUQGIlXtbqLS"
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
