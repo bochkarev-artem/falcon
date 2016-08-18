@@ -3,10 +3,16 @@
 {% block title %}{{ parent() }}{% endblock %}
 
 {% block body %}
-    {% for genre in genres %}
-        <a href="/genre/{{ genre.id }}">{{ genre.title }}</a>
-        <br>
-    {% endfor %}
+    <menu class="genres">
+        <ul>
+            {% for genre in genres if genre.token%}
+                {% if genre.token %}
+                    <li><a href="{{ path('show_genre', {'id': genre.id}) }}">{{ genre.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </menu>
+
     <div class="page">
         <div class="catalog lt-pc">
             <div class="catalog-base">
