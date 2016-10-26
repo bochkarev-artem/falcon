@@ -34,7 +34,8 @@
         "sonata-project/doctrine-orm-admin-bundle": "3.*",
         "ext-mbstring": "*",
         "ext-intl": "*",
-        "sonata-project/seo-bundle": "^2.0"
+        "sonata-project/seo-bundle": "^2.0",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
