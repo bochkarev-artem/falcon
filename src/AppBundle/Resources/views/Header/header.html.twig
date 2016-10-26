@@ -1,40 +1,17 @@
 <header>
-    <div class="header-inner">
-        <div class="header-blocks">
-            {% block logo %}
-                <div class="logo"></div>
-            {% endblock %}
-
-            {% block search %}
-                <div class="search">
-                    <div class="searchbox"></div>
-                </div>
-            {% endblock %}
-
-            {% block userMenu %}
-                <div class="user"></div>
-            {% endblock %}
-        </div>
-    </div>
-
-    <menu>
-        {% block headerMenu %}
-            <div class="catalog-all-genres">
-                <div class="link-selector">
-                    <div class="link-selector-control">
-                        <span class="label"></span>
-                    </div>
-                    <div class="book-classification">
-                        <div class="genres">
-                            <ul class="items">
-                                <li class="item"></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="header-top">
+        {% block logo %}
+            <div class="logo"></div>
         {% endblock %}
-    </menu>
+
+        {% block search %}
+            <div class="search"></div>
+        {% endblock %}
+
+        {% block userMenu %}
+            <div class="user"></div>
+        {% endblock %}
+    </div>
 
     <nav class="breadcrumbs">
         {% block breadcrumbs %}

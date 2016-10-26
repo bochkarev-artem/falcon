@@ -8,15 +8,21 @@ class BookController extends Controller
 {
     public function showAction($id)
     {
-        return $this->render('AppBundle:Book:show.html.twig', [
+        $bookRepo = $this->getDoctrine()->getRepository('AppBundle:Book');
+        $book     = $bookRepo->find($id);
 
+        return $this->render('AppBundle:Book:show.html.twig', [
+            'book' => $book
         ]);
     }
 
     public function listAction()
     {
-        return $this->render('AppBundle:Book:list.html.twig', [
+        $bookRepo = $this->getDoctrine()->getRepository('AppBundle:Book');
+        $books    = $bookRepo->findAll();
 
+        return $this->render('AppBundle:Book:list.html.twig', [
+            'books' => $books
         ]);
     }
 }

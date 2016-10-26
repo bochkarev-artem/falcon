@@ -113,11 +113,17 @@ class LitresService
         $xml    = $this->getXml($endpoint);
         $genres = [];
         foreach ($xml->genre as $genreNode) {
+            $parentGenre = new Genre();
+            $parentTitle = (string) $genreNode['title'];
+            $parentGenre->setTitle($parentTitle);
+            $this->em->persist($parentGenre);
+            $this->em->flush();
+            $parentId = $parentGenre->getId();
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
-                $token = (string) $node['token'];
+                $token = str_replace('_', '-', (string) $node['token']);
                 $title = (string) $node['title'];
-                if(!is_null($token)) {
+                if (!is_null($id)) {
                     /** @var Genre $genre */
                     if ($genre = $this->genreRepo->findOneByToken($token)) {
                         if (!$genre->getTitle()) {
@@ -132,6 +138,7 @@ class LitresService
                             ->setLitresId($id)
                             ->setTitle($title)
                             ->setToken($token)
+                            ->setParentId($parentId)
                         ;
                     }
                     $genres[$token] = $genre;
@@ -335,13 +342,11 @@ class LitresService
                 $genres = [];
                 foreach ($titleInfo->genre as $token) {
                     $token = (string) $token;
-                    $genres[$token] = $token;
+                    $genres[$token] = $token; // To exclude duplicated
                 }
-                if (count($genres)) {
-                    foreach ($genres as $token) {
-                        $genre = $this->getGenre($token);
-                        $book->addGenre($genre);
-                    }
+                foreach ($genres as $token) {
+                    $genre = $this->getGenre($token);
+                    $book->addGenre($genre);
                 }
                 foreach ($data->{'art_tags'}->tag as $tag) {
                     $tag = $this->getTag($tag);
