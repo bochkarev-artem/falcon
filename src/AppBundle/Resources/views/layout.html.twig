@@ -11,10 +11,14 @@
             <meta property="og:description" content="">
             <meta name="twitter:title" content=""/>
             <meta name="twitter:description" content="">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock meta %}
 
         <title>{% block title %}Falcon library{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            {% include '@App/Elements/Header/css.html.twig' %}
+        {% endblock %}
         {% block favicons %}
             <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -22,20 +26,24 @@
     </head>
 
     <body>
+    <div class="kode_wrapper">
+        {%- block header %}
+            {% include '@App/Elements/Header/header.html.twig' %}
+        {%- endblock header %}
+
+        {% block body %}{% endblock %}
+
+        {%- block footer %}
+            {% include '@App/Elements/Footer/footer.html.twig' %}
+        {%- endblock footer %}
+
+        {% block javascripts %}
+            {% include '@App/Elements/Footer/javascript.html.twig' %}
+        {% endblock %}
+    </div>
+
     {% block analytics %}{% endblock %}
-
-    {%- block header %}
-        {% include '@App/Header/header.html.twig' %}
-    {%- endblock header %}
-
-    {% block body %}{% endblock %}
-
-    {%- block footer %}
-        {% include '@App/Footer/footer.html.twig' %}
-    {%- endblock footer %}
-
     {% block counters %}{% endblock %}
-    {% block javascripts %}{% endblock %}
     </body>
     </html>
 {% endspaceless %}

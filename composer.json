@@ -35,7 +35,8 @@
         "ext-mbstring": "*",
         "ext-intl": "*",
         "sonata-project/seo-bundle": "^2.0",
-        "friendsofsymfony/user-bundle": "~2.0@dev"
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "symfony/assetic-bundle": "^2.8"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",

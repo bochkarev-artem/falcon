@@ -1,0 +1,232 @@
+/*
+    ==============================================================
+       SOCIAL BUTTON CSS START
+    ==============================================================
+*/
+.social-1{
+    float: left;
+    width: auto;
+}
+.social-1 li{
+    float: left;
+    width: auto;
+    padding:0; 
+    margin-right: 6px;
+	margin-bottom: 10px;
+}
+.social-1 li:last-child{
+    margin: 0;
+}
+.social-1 li span{
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 700;
+  color: #363636;
+  margin-right: 13px;
+  display: block;
+  padding: 3px 0;
+}
+.social-1 li a{
+    width: 30px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: #999;
+    color: #fff;
+    display: block;
+    font-size: 14px;
+    line-height: 30px;
+    padding:0; 
+    text-align: center;
+}
+/*SOCIAL 2 START*/
+.social-2{
+    display: inline-block;
+    width: auto;
+}
+.social-2 li{
+    display: inline-block;
+    margin-right: 3px;
+}
+.social-2 li:last-child{
+    margin: 0;
+}
+.social-2 li a{
+    width: 36px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    font-size: 14px;
+    color: #dadada;
+    background-color: #efefef;
+    display: block;
+}
+.social-2 li a:hover{
+    color: #fff;
+}
+.social-2 li a:hover i{
+    -webkit-animation-duration: 0.75s;
+    animation-duration: 0.75s;
+    -webkit-animation-name: bounceIn;
+    animation-name: bounceIn;
+}
+@-webkit-keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    -webkit-transform: scale3d(.3, .3, .3);
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1);
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(.9, .9, .9);
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-transform: scale3d(1.03, 1.03, 1.03);
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    -webkit-transform: scale3d(.97, .97, .97);
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+.bg-radius li a{
+  border-radius: 100%;
+  width: 33px;
+  height: 33px;
+  line-height: 33px;
+}
+.bg-trp li a{
+  background: transparent;
+  color: #363636;
+}
+/*social 2 End*/
+.btn-1{
+  display: inline-block;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #fff;
+  background: #313131;
+  padding: 6px 20px 7px;
+  font-family: 'Open Sans', sans-serif;
+}
+.btn-2{
+  display: inline-block;
+  padding: 14px 25px 14px;
+  line-height: 11px;
+  text-transform: uppercase;
+  font-weight: bolder;
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #363636;
+  background: #363636;
+}
+.btn-2:hover{
+  background: #fafafa;
+  border-color: #e1e1e1;
+  color: #555555;
+}
+.btn-3{
+  display: inline-block;
+  padding: 14px 25px 14px;
+  line-height: 11px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #363636;
+  border: 1px solid #363636;
+  background: transparent;
+  font-size: 12px;
+  font-family: 'Raleway', sans-serif;
+}
+.btn-3:hover{
+  color: #fff;
+}
+.lg-btn1{
+  padding:8px 30px 9px; 
+}
+.lg-btn2{
+  padding:18px 30px; 
+}
+.lg-btn3{
+  padding:18px 30px; 
+}
+.sm-btn2{
+  padding: 11px 20px;
+}
+.sm-btn3{
+  padding: 11px 20px;
+}
+.radius-btn{
+  border-radius: 50px;
+}
+/*
+    ==============================================================
+       INPUT AREA CSS START
+    ==============================================================
+*/
+.input-text{
+  float: left;
+  width: 100%;
+}
+.input-text input[type="text"]{
+  float: left;
+  width: 100%;
+}

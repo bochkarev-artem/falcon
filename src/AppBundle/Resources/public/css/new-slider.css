@@ -1,0 +1,227 @@
+/*
+Item Name: jQuery Carousel Evolution
+Author: Mapalla
+Author URI: http://codecanyon.net/user/Mapalla
+Version: 1.0
+*/
+
+/* _______________________________________________ */
+
+/* CONTAINER */
+/* _______________________________________________ */
+
+.carousel {
+    border: medium none;
+    float: left;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+/* _______________________________________________ */
+
+/* SLIDES */
+/* _______________________________________________ */
+
+/* slide container */
+.carousel .slides {
+    border: medium none;
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    position: relative;
+    width: auto;
+}
+
+/* slide item */
+.carousel .slides .slideItem 
+{
+	position :absolute ;
+	cursor :pointer ;
+	overflow : hidden;
+	padding :0;
+	margin :0;
+	border :none;
+}
+
+.carousel .slides .slideItem a
+{
+	display: block ;
+	text-decoration :none;
+	margin :0;
+	padding :0;
+	border :none;
+	outline :none;
+}
+
+.carousel .slides .slideItem img
+{
+	margin :0;
+	padding :0;
+	border :none;
+	width :100%;
+	height :100%;
+}
+
+/* _______________________________________________ */
+
+/* DIRECTION BUTTON */
+/* _______________________________________________ */
+
+.carousel .nextButton
+{
+	position :absolute ;
+	right :10px;
+	top :133px;
+	width :35px;
+	height :35px;	
+	cursor :pointer ;
+	z-index :9999;
+}
+
+.carousel .prevButton
+{
+	position :absolute ;
+	left :10px;
+	top :133px;
+	width :35px;
+	height: 35px;		
+	
+	cursor :pointer ;
+	z-index :9999;
+}
+
+/* _______________________________________________ */
+
+/* NAVIGATION BUTTON */
+/* _______________________________________________ */
+
+/* buttons container */
+.carousel .buttonNav
+{
+	position : relative ;
+	margin :0 auto;
+	z-index :999;
+}
+
+/* numbers */
+.carousel .buttonNav .numbers 
+{
+	position :relative ;
+	float :left ;
+	margin :5px;
+	color : #828282 ;
+	cursor :pointer ;
+	font-weight :bold ;
+	text-decoration :none;
+	font-size :1em;
+	font-family :Arial, Verdana ;
+}
+
+.carousel .buttonNav .numbers:hover
+{
+	color: #000;
+	text-decoration :underline;
+}
+
+.carousel .buttonNav .numberActive
+{
+	background : none;
+	color :#000;
+	cursor :default ;
+}
+
+/* bullets */
+.carousel .buttonNav .bullet
+{
+	position :relative ;
+	float :left ;
+	width :16px;
+	height :16px;
+	
+	margin :5px;
+	float :left ;
+	cursor :pointer ;
+}
+
+.carousel .buttonNav .bullet:hover
+{
+	
+}
+
+.carousel .buttonNav .bulletActive
+{
+	
+	cursor :default ;
+}
+
+/* ____________________________________________________________ */
+
+/* VIDEO */
+/* ____________________________________________________________ */
+
+.carousel .slides .videoOverlay
+{
+	
+}
+
+.carousel .slides .spinner
+{
+	
+}
+
+/* _____________________________ *
+
+/* SHADOW */
+/* _____________________________ */
+
+.carousel .shadow
+{
+	width :100%;
+	height :82px;
+}
+
+.carousel .shadow .shadowLeft
+{
+	
+	width :100px;
+	height :82px;
+	
+	/* fix png problems in ie */
+	
+}
+
+.carousel .shadow .shadowMiddle
+{
+	height :82px;
+	
+	
+	/* fix png problems in ie */
+	
+}
+
+.carousel .shadow .shadowRight
+{
+	width :100px;
+	height :82px;
+	
+	
+	/* fix png problems in ie */
+	
+}
+
+/* ____________________________________________________________ */
+
+/* REFLECTION GRADIENT */
+/* ____________________________________________________________ */
+
+/* gradient color for Opera */
+.carousel .gradient
+{
+	background-image :url(scripts/gradient.svg);
+}
