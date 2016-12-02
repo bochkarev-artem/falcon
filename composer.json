@@ -36,7 +36,9 @@
         "ext-intl": "*",
         "sonata-project/seo-bundle": "^2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "symfony/assetic-bundle": "^2.8"
+        "symfony/assetic-bundle": "^2.8",
+        "leafo/scssphp": "^0.6.6",
+        "patchwork/jsqueeze": "^2.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",

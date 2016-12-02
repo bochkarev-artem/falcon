@@ -16,3 +16,5 @@
 /web/bundles/
 /web/adminer.php
 .idea/
+web/css/
+web/js/

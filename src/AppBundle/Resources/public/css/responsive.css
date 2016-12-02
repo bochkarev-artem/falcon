@@ -4,15 +4,15 @@
 =================================================
 				UP FROM 1200PX
 =================================================
-*/ 
+*/
 @media (min-width: 1200px) {
- 
+
 }
 /*
 =================================================
 			FROM 992PX TO 1199PX
 =================================================
-*/ 
+*/
 @media (min-width: 992px) and (max-width: 1199px) {
 	.nav-dec li a{
 		padding-left: 22px;
@@ -139,7 +139,7 @@
 	.modal-quickview .book-view .thumb #bx-pager a{
 		float:left;
 		width:20%;
-		margin: 0px;
+		margin: 0;
 	}
 	.modal-quickview .modal-content{
 		padding:40px;
@@ -152,10 +152,10 @@
 		width:100%;
 	}
 	.modal-quickview .book-tags li{
-		margin:0px 10px 0px 0px;
+		margin:0 10px 0 0;
 	}
 	.modal-quickview .book-tags li:last-child{
-		margin:0px;
+		margin:0;
 	}
 	.book-view .thumb #bx-pager{
 		width: 100%;
@@ -174,7 +174,7 @@
 		padding-left: 50px;
 		padding-right: 50px;
 	}
-	.blog-meta3 li span{	
+	.blog-meta3 li span{
 		float: none;
 		display: flex;
 	}
@@ -249,7 +249,7 @@
 =================================================
 			FROM 0PX TO 979PX
 =================================================
-*/ 
+*/
 @media (max-width: 991px) {
 	.copy-right2 .brand-icons{
 		display: none;
@@ -395,10 +395,10 @@
 	}
 	.detail-full-width p img{
 		width: 100%;
-		margin:0 0 30px 0; 
+		margin:0 0 30px 0;
 	}
 	.blog-full-width .text p{
-		padding:0 40px; 
+		padding:0 40px;
 	}
 	.blog-full-width .blockquote{
 		padding:150px 40px 125px;
@@ -474,7 +474,7 @@
 		font-size: 15px;
 		bottom: 15px;
 	}
-	.blog-full-width .text .vimeo-dec iframe, 
+	.blog-full-width .text .vimeo-dec iframe,
 	.blog-full-width .text .youtube-dec iframe {
 	    height: 402px;
 	}
@@ -492,7 +492,7 @@
 	.blog-list-page1 .blog-list-style .blog1-hd h5{
 		font-size: 16px;
 		line-height: 14px;
-	} 
+	}
 	.blog-list-page1 .blog1-hd .price-tag sub,
 	.blog-list-page1 .blog-list-style .blog1-hd .price-tag{
 		font-size: 15px;
@@ -504,7 +504,7 @@
 	    margin-bottom: 12px;
 	}
 	.header-2 .logo-wrap{
-		padding:20px 0 14px; 
+		padding:20px 0 14px;
 	}
 	.main-banner2 .banner2-caption{
 		margin-top: -29px;
@@ -615,8 +615,8 @@
 */
 
 @media (min-width: 768px) and (max-width: 979px) {
-	
-  
+
+
 }
 /*
 =================================================
@@ -632,7 +632,7 @@
 		margin-bottom: 10px;
 	}
 	.logo-wrap{
-		padding:20px 0px;
+		padding:20px 0;
 	}
 	.top-bar .pull-right{
 		width: 100%;
@@ -737,7 +737,7 @@
 		padding: 10px 10px;
 	}
 	.books-tab li{
-		margin:0px;
+		margin:0;
 	}
 	.order-bar .text h5 {
 	    font-size: 19px;
@@ -860,7 +860,7 @@
 		width: 100%;
 	}
 	.blog-detail-thumb2 .blog-meta3{
-		padding:17px 0; 
+		padding:17px 0;
 	}
 	.autor-blockquote{
 		text-align: center;
@@ -989,7 +989,7 @@
 		font-size:20px;
 	}
 	.detail-full-width .blockquote{
-		padding:0px 20px;
+		padding:0 20px;
 	}
 	.blog-classic-dec{
 		margin-bottom:30px;
@@ -1019,10 +1019,10 @@
 		padding:19px 30px;
 	}
 	.section, section{
-		padding:30px 0px;
+		padding:30px 0;
 	}
 	.grid-4 .kf-pagination{
-		margin:0px 0px;
+		margin:0 0;
 	}
 	.book-view .thumb #bx-pager{
 		width:100%;
@@ -1030,15 +1030,15 @@
 	.book-view .thumb #bx-pager a{
 		width:33.0%;
 		float:left;
-		margin:0px;
+		margin:0;
 	}
 	.book-fillter .select-menu{
 		margin-bottom:20px;
 	}
 	.books-tab li{
-		margin:0px;
+		margin:0;
 	}
-	
+
 	.modal-quickview{
 		width:95%;
 	}
@@ -1062,16 +1062,16 @@
 		width:100%;
 	}
 	.modal-quickview .input-stepper{
-		margin:0px 0px 20px 0px;
+		margin:0 0 20px 0;
 		width:100%;
 	}
 	.fillter-wrap .slectric-dec{
-		margin:0px 0px 10px 0px;
+		margin:0 0 10px 0;
 	}
 	.slectric-dec .selectric .label{
 		padding:13px 50px 14px 90px;
 	}
-	.grid2-page .grid2-blog .youtube-dec iframe, 
+	.grid2-page .grid2-blog .youtube-dec iframe,
 	.grid2-page .grid2-blog .vimeo-dec iframe{
 		height: 341px;
 	}
@@ -1125,7 +1125,7 @@
 		margin-bottom: 30px;
 	}
 	.header-3-2 .nav-dec2 .cart-wrap{
-		padding-top:17px; 
+		padding-top:17px;
 	}
 	.header-4 .user-dec{
 		display: none;
@@ -1167,7 +1167,7 @@
 	}
 	.top-bar .user-dec {
 	    float: right;
-	    margin:0; 
+	    margin:0;
 	}
 	.wishlist-wrap .dropdown button{
 		float: left;
@@ -1251,7 +1251,7 @@
 	}
 	.tracking-bar .text i{
 		float: none;
-		margin:0 0 5px 0; 
+		margin:0 0 5px 0;
 	}
 	.error-wrap span {
 	    font-size: 130px;
@@ -1297,7 +1297,7 @@
 	.commenting-wrap-1 .heading-1 .btn-2{
 		font-size: 12px;
 		padding-left:10px;
-		padding-right: 10px; 
+		padding-right: 10px;
 	}
 	.commenting-dec figure{
 		margin-bottom: 20px;
@@ -1311,7 +1311,7 @@
 		margin-bottom: 10px;
 	}
 	.blog-detail-wrap{
-		padding:0; 
+		padding:0;
 	}
 	.blog-detail-wrap .blog-detail-thumb,
 	.blog-detail-wrap .blog-detail-thumb2,
@@ -1354,7 +1354,7 @@
 		margin-left: 3px;
 	}
 	.brand-icons li a i{
-		font-size: 20px;	
+		font-size: 20px;
 	}
 	.tbody .produt-name{
 		font-size: 13px;
@@ -1369,7 +1369,7 @@
 		float: right;
 		margin-bottom: 8px;
 	}
-	.blog-list-page .blog-classic .blog-classic-dec .youtube-dec iframe, 
+	.blog-list-page .blog-classic .blog-classic-dec .youtube-dec iframe,
 	.blog-list-page .blog-classic .blog-classic-dec .vimeo-dec iframe{
 		height: 224px;
 	}
@@ -1402,7 +1402,7 @@
 		height: 30px;
 		line-height: 27px;
 	}
-	.grid2-page .grid2-blog .youtube-dec iframe, 
+	.grid2-page .grid2-blog .youtube-dec iframe,
 	.grid2-page .grid2-blog .vimeo-dec iframe{
 		height: 291px;
 	}
@@ -1413,7 +1413,7 @@
 	.blog-list-page1 .list-style-dec .rating{
 		float: right;
 		width: auto;
-		padding: 0; 
+		padding: 0;
 	}
 	.blog-list-page1 .rating-dec small{
 		float: left;

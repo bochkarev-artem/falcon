@@ -39,7 +39,7 @@ Version: 1.0
 }
 
 /* slide item */
-.carousel .slides .slideItem 
+.carousel .slides .slideItem
 {
 	position :absolute ;
 	cursor :pointer ;
@@ -79,7 +79,7 @@ Version: 1.0
 	right :10px;
 	top :133px;
 	width :35px;
-	height :35px;	
+	height :35px;
 	cursor :pointer ;
 	z-index :9999;
 }
@@ -90,8 +90,8 @@ Version: 1.0
 	left :10px;
 	top :133px;
 	width :35px;
-	height: 35px;		
-	
+	height: 35px;
+
 	cursor :pointer ;
 	z-index :9999;
 }
@@ -110,7 +110,7 @@ Version: 1.0
 }
 
 /* numbers */
-.carousel .buttonNav .numbers 
+.carousel .buttonNav .numbers
 {
 	position :relative ;
 	float :left ;
@@ -140,23 +140,21 @@ Version: 1.0
 .carousel .buttonNav .bullet
 {
 	position :relative ;
-	float :left ;
+	float :left;
 	width :16px;
 	height :16px;
-	
 	margin :5px;
-	float :left ;
-	cursor :pointer ;
+	cursor :pointer;
 }
 
 .carousel .buttonNav .bullet:hover
 {
-	
+
 }
 
 .carousel .buttonNav .bulletActive
 {
-	
+
 	cursor :default ;
 }
 
@@ -167,12 +165,12 @@ Version: 1.0
 
 .carousel .slides .videoOverlay
 {
-	
+
 }
 
 .carousel .slides .spinner
 {
-	
+
 }
 
 /* _____________________________ *
@@ -188,40 +186,29 @@ Version: 1.0
 
 .carousel .shadow .shadowLeft
 {
-	
+
 	width :100px;
 	height :82px;
-	
+
 	/* fix png problems in ie */
-	
+
 }
 
 .carousel .shadow .shadowMiddle
 {
 	height :82px;
-	
-	
+
+
 	/* fix png problems in ie */
-	
+
 }
 
 .carousel .shadow .shadowRight
 {
 	width :100px;
 	height :82px;
-	
-	
+
+
 	/* fix png problems in ie */
-	
-}
 
-/* ____________________________________________________________ */
-
-/* REFLECTION GRADIENT */
-/* ____________________________________________________________ */
-
-/* gradient color for Opera */
-.carousel .gradient
-{
-	background-image :url(scripts/gradient.svg);
 }

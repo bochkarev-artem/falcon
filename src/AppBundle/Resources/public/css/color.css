@@ -82,7 +82,7 @@ p em,
 .book-tags li a:hover,
 .book-heading h3:hover a,
 .banner2-pager i,
-.tags-1 li span:hover, 
+.tags-1 li span:hover,
 .tags-1 li a:hover,
 .testimonial-dec .text a:hover,
 .copy-right p a:hover,
@@ -105,10 +105,10 @@ p em,
 .header-3 .nav-search .input-dec2 input[type="text"]:focus,
 .header-4 .input-dec2 input[type="text"]:focus,
 .brand-icons li a:hover i,
-.cart-wrap .cart i:hover, 
+.cart-wrap .cart i:hover,
 .cart-wrap > a:hover i,
 .input-dec input[type="text"]:focus
-{	
+{
 	color: #fea422;
 }
 /*
@@ -391,7 +391,7 @@ p em,
 .book-tags li a,
 .book-heading h3 a,
 .zoomer,
-.tags-1 li span, 
+.tags-1 li span,
 .tags-1 li a,
 .testimonial-slider .bx-wrapper .bx-controls-direction a,
 .nav-dec > li ul,
@@ -426,7 +426,6 @@ p em,
  {
 	transition: all 0.3s ease-in-out;
 	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
 }

@@ -16,9 +16,31 @@
         {% endblock meta %}
 
         <title>{% block title %}Falcon library{% endblock %}</title>
+
         {% block stylesheets %}
-            {% include '@App/Elements/Header/css.html.twig' %}
+            {% stylesheets
+                'bundles/app/css/bootstrap.min.css'
+                'bundles/app/css/owl.carousel.css'
+                'bundles/app/css/new-slider.css'
+                'bundles/app/css/prettyPhoto.css'
+                'bundles/app/css/jquery.bxslider.css'
+                'bundles/app/css/font-awesome.min.css'
+                'bundles/app/css/svg.css'
+                'bundles/app/css/widget.css'
+                'bundles/app/css/typography.css'
+                'bundles/app/css/shortcodes.css'
+                'bundles/app/css/style.css'
+                'bundles/app/css/range-slider.css'
+                'bundles/app/css/color.css'
+                'bundles/app/css/selectric.css'
+                'bundles/app/css/jquery.sidr.dark.css'
+                'bundles/app/js/dl-menu/component.css'
+                'bundles/app/css/responsive.css'
+                filter='cssrewrite' filter='scssphp' output='css/styles.css' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
         {% endblock %}
+
         {% block favicons %}
             <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -38,7 +60,27 @@
         {%- endblock footer %}
 
         {% block javascripts %}
-            {% include '@App/Elements/Footer/javascript.html.twig' %}
+            {% javascripts
+                'bundles/app/js/jquery.js'
+                'bundles/app/js/bootstrap.min.js'
+                'bundles/app/js/range-slider.js'
+                'bundles/app/js/jquery.bxslider.min.js'
+                'bundles/app/js/owl.carousel.min.js'
+                'bundles/app/js/new-slider.min.js'
+                'bundles/app/js/jquery.prettyPhoto.js'
+                'bundles/app/js/jquery.downCount.js'
+                'bundles/app/js/waypoints-min.js'
+                'bundles/app/js/jquery.selectric.min.js'
+                'bundles/app/js/jquery.accordion.js'
+                'bundles/app/js/jprogress.js'
+                'bundles/app/js/dl-menu/modernizr.custom.js'
+                'bundles/app/js/dl-menu/jquery.dlmenu.js'
+                'bundles/app/js/jquery.sidr.min.js'
+                'bundles/app/js/masonry.min.js'
+                'bundles/app/js/custom.js'
+                filter='?jsqueeze' output='js/scripts.js' %}
+                <script src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
     </div>
 

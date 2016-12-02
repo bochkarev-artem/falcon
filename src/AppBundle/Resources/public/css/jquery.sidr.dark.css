@@ -101,14 +101,14 @@
 }
 
 .sidr .kf-sidebar h2{
-	padding:0px;
+	padding:0;
 	background:none;
 	text-transform:capitalize;
 	font-size:18px;
 	box-shadow:none;
 }
 .sidr .kf-sidebar form {
-	margin:0px
+	margin:x
 }
 .sidr label {
 	font-size: 13px
@@ -141,7 +141,7 @@
 
 
 .sidr .widget-tag-cloud ul li{
-	margin: 0px 0px 5px 5px;
+	margin: 0 0 5px 5px;
 
 }
 

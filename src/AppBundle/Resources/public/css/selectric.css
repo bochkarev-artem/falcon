@@ -7,7 +7,7 @@
 	border-radius: 3px;
 	border: 1px solid #fae5e5;
 	min-height: 48px;
-	width: 100%;	
+	width: 100%;
 	background-color:#fff;
 	float:left;
 }
@@ -24,11 +24,11 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	margin: 0px;
+	margin: 0;
 	font-size: 14px;
 	line-height: 44px;
 	height: 44px;
-	padding:0px 20px;
+	padding:0 20px;
 	color:#666;
 	text-align:left;
 	width:100%;
@@ -80,7 +80,6 @@
 .selectric-hide-select {
 	position: relative;
 	overflow: hidden;
-	width: 0;
 	height: 0;
 	float:left;
 	width:100%;
@@ -102,7 +101,7 @@
 	height: 1px !important;
 	outline: none !important;
 	border: none !important;
- *font: 0/0 a !important;
+    font: 0/0 a !important;
 	background: none !important;
 }
 .selectric-temp-show {
@@ -143,7 +142,7 @@
 	color: #666;
 	cursor: pointer;
 	background-color:#fff;
-	border-radius:0px !important;
+	border-radius:0 !important;
 	font-size:14px;
 }
 .selectric-items li.selected {

@@ -249,7 +249,7 @@
     margin-bottom: 3px;
 }
 .contact-ft .text em:last-child{
-	margin: 0; 
+	margin: 0;
 }
 .contact-ft .text em small{
 	color: #c2c2c2;
@@ -262,7 +262,7 @@
     padding-bottom: 7px;
 }
 .contact-ft .text a:last-child{
-	margin: 0; 
+	margin: 0;
 }
 .contact-ft .social-1 li a{
 	width: 32px;
@@ -290,13 +290,13 @@
 	width: 100%;
 }
 .wid-slider .bx-wrapper {
-    margin: 0 auto 0px;
+    margin: 0 auto 0;
 }
 .wid-slider .bx-wrapper .bx-viewport {
     background: transparent;
     border:none;
     box-shadow:none;
-    left: 0px;
+    left: 0;
 }
 .wid-slider .bx-pager.bx-default-pager a.active {
     border-radius: 100%;
