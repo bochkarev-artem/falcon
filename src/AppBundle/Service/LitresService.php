@@ -163,7 +163,7 @@ class LitresService
      * @param string $endpoint
      *
      * @throws \ErrorException
-     * @return Author
+     * @return Author|boolean
      */
     public function getAuthorData($documentId, $endpoint = 'http://robot.litres.ru/pages/catalit_persons/')
     {

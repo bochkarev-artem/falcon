@@ -48,41 +48,41 @@
     </head>
 
     <body>
-    <div class="kode_wrapper">
-        {%- block header %}
-            {% include '@App/Elements/Header/header.html.twig' %}
-        {%- endblock header %}
+        <div class="kode_wrapper">
+            {%- block header %}
+                {% include '@App/Elements/Header/header.html.twig' %}
+            {%- endblock header %}
 
-        {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
 
-        {%- block footer %}
-            {% include '@App/Elements/Footer/footer.html.twig' %}
-        {%- endblock footer %}
+            {%- block footer %}
+                {% include '@App/Elements/Footer/footer.html.twig' %}
+            {%- endblock footer %}
 
-        {% block javascripts %}
-            {% javascripts
-                'bundles/app/js/jquery.js'
-                'bundles/app/js/bootstrap.min.js'
-                'bundles/app/js/range-slider.js'
-                'bundles/app/js/jquery.bxslider.min.js'
-                'bundles/app/js/owl.carousel.min.js'
-                'bundles/app/js/new-slider.min.js'
-                'bundles/app/js/jquery.prettyPhoto.js'
-                'bundles/app/js/jquery.downCount.js'
-                'bundles/app/js/waypoints-min.js'
-                'bundles/app/js/jquery.selectric.min.js'
-                'bundles/app/js/jquery.accordion.js'
-                'bundles/app/js/jprogress.js'
-                'bundles/app/js/dl-menu/modernizr.custom.js'
-                'bundles/app/js/dl-menu/jquery.dlmenu.js'
-                'bundles/app/js/jquery.sidr.min.js'
-                'bundles/app/js/masonry.min.js'
-                'bundles/app/js/custom.js'
-                filter='?jsqueeze' output='js/scripts.js' %}
-                <script src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-    </div>
+            {% block javascripts %}
+                {% javascripts
+                    'bundles/app/js/jquery.js'
+                    'bundles/app/js/bootstrap.min.js'
+                    'bundles/app/js/range-slider.js'
+                    'bundles/app/js/jquery.bxslider.min.js'
+                    'bundles/app/js/owl.carousel.min.js'
+                    'bundles/app/js/new-slider.min.js'
+                    'bundles/app/js/jquery.prettyPhoto.js'
+                    'bundles/app/js/jquery.downCount.js'
+                    'bundles/app/js/waypoints-min.js'
+                    'bundles/app/js/jquery.selectric.min.js'
+                    'bundles/app/js/jquery.accordion.js'
+                    'bundles/app/js/jprogress.js'
+                    'bundles/app/js/dl-menu/modernizr.custom.js'
+                    'bundles/app/js/dl-menu/jquery.dlmenu.js'
+                    'bundles/app/js/jquery.sidr.min.js'
+                    'bundles/app/js/masonry.min.js'
+                    'bundles/app/js/custom.js'
+                    filter='?jsqueeze' output='js/scripts.js' %}
+                    <script src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+            {% endblock %}
+        </div>
 
     {% block analytics %}{% endblock %}
     {% block counters %}{% endblock %}
