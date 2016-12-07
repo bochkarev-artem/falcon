@@ -1,3 +1,6 @@
 meta:
-    description: Meta description
-    keywords: Meta keywords
+    description: Описание
+    keywords: Ключевые слова
+
+front:
+    genres: Жанры
