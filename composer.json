@@ -53,10 +53,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
             "rm -rf web/compiled/*",
+            "mkdir web/compiled/css/",
+            "mkdir web/compiled/images/",
             "cp -R web/bundles/app/images/ web/compiled/",
             "cp -R web/bundles/app/fonts/ web/compiled/",
-            "mkdir web/compiled/css/",
-            "cp -R web/bundles/app/css/images/ web/compiled/css/images/"
+            "cp -R web/bundles/app/css/images/ web/compiled/css/images/",
+            "rm -rf web/bundles/app/"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -66,10 +68,12 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
             "rm -rf web/compiled/*",
+            "mkdir web/compiled/images/",
+            "mkdir web/compiled/css/",
             "cp -R web/bundles/app/images/ web/compiled/",
             "cp -R web/bundles/app/fonts/ web/compiled/",
-            "mkdir web/compiled/css/",
-            "cp -R web/compiled/app/css/images/ web/compiled/css/images/"
+            "cp -R web/compiled/app/css/images/ web/compiled/css/images/",
+            "rm -rf web/bundles/app/"
         ],
         "compile": [
             "bin/console assetic:dump --env=dev"
