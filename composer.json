@@ -74,7 +74,7 @@
             "rm -rf web/bundles/app/"
         ],
         "compile": [
-            "bin/console assetic:dump"
+            "bin/console assetic:dump --env=dev"
         ]
     },
     "config": {
