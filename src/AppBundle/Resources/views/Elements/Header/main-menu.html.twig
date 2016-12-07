@@ -3,7 +3,7 @@
     <div class="container">
         <!--LOGO DEC START-->
         <div class="logo-dec">
-            <a href=""><img src="{{ asset('bundles/app/images/logo.png') }}" alt=""/></a>
+            <a href=""><img src="{{ asset('compiled/images/logo.png') }}" alt=""/></a>
         </div>
         <!--LOGO DEC END-->
         <!--SEARCH WRAP START-->
@@ -91,7 +91,7 @@
                     <ul>
                         <li>
                             <div class="thumb">
-                                <a href="#"><img src="{{ asset('bundles/app/images/extra-images/cart.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('compiled/images/extra-images/cart.jpg') }}" alt=""></a>
                             </div>
                             <div class="text">
                                 <span>Book Name</span>
@@ -101,7 +101,7 @@
                         </li>
                         <li>
                             <div class="thumb">
-                                <a href="#"><img src="{{ asset('bundles/app/images/extra-images/cart.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('compiled/images/extra-images/cart.jpg') }}" alt=""></a>
                             </div>
                             <div class="text">
                                 <span>Book Name</span>
@@ -111,7 +111,7 @@
                         </li>
                         <li>
                             <div class="thumb">
-                                <a href="#"><img src="{{ asset('bundles/app/images/extra-images/cart.jpg') }}" alt=""></a>
+                                <a href="#"><img src="{{ asset('compiled/images/extra-images/cart.jpg') }}" alt=""></a>
                             </div>
                             <div class="text">
                                 <span>Book Name</span>
@@ -134,296 +134,58 @@
 <!--NAVIGATION WRAP START-->
 <div class="container">
     <div class="navigation-wrap">
-        <!--CATEGORIES WRAP START-->
+        <!--GENRES WRAP START-->
         <div class="categories-menu">
             <span>CATEGORIES</span>
             <i class="fa fa-reorder show"></i>
             <ul class="categories-ul">
-                <li><a href="#"><i class="fa fa-image"></i>Art & Photography</a>
-                    <!--MEGA MENU START-->
-                    <div class="mega-menu1">
-                        <div class="fetch-book2">
-                            <h4>Featured BOOK</h4>
-                            <figure>
-                                <img src="{{ asset('bundles/app/images/extra-images/featured-4.jpg') }}" alt="">
-                                <figcaption>
-                                    <span class="pricelable">
-                                        <sub>$</sub>29.00
-                                    </span>
-                                </figcaption>
-                            </figure>
-                            <div class="text">
-                                <h6>He LIE TREE</h6>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laud rem.</p>
-                                <a class="btn-1" href="#">read more</a>
-                                <a class="btn-1 active" href="#">purchase</a>
+                {% for parentGenre in parentGenres %}
+                    <li><a href="#"><i class="fa fa-book"></i>{{ parentGenre.title }}</a>
+                        <!--MEGA MENU START-->
+                        <div class="mega-menu1">
+                            <div class="fetch-bookmtea">
+                                <ul>
+                                    <li class="fetch-book2">
+                                        <h4>{{ 'front.genres'|trans }}</h4>
+                                    </li>
+                                    {% set childGenres = genres[parentGenre.id] %}
+                                    {% spaceless %}
+                                    {% for childGenre in childGenres %}
+                                        <li>
+                                            <a href="{{ childGenre.token }}">{{ childGenre.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    {% endspaceless %}
+                                    <li>
+                                        <a href="#">More...</a>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="fetch-bookmtea">
-                            <ul>
-                                <li class="fetch-book2">
-                                    <h4>BIOGRAPHIES</h4>
-                                </li>
-                                <li>
-                                    <a href="#">Historical, Political & Military</a>
-                                </li>
-                                <li>
-                                    <a href="#">Business & Industry</a>
-                                </li>
-                                <li>
-                                    <a href="#">Science, Technology & Medicine</a>
-                                </li>
-                                <li>
-                                    <a href="#">Literary</a>
-                                </li>
-                                <li>
-                                    <a href="#">individual Composers & Musicians, </a>
-                                </li>
-                                <li>
-                                    <a href="#">Specific Bands & Groups</a>
-                                </li>
-                                <li>
-                                    <a href="#">Historical, Political & Military</a>
-                                </li>
-                                <li>
-                                    <a href="#">More...</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--MEGA MENU END-->
-                </li>
-                <li><a href="#"><i class="icon-ascending-line-graphic-of-business-stats"></i>Business & Investing</a>
-                    <!--MEGA MENU START-->
-                    <div class="mega-menu1">
-                        <div class="fetch-bookmtea">
-                            <ul>
-                                <li class="fetch-book2">
-                                    <h4>BIOGRAPHIES</h4>
-                                </li>
-                                <li>
-                                    <a href="#">Historical, Political & Military</a>
-                                </li>
-                                <li>
-                                    <a href="#">Business & Industry</a>
-                                </li>
-                                <li>
-                                    <a href="#">Science, Technology & Medicine</a>
-                                </li>
-                                <li>
-                                    <a href="#">Literary</a>
-                                </li>
-                                <li>
-                                    <a href="#">individual Composers & Musicians, </a>
-                                </li>
-                                <li>
-                                    <a href="#">Specific Bands & Groups</a>
-                                </li>
-                                <li>
-                                    <a href="#">Historical, Political & Military</a>
-                                </li>
-                                <li>
-                                    <a href="#">More...</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="fetch-book2">
-                            <h4>Featured BOOK</h4>
-                            <figure>
-                                <img src="{{ asset('bundles/app/images/extra-images/featured-4.jpg') }}" alt="">
-                                <figcaption>
-					    						<span class="pricelable">
-					    							<sub>$</sub>29.00
-					    						</span>
-                                </figcaption>
-                            </figure>
-                            <div class="text">
-                                <h6>He LIE TREE</h6>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laud rem.</p>
-                                <a class="btn-1" href="#">read more</a>
-                                <a class="btn-1 active" href="#">purchase</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!--MEGA MENU END-->
-                </li>
-                <li><a href="#"><i class="fa fa-user"></i>Biographies</a>
-                    <!--MEGA MENU START-->
-                    <div class="mega-menu1">
-                        <div class="fetch-book2 fetch-bookstyle2">
-                            <h4>Featured BOOK</h4>
-                            <figure>
-                                <img src="{{ asset('bundles/app/images/extra-images/style2.jpg') }}" alt="">
-                                <figcaption>
-                                    <span class="ribbon hot">hot</span>
-                                </figcaption>
-                            </figure>
-                            <div class="text">
-                                <h6>He LIE TREE</h6>
-                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.</p>
-                                <a class="btn-1" href="#">read more</a>
-                                <a class="btn-1 active" href="#">purchase</a>
-                            </div>
-                        </div>
-                        <div class="fetch-bookmtea">
-                            <ul>
-                                <li class="fetch-book2">
-                                    <h4>BIOGRAPHIES</h4>
-                                </li>
-                                <li>
-                                    <a href="#">Historical, Political & Military</a>
-                                </li>
-                                <li>
-                                    <a href="#">Business & Industry</a>
-                                </li>
-                                <li>
-                                    <a href="#">Science, Technology & Medicine</a>
-                                </li>
-                                <li>
-                                    <a href="#">Literary</a>
-                                </li>
-                                <li>
-                                    <a href="#">individual Composers & Musicians, </a>
-                                </li>
-                                <li>
-                                    <a href="#">Specific Bands & Groups</a>
-                                </li>
-                                <li>
-                                    <a href="#">Historical, Political & Military</a>
-                                </li>
-                                <li>
-                                    <a href="#">More...</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--MEGA MENU END-->
-                </li>
-                <li><a href="#"><i class="fa fa-child"></i>Children Books</a>
-                    <!--MEGA MENU START-->
-                    <div class="mega-menu1">
-                        <div class="col-md-4">
-                            <div class="widget widget-accordian">
-                                <div class="widget-padding">
-                                    <!--WIDGET ACCORDIAN START-->
-                                    <div class="side_accordian">
-                                        <div id="section10" class="accordion accordion-close">
-                                            <span>Our Collection</span>
-                                        </div>
-                                        <div class="accordion-content" style="display: none;">
-                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                                        </div>
-                                    </div>
-                                    <!--WIDGET ACCORDIAN END-->
-                                    <!--WIDGET ACCORDIAN START-->
-                                    <div class="side_accordian">
-                                        <div id="section11" class="accordion accordion-close">
-                                            <span>Our Mission</span>
-                                        </div>
-                                        <div class="accordion-content" style="display: none;">
-                                            <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--WIDGET ACCORDIAN END-->
-                                    <!--WIDGET ACCORDIAN START-->
-                                    <div class="side_accordian">
-                                        <div id="section12" class="accordion accordion-close">
-                                            <span>Our Philosophy</span>
-                                        </div>
-                                        <div class="accordion-content" style="display: none;">
-                                            <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--WIDGET ACCORDIAN END-->
-                                    <!--WIDGET ACCORDIAN START-->
-                                    <div class="side_accordian">
-                                        <div id="section13" class="accordion accordion-close">
-                                            <span>Reviews</span>
-                                        </div>
-                                        <div class="accordion-content" style="display: none;">
-                                            <div class="accordion-content">
-                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="fetch-book2">
+                                <h4>Featured BOOK</h4>
+                                <figure>
+                                    {#<img src="{{ asset('compiled/images/extra-images/featured-4.jpg') }}" alt="">#}
+                                    <figcaption>
+                                        <span class="pricelable">
+                                            Genre
+                                        </span>
+                                    </figcaption>
+                                </figure>
+                                <div class="text">
+                                    <h6>He LIE TREE</h6>
+                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laud rem.</p>
+                                    <a class="btn-1" href="#">read more</a>
+                                    <a class="btn-1 active" href="#">purchase</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="widget widget-featured">
-                                <div class="widget-padding">
-                                    <!--FEATURED 3 START-->
-                                    <div class="featured-dec3">
-                                        <figure>
-                                            <img alt="" src="{{ asset('bundles/app/images/extra-images/widget-featured1.jpg') }}">
-                                        </figure>
-                                        <div class="text">
-                                            <div class="rating">
-                                                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                            </div>
-                                            <a href="#">Last Sleep</a>
-                                            <span class="price-tag black">
-															<sub>$</sub>259.95
-														</span>
-                                        </div>
-                                    </div>
-                                    <!--FEATURED 3 END-->
-                                    <!--FEATURED 3 START-->
-                                    <div class="featured-dec3">
-                                        <figure>
-                                            <img alt="" src="{{ asset('bundles/app/images/extra-images/widget-featured2.jpg') }}">
-                                        </figure>
-                                        <div class="text">
-                                            <div class="rating">
-                                                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                            </div>
-                                            <a href="#">Unfriended    </a>
-                                            <span class="price-tag black">
-															<del> $96.00</del>
-															<sub>$</sub>259.95
-														</span>
-                                        </div>
-                                    </div>
-                                    <!--FEATURED 3 END-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="fetch-wrap">
-                                <div class="fetch-book2 fetch-bookstyle2">
-                                    <h4>Featured BOOK</h4>
-                                    <figure>
-                                        <img src="{{ asset('bundles/app/images/extra-images/style2.jpg') }}" alt="">
-                                        <figcaption>
-                                            <span class="ribbon hot">hot</span>
-                                        </figcaption>
-                                    </figure>
-                                    <div class="text">
-                                        <h6>He LIE TREE</h6>
-                                        <p>Sed ut perspiciatis unde ovxxa</p>
-                                        <a class="btn-1" href="#">read more</a>
-                                        <a class="btn-1 active" href="#">purchase</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--MEGA MENU END-->
-                </li>
-                <li><a href="#"><i class="fa fa-university"></i>College Text & Refrences</a></li>
-                <li><a href="#"><i class="fa fa-laptop"></i>Computers & Internet</a></li>
-                <li><a href="#"><i class="fa fa-spoon"></i>Cooking, Food & Wine</a></li>
-                <li><a href="#"><i class="fa fa-book"></i>Educational & Professional</a></li>
-                <li><a href="#"><i class="fa fa-image"></i>Entertainment</a></li>
-                <li><a href="#"><i class="fa fa-newspaper-o"></i>Entrance Exams</a></li>
+                        <!--MEGA MENU END-->
+                    </li>
+                {% endfor %}
                 <li><a href="#">show more categories</a></li>
             </ul>
         </div>
-        <!--CATEGORIES WRAP END-->
+        <!--GENRES WRAP END-->
         <!--NAVIGATION DEC START-->
         <ul class="nav-dec">
             <li>

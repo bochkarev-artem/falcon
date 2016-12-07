@@ -27,9 +27,9 @@ class MainMenuExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
+        return [
             'main_menu' => new \Twig_Function_Method($this, 'getMainMenu'),
-        );
+        ];
     }
 
     /**

@@ -37,8 +37,8 @@
 	left:0;
 	right: 0px;
 	margin: auto;
-	box-shadow: 
-		0 7px 0 #fff, 
+	box-shadow:
+		0 7px 0 #fff,
 		0 14px 0 #fff;
 }
 
@@ -67,7 +67,6 @@
 	font-weight: 300;
 	color: #fff;
 	outline: none;
-	text-transform: capitalize;
 }
 
 .no-touch .dl-menuwrapper li a:hover {
@@ -133,10 +132,10 @@
 	display: none;
 }
 
-/* 
+/*
 When a submenu is openend, we will hide all li siblings.
 For that we give a class to the parent menu called "dl-subview".
-We also hide the submenu link. 
+We also hide the submenu link.
 The opened submenu will get the class "dl-subviewopen".
 All this is done for any sub-level being entered.
 */

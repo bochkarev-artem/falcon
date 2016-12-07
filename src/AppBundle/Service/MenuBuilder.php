@@ -5,6 +5,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Genre;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\DependencyInjection\Container;
@@ -51,6 +52,7 @@ class MenuBuilder
     ) {
         $this->em            = $em;
         $this->container     = $container;
+        $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
         $this->cacheDir      = $cacheDir . '/mainMenuCache';
         $this->cacheFileName = $this->cacheDir . '/mainMenu.html';
     }
@@ -96,67 +98,35 @@ class MenuBuilder
      */
     protected function buildMainMenu()
     {
-        $categories             = $this->getAllGenres();
-//        $productCategoryTree    = $this->buildTreeStructure($productCategories);
+        $genres   = $this->getAllGenres();
+        $menuTree = $this->buildMenuTree($genres);
+
+        $parentGenres = $menuTree[0];
+        unset($menuTree[0]);
 
         return $this->getTemplating()->render(
             'AppBundle:Elements:Header/main-menu.html.twig',
-            array(
-//                'product_tree_categories' => $productCategoryTree,
-//                'menu_genres'             => $this->getMainMenuGenres(array_keys($productCategoryTree)),
-//                'menu_products'           => $this->getMainMenuProducts(),
-            )
+            [
+                'parentGenres' => $parentGenres,
+                'genres'       => $menuTree,
+            ]
         );
     }
 
     /**
-     * @return array
-     */
-    protected function getMainMenuProducts()
-    {
-        $products = [];
-        foreach($products as $product) {
-
-            foreach ($product['featured'] as $featured) {
-                if (
-                    ProductFeatured::TYPE_TOP_MENU == $featured['type']
-                    && ProductFeatured::SCOPE_CATEGORY == $featured['scope']
-                    && isset($featured['scope_id'])
-                ) {
-                    $rootCategoryId            = $featured['scope_id'];
-                    $products[$rootCategoryId] = $product;
-                }
-            }
-        }
-
-        return $products;
-    }
-
-    /**
-     * @param $topLevelCategoryIds
+     * @param Genre[] $genres
      *
-     * @return array
+     * @return Genre[]
      */
-    protected function getMainMenuGenres($topLevelCategoryIds)
+    protected function buildMenuTree($genres)
     {
-        $productQueryParams = new ProductQueryParams();
-        $productQueryParams->setAggregateBrands();
-
-        $categoryBrands = [];
-        foreach ($topLevelCategoryIds as $topLevelCategoryId) {
-            $productQueryParams->setFilterCategories($topLevelCategoryId);
-            $brands = $this->productQueryService
-                ->query($productQueryParams)
-                ->setLocale($this->requestStack->getCurrentRequest()->getLocale())
-                ->getFilters();
-
-            $categoryBrands[$topLevelCategoryId] = isset($brands['brands']['terms']) ? $brands['brands']['terms'] : [];
-            usort($categoryBrands[$topLevelCategoryId], function ($brand1, $brand2) {
-                return strcmp($brand1['term_label'], $brand2['term_label']);
-            });
+        $menuTree = [];
+        foreach ($genres as $genre) {
+            $parentId = $genre->getParentId();
+            $menuTree[$parentId][] = $genre;
         }
 
-        return $categoryBrands;
+        return $menuTree;
     }
 
     /**
@@ -224,7 +194,7 @@ class MenuBuilder
      */
     protected function getAllGenres()
     {
-        $this->em->clear('AppBundle\Entity\Category');
+        $this->em->clear('AppBundle\Entity\Genre');
 
         $categoryRepo = $this->em->getRepository('AppBundle:Genre');
         $qb           = $categoryRepo->createQueryBuilder('g');
@@ -233,30 +203,5 @@ class MenuBuilder
         $categories = $qb->getQuery()->getResult() ?: [];
 
         return $categories;
-    }
-
-    /**
-     * @param array $categories
-     *
-     * @return array
-     */
-    protected function getCategoryIds($categories)
-    {
-        $categoryCount = count($categories);
-        $elasticIds    = [];
-        if ($categoryCount > 0) {
-            $params = new ProductQueryParams();
-            $params
-                ->setAggregateCategoryIds()
-                ->setAggregateCategoryIdsSize($categoryCount)
-                ->setReturnProducts(0)
-            ;
-            $categoryIds = $this->productQueryService->query($params)->getAggregation('category_ids');
-            $elasticIds  = array_map(function (array $category) {
-                return $category['key'];
-            }, $categoryIds['buckets']);
-        }
-
-        return $elasticIds;
     }
 }

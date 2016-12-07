@@ -114,15 +114,17 @@ class LitresService
         $genres = [];
         foreach ($xml->genre as $genreNode) {
             $parentGenre = new Genre();
-            $parentTitle = (string) $genreNode['title'];
+            $parentTitle = $this->mbUcfirst($genreNode['title']);
             $parentGenre->setTitle($parentTitle);
+            $parentGenre->setLitresId(0);
+            $parentGenre->setParentId(0);
             $this->em->persist($parentGenre);
             $this->em->flush();
             $parentId = $parentGenre->getId();
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
                 $token = str_replace('_', '-', (string) $node['token']);
-                $title = (string) $node['title'];
+                $title = $this->mbUcfirst($node['title']);
                 if (!is_null($id)) {
                     /** @var Genre $genre */
                     if ($genre = $this->genreRepo->findOneByToken($token)) {
@@ -156,6 +158,12 @@ class LitresService
         $this->em->clear();
 
         return true;
+    }
+
+    protected function mbUcfirst($str) {
+        $str         = mb_strtolower($str);
+        $firstLetter = mb_strtoupper(mb_substr($str, 0, 1));
+        return $firstLetter . mb_substr($str, 1);
     }
 
     /**

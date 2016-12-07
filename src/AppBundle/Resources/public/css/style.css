@@ -228,7 +228,6 @@ section{
 }
 .heading-4 h2{
 	position: relative;
-	text-transform: capitalize;
 	font-family: 'Raleway', sans-serif;
 	font-weight: bold;
 	line-height:normal;
@@ -249,7 +248,6 @@ section{
 .heading-4 p{
 	font-size: 24px;
 	line-height: normal;
-	text-transform: capitalize;
 	font-family: 'Raleway', sans-serif;
 	color: #363636;
 	margin: 0;
@@ -264,7 +262,6 @@ section{
     font-weight: bolder;
     line-height: 23px;
     padding-bottom: 26px;
-    text-transform: capitalize;
     position: relative;
 }
 .heading-5 h2:before{
@@ -298,14 +295,12 @@ section{
 .heading-inner h2{
 	font-family: 'Raleway', sans-serif;
 	font-weight: bolder;
-	text-transform: capitalize;
 	line-height: 23px;
 	display: inline-block;
 	margin-bottom: 19px;
 }
 .heading-inner span{
 	display: block;
-	text-transform: capitalize;
 }
 .button-wrap{
 	margin-bottom: 30px;
@@ -353,7 +348,6 @@ section{
 	font-style: normal;
 	font-size: 14px;
 	line-height: normal;
-	text-transform: capitalize;
 	color: #959595;
 }
 .lang-wrap{
@@ -389,7 +383,6 @@ section{
    color: #969595;
    line-height: 14px;
    font-size: 14px;
-   text-transform: capitalize;
    font-weight: normal;
    padding: 12px 15px;
    display: block;
@@ -479,7 +472,6 @@ section{
 	font-style: normal;
 	font-size: 14px;
 	line-height: normal;
-	text-transform: capitalize;
 	color: #777;
 	padding: 0 8px;
 	position: relative;
@@ -545,7 +537,6 @@ section{
 	font-size: 14px;
 	line-height: 9px;
 	display: block;
-	text-transform: capitalize;
 	color: #707070;
 }
 /*tags1 wrap END*/
@@ -611,7 +602,6 @@ section{
 	padding: 12px 70px 12px 20px;
 	border: none;
 	font-size: 14px;
-	text-transform: capitalize;
 	height: 44px;
 }
 .text-filed-1 input[type="text"]::-webkit-input-placeholder {color: #707070; opacity: 0.5;}
@@ -890,7 +880,6 @@ section{
 	padding: 11px 15px;
 	float: left;
 	width: 100%;
-	text-transform: capitalize;
 	color: #848484;
 	position: relative;
 	line-height: 13px;
@@ -1052,7 +1041,6 @@ section{
 	padding: 9px 50px 12px;
 	float: left;
 	width: 100%;
-	text-transform: capitalize;
 	color: #848484;
 	position: relative;
 	line-height: 13px;
@@ -1320,7 +1308,6 @@ section{
 .caption-dec h6{
 	font-size: 18px;
 	font-weight: 600;
-	text-transform: capitalize;
 	color: #fff;
 	background-color: #d8d7d7;
 	display: inline-block;
@@ -1886,7 +1873,6 @@ section{
 .featured2-dec .text p{
 	color: #fff;
 	margin-bottom: 14px;
-	text-transform: capitalize;
 	font-weight: normal;
 }
 .shopnow {
@@ -1943,7 +1929,6 @@ section{
     display: inline-block;
     font-size: 16px;
     line-height: 16px;
-    text-transform: capitalize;
     color: #fff;
     padding: 7px 10px;
     background-color: #e64242;
@@ -1956,7 +1941,6 @@ section{
 .featured-style2 .text p{
 	color: #fff;
 	margin-bottom: 23px;
-	text-transform: capitalize;
 	font-weight: normal;
 }
 .featured-style2 .text .shopnow {
@@ -2237,7 +2221,6 @@ section{
 	font-size: 24px;
 	line-height: 24px;
 	color: #fff;
-	text-transform: capitalize;
 	font-weight: normal;
 	font-family: 'Raleway', sans-serif;
 }
@@ -2318,7 +2301,6 @@ section{
 	font-size: 30px;
 	line-height: 30px;
 	color: #29adcd;
-	text-transform: capitalize;
 	font-family: 'Herr Von Muellerhoff', cursive;
 	font-style: normal;
 }
@@ -2487,7 +2469,6 @@ section{
 .blog-meta li{
 	display: inline-block;
 	width: auto;
-	text-transform:capitalize;
 	font-weight: normal;
 	color: #969595;
 	padding: 0 15px;
@@ -2502,7 +2483,6 @@ section{
 	font-weight: normal;
 	color: #969595;
 	margin-left: 5px;
-	text-transform:capitalize;
 }
 .blog-footer{
 	float: left;
@@ -2693,7 +2673,6 @@ section{
 	font-size: 16px;
 	line-height: normal;
 	font-weight: normal;
-	text-transform: capitalize;
 	color: #363636;
 	margin-bottom: 14px;
 	display: block;
@@ -2825,7 +2804,6 @@ section{
 	color: #fff;
 	line-height: 12px;
 	font-weight: 500;
-	text-transform:capitalize;
 }
 .copy-right2{
 	text-align: center;
@@ -2986,7 +2964,6 @@ section{
 	width: 31%;
 	font-size: 14px;
 	color: #cccccc;
-	text-transform: capitalize;
 	line-height: 17px;
 	font-weight: normal;
 	padding:12px 0 15px 20px;
@@ -3135,7 +3112,6 @@ section{
 }
 .tabs-slider-wrap6 .book-tab-dec .text h5,
 .grid-4 .book-tab-dec .text h5{
-	text-transform: capitalize;
 }
 .book-tab-bx{
 	float: left;
@@ -3331,7 +3307,6 @@ section{
 	font-size: 25px;
 	line-height: normal;
 	font-weight: bold;
-	text-transform: capitalize;
 	display: inline-block;
 	padding: 7px 0 0;
 }
@@ -3588,7 +3563,6 @@ section{
     font-size: 14px;
     font-weight: normal;
     line-height: 14px;
-    text-transform: capitalize;
     margin-bottom: 19px;
 }
 .list-style-dec2 .text p{
@@ -3721,7 +3695,6 @@ section{
 }
 .blog-classic-dec .text .blog-meta li,
 .blog-classic-dec .text .blog-meta li a{
-	text-transform: capitalize;
 	color: #cccccc;
 }
 .blog-classic-dec .shopnow{
@@ -3850,7 +3823,6 @@ section{
 	color: #fff;
 	font-size: 30px;
 	line-height: 36px;
-	text-transform: capitalize;
 	font-family: 'Raleway', sans-serif;
 	font-weight: 600;
 	margin-bottom: 20px;
@@ -3861,7 +3833,6 @@ section{
 	font-size: 14px;
 	color: #959595;
 	font-weight: normal;
-	text-transform: capitalize;
 }
 .blog-list-page .blog-classic .blog-classic-dec .youtube-dec iframe ,
 .blog-list-page .blog-classic .blog-classic-dec .vimeo-dec iframe {
@@ -4051,7 +4022,6 @@ section{
 }
 .link-post h3{
 	color: #fff;
-	text-transform: capitalize;
 	font-size: 38px;
 	line-height: 38px;
 	font-weight: 600;
@@ -4112,7 +4082,6 @@ section{
 .error-wrap h4{
 	font-size: 48px;
 	line-height: 48px;
-	text-transform: capitalize;
 	font-weight: 300;
 	color: #555555;
 	margin-bottom: 20px;
@@ -4120,7 +4089,6 @@ section{
 .error-wrap h5{
 	font-size: 30px;
 	line-height: 30px;
-	text-transform: capitalize;
 	font-weight: 300;
 	color: #555555;
 	margin-bottom: 25px;
@@ -4128,7 +4096,6 @@ section{
 .error-wrap h6{
 	font-size: 24px;
 	line-height: 24px;
-	text-transform: capitalize;
 	font-weight: 300;
 	margin-bottom: 102px;
 }
@@ -4295,7 +4262,6 @@ section{
 .tick-mark strong{
 	font-size: 14px;
 	font-weight: bolder;
-	text-transform: capitalize;
 	line-height: 14px;
 	color: #555555;
 }
@@ -4308,7 +4274,6 @@ section{
 .order-table h3{
 	display: block;
 	line-height: 24px;
-	text-transform: capitalize;
 	font-weight: 500;
 	font-family: 'Raleway', sans-serif;
 }
@@ -4393,7 +4358,6 @@ section{
 	float: left;
 	margin: 0;
 	color: #555555;
-	text-transform: capitalize;
 	font-weight: normal;
 }
 .sub-total .price-tag{
@@ -4460,7 +4424,6 @@ section{
 	color: #959595;
 	font-weight: normal;
 	line-height: 14px;
-	text-transform: capitalize;
 }
 .payment-text{
 	float: left;
@@ -4548,7 +4511,6 @@ section{
 .blockquote2 h3{
 	font-weight: 600;
 	font-family: 'Raleway', sans-serif;
-	text-transform: capitalize;
 	position: relative;
 	margin-bottom: 10px;
 }
@@ -4595,7 +4557,6 @@ section{
 	font-size: 24px;
 	line-height: 24px;
 	font-weight: 600;
-	text-transform: capitalize;
 	display: block;
 	font-family: 'Raleway', sans-serif;
 	margin: -3px 0 17px;
@@ -4640,7 +4601,6 @@ section{
 .blog-detail-thumb2 figcaption span{
 	font-size: 12px;
 	color: #cccccc;
-	text-transform: capitalize;
 	line-height: 12px;
 }
 .blog-detail-thumb2 .text{
@@ -4670,7 +4630,6 @@ section{
 .blog-meta3 li span{
 	font-size: 14px;
 	line-height: 18px;
-	text-transform: capitalize;
 	float: left;
 }
 .blog-meta3.green-icon li i{
@@ -4752,13 +4711,11 @@ section{
 	padding:27px 30px 30px;
 }
 .autor-blockquote .text h5{
-	text-transform: capitalize;
 	line-height: 18px;
 	margin-bottom: 7px;
 	font-weight: bold;
 }
 .autor-blockquote .text span{
-	text-transform: capitalize;
 	display: block;
 	line-height: 12px;
 	font-size: 12px;
@@ -4842,7 +4799,6 @@ section{
 	font-size: 40px;
 	line-height: normal;
 	color: #959595;
-	text-transform: capitalize;
 	margin-bottom: 1px;
 }
 .comingsoon-dec h6
@@ -4851,7 +4807,6 @@ section{
 	font-size: 20px;
 	line-height: normal;
 	color: #959595;
-	text-transform: capitalize;
 	margin-bottom: 78px;
 }
 .comingsoon-dec .countdown-wrap{
@@ -4860,7 +4815,6 @@ section{
 .comingsoon-dec .text > p{
 	margin: 0;
 	color: #c2c2c2;
-	text-transform: capitalize;
 	display: inline-block;
 	margin-bottom: 49px;
 }
@@ -5089,7 +5043,6 @@ section{
     line-height: 11px;
     padding: 14px 0px;
     text-align: center;
-    text-transform: capitalize;
     background: #f5f5f5;
 }
 .new-account span{
@@ -5287,7 +5240,6 @@ input:checked + .radio-value {
     font-weight: bold;
     line-height: 18px;
     margin: -3px 0 0;
-    text-transform: capitalize;
 }
 .commenting-hd .reply-btn{
 	float: right;
@@ -5310,7 +5262,6 @@ input:checked + .radio-value {
 	font-size: 12px;
 	line-height: 12px;
 	color: #cccccc;
-	text-transform: capitalize;
 	display: block;
 	float: left;
 	width: 100%;
@@ -5349,7 +5300,6 @@ input:checked + .radio-value {
 	font-size: 14px;
 	line-height: 14px;
 	color: #cccccc;
-	text-transform: capitalize;
    font-family: 'Roboto', sans-serif;
    font-weight: normal;
    margin-top: 3px;
@@ -5363,7 +5313,6 @@ input:checked + .radio-value {
     width: auto;
     font-size: 18px;
     line-height: 18px;
-    text-transform: capitalize;
     color: #363636;
     font-weight: 600;
     font-family: 'Raleway', sans-serif;
@@ -5723,7 +5672,6 @@ p em{
 .featured-author3 .text h5{
 	font-weight: bold;
 	line-height: 18px;
-	text-transform: capitalize;
 	margin-bottom: 8px;
 }
 .featured-author3 .text span{
@@ -5753,7 +5701,6 @@ p em{
     font-size: 24px;
     line-height: normal;
     margin: 0;
-    text-transform: capitalize;
     font-weight: 300;
 }
 .testimonial-dec .thumb {
@@ -5845,7 +5792,6 @@ p em{
 .aside-widget-hd h5{
 	font-weight: 500;
 	line-height: normal;
-	text-transform: capitalize;
 }
 aside .widget{
 	background: #fafafa;
@@ -6032,7 +5978,6 @@ aside .widget{
 	padding:16px 20px 19px;
 	font-size: 14px;
 	line-height: normal;
-	text-transform: capitalize;
 	position: relative;
 }
 .widget-archives ul li a:before{
@@ -6064,7 +6009,6 @@ aside .widget{
 	font-size: 14px;
 	font-weight: normal;
 	color: #959595;
-	text-transform: capitalize;
 	padding:2px 0 5px 20px;
 	display: block;
 	position: relative;
@@ -6208,7 +6152,6 @@ aside .widget{
 	width: 100%;
 	text-align: left;
 	font-size: 14px;
-	text-transform: capitalize;
 	color: #636363;
 	padding: 14px 0;
 	line-height: 20px;
@@ -6357,7 +6300,6 @@ aside .widget{
 	background-color: #f5f5f5;
 	width: 100%;
 	float: left;
-	text-transform: capitalize;
 	border-radius: 4px;
 }
 .input-dec3 input[type="text"]::-webkit-input-placeholder {color: #959595; opacity: 1;}
@@ -6380,7 +6322,6 @@ aside .widget{
 	padding: 20px;
 	font-size: 14px;
 	color: #959595;
-	text-transform: capitalize;
 	resize:none;
 	height: 150px;
 	background-color: #f5f5f5;
@@ -6544,7 +6485,6 @@ aside .widget{
     font-weight: 700;
     line-height: 14px;
     padding: 9px 0;
-    text-transform: capitalize;
     margin-right: 10px;
 }
 .widget-tags ul li a{
@@ -6552,7 +6492,6 @@ aside .widget{
 	font-size: 12px;
 	line-height: normal;
 	color: #959595;
-	text-transform: capitalize;
 	border-radius: 40px;
 	border: 1px solid #ebebeb;
 	padding: 7px 21px 6px;
@@ -6813,7 +6752,6 @@ aside .widget{
   line-height: 12px;
   font-weight: bold;
   color: #fff;
-  text-transform: capitalize;
   padding: 9px 20px 10px;
   position: absolute;
   height: 100%;
@@ -6993,7 +6931,6 @@ aside .widget{
 	font-weight: 500;
 	font-family: 'Raleway', sans-serif;
 	line-height: 28px;
-	text-transform: capitalize;
 	float: left;
 	width: 100%;
 	margin-bottom: 12px;
@@ -7316,7 +7253,6 @@ aside .widget{
 .book-view2 .select-menu .selectric .label{
 	padding-right: 9px;
 	padding-left: 9px;
-	text-transform: capitalize;
 }
 .book-view2 .selectric-items li{
 	font-size: 13px;
@@ -7486,7 +7422,6 @@ aside .kf-pagination{
 	line-height: 14px;
 	color: #707070;
 	padding: 13px 0px;
-	text-transform: capitalize;
 	font-weight: normal;
 	position: relative;
 }

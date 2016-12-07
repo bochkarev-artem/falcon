@@ -51,7 +51,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
+            "cp -R web/bundles/app/images/ web/compiled",
+            "cp -R web/bundles/app/fonts/ web/compiled",
+            "cp -R web/bundles/app/css/images/ web/compiled/css",
+            "rm -rf web/bundles/app/images/",
+            "rm -rf web/bundles/app/fonts/",
+            "rm -rf web/bundles/app/css/",
+            "rm -rf web/bundles/app/js/"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -59,7 +66,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
+            "cp -R web/bundles/app/images/ web/compiled",
+            "cp -R web/bundles/app/fonts/ web/compiled",
+            "cp -R web/bundles/app/css/images/ web/compiled/css",
+            "rm -rf web/bundles/app/images/",
+            "rm -rf web/bundles/app/fonts/",
+            "rm -rf web/bundles/app/css/",
+            "rm -rf web/bundles/app/js/"
         ],
         "compile": [
             "bin/console assetic:dump"
