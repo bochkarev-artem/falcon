@@ -56,8 +56,7 @@
             "cp -R web/bundles/app/images/ web/compiled/",
             "cp -R web/bundles/app/fonts/ web/compiled/",
             "mkdir web/compiled/css/",
-            "cp -R web/bundles/app/css/images/ web/compiled/css/images/",
-            "rm -rf web/bundles/app/"
+            "cp -R web/bundles/app/css/images/ web/compiled/css/images/"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -70,8 +69,7 @@
             "cp -R web/bundles/app/images/ web/compiled/",
             "cp -R web/bundles/app/fonts/ web/compiled/",
             "mkdir web/compiled/css/",
-            "cp -R web/compiled/app/css/images/ web/compiled/css/images/",
-            "rm -rf web/bundles/app/"
+            "cp -R web/compiled/app/css/images/ web/compiled/css/images/"
         ],
         "compile": [
             "bin/console assetic:dump --env=dev"
