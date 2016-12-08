@@ -9,6 +9,10 @@ type: php:7.0
 build:
     flavor: symfony
 
+runtime:
+    extensions:
+        - pdo_pgsql
+
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
