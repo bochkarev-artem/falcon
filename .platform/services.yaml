@@ -1,3 +1,0 @@
-postgresqldb:
-    type: postgresql
-    disk: 2048
