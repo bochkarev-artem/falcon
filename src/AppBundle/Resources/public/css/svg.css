@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('../fonts/icomoon.eot?ul8sw4');
+    src:    url('../fonts/icomoon.eot?ul8sw4#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon.ttf?ul8sw4') format('truetype'),
+        url('../fonts/icomoon.woff?ul8sw4') format('woff'),
+        url('../fonts/icomoon.svg?ul8sw4#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-arrows:before {
+    content: "\e900";
+}
+.icon-ascending-line-graphic-of-business-stats:before {
+    content: "\e901";
+}
+.icon-big-plane .path1:before {
+    content: "\e902";
+    color: rgb(255, 255, 255);
+}
+.icon-big-plane .path2:before {
+    content: "\e903";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+.icon-big-plane .path3:before {
+    content: "\e904";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+.icon-big-plane .path4:before {
+    content: "\e905";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+.icon-big-plane .path5:before {
+    content: "\e906";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+.icon-big-plane .path6:before {
+    content: "\e907";
+    margin-left: -1em;
+    color: rgb(0, 0, 0);
+}
+.icon-black:before {
+    content: "\e908";
+}
+.icon-calendar:before {
+    content: "\e909";
+}
+.icon-calendar-1:before {
+    content: "\e90a";
+}
+.icon-cart-of-ecommerce:before {
+    content: "\e90b";
+}
+.icon-clock:before {
+    content: "\e90c";
+}
+.icon-customer-care:before {
+    content: "\e90d";
+}
+.icon-duty-free-bag:before {
+    content: "\e90e";
+}
+.icon-grid-world:before {
+    content: "\e90f";
+}
+.icon-heart:before {
+    content: "\e910";
+}
+.icon-master-card-logo:before {
+    content: "\e911";
+}
+.icon-moneybox:before {
+    content: "\e912";
+}
+.icon-payoneer-logo:before {
+    content: "\e913";
+}
+.icon-paypal-logo:before {
+    content: "\e914";
+}
+.icon-phone-call:before {
+    content: "\e915";
+}
+.icon-security:before {
+    content: "\e916";
+}
+.icon-send:before {
+    content: "\e917";
+}
+.icon-shopping-cart:before {
+    content: "\e918";
+}
+.icon-skrill-pay-logo:before {
+    content: "\e919";
+}
+.icon-truck-icon:before {
+    content: "\e91a";
+}
+.icon-verification:before {
+    content: "\e91b";
+}
+.icon-visa-pay-logo:before {
+    content: "\e91c";
+}
+

@@ -4,12 +4,8 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory:
-                users:
-                    admin:
-                        roles: "ROLE_ADMIN"
-                        password: "$2a$12$XX1KvgB7FaBHUK1XvbnWK.ZC8uAOoVIzBw1o2z2iT/aHVCzwD55M."
+        fos_userbundle:
+            id: fos_user.user_provider.username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -18,23 +14,31 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            anonymous: true
             http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
             logout:
                 path:   /admin/logout
                 target: /
 
     role_hierarchy:
-            ROLE_ADMIN: [ROLE_SONATA_ADMIN]
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin/, roles: ROLE_ADMIN }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # http://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html
     encoders:
-        Symfony\Component\Security\Core\User\User:
+        FOS\UserBundle\Model\UserInterface:
             algorithm: bcrypt
             cost: 12

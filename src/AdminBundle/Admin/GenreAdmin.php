@@ -33,6 +33,7 @@ class GenreAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('litresId')
+            ->add('parentId')
             ->add('title')
             ->add('token')
         ;
@@ -46,6 +47,7 @@ class GenreAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('id')
             ->add('litresId')
+            ->add('parentId')
             ->add('title')
             ->add('token')
             ->add('_action', 'actions', array(

@@ -37,11 +37,25 @@ class Genre
     private $litresId;
 
     /**
+     * @var int $parentId
+     *
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
+     */
+    private $parentId;
+
+    /**
      * @var string $title
      *
      * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
+
+    /**
+     * @var string $description
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * @var string $token
@@ -114,6 +128,46 @@ class Genre
     public function setLitresId($litresId)
     {
         $this->litresId = $litresId;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
+     * @param int $parentId
+     *
+     * @return Genre
+     */
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return Genre
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }

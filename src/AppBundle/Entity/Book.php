@@ -299,7 +299,7 @@ class Book
     }
 
     /**
-     * @return Genre
+     * @return ArrayCollection
      */
     public function getGenres()
     {
@@ -319,7 +319,7 @@ class Book
     }
 
     /**
-     * @return Author
+     * @return ArrayCollection
      */
     public function getAuthors()
     {
@@ -355,7 +355,7 @@ class Book
     }
 
     /**
-     * @return Sequence
+     * @return ArrayCollection
      */
     public function getSequences()
     {
@@ -671,7 +671,7 @@ class Book
     }
 
     /**
-     * @return Tag
+     * @return ArrayCollection
      */
     public function getTags()
     {

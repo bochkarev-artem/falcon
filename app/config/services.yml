@@ -13,3 +13,21 @@ services:
         arguments:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
+
+    twig.main_menu:
+        class: AppBundle\Twig\MainMenuExtension
+        public: false
+        arguments:
+            - "@menu_builder"
+        tags:
+            - { name: twig.extension }
+
+    menu_builder:
+        class: AppBundle\Service\MenuBuilder
+        tags:
+            - { name: kernel.event_listener, event: menu.cache_reset, method: resetCache }
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - "@service_container"
+            - "%kernel.cache_dir%"
+        lazy: true

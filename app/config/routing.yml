@@ -2,6 +2,9 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
 admin:
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
     prefix: /admin
@@ -16,4 +19,20 @@ _sonata_admin:
 
 site_index:
     path: /
-    defaults: { _controller: AppBundle:Site:index }
+    defaults: { _controller: AppBundle:Home:index }
+
+show_book:
+    path: /book/{id}
+    defaults: { _controller: AppBundle:Book:show }
+
+list_book:
+    path: /books
+    defaults: { _controller: AppBundle:Book:list }
+
+list_genre:
+    path: /genres
+    defaults: { _controller: AppBundle:Genre:list }
+
+show_genre:
+    path: /genre/{id}
+    defaults: { _controller: AppBundle:Genre:show }

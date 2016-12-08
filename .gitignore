@@ -15,4 +15,5 @@
 /vendor/
 /web/bundles/
 /web/adminer.php
-.idea/*
+.idea/
+web/compiled/

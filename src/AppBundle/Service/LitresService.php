@@ -113,11 +113,19 @@ class LitresService
         $xml    = $this->getXml($endpoint);
         $genres = [];
         foreach ($xml->genre as $genreNode) {
+            $parentGenre = new Genre();
+            $parentTitle = $this->mbUcfirst($genreNode['title']);
+            $parentGenre->setTitle($parentTitle);
+            $parentGenre->setLitresId(0);
+            $parentGenre->setParentId(0);
+            $this->em->persist($parentGenre);
+            $this->em->flush();
+            $parentId = $parentGenre->getId();
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
-                $token = (string) $node['token'];
-                $title = (string) $node['title'];
-                if(!is_null($token)) {
+                $token = str_replace('_', '-', (string) $node['token']);
+                $title = $this->mbUcfirst($node['title']);
+                if (!is_null($id)) {
                     /** @var Genre $genre */
                     if ($genre = $this->genreRepo->findOneByToken($token)) {
                         if (!$genre->getTitle()) {
@@ -132,6 +140,7 @@ class LitresService
                             ->setLitresId($id)
                             ->setTitle($title)
                             ->setToken($token)
+                            ->setParentId($parentId)
                         ;
                     }
                     $genres[$token] = $genre;
@@ -151,12 +160,18 @@ class LitresService
         return true;
     }
 
+    protected function mbUcfirst($str) {
+        $str         = mb_strtolower($str);
+        $firstLetter = mb_strtoupper(mb_substr($str, 0, 1));
+        return $firstLetter . mb_substr($str, 1);
+    }
+
     /**
      * @param string $documentId
      * @param string $endpoint
      *
      * @throws \ErrorException
-     * @return Author
+     * @return Author|boolean
      */
     public function getAuthorData($documentId, $endpoint = 'http://robot.litres.ru/pages/catalit_persons/')
     {
@@ -335,13 +350,11 @@ class LitresService
                 $genres = [];
                 foreach ($titleInfo->genre as $token) {
                     $token = (string) $token;
-                    $genres[$token] = $token;
+                    $genres[$token] = $token; // To exclude duplicated
                 }
-                if (count($genres)) {
-                    foreach ($genres as $token) {
-                        $genre = $this->getGenre($token);
-                        $book->addGenre($genre);
-                    }
+                foreach ($genres as $token) {
+                    $genre = $this->getGenre($token);
+                    $book->addGenre($genre);
                 }
                 foreach ($data->{'art_tags'}->tag as $tag) {
                     $tag = $this->getTag($tag);

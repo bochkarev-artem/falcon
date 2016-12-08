@@ -1,0 +1,80 @@
+<!-- register Modal -->
+<div class="modal fade" id="reg-box" tabindex="-1" role="dialog">
+    <div class="modal-dialog login1">
+        <div class="modal-content">
+            <div class="user-box">
+                <!--FORM FIELD START-->
+                <form>
+                    <div class="input-dec3">
+                        <input type="text" placeholder="E-mail">
+                        <i class="fa fa-envelope-o"></i>
+                    </div>
+                    <div class="input-dec3">
+                        <input type="text" placeholder="Password">
+                        <i class="fa fa-envelope-o"></i>
+                    </div>
+                    <div class="dialog-footer">
+                        <button class="dialog-button">Register</button>
+                    </div>
+                </form>
+                <!--FORM FIELD END-->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- register Modal end-->
+
+<!-- SIGNIN MODEL START -->
+<div class="modal fade" id="signin-box" tabindex="-1" role="dialog">
+    <div class="modal-dialog login1">
+        <div class="modal-content">
+            <div class="user-box">
+                <!--FORM FIELD START-->
+                <form>
+                    <div class="input-dec3">
+                        <input type="text" placeholder="E-mail">
+                        <i class="fa fa-envelope-o"></i>
+                    </div>
+                    <div class="input-dec3">
+                        <input type="text" placeholder="Password">
+                        <i class="fa fa-envelope-o"></i>
+                    </div>
+                    <div class="dialog-footer">
+                        <button class="dialog-button">Login</button>
+                        <a href="#">Forgot Password<i class="fa fa-question-circle"></i></a>
+                    </div>
+                </form>
+                <!--FORM FIELD END-->
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- SIGNIN MODEL END -->
+<!--HEADER START-->
+<header class="header-1">
+    <!--TOP BAR START START-->
+    <div class="top-bar">
+        <div class="container">
+            <div class="pull-right">
+                <div class="user-wrap">
+                    <div class="user-dec">
+                        <i class="fa fa-sign-in"></i>
+                        <a href="#" data-toggle="modal" data-target="#signin-box">Sign In</a>
+                        <a href="#" data-toggle="modal" data-target="#reg-box">Register</a>
+                    </div>
+                </div>
+                <ul class="social-1">
+                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google"></i></a></li>
+                    <li><a href="#"><i class="fa fa-yahoo"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--TOP BAR END-->
+    {{ main_menu()|raw }}
+</header>
+<!--HEADER END-->

@@ -34,7 +34,11 @@
         "sonata-project/doctrine-orm-admin-bundle": "3.*",
         "ext-mbstring": "*",
         "ext-intl": "*",
-        "sonata-project/seo-bundle": "^2.0"
+        "sonata-project/seo-bundle": "^2.0",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "symfony/assetic-bundle": "^2.8",
+        "leafo/scssphp": "^0.6.6",
+        "patchwork/jsqueeze": "^2.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
@@ -47,7 +51,15 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
+            "rm -rf web/compiled/",
+            "mkdir web/compiled/",
+            "mkdir web/compiled/images/",
+            "mkdir web/compiled/css/",
+            "cp -R web/bundles/app/images/ web/compiled/",
+            "cp -R web/bundles/app/fonts/ web/compiled/",
+            "cp -R web/bundles/app/css/images/ web/compiled/css/images/",
+            "rm -rf web/bundles/app/"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -55,7 +67,18 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
+            "rm -rf web/compiled/",
+            "mkdir web/compiled/",
+            "mkdir web/compiled/images/",
+            "mkdir web/compiled/css/",
+            "cp -R web/bundles/app/images/ web/compiled/",
+            "cp -R web/bundles/app/fonts/ web/compiled/",
+            "cp -R web/compiled/app/css/images/ web/compiled/css/images/",
+            "rm -rf web/bundles/app/"
+        ],
+        "compile": [
+            "bin/console assetic:dump --env=dev"
         ]
     },
     "config": {

@@ -1,0 +1,197 @@
+<!--LOGO WRAP START-->
+<div class="logo-wrap">
+    <div class="container">
+        <!--LOGO DEC START-->
+        <div class="logo-dec">
+            <a href=""><img src="{{ asset('compiled/images/logo.png') }}" alt=""/></a>
+        </div>
+        <!--LOGO DEC END-->
+        <!--SEARCH WRAP START-->
+        <div class="searh-wrap">
+            <ul class="tags-1">
+                <li><a href="#">How to Order</a></li>
+                <li><a href="#">Payment</a></li>
+                <li><a href="#">Shipping</a></li>
+            </ul>
+            <form>
+                <div class="select-menu">
+                    <select>
+                        <option value="1">book</option>
+                        <option value="9">novel</option>
+                        <option value="2">books</option>
+                        <option value="3">Select 4</option>
+                        <option value="6">Select 5</option>
+                        <option value="8">Select 6</option>
+                    </select>
+                </div>
+                <div class="text-filed-1">
+                    <input type="text" placeholder="Search by title, author, subject or ISBN here...  ">
+                    <button><i class="fa fa-search"></i></button>
+                </div>
+            </form>
+        </div>
+        <!--SEARCH WRAP END-->
+        <!--CART WRAP START-->
+        <div class="cart-wrap">
+            <!--Mobile Menu Start-->
+            <div id="kode-responsive-navigation" class="dl-menuwrapper">
+                <button class="dl-trigger">Open Menu</button>
+                <ul class="dl-menu">
+                    <li><a href="/">home</a>
+                        <ul class="dl-submenu">
+                            <li><a href="index-2.html">index 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item kode-parent-menu"><a href="#">Pages</a>
+                        <ul class="dl-submenu">
+                            <li><a href="login-forms.html">login forms</a></li>
+                            <li><a href="comingsoon.html">coming soon</a></li>
+                            <li><a href="checkout.html">check out</a></li>
+                            <li><a href="404.html">404</a></li>
+                            <li><a href="widgets.html">widgets</a></li>
+                            <li><a href="shortcode.html">shortcode</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item kode-parent-menu"><a href="about-author.html">about author</a>
+                    </li>
+                    <li class="menu-item kode-parent-menu"><a href="#">products</a>
+                        <ul class="dl-submenu">
+                            <li><a href="product-detail.html">product detail</a></li>
+                            <li><a href="product-detail2.html">product detail 2</a></li>
+                            <li><a href="product-detail3.html">product detail 3</a></li>
+                            <li><a href="grid_03_columns.html">product 3 col</a></li>
+                            <li><a href="grid_04_columns.html">product 4 col</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item kode-parent-menu"><a href="#">blog</a>
+                        <ul class="dl-submenu">
+                            <li><a href="blog-classic.html">blog-classic</a></li>
+                            <li><a href="blog-detail.html">blog-detail</a></li>
+                            <li><a href="blog-detail-fullwidth.html">blog detail 2</a></li>
+                            <li><a href="blog-full-width.html">blog full width</a></li>
+                            <li><a href="blog_masonry_2_columns.html">blog masonry</a></li>
+                            <li><a href="blog-grid2.html">blog 2</a></li>
+                            <li><a href="list-style_01_columns.html">list style 1</a></li>
+                            <li><a href="list-style_01_sidebar.html">list style sidebar</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="contact-us.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <!--Mobile Menu END-->
+        </div>
+        <!--CART WRAP END-->
+    </div>
+</div>
+<!--LOGO WRAP END-->
+<!--NAVIGATION WRAP START-->
+<div class="container">
+    <div class="navigation-wrap">
+        <!--GENRES WRAP START-->
+        <div class="categories-menu">
+            <span>CATEGORIES</span>
+            <i class="fa fa-reorder show"></i>
+            <ul class="categories-ul">
+                {% for parentGenre in parentGenres %}
+                    <li><a href="#"><i class="fa fa-book"></i>{{ parentGenre.title }}</a>
+                        <!--MEGA MENU START-->
+                        <div class="mega-menu1">
+                            <div class="fetch-bookmtea">
+                                <ul>
+                                    <li class="fetch-book2">
+                                        <h4>{{ 'front.genres'|trans }}</h4>
+                                    </li>
+                                    {% set childGenres = genres[parentGenre.id] %}
+                                    {% spaceless %}
+                                    {% for childGenre in childGenres %}
+                                        <li>
+                                            <a href="{{ childGenre.token }}">{{ childGenre.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    {% endspaceless %}
+                                    <li>
+                                        <a href="#">More...</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            {#<div class="fetch-book2">#}
+                                {#<h4>Featured BOOK</h4>#}
+                                {#<figure>#}
+                                    {#<img src="{{ asset('compiled/images/extra-images/featured-4.jpg') }}" alt="">#}
+                                    {#<figcaption>#}
+                                        {#<span class="pricelable">#}
+                                            {#Genre#}
+                                        {#</span>#}
+                                    {#</figcaption>#}
+                                {#</figure>#}
+                                {#<div class="text">#}
+                                    {#<h6>He LIE TREE</h6>#}
+                                    {#<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laud rem.</p>#}
+                                    {#<a class="btn-1" href="#">read more</a>#}
+                                    {#<a class="btn-1 active" href="#">purchase</a>#}
+                                {#</div>#}
+                            {#</div>#}
+                        </div>
+                        <!--MEGA MENU END-->
+                    </li>
+                {% endfor %}
+                <li><a href="#">show more categories</a></li>
+            </ul>
+        </div>
+        <!--GENRES WRAP END-->
+        <!--NAVIGATION DEC START-->
+        <ul class="nav-dec">
+            <li>
+                <a href="index.html">HOME</a>
+                <ul>
+                    <li><a href="index-2.html">HOME 2</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="blog-classic.html">blog</a>
+                <ul>
+                    <li><a href="blog-classic.html">blog-classic</a></li>
+                    <li><a href="blog-detail.html">blog-detail</a></li>
+                    <li><a href="blog-detail-fullwidth.html">blog detail 2</a></li>
+                    <li><a href="blog-full-width.html">blog full width</a></li>
+                    <li><a href="blog_masonry_2_columns.html">blog masonry</a></li>
+                    <li><a href="blog-grid2.html">blog 2</a></li>
+                    <li><a href="list-style_01_columns.html">list style 1</a></li>
+                    <li><a href="list-style_01_sidebar.html">list style sidebar</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">pages</a>
+                <ul>
+                    <li><a href="login-forms.html">login forms</a></li>
+                    <li><a href="comingsoon.html">coming soon</a></li>
+                    <li><a href="checkout.html">check out</a></li>
+                    <li><a href="widgets.html">widgets</a></li>
+                    <li><a href="shortcode.html">short code</a></li>
+                    <li><a href="header-style.html">header</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">book detail</a>
+                <ul>
+                    <li><a href="book-detail.html">book detail 1</a></li>
+                    <li><a href="book-detail2.html">book detail 2</a></li>
+                    <li><a href="book-detail3.html">book detail 3</a></li>
+                    <li><a href="grid_03_columns.html">book 3 col</a></li>
+                    <li><a href="grid_04_columns.html">book 4 col</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="about-author.html">Author</a>
+            </li>
+            <li>
+                <a href="404.html">404</a>
+            </li>
+            <li>
+                <a href="contact-us.html">Contact Us</a>
+            </li>
+        </ul>
+        <!--NAVIGATION DEC END-->
+    </div>
+</div>
+<!--NAVIGATION WRAP END-->
