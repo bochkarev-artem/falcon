@@ -1,0 +1,16 @@
+fos_elastica:
+    clients:
+        default: { host: "%elastic_host%", port: "%elastic_port%" }
+    indexes:
+        books:
+            index_name: books
+            types:
+                book:
+                    mappings:
+                        title: ~
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Book
+                        provider: ~
+                        listener: ~
+                        finder: ~

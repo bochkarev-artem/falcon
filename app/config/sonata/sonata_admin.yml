@@ -1,6 +1,6 @@
 sonata_admin:
     title:      Admin
-    title_logo: bundles/app/images/logo.jpg
+    title_logo: compiled/images/logo.jpg
     dashboard:
         groups:
             catalog:

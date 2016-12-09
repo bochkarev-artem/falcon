@@ -267,7 +267,10 @@ class LitresService
         $genre = $this->genreRepo->findOneByToken($genreToken);
         if (!$genre) {
             $genre = new Genre();
-            $genre->setToken($genreToken);
+            $genre
+                ->setToken($genreToken)
+            ;
+            // TODO update genre info
 
             $this->em->persist($genre);
             $this->em->flush();

@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: elastic-search.yml }
     - { resource: sonata/sonata_admin.yml }
     - { resource: sonata/sonata_block.yml }
     - { resource: sonata/sonata_seo.yml }
@@ -9,7 +10,9 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: ru
+    locale:       ru
+    elastic_host: paas:d61cb5e1fe0d852fc4992f6ffcd7ffbf@dori-us-east-1.searchly.com
+    elastic_port: 80
 
 framework:
     #esi:             ~
