@@ -65,6 +65,13 @@ class Genre
     private $token;
 
     /**
+     * @var string $slug
+     *
+     * @ORM\Column(name="slug", type="string", nullable=true)
+     */
+    private $slug;
+
+    /**
      * @return int
      */
     public function getId()
@@ -88,6 +95,26 @@ class Genre
     public function setToken($token)
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return Genre
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

@@ -123,7 +123,8 @@ class LitresService
             $parentId = $parentGenre->getId();
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
-                $token = str_replace('_', '-', (string) $node['token']);
+                $token = (string) $node['token'];
+                $slug  = str_replace('_', '-', $token);
                 $title = $this->mbUcfirst($node['title']);
                 if (!is_null($id)) {
                     /** @var Genre $genre */
@@ -140,6 +141,7 @@ class LitresService
                             ->setLitresId($id)
                             ->setTitle($title)
                             ->setToken($token)
+                            ->setSlug($slug)
                             ->setParentId($parentId)
                         ;
                     }
@@ -267,10 +269,7 @@ class LitresService
         $genre = $this->genreRepo->findOneByToken($genreToken);
         if (!$genre) {
             $genre = new Genre();
-            $genre
-                ->setToken($genreToken)
-            ;
-            // TODO update genre info
+            $genre->setToken($genreToken);
 
             $this->em->persist($genre);
             $this->em->flush();
@@ -321,7 +320,7 @@ class LitresService
                 if ($book = $this->bookRepo->findOneByLitresHubId($hubId)) {
                     /** @var Book $book */
                     if ($this->debug) {
-                        echo ">>> " . $book->getId() . " book already exists ($step)\n";
+                        echo ">>> " . $book->getId() . " book id already exists ($step)\n";
                     }
                     $skipped++;
 
@@ -402,7 +401,7 @@ class LitresService
 
                 $this->em->persist($book);
                 if ($this->debug) {
-                    echo ">>> " . $book->getId() . " book persisted ($step)\n";
+                    echo ">>> " . $book->getId() . " book id persisted ($step)\n";
                 }
                 $this->em->flush();
                 $this->em->clear();
