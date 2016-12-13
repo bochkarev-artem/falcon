@@ -379,7 +379,7 @@ class LitresService
 
                 $book
                     ->setLitresHubId($hubId)
-                    ->setType((string) $data['type'])
+                    ->setBookType((string) $data['type'])
                     ->setCover((string) $data['cover'])
                     ->setCoverPreview((string) $data['cover_preview'])
                     ->setFilename((string) $data['filename'])
@@ -387,7 +387,6 @@ class LitresService
                     ->setRating((string) $data['rating'])
                     ->setRecensesCount((string) $data['recenses'])
                     ->setHasTrial((string) $data['has_trial'])
-                    ->setType((string) $data['type'])
                     ->setTitle(substr((string) $titleInfo->{'book-title'}, 0, 254))
                     ->setAnnotation($annotation)
                     ->setLang((string) $titleInfo->lang)

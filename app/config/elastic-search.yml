@@ -7,7 +7,30 @@ fos_elastica:
             types:
                 book:
                     mappings:
-                        title: ~
+                        title:               { type: string }
+                        rating:              { type: float }
+                        book_type:           { type: integer }
+                        annotation:          { type: string }
+                        authors:
+                            type: "nested"
+                            properties:
+                                first_name:  { type: string  }
+                                middle_name: { type: string  }
+                                last_name:   { type: string  }
+                                description: { type: string  }
+                        genres:
+                            type: "nested"
+                            properties:
+                                title:       { type: string  }
+                        tags:
+                            type: "nested"
+                            properties:
+                                title:       { type: string  }
+                        sequences:
+                            type: "nested"
+                            properties:
+                                name:        { type: string  }
+                                number:      { type: integer  }
                     persistence:
                         driver: orm
                         model: AppBundle\Entity\Book
