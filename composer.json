@@ -96,11 +96,11 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml",
             "env-map": {
-                "database_host": "DATABASE_HOST",
-                "database_name": "DATABASE_NAME",
-                "database_user": "DATABASE_USER",
-                "database_password": "DATABASE_PASSWORD",
-                "database_port": "DATABASE_PORT"
+                "database_host":     "RDS_HOSTNAME",
+                "database_port":     "RDS_PORT",
+                "database_name":     "RDS_DB_NAME",
+                "database_user":     "RDS_USERNAME",
+                "database_password": "RDS_PASSWORD"
             }
         }
     }
