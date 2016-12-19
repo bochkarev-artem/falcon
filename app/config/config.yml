@@ -11,8 +11,6 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale:       ru
-    elastic_host: paas:d61cb5e1fe0d852fc4992f6ffcd7ffbf@dori-us-east-1.searchly.com
-    elastic_port: 80
 
 framework:
     #esi:             ~
