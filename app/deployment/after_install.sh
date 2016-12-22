@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd /home/falcon/
+cd /home/ubuntu/falcon/
 composer install
 php bin/console assetic:dump --env=dev

@@ -79,7 +79,7 @@
             "rm -rf web/bundles/app/"
         ],
         "compile": [
-            "/home/ubuntu/falcon/bin/console assetic:dump --env=dev"
+            "bin/console assetic:dump --env=dev"
         ]
     },
     "config": {
