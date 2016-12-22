@@ -2,8 +2,8 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: ~/falcon
+    destination: /home/ubuntu/falcon
 hooks:
   AfterInstall:
-    - location: ~/falcon/app/deployment/after_install.sh
+    - location: /home/ubuntu/falcon/app/deployment/after_install.sh
       timeout: 300
