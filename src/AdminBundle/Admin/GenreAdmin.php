@@ -35,7 +35,7 @@ class GenreAdmin extends AbstractAdmin
             ->add('litresId')
             ->add('parentId')
             ->add('title')
-            ->add('token')
+            ->add('slug')
         ;
     }
 
@@ -49,7 +49,7 @@ class GenreAdmin extends AbstractAdmin
             ->add('litresId')
             ->add('parentId')
             ->add('title')
-            ->add('token')
+            ->add('slug')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show'   => array(),
@@ -69,7 +69,7 @@ class GenreAdmin extends AbstractAdmin
             ->add('id')
             ->add('litresId')
             ->add('title')
-            ->add('token')
+            ->add('slug')
         ;
     }
 }

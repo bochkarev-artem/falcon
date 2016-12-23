@@ -1,0 +1,39 @@
+fos_elastica:
+    clients:
+        default: { host: "%elastic_host%", port: "%elastic_port%" }
+    indexes:
+        books:
+            index_name: books
+            types:
+                book:
+                    mappings:
+                        title:               { type: string }
+                        rating:              { type: float }
+                        book_type:           { type: integer }
+                        annotation:          { type: string }
+                        authors:
+                            type: "nested"
+                            properties:
+                                first_name:  { type: string  }
+                                middle_name: { type: string  }
+                                last_name:   { type: string  }
+                                description: { type: string  }
+                        genres:
+                            type: "nested"
+                            properties:
+                                title:       { type: string  }
+                        tags:
+                            type: "nested"
+                            properties:
+                                title:       { type: string  }
+                        sequences:
+                            type: "nested"
+                            properties:
+                                name:        { type: string  }
+                                number:      { type: integer  }
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Book
+                        provider: ~
+                        listener: ~
+                        finder: ~

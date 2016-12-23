@@ -1,9 +1,9 @@
 label:
-    author:   Authors
-    genre:    Genres
-    book:     Books
-    tag:      Tags
-    sequence: Sequences
+    author:   Авторы
+    genre:    Жанры
+    book:     Книги
+    tag:      Теги
+    sequence: Циклы
 
 choice:
     book0:  Электронная книга

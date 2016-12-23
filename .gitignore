@@ -17,3 +17,8 @@
 /web/adminer.php
 .idea/
 web/compiled/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

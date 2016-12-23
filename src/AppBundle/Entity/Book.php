@@ -78,11 +78,11 @@ class Book
     private $filename;
 
     /**
-     * @var integer $type
+     * @var integer $bookType
      *
-     * @ORM\Column(name="type", type="integer", nullable=true)
+     * @ORM\Column(name="book_type", type="integer", nullable=true)
      */
-    private $type;
+    private $bookType;
 
     /**
      * @var boolean $hasTrial
@@ -281,19 +281,19 @@ class Book
     /**
      * @return integer
      */
-    public function getType()
+    public function getBookType()
     {
-        return $this->type;
+        return $this->bookType;
     }
 
     /**
-     * @param integer $type
+     * @param integer $bookType
      *
      * @return Book
      */
-    public function setType($type)
+    public function setBookType($bookType)
     {
-        $this->type = $type;
+        $this->bookType = $bookType;
 
         return $this;
     }
