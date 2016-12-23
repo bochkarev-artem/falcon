@@ -38,7 +38,8 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "symfony/assetic-bundle": "^2.8",
         "leafo/scssphp": "^0.6.6",
-        "patchwork/jsqueeze": "^2.0"
+        "patchwork/jsqueeze": "^2.0",
+        "friendsofsymfony/elastica-bundle": "^3.2"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
@@ -47,6 +48,7 @@
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "cp ../parameters.yml ./app/config/",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
@@ -63,6 +65,7 @@
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "cp ../parameters.yml ./app/config/",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
@@ -83,7 +86,7 @@
     },
     "config": {
         "platform": {
-            "php": "5.5.9"
+            "php": "7.0"
         }
     },
     "extra": {
@@ -95,11 +98,11 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml",
             "env-map": {
-                "database_host": "DATABASE_HOST",
-                "database_name": "DATABASE_NAME",
-                "database_user": "DATABASE_USER",
-                "database_password": "DATABASE_PASSWORD",
-                "database_port": "DATABASE_PORT"
+                "database_host":     "RDS_HOSTNAME",
+                "database_port":     "RDS_PORT",
+                "database_name":     "RDS_DB_NAME",
+                "database_user":     "RDS_USERNAME",
+                "database_password": "RDS_PASSWORD"
             }
         }
     }

@@ -105,13 +105,15 @@ class BookAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('litresHubId')
             ->add('documentId')
+            ->add('title')
+            ->add('authors')
+            ->add('genres')
+            ->add('tags')
             ->add('type', null, [
                     'template' => 'AdminBundle:Book:list_book_custom.html.twig',
                     'widget'   => 'type',
                 ]
             )
-            ->add('title')
-            ->add('publisher')
             ->add('rating')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -188,5 +190,26 @@ class BookAdmin extends AbstractAdmin
     public function getBookTypeLabel($value)
     {
         return $this->trans(array_search($value, self::getBookTypeChoices()));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+
+        if ($context == 'list') {
+            $query
+                ->addSelect('a')
+                ->addSelect('g')
+                ->addSelect('t')
+                ->leftJoin($query->getRootAlias() . '.authors', 'a')
+                ->leftJoin($query->getRootAlias() . '.genres', 'g')
+                ->leftJoin($query->getRootAlias() . '.tags', 't')
+            ;
+        }
+
+        return $query;
     }
 }

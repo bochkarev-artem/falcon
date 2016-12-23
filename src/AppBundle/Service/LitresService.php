@@ -123,7 +123,8 @@ class LitresService
             $parentId = $parentGenre->getId();
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
-                $token = str_replace('_', '-', (string) $node['token']);
+                $token = (string) $node['token'];
+                $slug  = str_replace('_', '-', $token);
                 $title = $this->mbUcfirst($node['title']);
                 if (!is_null($id)) {
                     /** @var Genre $genre */
@@ -140,6 +141,7 @@ class LitresService
                             ->setLitresId($id)
                             ->setTitle($title)
                             ->setToken($token)
+                            ->setSlug($slug)
                             ->setParentId($parentId)
                         ;
                     }
@@ -318,7 +320,7 @@ class LitresService
                 if ($book = $this->bookRepo->findOneByLitresHubId($hubId)) {
                     /** @var Book $book */
                     if ($this->debug) {
-                        echo ">>> " . $book->getId() . " book already exists ($step)\n";
+                        echo ">>> " . $book->getId() . " book id already exists ($step)\n";
                     }
                     $skipped++;
 
@@ -377,7 +379,7 @@ class LitresService
 
                 $book
                     ->setLitresHubId($hubId)
-                    ->setType((string) $data['type'])
+                    ->setBookType((string) $data['type'])
                     ->setCover((string) $data['cover'])
                     ->setCoverPreview((string) $data['cover_preview'])
                     ->setFilename((string) $data['filename'])
@@ -385,7 +387,6 @@ class LitresService
                     ->setRating((string) $data['rating'])
                     ->setRecensesCount((string) $data['recenses'])
                     ->setHasTrial((string) $data['has_trial'])
-                    ->setType((string) $data['type'])
                     ->setTitle(substr((string) $titleInfo->{'book-title'}, 0, 254))
                     ->setAnnotation($annotation)
                     ->setLang((string) $titleInfo->lang)
@@ -399,7 +400,7 @@ class LitresService
 
                 $this->em->persist($book);
                 if ($this->debug) {
-                    echo ">>> " . $book->getId() . " book persisted ($step)\n";
+                    echo ">>> " . $book->getId() . " book id persisted ($step)\n";
                 }
                 $this->em->flush();
                 $this->em->clear();
