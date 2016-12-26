@@ -23,6 +23,7 @@ class Version20161026171137 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_957A6479A0D96FBF ON fos_user (email_canonical)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_957A6479C05FB297 ON fos_user (confirmation_token)');
         $this->addSql('COMMENT ON COLUMN fos_user.roles IS \'(DC2Type:array)\'');
+        $this->addSql('CREATE SEQUENCE fos_user_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
     }
 
     /**
@@ -34,5 +35,6 @@ class Version20161026171137 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
         $this->addSql('DROP TABLE fos_user');
+        $this->addSql('DROP SEQUENCE fos_user_id_seq CASCADE');
     }
 }

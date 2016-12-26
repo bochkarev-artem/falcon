@@ -18,6 +18,7 @@ class Version20160429154935 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
+        $this->addSql('CREATE COLLATION russian (LOCALE = \'ru_RU.utf8\')');
         $this->addSql('CREATE SEQUENCE author_author_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE book_book_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE genre_genre_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -25,7 +26,7 @@ class Version20160429154935 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE tag_tag_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE TABLE author (author_id INT NOT NULL, litres_hub_id INT DEFAULT NULL, document_id VARCHAR(255) NOT NULL, first_name VARCHAR(255) DEFAULT NULL, last_name VARCHAR(255) DEFAULT NULL, middle_name VARCHAR(255) DEFAULT NULL, level INT DEFAULT NULL, recenses_count INT DEFAULT NULL, arts_count INT DEFAULT NULL, photo VARCHAR(255) DEFAULT NULL, description TEXT DEFAULT NULL, PRIMARY KEY(author_id))');
         $this->addSql('CREATE UNIQUE INDEX author_ids ON author (document_id)');
-        $this->addSql('CREATE TABLE book (book_id INT NOT NULL, litres_hub_id INT NOT NULL, price VARCHAR(255) DEFAULT NULL, cover VARCHAR(255) DEFAULT NULL, cover_preview VARCHAR(255) DEFAULT NULL, filename VARCHAR(255) DEFAULT NULL, type INT DEFAULT NULL, has_trial BOOLEAN DEFAULT NULL, reader VARCHAR(255) DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, annotation TEXT DEFAULT NULL, date VARCHAR(255) DEFAULT NULL, lang VARCHAR(255) DEFAULT NULL, document_id VARCHAR(255) DEFAULT NULL, publisher VARCHAR(255) DEFAULT NULL, city_published VARCHAR(255) DEFAULT NULL, year_published VARCHAR(4) DEFAULT NULL, isbn VARCHAR(255) DEFAULT NULL, rating DOUBLE PRECISION DEFAULT NULL, recenses_count INT DEFAULT NULL, PRIMARY KEY(book_id))');
+        $this->addSql('CREATE TABLE book (book_id INT NOT NULL, litres_hub_id INT NOT NULL, price VARCHAR(255) DEFAULT NULL, cover VARCHAR(255) DEFAULT NULL, cover_preview VARCHAR(255) DEFAULT NULL, filename VARCHAR(255) DEFAULT NULL, book_type INT DEFAULT NULL, has_trial BOOLEAN DEFAULT NULL, reader VARCHAR(255) DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, annotation TEXT DEFAULT NULL, date VARCHAR(255) DEFAULT NULL, lang VARCHAR(255) DEFAULT NULL, document_id VARCHAR(255) DEFAULT NULL, publisher VARCHAR(255) DEFAULT NULL, city_published VARCHAR(255) DEFAULT NULL, year_published VARCHAR(4) DEFAULT NULL, isbn VARCHAR(255) DEFAULT NULL, rating DOUBLE PRECISION DEFAULT NULL, recenses_count INT DEFAULT NULL, PRIMARY KEY(book_id))');
         $this->addSql('CREATE UNIQUE INDEX book_ids ON book (litres_hub_id)');
         $this->addSql('CREATE TABLE book_genre (book_id INT NOT NULL, genre_id INT NOT NULL, PRIMARY KEY(book_id, genre_id))');
         $this->addSql('CREATE INDEX IDX_8D92268116A2B381 ON book_genre (book_id)');
@@ -39,7 +40,7 @@ class Version20160429154935 extends AbstractMigration
         $this->addSql('CREATE TABLE book_sequence (book_id INT NOT NULL, sequence_id INT NOT NULL, PRIMARY KEY(book_id, sequence_id))');
         $this->addSql('CREATE INDEX IDX_4B79C17216A2B381 ON book_sequence (book_id)');
         $this->addSql('CREATE INDEX IDX_4B79C17298FB19AE ON book_sequence (sequence_id)');
-        $this->addSql('CREATE TABLE genre (genre_id INT NOT NULL, litres_id INT DEFAULT NULL, parent_id INT DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, description TEXT DEFAULT NULL, token VARCHAR(255) DEFAULT NULL, PRIMARY KEY(genre_id))');
+        $this->addSql('CREATE TABLE genre (genre_id INT NOT NULL, litres_id INT DEFAULT NULL, parent_id INT DEFAULT NULL, title VARCHAR(255) DEFAULT NULL, description TEXT DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, token VARCHAR(255) DEFAULT NULL, PRIMARY KEY(genre_id))');
         $this->addSql('CREATE UNIQUE INDEX genre_ids ON genre (token)');
         $this->addSql('CREATE TABLE sequence (sequence_id INT NOT NULL, litres_id INT NOT NULL, name VARCHAR(255) DEFAULT NULL, number INT DEFAULT NULL, PRIMARY KEY(sequence_id))');
         $this->addSql('CREATE UNIQUE INDEX sequence_ids ON sequence (litres_id)');
@@ -63,6 +64,7 @@ class Version20160429154935 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
+        $this->addSql('DROP COLLATION russian');
         $this->addSql('ALTER TABLE book_author DROP CONSTRAINT FK_9478D345F675F31B');
         $this->addSql('ALTER TABLE book_genre DROP CONSTRAINT FK_8D92268116A2B381');
         $this->addSql('ALTER TABLE book_author DROP CONSTRAINT FK_9478D34516A2B381');
