@@ -50,7 +50,7 @@ class BookAdmin extends AbstractAdmin
             ->add('cover')
             ->add('coverPreview')
             ->add('filename')
-            ->add('type', 'choice', [
+            ->add('bookType', 'choice', [
                 'choices'            => $this->getBookTypeChoices(),
                 'translation_domain' => 'AdminBundle',
             ])
@@ -90,7 +90,7 @@ class BookAdmin extends AbstractAdmin
             ])
             ->add('litresHubId')
             ->add('documentId')
-            ->add('type')
+            ->add('bookType')
             ->add('title')
             ->add('rating')
         ;
@@ -109,7 +109,7 @@ class BookAdmin extends AbstractAdmin
             ->add('authors')
             ->add('genres')
             ->add('tags')
-            ->add('type', null, [
+            ->add('bookType', null, [
                     'template' => 'AdminBundle:Book:list_book_custom.html.twig',
                     'widget'   => 'type',
                 ]
@@ -137,7 +137,7 @@ class BookAdmin extends AbstractAdmin
             ->add('cover')
             ->add('coverPreview')
             ->add('filename')
-            ->add('type', null, [
+            ->add('bookType', null, [
                     'template' => 'AdminBundle:Book:show_book_custom.html.twig',
                     'widget'   => 'type',
                 ]
