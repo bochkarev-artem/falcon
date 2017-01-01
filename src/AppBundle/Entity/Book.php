@@ -71,6 +71,20 @@ class Book
     private $coverPreview;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cover_preview_name", type="string", length=255, nullable=true)
+     */
+    private $coverPreviewName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cover_name", type="string", length=255, nullable=true)
+     */
+    private $coverName;
+
+    /**
      * @var string $filename
      *
      * @ORM\Column(name="filename", type="string", nullable=true)
@@ -726,6 +740,46 @@ class Book
     public function setRecensesCount($recensesCount)
     {
         $this->recensesCount = $recensesCount;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverPreviewName()
+    {
+        return $this->coverPreviewName;
+    }
+
+    /**
+     * @param string $coverPreviewName
+     *
+     * @return Book
+     */
+    public function setCoverPreviewName($coverPreviewName)
+    {
+        $this->coverPreviewName = $coverPreviewName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverName()
+    {
+        return $this->coverName;
+    }
+
+    /**
+     * @param string $coverName
+     *
+     * @return Book
+     */
+    public function setCoverName($coverName)
+    {
+        $this->coverName = $coverName;
 
         return $this;
     }
