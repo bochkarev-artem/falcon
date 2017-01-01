@@ -39,7 +39,9 @@
         "symfony/assetic-bundle": "^2.8",
         "leafo/scssphp": "^0.6.6",
         "patchwork/jsqueeze": "^2.0",
-        "friendsofsymfony/elastica-bundle": "^3.2"
+        "friendsofsymfony/elastica-bundle": "^3.2",
+        "knplabs/knp-gaufrette-bundle": "^0.3.0",
+        "aws/aws-sdk-php": "^3.20"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
@@ -55,13 +57,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
             "rm -rf web/compiled/",
-            "mkdir web/compiled/",
-            "mkdir web/compiled/images/",
-            "mkdir web/compiled/css/",
-            "cp -R web/bundles/app/images/ web/compiled/",
-            "cp -R web/bundles/app/fonts/ web/compiled/",
-            "cp -R web/bundles/app/css/images/ web/compiled/css/images/",
-            "rm -rf web/bundles/app/"
+            "cp -R web/bundles/app/ web/compiled"
         ],
         "post-update-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -72,13 +68,7 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget",
             "rm -rf web/compiled/",
-            "mkdir web/compiled/",
-            "mkdir web/compiled/images/",
-            "mkdir web/compiled/css/",
-            "cp -R web/bundles/app/images/ web/compiled/",
-            "cp -R web/bundles/app/fonts/ web/compiled/",
-            "cp -R web/compiled/app/css/images/ web/compiled/css/images/",
-            "rm -rf web/bundles/app/"
+            "cp -R web/bundles/app/ web/compiled"
         ],
         "compile": [
             "bin/console assetic:dump --env=dev"

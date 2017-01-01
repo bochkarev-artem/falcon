@@ -14,6 +14,11 @@ services:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
 
+    image_upload_service:
+        class: AppBundle\Service\ImageUploadService
+        arguments:
+          - "@knp_gaufrette.filesystem_map"
+
     twig.main_menu:
         class: AppBundle\Twig\MainMenuExtension
         public: false

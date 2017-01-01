@@ -48,7 +48,9 @@ class BookAdmin extends AbstractAdmin
             ])
             ->add('price')
             ->add('cover')
+            ->add('coverName')
             ->add('coverPreview')
+            ->add('coverPreviewName')
             ->add('filename')
             ->add('bookType', 'choice', [
                 'choices'            => $this->getBookTypeChoices(),
@@ -135,7 +137,9 @@ class BookAdmin extends AbstractAdmin
             ->add('litresHubId')
             ->add('price')
             ->add('cover')
+            ->add('coverName')
             ->add('coverPreview')
+            ->add('coverPreviewName')
             ->add('filename')
             ->add('bookType', null, [
                     'template' => 'AdminBundle:Book:show_book_custom.html.twig',
