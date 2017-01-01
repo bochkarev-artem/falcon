@@ -54,7 +54,6 @@ class ImportLitresImagesCommand extends ContainerAwareCommand
             $book = $row[0];
             $imageUploadService->updateBookCover($book, $previewOnly);
             if ((++$i % $batchSize) === 0) {
-                $output->writeln("<info>$i images processed</info>");
                 $em->flush();
                 $em->clear();
             }
