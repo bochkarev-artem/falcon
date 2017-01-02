@@ -15,7 +15,6 @@ oneup_flysystem:
         local_upload_adapter:
             local:
                 directory: "%kernel.root_dir%/../../book-cover-images"
-                create:    true
         s3_upload_adapter:
             awss3v3:
                 client: aws.s3_client
