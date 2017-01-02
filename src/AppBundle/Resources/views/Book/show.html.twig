@@ -3,4 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+    {% if book.coverPreviewName %}
+        <img src="{{ vich_uploader_asset(book, 'coverPreviewFile') }}" />
+    {% endif %}
 {% endblock %}

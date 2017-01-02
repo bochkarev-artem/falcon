@@ -17,7 +17,10 @@ services:
     image_upload_service:
         class: AppBundle\Service\ImageUploadService
         arguments:
-          - "@knp_gaufrette.filesystem_map"
+          - "@oneup_flysystem.s3_upload_filesystem"
+          - "%book_full_directory%"
+          - "%book_preview_directory%"
+          - "%author_directory%"
 
     twig.main_menu:
         class: AppBundle\Twig\MainMenuExtension

@@ -7,9 +7,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use League\Flysystem\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
+ * @Vich\Uploadable
  * @ORM\Table(
  *     name="author",
  *     uniqueConstraints={
@@ -97,6 +100,20 @@ class Author
      * @ORM\Column(name="photo", type="string", nullable=true)
      */
     private $photo;
+
+    /**
+     * @var string $photoName
+     *
+     * @ORM\Column(name="photo_name", type="string", nullable=true)
+     */
+    private $photoName;
+
+    /**
+     * @Vich\UploadableField(mapping="author_image", fileNameProperty="photo")
+     *
+     * @var File
+     */
+    private $photoFile;
 
     /**
      * @var string $description
@@ -375,6 +392,46 @@ class Author
         if ($this->books->contains($book)) {
             $book->removeAuthor($this);
         };
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getPhotoFile()
+    {
+        return $this->photoFile;
+    }
+
+    /**
+     * @param File $photoFile
+     *
+     * @return Author
+     */
+    public function setPhotoFile($photoFile)
+    {
+        $this->photoFile = $photoFile;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhotoName()
+    {
+        return $this->photoName;
+    }
+
+    /**
+     * @param string $photoName
+     *
+     * @return Author
+     */
+    public function setPhotoName($photoName)
+    {
+        $this->photoName = $photoName;
 
         return $this;
     }

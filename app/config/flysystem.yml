@@ -1,0 +1,30 @@
+services:
+    aws.s3_client:
+        class: Aws\S3\S3Client
+        arguments:
+            -
+                region:  "%amazon.region%"
+                version: "latest"
+                scheme:  "http"
+                credentials:
+                    key:    "%amazon.key%"
+                    secret: "%amazon.secret%"
+
+oneup_flysystem:
+    adapters:
+        local_upload_adapter:
+            local:
+                directory: "%kernel.root_dir%/../../book-cover-images"
+                create:    true
+        s3_upload_adapter:
+            awss3v3:
+                client: aws.s3_client
+                bucket: "%amazon.bucket_name%"
+                prefix: ~
+    filesystems:
+        local_upload:
+            adapter:    local_upload_adapter
+            mount:      local_upload
+        s3_upload:
+            adapter:    s3_upload_adapter
+            mount:      s3_upload

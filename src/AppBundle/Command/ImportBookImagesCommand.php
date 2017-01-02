@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Class ImportLitresDataCommand
  * @package AppBundle\Command
  */
-class ImportLitresImagesCommand extends ContainerAwareCommand
+class ImportBookImagesCommand extends ContainerAwareCommand
 {
     /**
      * {@inheritdoc}
@@ -23,7 +23,7 @@ class ImportLitresImagesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('app:update-litres-images')
+            ->setName('app:update-book-images')
             ->setDescription('Update Litres Images.')
             ->addArgument('preview-only', InputArgument::OPTIONAL, 'Only preview: "y", "n"', 'n')
         ;
@@ -35,7 +35,7 @@ class ImportLitresImagesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $startTime = time();
-        $output->writeln("<info>Import images started.</info>");
+        $output->writeln("<info>Import book images started.</info>");
         $previewOnly = 'y' === $input->getArgument('preview-only') ? true: false;
 
         $container = $this->getContainer();
