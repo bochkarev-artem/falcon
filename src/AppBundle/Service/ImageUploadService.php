@@ -4,8 +4,9 @@
  */
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
-use Knp\Bundle\GaufretteBundle\FilesystemMap;
+use League\Flysystem\Filesystem;
 
 /**
  * Class ImageUploadService
@@ -21,15 +22,30 @@ class ImageUploadService
     /**
      * @var string
      */
-    private $localFilesystem;
+    private $fullMapping;
 
     /**
-     * @param FilesystemMap $filesystemMap
+     * @var string
      */
-    public function __construct(FilesystemMap $filesystemMap)
+    private $previewMapping;
+
+    /**
+     * @var string
+     */
+    private $authorMapping;
+
+    /**
+     * @param Filesystem $filesystem
+     * @param string $bookFullMapping;
+     * @param string $bookPreviewMapping;
+     * @param string $authorMapping
+     */
+    public function __construct(Filesystem $filesystem, $bookFullMapping, $bookPreviewMapping, $authorMapping)
     {
-        $this->s3Filesystem    = $filesystemMap->get('s3_upload_fs');
-        $this->localFilesystem = $filesystemMap->get('local_upload_fs');
+        $this->s3Filesystem   = $filesystem;
+        $this->fullMapping    = $bookFullMapping;
+        $this->previewMapping = $bookPreviewMapping;
+        $this->authorMapping  = $authorMapping;
     }
 
     /**
@@ -45,9 +61,11 @@ class ImageUploadService
         if (false === $fileContent) {
             return false;
         }
-        if (!$book->getCoverPreviewName()) {
-            $fileName = $book->getLitresHubId() . '.jpeg';
-            $this->localFilesystem->write($fileName, $fileContent);
+
+        $fileName = basename($coverPreviewUrl);
+        $path     = "$this->previewMapping/" . $fileName;
+        if (!$book->getCoverPreviewName() && !$this->s3Filesystem->has($path)) {
+            $this->s3Filesystem->write($path, $fileContent);
             $book->setCoverPreviewName($fileName);
         }
 
@@ -57,11 +75,37 @@ class ImageUploadService
             if (false === $fileContent) {
                 return false;
             }
-            if (!$book->getCoverName()) {
-                $fileName = $book->getLitresHubId() . '.jpeg';
-                $this->s3Filesystem->write($fileName, $fileContent);
+
+            $fileName = basename($coverUrl);
+            $path     = "$this->fullMapping/" . $fileName;
+            if (!$book->getCoverName() && !$this->s3Filesystem->has($path)) {
+                $fileName = basename($coverUrl);
+                $this->s3Filesystem->write($path, $fileContent);
                 $book->setCoverName($fileName);
             }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param Author $author
+     *
+     * @return boolean
+     */
+    public function updateAuthorPhoto(Author $author)
+    {
+        $photoUrl    = $author->getPhoto();
+        $fileContent = @file_get_contents($photoUrl);
+        if (false === $fileContent) {
+            return false;
+        }
+
+        $fileName = basename($photoUrl);
+        $path     = "$this->authorMapping/" . $fileName;
+        if (!$author->getPhotoName() && !$this->s3Filesystem->has($path)) {
+            $this->s3Filesystem->write($path, $fileContent);
+            $author->setPhotoName($fileName);
         }
 
         return true;

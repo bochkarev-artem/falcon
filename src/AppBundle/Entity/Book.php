@@ -7,11 +7,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use League\Flysystem\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * AppBundle\Entity\Book
  *
  * @ORM\Entity
+ * @Vich\Uploadable
  * @ORM\Table(
  *     name="book",
  *     uniqueConstraints={
@@ -71,11 +74,25 @@ class Book
     private $coverPreview;
 
     /**
+     * @Vich\UploadableField(mapping="book_preview_image", fileNameProperty="coverPreviewName")
+     *
+     * @var File
+     */
+    private $coverPreviewFile;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="cover_preview_name", type="string", length=255, nullable=true)
      */
     private $coverPreviewName;
+
+    /**
+     * @Vich\UploadableField(mapping="book_full_image", fileNameProperty="coverName")
+     *
+     * @var File
+     */
+    private $coverFile;
 
     /**
      * @var string
@@ -115,7 +132,7 @@ class Book
     /**
      * @var ArrayCollection $genres
      *
-     * @ORM\ManyToMany(targetEntity="Genre", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Genre", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_genre",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
@@ -126,7 +143,7 @@ class Book
     /**
      * @var ArrayCollection $authors
      *
-     * @ORM\ManyToMany(targetEntity="Author", cascade={"persist", "remove"}, inversedBy="books", fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="Author", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_author",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
@@ -137,7 +154,7 @@ class Book
     /**
      * @var ArrayCollection $tags
      *
-     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="Tag", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_tag",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
@@ -148,7 +165,7 @@ class Book
     /**
      * @var ArrayCollection $sequences
      *
-     * @ORM\ManyToMany(targetEntity="Sequence", cascade={"persist", "remove"}, inversedBy="books", fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="Sequence", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_sequence",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")}
@@ -780,6 +797,46 @@ class Book
     public function setCoverName($coverName)
     {
         $this->coverName = $coverName;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getCoverPreviewFile()
+    {
+        return $this->coverPreviewFile;
+    }
+
+    /**
+     * @param File $coverPreviewFile
+     *
+     * @return Book
+     */
+    public function setCoverPreviewFile($coverPreviewFile)
+    {
+        $this->coverPreviewFile = $coverPreviewFile;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getCoverFile()
+    {
+        return $this->coverFile;
+    }
+
+    /**
+     * @param File $coverFile
+     *
+     * @return Book
+     */
+    public function setCoverFile($coverFile)
+    {
+        $this->coverFile = $coverFile;
 
         return $this;
     }

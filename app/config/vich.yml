@@ -1,0 +1,20 @@
+parameters:
+    s3_base_url:            "https://s3.eu-central-1.amazonaws.com/falcon-project-images"
+    book_full_directory:    "book_full"
+    book_preview_directory: "book_preview"
+    author_directory:       "author"
+
+vich_uploader:
+    db_driver: orm
+    storage:   flysystem
+
+    mappings:
+        book_full_image:
+            uri_prefix:         "%s3_base_url%/%book_full_directory%"
+            upload_destination: "s3_upload"
+        book_preview_image:
+            uri_prefix:         "%s3_base_url%/%book_preview_directory%"
+            upload_destination: "s3_upload"
+        author_image:
+            uri_prefix:         "%s3_base_url%/%author_directory%"
+            upload_destination: "s3_upload"
