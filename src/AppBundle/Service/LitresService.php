@@ -222,7 +222,7 @@ class LitresService
     /**
      * @param \SimpleXMLElement $sequence
      *
-     * @return Sequence
+     * @return Sequence|null
      */
     public function getSequence($sequence)
     {
@@ -230,7 +230,7 @@ class LitresService
         $sequenceName   = (string) $sequence['name'];
         $sequenceNumber = (integer) $sequence['number'];
         $sequence       = $this->sequenceRepo->findOneByLitresId($sequenceId);
-        if (!$sequence) {
+        if (!$sequence && $sequenceId) {
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
@@ -262,14 +262,17 @@ class LitresService
     /**
      * @param string $genreToken
      *
-     * @return Genre
+     * @return Genre|null
      */
     public function getGenre($genreToken)
     {
         $genre = $this->genreRepo->findOneByToken($genreToken);
-        if (!$genre) {
+        if (!$genre && $genreToken) {
             $genre = new Genre();
+            $slug  = str_replace('_', '-', $genreToken);
             $genre->setToken($genreToken);
+            $genre->setSlug($slug);
+            $genre->setTitle($slug);
 
             $this->em->persist($genre);
             $this->em->flush();
@@ -281,14 +284,14 @@ class LitresService
     /**
      * @param \SimpleXMLElement $tag
      *
-     * @return Tag
+     * @return Tag|null
      */
     public function getTag($tag)
     {
         $tagId    = $tag['id'];
         $tagTitle = $tag['tag_title'];
         $tag      = $this->tagRepo->findOneByLitresId($tagId);
-        if (!$tag) {
+        if (!$tag && $tagId) {
             $tag = new Tag();
             $tag->setLitresId($tagId);
             $tag->setTitle($tagTitle);
@@ -356,16 +359,22 @@ class LitresService
                 }
                 foreach ($genres as $token) {
                     $genre = $this->getGenre($token);
-                    $book->addGenre($genre);
+                    if ($genre) {
+                        $book->addGenre($genre);
+                    }
                 }
                 foreach ($data->{'art_tags'}->tag as $tag) {
                     $tag = $this->getTag($tag);
-                    $book->addTag($tag);
+                    if ($tag) {
+                        $book->addTag($tag);
+                    }
                 }
                 if ($data->{'sequences'}) {
                     foreach ($data->{'sequences'}->sequence as $sequence) {
                         $sequence = $this->getSequence($sequence);
-                        $book->addSequence($sequence);
+                        if ($sequence) {
+                            $book->addSequence($sequence);
+                        }
                     }
                 }
                 if ($titleInfo->annotation) {

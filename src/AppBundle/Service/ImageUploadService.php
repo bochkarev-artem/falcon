@@ -19,17 +19,11 @@ class ImageUploadService
     private $s3Filesystem;
 
     /**
-     * @var string
-     */
-    private $localFilesystem;
-
-    /**
      * @param FilesystemMap $filesystemMap
      */
     public function __construct(FilesystemMap $filesystemMap)
     {
-        $this->s3Filesystem    = $filesystemMap->get('s3_upload_fs');
-        $this->localFilesystem = $filesystemMap->get('local_upload_fs');
+        $this->s3Filesystem = $filesystemMap->get('s3_upload_fs');
     }
 
     /**
@@ -45,9 +39,11 @@ class ImageUploadService
         if (false === $fileContent) {
             return false;
         }
-        if (!$book->getCoverPreviewName()) {
-            $fileName = $book->getLitresHubId() . '.jpeg';
-            $this->localFilesystem->write($fileName, $fileContent);
+
+        $coverPreviewName = $book->getCoverPreviewName();
+        if (!$coverPreviewName || !$this->s3Filesystem->has($coverPreviewName)) {
+            $fileName = basename($coverPreviewUrl);
+            $this->s3Filesystem->write($fileName, $fileContent);
             $book->setCoverPreviewName($fileName);
         }
 
@@ -57,8 +53,10 @@ class ImageUploadService
             if (false === $fileContent) {
                 return false;
             }
-            if (!$book->getCoverName()) {
-                $fileName = $book->getLitresHubId() . '.jpeg';
+
+            $coverName = $book->getCoverName();
+            if (!$coverName || !$this->s3Filesystem->has($coverName)) {
+                $fileName = basename($coverUrl);
                 $this->s3Filesystem->write($fileName, $fileContent);
                 $book->setCoverName($fileName);
             }

@@ -45,7 +45,7 @@ class Author
     /**
      * @var ArrayCollection $books
      *
-     * @ORM\ManyToMany(targetEntity="Book", cascade={"persist", "remove"}, mappedBy="authors", fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="authors", fetch="EXTRA_LAZY")
      */
     private $books;
 
