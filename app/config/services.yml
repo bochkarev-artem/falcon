@@ -39,3 +39,12 @@ services:
             - "@service_container"
             - "%kernel.cache_dir%"
         lazy: true
+
+    search_provider.route:
+        class: AppBundle\Provider\RouteProvider
+        arguments:
+            - "@fos_elastica.index.routes.route"
+            - "@doctrine.orm.default_entity_manager"
+            - 100
+        tags:
+            - { name: fos_elastica.provider, index: routes, type: route }

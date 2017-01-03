@@ -36,4 +36,10 @@ fos_elastica:
                         model: AppBundle\Entity\Book
                         provider: ~
                         listener: ~
-                        finder: ~
+                        finder:   ~
+        routes:
+            index_name: routes
+            types:
+                route:
+                    mappings:
+                        path: { type: string }
