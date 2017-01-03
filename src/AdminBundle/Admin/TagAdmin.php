@@ -21,7 +21,7 @@ class TagAdmin extends AbstractAdmin
         $formMapper
             ->add('litresId')
             ->add('title', null, ['required' => true])
-
+            ->add('slug')
         ;
     }
 
@@ -34,6 +34,7 @@ class TagAdmin extends AbstractAdmin
             ->add('id')
             ->add('litresId')
             ->add('title')
+            ->add('slug')
         ;
     }
 
@@ -46,6 +47,7 @@ class TagAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('litresId')
             ->add('title')
+            ->add('slug')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show'   => array(),
@@ -65,6 +67,7 @@ class TagAdmin extends AbstractAdmin
             ->add('id')
             ->add('litresId')
             ->add('title')
+            ->add('slug')
         ;
     }
 }

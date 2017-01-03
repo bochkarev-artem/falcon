@@ -6,6 +6,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * AppBundle\Entity\Genre
@@ -67,6 +68,7 @@ class Genre
     /**
      * @var string $slug
      *
+     * @Gedmo\Slug(fields={"title"}, unique=true)
      * @ORM\Column(name="slug", type="string", nullable=true)
      */
     private $slug;

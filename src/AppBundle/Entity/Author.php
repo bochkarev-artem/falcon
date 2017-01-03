@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use League\Flysystem\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -72,6 +73,14 @@ class Author
      * @ORM\Column(name="middle_name", type="string", nullable=true)
      */
     private $middleName;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"firstName", "lastName"}, unique=true)
+     * @ORM\Column(name="slug", type="string", nullable=true)
+     */
+    private $slug;
 
     /**
      * @var integer $level
@@ -432,6 +441,26 @@ class Author
     public function setPhotoName($photoName)
     {
         $this->photoName = $photoName;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return Author
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

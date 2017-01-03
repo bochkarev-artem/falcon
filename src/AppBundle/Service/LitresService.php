@@ -124,7 +124,6 @@ class LitresService
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
                 $token = (string) $node['token'];
-                $slug  = str_replace('_', '-', $token);
                 $title = $this->mbUcfirst($node['title']);
                 if (!is_null($id)) {
                     /** @var Genre $genre */
@@ -141,7 +140,6 @@ class LitresService
                             ->setLitresId($id)
                             ->setTitle($title)
                             ->setToken($token)
-                            ->setSlug($slug)
                             ->setParentId($parentId)
                         ;
                     }
@@ -160,12 +158,6 @@ class LitresService
         $this->em->clear();
 
         return true;
-    }
-
-    protected function mbUcfirst($str) {
-        $str         = mb_strtolower($str);
-        $firstLetter = mb_strtoupper(mb_substr($str, 0, 1));
-        return $firstLetter . mb_substr($str, 1);
     }
 
     /**
@@ -269,10 +261,8 @@ class LitresService
         $genre = $this->genreRepo->findOneByToken($genreToken);
         if (!$genre && $genreToken) {
             $genre = new Genre();
-            $slug  = str_replace('_', '-', $genreToken);
             $genre->setToken($genreToken);
-            $genre->setSlug($slug);
-            $genre->setTitle($slug);
+            $genre->setTitle($genreToken);
 
             $this->em->persist($genre);
             $this->em->flush();
@@ -452,5 +442,16 @@ class LitresService
         }
 
         return $xml;
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function mbUcfirst($string) {
+        $string      = mb_strtolower($string);
+        $firstLetter = mb_strtoupper(mb_substr($string, 0, 1));
+        return $firstLetter . mb_substr($string, 1);
     }
 }

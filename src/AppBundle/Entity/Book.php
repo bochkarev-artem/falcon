@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use League\Flysystem\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -179,6 +180,14 @@ class Book
      * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"title"}, unique=true)
+     * @ORM\Column(name="slug", type="string", nullable=true)
+     */
+    private $slug;
 
     /**
      * @var string $annotation
@@ -837,6 +846,26 @@ class Book
     public function setCoverFile($coverFile)
     {
         $this->coverFile = $coverFile;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return Book
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

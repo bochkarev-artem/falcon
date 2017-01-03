@@ -21,6 +21,7 @@ class GenreAdmin extends AbstractAdmin
         $formMapper
             ->add('litresId')
             ->add('title')
+            ->add('slug')
             ->add('token', null, ['required' => true])
         ;
     }
