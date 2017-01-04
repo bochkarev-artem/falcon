@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * AppBundle\Entity\Sequence
@@ -50,6 +51,14 @@ class Sequence
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     private $name;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"name"}, unique=true)
+     * @ORM\Column(name="slug", type="string", nullable=true)
+     */
+    private $slug;
 
     /**
      * @var int $number
@@ -178,6 +187,26 @@ class Sequence
         if ($this->books->contains($book)) {
             $book->removeSequence($this);
         };
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return Sequence
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

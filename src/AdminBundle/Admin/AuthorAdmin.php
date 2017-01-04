@@ -31,6 +31,7 @@ class AuthorAdmin extends AbstractAdmin
             ->add('firstName')
             ->add('lastName')
             ->add('middleName')
+            ->add('slug')
             ->add('level')
             ->add('recensesCount')
             ->add('artsCount')
@@ -49,7 +50,9 @@ class AuthorAdmin extends AbstractAdmin
             ->add('litresHubId')
             ->add('documentId')
             ->add('artsCount')
+            ->add('firstName')
             ->add('lastName')
+            ->add('slug')
         ;
     }
 
@@ -63,6 +66,7 @@ class AuthorAdmin extends AbstractAdmin
             ->add('litresHubId')
             ->add('documentId')
             ->add('fullName')
+            ->add('slug')
             ->add('artsCount')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -86,6 +90,7 @@ class AuthorAdmin extends AbstractAdmin
             ->add('firstName')
             ->add('lastName')
             ->add('middleName')
+            ->add('slug')
             ->add('level')
             ->add('recensesCount')
             ->add('artsCount')

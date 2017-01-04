@@ -11,29 +11,42 @@ fos_elastica:
                         rating:              { type: float }
                         book_type:           { type: integer }
                         annotation:          { type: string }
+                        slug:                { type: string, index: not_analyzed }
                         authors:
                             type: "nested"
                             properties:
-                                first_name:  { type: string  }
-                                middle_name: { type: string  }
-                                last_name:   { type: string  }
-                                description: { type: string  }
+                                first_name:  { type: string }
+                                middle_name: { type: string }
+                                last_name:   { type: string }
+                                description: { type: string }
+                                slug:        { type: string, index: not_analyzed }
                         genres:
                             type: "nested"
                             properties:
-                                title:       { type: string  }
+                                title:       { type: string }
+                                slug:        { type: string, index: not_analyzed }
+
                         tags:
                             type: "nested"
                             properties:
-                                title:       { type: string  }
+                                title:       { type: string }
+                                slug:        { type: string, index: not_analyzed }
+
                         sequences:
                             type: "nested"
                             properties:
-                                name:        { type: string  }
-                                number:      { type: integer  }
+                                name:        { type: string }
+                                number:      { type: integer }
+                                slug:        { type: string, index: not_analyzed }
                     persistence:
-                        driver: orm
-                        model: AppBundle\Entity\Book
+                        driver:   orm
+                        model:    AppBundle\Entity\Book
                         provider: ~
                         listener: ~
-                        finder: ~
+                        finder:   ~
+        routes:
+            index_name: routes
+            types:
+                route:
+                    mappings:
+                        path: { type: string, index: not_analyzed }

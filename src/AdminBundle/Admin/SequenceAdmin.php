@@ -28,6 +28,7 @@ class SequenceAdmin extends AbstractAdmin
                 'by_reference' => false,
             ])
             ->add('name', null, ['required' => true])
+            ->add('slug')
             ->add('number')
         ;
     }
@@ -41,6 +42,7 @@ class SequenceAdmin extends AbstractAdmin
             ->add('id')
             ->add('litresId')
             ->add('name')
+            ->add('slug')
             ->add('number')
         ;
     }
@@ -54,6 +56,7 @@ class SequenceAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('litresId')
             ->add('name')
+            ->add('slug')
             ->add('number')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -74,6 +77,7 @@ class SequenceAdmin extends AbstractAdmin
             ->add('id')
             ->add('litresId')
             ->add('name')
+            ->add('slug')
             ->add('number')
         ;
     }

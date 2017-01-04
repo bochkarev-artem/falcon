@@ -6,6 +6,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * AppBundle\Entity\Tag
@@ -42,6 +43,14 @@ class Tag
      * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
+
+    /**
+     * @var string $slug
+     *
+     * @Gedmo\Slug(fields={"title"}, unique=true)
+     * @ORM\Column(name="slug", type="string", nullable=true)
+     */
+    private $slug;
 
     /**
      * @return int
@@ -87,6 +96,26 @@ class Tag
     public function setLitresId($litresId)
     {
         $this->litresId = $litresId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     *
+     * @return Tag
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

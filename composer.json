@@ -39,11 +39,13 @@
         "symfony/assetic-bundle": "^2.8",
         "leafo/scssphp": "^0.6.6",
         "patchwork/jsqueeze": "^2.0",
-        "friendsofsymfony/elastica-bundle": "^3.2",
         "aws/aws-sdk-php": "^3.20",
         "vich/uploader-bundle": "^1.4",
         "oneup/flysystem-bundle": "^1.7",
-        "league/flysystem-aws-s3-v3": "^1.0"
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "friendsofsymfony/elastica-bundle": "dev-master",
+        "symfony-cmf/routing-bundle": "dev-master"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0",
