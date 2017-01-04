@@ -34,10 +34,8 @@ class RouteProvider implements RouteProviderInterface
      */
     public function getRouteCollectionForRequest(Request $request)
     {
-        $url = rawurldecode($request->getPathInfo());
-        $url = trim($url, '/');
-        // match something/something/1.html (old non-ajax pagination) and something/something (w/o .html) also
-        // to be redirected to something/something below
+        $url       = rawurldecode($request->getPathInfo());
+        $url       = trim($url, '/');
         $searchUrl = preg_replace('#^(.*?)(?:/\d+)?(?:\.html)?$#iu', '$1', $url);
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
@@ -48,7 +46,6 @@ class RouteProvider implements RouteProviderInterface
 
         $collection = new RouteCollection();
         if ($results) {
-            // if it's not something/something - redirect to it
             if ($url != $searchUrl) {
                 $routeData = [
                     'params' => [

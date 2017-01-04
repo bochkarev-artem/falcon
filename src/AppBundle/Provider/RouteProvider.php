@@ -86,26 +86,14 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param object $object
+     * @param $object
      *
      * @return array|bool
      */
     private function prepareDocuments($object)
     {
-        if ($object instanceof Book) {
-            $routes = $this->collectBookData($object);
-        } elseif ($object instanceof Genre) {
-            $routes = $this->collectObjectData($object, 'genre');
-        } elseif ($object instanceof Author) {
-            $routes = $this->collectObjectData($object, 'author');
-        } elseif ($object instanceof Tag) {
-            $routes = $this->collectObjectData($object, 'tag');
-        } elseif ($object instanceof Sequence) {
-            $routes = $this->collectObjectData($object, 'sequence');
-        } else {
-            return false;
-        }
-
+        $className = (new \ReflectionClass($object))->getShortName();
+        $routes    = $this->collectObjectData($object, $className);
         $documents = [];
         foreach ($routes as $routeId => $routeData) {
             array_push($documents, new Document($routeId, $routeData, 'route'));
@@ -115,38 +103,14 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param Book $book
+     * @param        $object
+     * @param string $className
      *
      * @return array
      */
-    private function collectBookData(Book $book)
+    private function collectObjectData($object, $className)
     {
-        $bookId      = $book->getId();
-        $routeParams = [
-            'defaults'     => [
-                '_controller' => 'AppBundle:Book:show',
-                'id'          => $bookId,
-            ],
-            'requirements' => [],
-            'options'      => [],
-        ];
-
-        $routeId             = 'book:' . $bookId;
-        $routeData['params'] = $routeParams;
-        $routeData['book']   = $bookId;
-        $routeData['path']   = $book->getSlug();
-
-        return [$routeId => $routeData];
-    }
-
-    /**
-     * @param Genre|Tag|Sequence|Author $object
-     * @param string                    $type
-     *
-     * @return array
-     */
-    private function collectObjectData($object, $type)
-    {
+        $type        = strtolower($className);
         $objectId    = $object->getId();
         $routeParams = [
             'defaults' => [
@@ -162,25 +126,8 @@ class RouteProvider implements ProviderInterface
             'params' => $routeParams,
             $type    => $objectId,
         ];
-
-        switch ($type) {
-            case 'genre':
-                $routeData['params']['defaults']['_controller'] = 'AppBundle:Genre:show';
-                break;
-            case 'author':
-                $routeData['params']['defaults']['_controller'] = 'AppBundle:Author:show';
-                break;
-            case 'tag':
-                $routeData['params']['defaults']['_controller'] = 'AppBundle:Tag:show';
-                break;
-            case 'sequence':
-                $routeData['params']['defaults']['_controller'] = 'AppBundle:Sequence:show';
-                break;
-            default:
-                break;
-        }
-
-        $routeData['path'] = $object->getSlug();
+        $routeData['params']['defaults']['_controller'] = "AppBundle:$className:show";
+        $routeData['path'] = $type . '/' . $object->getSlug();
         $routes[$routeId]  = $routeData;
 
         return $routes;

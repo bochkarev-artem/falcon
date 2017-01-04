@@ -61,11 +61,8 @@ class DynamicRouter extends BaseDynamicRouter
     {
         if ($name == 'dynamic_route') {
             $parameters['_path'] = $this->getPath($parameters);
+            $route               = new Route('/{_path}', [], ['_path' => '.*']);
 
-            $route = new Route('/{_path}', [], ['_path' => '.*']);
-
-            // remove default parameters extracted by DynamicRouter (in RouteRepository)
-            // otherwise they will be added to query string
             if (isset($parameters['_params']) && is_array($parameters['_params'])) {
                 foreach ($parameters['_params'] as $key) {
                     unset($parameters[$key]);
