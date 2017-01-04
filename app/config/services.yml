@@ -48,3 +48,25 @@ services:
             - 100
         tags:
             - { name: fos_elastica.provider, index: routes, type: route }
+
+    routing.dynamic_router:
+        class: AppBundle\Routing\DynamicRouter
+        arguments:
+            - "@router.request_context"
+            - "@routing.request_matcher"
+            - "@cmf_routing.generator"
+            - "@?event_dispatcher"
+            - "@fos_elastica.index.routes.route"
+
+    routing.request_matcher:
+        class: AppBundle\Routing\RequestMatcher
+        arguments:
+            - "@routing.route_provider"
+        calls:
+            - [ setContext, ["@router.request_context"] ]
+            - [ setFinalMatcher, ["@cmf_routing.final_matcher"] ]
+
+    routing.route_provider:
+        class: AppBundle\Routing\RouteProvider
+        arguments:
+            - "@fos_elastica.index.routes.route"

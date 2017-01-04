@@ -131,10 +131,10 @@ class RouteProvider implements ProviderInterface
             'options'      => [],
         ];
 
-        $routeId              = 'book:' . $bookId;
-        $routeData['params']  = $routeParams;
-        $routeData['product'] = $bookId;
-        $routeData['path']    = $book->getSlug();
+        $routeId             = 'book:' . $bookId;
+        $routeData['params'] = $routeParams;
+        $routeData['book']   = $bookId;
+        $routeData['path']   = $book->getSlug();
 
         return [$routeId => $routeData];
     }
