@@ -103,8 +103,8 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param        $object
-     * @param string $className
+     * @param Book|Author|Genre|Tag|Sequence $object
+     * @param string                         $className
      *
      * @return array
      */

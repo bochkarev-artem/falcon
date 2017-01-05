@@ -70,3 +70,8 @@ services:
         class: AppBundle\Routing\RouteProvider
         arguments:
             - "@fos_elastica.index.routes.route"
+
+    query_service:
+        class: AppBundle\Service\QueryService
+        arguments:
+            - "@fos_elastica.index.books.book"
