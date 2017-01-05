@@ -2,8 +2,18 @@ fos_elastica:
     clients:
         default: { host: "%elastic_host%", port: "%elastic_port%" }
     indexes:
+        routes:
+            index_name: routes
+            client:     default
+            use_alias:  true
+            types:
+                route:
+                    mappings:
+                        path: { type: string, index: not_analyzed }
         books:
             index_name: books
+            client:     default
+            use_alias:  true
             types:
                 book:
                     mappings:
@@ -49,9 +59,3 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder:   ~
-        routes:
-            index_name: routes
-            types:
-                route:
-                    mappings:
-                        path: { type: string, index: not_analyzed }

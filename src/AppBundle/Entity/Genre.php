@@ -208,4 +208,12 @@ class Genre
     {
         return (string) $this->getTitle();
     }
+
+    /**
+     * @return int
+     */
+    public function getGenreId()
+    {
+        return $this->getId();
+    }
 }

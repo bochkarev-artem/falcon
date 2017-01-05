@@ -218,4 +218,12 @@ class Sequence
     {
         return (string) $this->getName();
     }
+
+    /**
+     * @return int
+     */
+    public function getSequenceId()
+    {
+        return $this->getId();
+    }
 }

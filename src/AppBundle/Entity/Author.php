@@ -472,4 +472,12 @@ class Author
     {
         return (string) $this->getFullName();
     }
+
+    /**
+     * @return int
+     */
+    public function getAuthorId()
+    {
+        return $this->getId();
+    }
 }

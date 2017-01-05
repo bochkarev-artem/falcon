@@ -127,4 +127,12 @@ class Tag
     {
         return (string) $this->getTitle();
     }
+
+    /**
+     * @return int
+     */
+    public function getTagId()
+    {
+        return $this->getId();
+    }
 }

@@ -163,7 +163,9 @@ class RouteProvider implements ProviderInterface
                     $active           = round(memory_get_usage(true) / 1024 / 1024, 1);
                     $peak             = round(memory_get_peak_usage(true) / 1024 / 1024, 1);
                     $loggerClosure(
-                        sprintf(
+                        $stepCount,
+                        $nbObjects,
+                        "\n" . sprintf(
                             '%0.1f%% (%d/%d), %d objects/s %0.1fMb/%0.1fMb',
                             $percentComplete,
                             $stepCount,
@@ -171,7 +173,7 @@ class RouteProvider implements ProviderInterface
                             $objectsPerSecond,
                             $active,
                             $peak
-                        ), $nbObjects
+                        )
                     );
                 }
 
@@ -193,7 +195,9 @@ class RouteProvider implements ProviderInterface
                 $active           = round(memory_get_usage(true) / 1024 / 1024, 1);
                 $peak             = round(memory_get_peak_usage(true) / 1024 / 1024, 1);
                 $loggerClosure(
-                    sprintf(
+                    $stepCount,
+                    $nbObjects,
+                    "\n" . sprintf(
                         '%0.1f%% (%d/%d), %d objects/s %0.1fMb/%0.1fMb',
                         $percentComplete,
                         $stepCount,
@@ -201,7 +205,7 @@ class RouteProvider implements ProviderInterface
                         $objectsPerSecond,
                         $active,
                         $peak
-                    ), $nbObjects
+                    )
                 );
             }
 

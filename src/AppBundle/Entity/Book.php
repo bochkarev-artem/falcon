@@ -877,4 +877,12 @@ class Book
     {
         return (string) $this->getTitle();
     }
+
+    /**
+     * @return int
+     */
+    public function getBookId()
+    {
+        return $this->getId();
+    }
 }
