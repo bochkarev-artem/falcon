@@ -186,9 +186,7 @@ class LitresService
             return false;
         }
         if ($subject->{'text_descr_html'}->hidden) {
-            foreach ($subject->{'text_descr_html'}->hidden->p as $p) {
-                $description .= '<p>' . (string) $p . '</p>';
-            }
+            $description = strip_tags($subject->{'text_descr_html'}->hidden->asXML(), '<p><br>');
         }
         $author
             ->setDocumentId((string) $subject['id'])
@@ -219,6 +217,7 @@ class LitresService
         $sequenceId   = (integer) $sequence['id'];
         $sequenceName = (string) $sequence['name'];
         $sequence     = $this->sequenceRepo->findOneByLitresId($sequenceId);
+
         if (!$sequence && $sequenceId) {
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
@@ -315,6 +314,7 @@ class LitresService
 
                     continue;
                 }
+
                 $annotation   = '';
                 $book         = new Book;
                 $titleInfo    = $data->{'text_description'}->hidden->{'title-info'};
@@ -338,23 +338,27 @@ class LitresService
                         continue 2;
                     }
                 }
+
                 $genres = [];
                 foreach ($titleInfo->genre as $token) {
                     $token = (string) $token;
                     $genres[$token] = $token; // To exclude duplicated
                 }
+
                 foreach ($genres as $token) {
                     $genre = $this->getGenre($token);
                     if ($genre) {
                         $book->addGenre($genre);
                     }
                 }
+
                 foreach ($data->{'art_tags'}->tag as $tag) {
                     $tag = $this->getTag($tag);
                     if ($tag) {
                         $book->addTag($tag);
                     }
                 }
+
                 if ($data->{'sequences'}) {
                     foreach ($data->{'sequences'}->sequence as $sequence) {
                         $sequenceNumber = (integer) $sequence['number'];
@@ -366,11 +370,11 @@ class LitresService
                         }
                     }
                 }
+
                 if ($titleInfo->annotation) {
-                    foreach ($titleInfo->annotation->p as $p) {
-                        $annotation .= '<p>' . (string) $p . '</p>';
-                    }
+                    $annotation = strip_tags($titleInfo->annotation->asXML(), '<p><br>');
                 }
+
                 if ($titleInfo->reader) {
                     $book->setReader((string) $titleInfo->reader->nickname);
                 }
@@ -400,6 +404,7 @@ class LitresService
                 if ($this->debug) {
                     echo ">>> " . $book->getId() . " book id persisted ($step)\n";
                 }
+
                 $this->em->flush();
                 $this->em->clear();
             }
@@ -413,6 +418,7 @@ class LitresService
             );
             echo ">>> $numberProcessed books flushed\n";
         }
+
         $this->em->flush();
         $this->em->clear();
 
@@ -451,6 +457,7 @@ class LitresService
     protected function mbUcfirst($string) {
         $string      = mb_strtolower($string);
         $firstLetter = mb_strtoupper(mb_substr($string, 0, 1));
+
         return $firstLetter . mb_substr($string, 1);
     }
 }

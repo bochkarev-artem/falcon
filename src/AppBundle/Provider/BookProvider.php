@@ -222,14 +222,16 @@ class BookProvider implements ProviderInterface
     private function collectSequencesData(Book $book, $bookData)
     {
         $sequence = $book->getSequence();
-        $sequenceData = [
-            'sequence_id' => $sequence->getId(),
-            'name'        => $sequence->getName(),
-            'litres_id'   => $sequence->getLitresId(),
-            'path'        => $sequence->getEntityPathPrefix() . '/' . $sequence->getSlug(),
-        ];
+        if ($sequence) {
+            $sequenceData = [
+                'sequence_id' => $sequence->getId(),
+                'name'        => $sequence->getName(),
+                'litres_id'   => $sequence->getLitresId(),
+                'path'        => $sequence->getEntityPathPrefix() . '/' . $sequence->getSlug(),
+            ];
 
-        $bookData['sequence'] = $sequenceData;
+            $bookData['sequence'] = $sequenceData;
+        }
 
         return $bookData;
     }
