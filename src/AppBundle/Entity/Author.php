@@ -515,4 +515,12 @@ class Author implements EntityInterface
     {
         return 'author';
     }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+    }
 }

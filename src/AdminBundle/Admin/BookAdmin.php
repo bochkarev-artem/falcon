@@ -42,7 +42,7 @@ class BookAdmin extends AbstractAdmin
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('sequences', 'entity', [
+            ->add('sequence', 'entity', [
                 'class'    => 'AppBundle\Entity\Sequence',
                 'expanded' => false,
                 'multiple' => true,
@@ -89,7 +89,7 @@ class BookAdmin extends AbstractAdmin
             ->add('tags', null, [], 'entity', [
                 'class' => 'AppBundle\Entity\Tag',
             ])
-            ->add('sequences', null, [], 'entity', [
+            ->add('sequence', null, [], 'entity', [
                 'class' => 'AppBundle\Entity\Sequence',
             ])
             ->add('litresHubId')
@@ -111,7 +111,7 @@ class BookAdmin extends AbstractAdmin
             ->add('litresHubId')
             ->add('documentId')
             ->add('title')
-            ->add('slug')
+            ->add('path')
             ->add('authors')
             ->add('genres')
             ->add('tags')
@@ -158,7 +158,7 @@ class BookAdmin extends AbstractAdmin
             ->add('genres')
             ->add('authors')
             ->add('tags')
-            ->add('sequences')
+            ->add('sequence')
             ->add('annotation')
             ->add('date')
             ->add('lang')

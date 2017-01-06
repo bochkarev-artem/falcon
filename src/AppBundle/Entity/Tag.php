@@ -143,4 +143,12 @@ class Tag implements EntityInterface
     {
         return 'tag';
     }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+    }
 }
