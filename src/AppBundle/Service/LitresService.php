@@ -58,7 +58,7 @@ class LitresService
     /**
      * @var int $perPage
      */
-    private $perPage = 50;
+    private $perPage = 100;
 
     /**
      * @var bool $debug
@@ -129,6 +129,7 @@ class LitresService
                         if (!$genre->getTitle()) {
                             $genre->setTitle($title);
                         }
+
                         if (!$genre->getLitresId()) {
                             $genre->setLitresId($id);
                         }
@@ -172,22 +173,28 @@ class LitresService
         $xml         = $this->getXml($endpoint);
         $author      = new Author();
         $subject     = $xml->{'subject'};
+
         if (!$xml->{'subject'}) {
             return false;
         }
+
         $litresId = (integer) $subject['hub_id'];
         if (!$litresId) { // no author
             return false;
         }
+
         $fName = (string) $subject->{'first-name'};
         $mName = (string) $subject->{'middle-name'};
         $lName = (string) $subject->{'last-name'};
+
         if (!($fName || $mName || $lName)) { // no real name
             return false;
         }
+
         if ($subject->{'text_descr_html'}->hidden) {
             $description = strip_tags($subject->{'text_descr_html'}->hidden->asXML(), '<p><br>');
         }
+
         $author
             ->setDocumentId((string) $subject['id'])
             ->setLitresHubId($litresId)
@@ -298,7 +305,7 @@ class LitresService
     {
         $skipped = 0;
         $step    = 0;
-        for ($i = 0; $i < 4; $i++) {
+        for ($i = 0; $i < 2; $i++) {
             $start = $i * $this->perPage + 1;
             $xml   = $this->getXml($endpoint . "?limit=$start,$this->perPage");
 
