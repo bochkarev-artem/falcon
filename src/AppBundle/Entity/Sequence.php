@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Sequence
+class Sequence implements EntityInterface
 {
     /**
      * @var int $id
@@ -225,5 +225,13 @@ class Sequence
     public function getSequenceId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'series';
     }
 }

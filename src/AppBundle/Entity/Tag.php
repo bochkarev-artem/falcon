@@ -19,7 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Tag
+class Tag implements EntityInterface
 {
     /**
      * @var integer $id
@@ -134,5 +134,13 @@ class Tag
     public function getTagId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'tag';
     }
 }

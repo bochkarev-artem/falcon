@@ -21,7 +21,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     }
  * )
  */
-class Author
+class Author implements EntityInterface
 {
     /**
      * @var integer $id
@@ -506,5 +506,13 @@ class Author
     public function getAuthorId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'author';
     }
 }

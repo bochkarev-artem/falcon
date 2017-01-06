@@ -19,7 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Genre
+class Genre implements EntityInterface
 {
     /**
      * @var int $id
@@ -215,5 +215,13 @@ class Genre
     public function getGenreId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'genre';
     }
 }

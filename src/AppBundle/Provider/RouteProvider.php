@@ -86,14 +86,13 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param $object
+     * @param Book|Author|Genre|Tag|Sequence $object
      *
      * @return array|bool
      */
     private function prepareDocuments($object)
     {
-        $className = (new \ReflectionClass($object))->getShortName();
-        $routes    = $this->collectObjectData($object, $className);
+        $routes    = $this->collectObjectData($object);
         $documents = [];
         foreach ($routes as $routeId => $routeData) {
             array_push($documents, new Document($routeId, $routeData, 'route'));
@@ -104,13 +103,13 @@ class RouteProvider implements ProviderInterface
 
     /**
      * @param Book|Author|Genre|Tag|Sequence $object
-     * @param string                         $className
      *
      * @return array
      */
-    private function collectObjectData($object, $className)
+    private function collectObjectData($object)
     {
-        $type        = strtolower($className);
+        $type        = $object->getEntityPathPrefix();
+        $className   = (new \ReflectionClass($object))->getShortName();
         $objectId    = $object->getId();
         $routeParams = [
             'defaults' => [

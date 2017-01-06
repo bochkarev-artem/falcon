@@ -23,7 +23,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     }
  * )
  */
-class Book
+class Book implements EntityInterface
 {
     const ELECTRONIC_BOOK      = 0;
     const AUDIO_BOOK           = 1;
@@ -938,5 +938,13 @@ class Book
     public function getBookId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'book';
     }
 }
