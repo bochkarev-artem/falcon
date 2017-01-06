@@ -954,4 +954,12 @@ class Book implements EntityInterface
     {
         return 'book';
     }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->getAuthors()->first()->getSlug() . '/' . $this->getSlug();
+    }
 }

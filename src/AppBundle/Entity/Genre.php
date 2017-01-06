@@ -262,4 +262,12 @@ class Genre implements EntityInterface
     {
         return 'genre';
     }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+    }
 }

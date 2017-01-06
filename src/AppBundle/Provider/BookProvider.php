@@ -94,8 +94,6 @@ class BookProvider implements ProviderInterface
      */
     private function collectData(Book $book)
     {
-        /** @var Author $author */
-        $author = $book->getAuthors()->first();
         $bookData = [
             'book_id'           => $book->getId(),
             'title'             => $book->getTitle(),
@@ -118,7 +116,7 @@ class BookProvider implements ProviderInterface
             'year_published'    => $book->getYearPublished(),
             'isbn'              => $book->getIsbn(),
             'review_count'      => $book->getReviewCount(),
-            'path'              => $author->getSlug() . '/' . $book->getSlug(),
+            'path'              => $book->getPath(),
         ];
 
         $bookData = $this->collectAuthorsData($book, $bookData);
@@ -145,7 +143,7 @@ class BookProvider implements ProviderInterface
                 'title'       => $genre->getTitle(),
                 'description' => $genre->getDescription(),
                 'litres_id'   => $genre->getLitresId(),
-                'path'        => $genre->getEntityPathPrefix() . '/' . $genre->getSlug(),
+                'path'        => $genre->getPath(),
             ];
             $genresData[] = $genreData;
         }
@@ -171,6 +169,7 @@ class BookProvider implements ProviderInterface
                 'first_name'   => $author->getFirstName(),
                 'last_name'    => $author->getLastName(),
                 'middle_name'  => $author->getMiddleName(),
+                'full_name'    => $author->getFullName(),
                 'level'        => $author->getLevel(),
                 'description'  => $author->getDescription(),
                 'review_count' => $author->getReviewCount(),
@@ -178,7 +177,7 @@ class BookProvider implements ProviderInterface
                 'photo_url'    => $author->getPhotoUrl(),
                 'litres_id'    => $author->getLitresHubId(),
                 'document_id'  => $author->getDocumentId(),
-                'path'         => $author->getEntityPathPrefix() . '/' . $author->getSlug(),
+                'path'         => $author->getPath(),
             ];
             $authorsData[] = $authorData;
         }
@@ -203,7 +202,7 @@ class BookProvider implements ProviderInterface
                 'tag_id'    => $tag->getId(),
                 'title'     => $tag->getTitle(),
                 'litres_id' => $tag->getLitresId(),
-                'path'      => $tag->getEntityPathPrefix() . '/' . $tag->getSlug(),
+                'path'      => $tag->getPath(),
             ];
             $tagsData[] = $tagData;
         }
@@ -222,14 +221,16 @@ class BookProvider implements ProviderInterface
     private function collectSequencesData(Book $book, $bookData)
     {
         $sequence = $book->getSequence();
-        $sequenceData = [
-            'sequence_id' => $sequence->getId(),
-            'name'        => $sequence->getName(),
-            'litres_id'   => $sequence->getLitresId(),
-            'path'        => $sequence->getEntityPathPrefix() . '/' . $sequence->getSlug(),
-        ];
+        if ($sequence) {
+            $sequenceData = [
+                'sequence_id' => $sequence->getId(),
+                'name'        => $sequence->getName(),
+                'litres_id'   => $sequence->getLitresId(),
+                'path'        => $sequence->getPath(),
+            ];
 
-        $bookData['sequence'] = $sequenceData;
+            $bookData['sequence'] = $sequenceData;
+        }
 
         return $bookData;
     }

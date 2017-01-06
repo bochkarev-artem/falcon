@@ -23,7 +23,7 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
     {
         $this
             ->setName('app:update-author-images')
-            ->setDescription('Update Litres Images.')
+            ->setDescription('Update Litres images.')
         ;
     }
 

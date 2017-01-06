@@ -122,7 +122,8 @@ class MenuBuilder
     {
         $menuTree = [];
         foreach ($genres as $genre) {
-            $parentId = $genre->getParentId();
+            $parent   = $genre->getParent();
+            $parentId = $parent ? $parent->getId() : 0;
             $menuTree[$parentId][] = $genre;
         }
 

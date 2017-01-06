@@ -7,7 +7,6 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Book;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -24,8 +23,7 @@ class ImportBookImagesCommand extends ContainerAwareCommand
     {
         $this
             ->setName('app:update-book-images')
-            ->setDescription('Update Litres Images.')
-            ->addArgument('preview-only', InputArgument::OPTIONAL, 'Only preview: "y", "n"', 'n')
+            ->setDescription('Update Litres images.')
         ;
     }
 
@@ -36,7 +34,6 @@ class ImportBookImagesCommand extends ContainerAwareCommand
     {
         $startTime = time();
         $output->writeln("<info>Import book images started.</info>");
-        $previewOnly = 'y' === $input->getArgument('preview-only') ? true: false;
 
         $container = $this->getContainer();
         $em = $container->get('doctrine.orm.entity_manager');
@@ -52,7 +49,7 @@ class ImportBookImagesCommand extends ContainerAwareCommand
         foreach ($result as $row) {
             /** @var Book $book */
             $book = $row[0];
-            $imageUploadService->updateBookCover($book, $previewOnly);
+            $imageUploadService->updateBookCover($book);
             if ((++$i % $batchSize) === 0) {
                 $em->flush();
                 $em->clear();

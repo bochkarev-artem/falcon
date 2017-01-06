@@ -180,4 +180,12 @@ class Sequence implements EntityInterface
     {
         return 'series';
     }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+    }
 }
