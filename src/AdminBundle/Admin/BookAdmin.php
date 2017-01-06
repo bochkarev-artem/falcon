@@ -68,7 +68,8 @@ class BookAdmin extends AbstractAdmin
             ->add('yearPublished')
             ->add('isbn')
             ->add('rating')
-            ->add('recensesCount')
+            ->add('reviewCount')
+            ->add('sequenceNumber')
         ;
     }
 
@@ -166,7 +167,8 @@ class BookAdmin extends AbstractAdmin
             ->add('yearPublished')
             ->add('isbn')
             ->add('rating')
-            ->add('recensesCount')
+            ->add('reviewCount')
+            ->add('sequenceNumber')
         ;
     }
 

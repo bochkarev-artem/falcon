@@ -47,7 +47,7 @@ class Book implements EntityInterface
     private $id;
 
     /**
-     * @var $litresHubId
+     * @var integer $litresHubId
      *
      * @ORM\Column(name="litres_hub_id", type="integer")
      */
@@ -225,6 +225,13 @@ class Book implements EntityInterface
     private $lang;
 
     /**
+     * @var int $sequenceNumber
+     *
+     * @ORM\Column(name="sequence_number", type="integer", nullable=true)
+     */
+    private $sequenceNumber;
+
+    /**
      * @var string $documentId
      *
      * @ORM\Column(name="document_id", type="string", nullable=true)
@@ -267,11 +274,11 @@ class Book implements EntityInterface
     private $rating;
 
     /**
-     * @var integer $recensesCount
+     * @var integer $reviewCount
      *
-     * @ORM\Column(name="recenses_count", type="integer", nullable=true)
+     * @ORM\Column(name="review_count", type="integer", nullable=true)
      */
-    private $recensesCount;
+    private $reviewCount;
 
     /**
      * Initialize fields
@@ -605,7 +612,7 @@ class Book implements EntityInterface
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getLitresHubId()
     {
@@ -613,7 +620,7 @@ class Book implements EntityInterface
     }
 
     /**
-     * @param string $litresHubId
+     * @param integer $litresHubId
      *
      * @return Book
      */
@@ -767,19 +774,19 @@ class Book implements EntityInterface
     /**
      * @return int
      */
-    public function getRecensesCount()
+    public function getReviewCount()
     {
-        return $this->recensesCount;
+        return $this->reviewCount;
     }
 
     /**
-     * @param int $recensesCount
+     * @param int $reviewCount
      *
      * @return Book
      */
-    public function setRecensesCount($recensesCount)
+    public function setReviewCount($reviewCount)
     {
-        $this->recensesCount = $recensesCount;
+        $this->reviewCount = $reviewCount;
 
         return $this;
     }
@@ -920,6 +927,26 @@ class Book implements EntityInterface
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSequenceNumber()
+    {
+        return $this->sequenceNumber;
+    }
+
+    /**
+     * @param string $sequenceNumber
+     *
+     * @return Book
+     */
+    public function setSequenceNumber($sequenceNumber)
+    {
+        $this->sequenceNumber = $sequenceNumber;
 
         return $this;
     }

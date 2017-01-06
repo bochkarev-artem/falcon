@@ -90,11 +90,11 @@ class Author implements EntityInterface
     private $level;
 
     /**
-     * @var integer $recensesCount
+     * @var integer $reviewCount
      *
-     * @ORM\Column(name="recenses_count", type="integer", nullable=true)
+     * @ORM\Column(name="review_count", type="integer", nullable=true)
      */
-    private $recensesCount;
+    private $reviewCount;
 
     /**
      * @var integer $artsCount
@@ -277,19 +277,19 @@ class Author implements EntityInterface
     /**
      * @return int
      */
-    public function getRecensesCount()
+    public function getReviewCount()
     {
-        return $this->recensesCount;
+        return $this->reviewCount;
     }
 
     /**
-     * @param int $recensesCount
+     * @param int $reviewCount
      *
      * @return Author
      */
-    public function setRecensesCount($recensesCount)
+    public function setReviewCount($reviewCount)
     {
-        $this->recensesCount = $recensesCount;
+        $this->reviewCount = $reviewCount;
 
         return $this;
     }

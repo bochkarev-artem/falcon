@@ -60,12 +60,6 @@ class Sequence implements EntityInterface
      */
     private $slug;
 
-    /**
-     * @var int $number
-     *
-     * @ORM\Column(name="number", type="integer", nullable=true)
-     */
-    private $number;
 
     /**
      * Initialize fields
@@ -99,26 +93,6 @@ class Sequence implements EntityInterface
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * @param string $number
-     *
-     * @return Sequence
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
 
         return $this;
     }
