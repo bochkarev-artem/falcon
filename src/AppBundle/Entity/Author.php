@@ -111,6 +111,13 @@ class Author
     private $photo;
 
     /**
+     * @var string $photoUrl
+     *
+     * @ORM\Column(name="photo_url", type="string", nullable=true)
+     */
+    private $photoUrl;
+
+    /**
      * @var string $photoName
      *
      * @ORM\Column(name="photo_name", type="string", nullable=true)
@@ -118,7 +125,7 @@ class Author
     private $photoName;
 
     /**
-     * @Vich\UploadableField(mapping="author_image", fileNameProperty="photo")
+     * @Vich\UploadableField(mapping="author_image", fileNameProperty="photoName")
      *
      * @var File
      */
@@ -427,6 +434,26 @@ class Author
 
     /**
      * @return string
+     */
+    public function getPhotoUrl()
+    {
+        return $this->photoUrl;
+    }
+
+    /**
+     * @param string $photoUrl
+     *
+     * @return Author
+     */
+    public function setPhotoUrl($photoUrl)
+    {
+        $this->photoUrl = $photoUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
      */
     public function getPhotoName()
     {

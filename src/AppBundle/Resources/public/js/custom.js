@@ -41,7 +41,7 @@ $(document).ready(function(){
 			easing:'ease',
 			autoDelay: 1000
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Drop Down Toggle
@@ -75,7 +75,7 @@ $(document).ready(function(){
 	==============================================================
 		Sidr Script
 	==============================================================
-	*/	
+	*/
 	if($("#simple-menu").length){
 		$('#simple-menu').sidr();
 	}
@@ -85,19 +85,6 @@ $(document).ready(function(){
 	if($("#responsive-menu-button2").length){
 		$('#responsive-menu-button2').sidr();
 	}
-	/*
-	==============================================================
-		Pretty Photo
-	==============================================================
-	*/   
-	
-	$("area[rel^='prettyPhoto']").prettyPhoto();
-	
-	$("a[data-rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true});
-	$("a[data-rel^='prettyPhoto']").prettyPhoto({});
-	
-	$("area[rel^='prettyPhoto']").prettyPhoto();
-	
 	/*
 	==============================================================
 		Toggle
@@ -120,7 +107,7 @@ $(document).ready(function(){
 	*/
 	if($('#brand-slider').length){
 		var owl = $("#brand-slider");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -133,7 +120,7 @@ $(document).ready(function(){
 		  navigation : true
 
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Brand Slider 2
@@ -141,7 +128,7 @@ $(document).ready(function(){
 	*/
 	if($('#brand-slider2').length){
 		var owl = $("#brand-slider2");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -154,7 +141,7 @@ $(document).ready(function(){
 		  navigation : true
 
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Post Slider
@@ -162,7 +149,7 @@ $(document).ready(function(){
 	*/
 	if($('#post-slider').length){
 		var owl = $("#post-slider");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -175,7 +162,7 @@ $(document).ready(function(){
 		  navigation : true
 
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Featured  Item  Script Start
@@ -183,7 +170,7 @@ $(document).ready(function(){
 	*/
 	if($('#owl-demo-featured').length){
 		var owl = $("#owl-demo-featured");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -197,10 +184,10 @@ $(document).ready(function(){
 		  navigation : true
 
 		});
-	} 
+	}
 	if($('#owl-demo-featured3').length){
 		var owl = $("#owl-demo-featured3");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -216,7 +203,7 @@ $(document).ready(function(){
 		  navigation : true
 
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Featured 2 Item  Script Start
@@ -224,7 +211,7 @@ $(document).ready(function(){
 	*/
 	if($('#owl-demo-featured2').length){
 		var owl = $("#owl-demo-featured2");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -240,7 +227,7 @@ $(document).ready(function(){
 	}
 	if($('#owl-demo-featured4').length){
 		var owl = $("#owl-demo-featured4");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -261,7 +248,7 @@ $(document).ready(function(){
 	*/
 	if($('#owl-demo-post').length){
 		var owl = $("#owl-demo-post");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -274,7 +261,7 @@ $(document).ready(function(){
 		  navigation : true
 
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Owl Tab Slider  Script Start
@@ -282,7 +269,7 @@ $(document).ready(function(){
 	*/
 	if($('#tabs-slider, #tabs-slider2, #tabs-slider3').length){
 		var owl = $("#tabs-slider, #tabs-slider2, #tabs-slider3");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -295,7 +282,7 @@ $(document).ready(function(){
 		  navigation : false
 
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Owl Tab Slider 6  Script Start
@@ -303,7 +290,7 @@ $(document).ready(function(){
 	*/
 	if($('#tabs-slider6').length){
 		var owl = $("#tabs-slider6");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -316,7 +303,7 @@ $(document).ready(function(){
 		  navigation : false
 
 		});
-	} 
+	}
 	/*
 	==============================================================
 		Owl Tab Slider 7  Script Start
@@ -324,7 +311,7 @@ $(document).ready(function(){
 	*/
 	if($('#tabs-slider7').length){
 		var owl = $("#tabs-slider7");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -337,8 +324,8 @@ $(document).ready(function(){
 		  navigation : false
 
 		});
-	} 
- 
+	}
+
 
 	/*
 	==============================================================
@@ -347,7 +334,7 @@ $(document).ready(function(){
 	*/
 	if($('#tabs-slider8').length){
 		var owl = $("#tabs-slider8");
-		owl.owlCarousel({ 
+		owl.owlCarousel({
 		 autoPlay: 5000, //Set AutoPlay to 3 seconds
 		  itemsCustom : [
 		  [0, 1],
@@ -382,8 +369,8 @@ $(document).ready(function(){
 	/*
 	  ==============================================================
 		   Accordian Script Start
-	  ============================================================== 
-	*/  
+	  ==============================================================
+	*/
 
 	if($('.accordion').length){
 		//custom animation for open/close
@@ -456,7 +443,7 @@ $(document).ready(function(){
 	/*
 	  ==============================================================
 		   Progress Bar Script Start
-	  ============================================================== 
+	  ==============================================================
 	*/
 	$(".progressbars").jprogress();
 		$(".progressbarsone").jprogress({
@@ -464,9 +451,9 @@ $(document).ready(function(){
 
 
   	/*
-    ============================================================== 
+    ==============================================================
  				DL Responsive Menu
-    ============================================================== 
+    ==============================================================
     */
 	if(typeof($.fn.dlmenu) == 'function'){
 		$('#kode-responsive-navigation').each(function(){
@@ -487,7 +474,7 @@ $(document).ready(function(){
 		==============================================================
 	*/
 	$('[data-toggle="tooltip"]').tooltip()
-	
+
 
 	/*
 		==============================================================
@@ -595,7 +582,7 @@ function initialize() {
 			}
 		]
 	}
-	];	
+	];
 
 	var mapOptions = {
 		zoom: 13,

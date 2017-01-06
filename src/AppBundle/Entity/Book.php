@@ -82,11 +82,25 @@ class Book
     private $coverPreviewFile;
 
     /**
-     * @var string
+     * @var string $coverPreviewUrl
+     *
+     * @ORM\Column(name="cover_preview_url", type="string", length=255, nullable=true)
+     */
+    private $coverPreviewUrl;
+
+    /**
+     * @var string $coverPreviewName
      *
      * @ORM\Column(name="cover_preview_name", type="string", length=255, nullable=true)
      */
     private $coverPreviewName;
+
+    /**
+     * @var string $coverName
+     *
+     * @ORM\Column(name="cover_name", type="string", length=255, nullable=true)
+     */
+    private $coverName;
 
     /**
      * @Vich\UploadableField(mapping="book_full_image", fileNameProperty="coverName")
@@ -96,11 +110,11 @@ class Book
     private $coverFile;
 
     /**
-     * @var string
+     * @var string $coverUrl
      *
-     * @ORM\Column(name="cover_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="cover_url", type="string", length=255, nullable=true)
      */
-    private $coverName;
+    private $coverUrl;
 
     /**
      * @var string $filename
@@ -766,6 +780,46 @@ class Book
     public function setRecensesCount($recensesCount)
     {
         $this->recensesCount = $recensesCount;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverPreviewUrl()
+    {
+        return $this->coverPreviewUrl;
+    }
+
+    /**
+     * @param string $coverPreviewUrl
+     *
+     * @return Book
+     */
+    public function setCoverPreviewUrl($coverPreviewUrl)
+    {
+        $this->coverPreviewUrl = $coverPreviewUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverUrl()
+    {
+        return $this->coverUrl;
+    }
+
+    /**
+     * @param string $coverUrl
+     *
+     * @return Book
+     */
+    public function setCoverUrl($coverUrl)
+    {
+        $this->coverUrl = $coverUrl;
 
         return $this;
     }
