@@ -1,9 +1,239 @@
 {% extends "@App/layout.html.twig" %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ book.title }}{% endblock %}
 
 {% block body %}
-    {#{% if book.coverPreviewName %}#}
-        {#<img src="{{ vich_uploader_asset(book, 'coverPreviewFile') }}" />#}
-    {#{% endif %}#}
+<div class="kf_content_wrap">
+    <div class="product-detail1">
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <!--BOOK VIEW WRAP START-->
+                        <div class="book-view book-view2">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--BOOK VIEW THUMB START-->
+                                    <div class="thumb">
+                                        <div class="thumb-slider">
+                                            {% if book.cover_url is defined and book.cover_url %}
+                                                <ul class="bxslider1">
+                                                    <li><img src="{{ book.cover_url }}" alt="" /></li>
+                                                </ul>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!--BOOK VIEW THUMB END-->
+                                </div>
+                                <div class="col-md-5">
+                                    <!--BOOK TEXT START-->
+                                    <div class="book-text">
+                                        <!--BOOK HEADING START-->
+                                        <div class="book-heading book-padding">
+                                            <span>Fiction</span>
+                                            <h3><a href="#">Pulse</a></h3>
+                                            <div class="book-review">
+                                                <div class="rating">
+                                                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                                </div>
+                                                <ul class="blog-meta">
+                                                    <li><a href="#">2 Review(s) </a></li>
+                                                    <li><a href="#">Add Your Review</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!--BOOK HEADING END-->
+                                        <!--BOOK DESCRIPTION START-->
+                                        <div class="book-description book-padding">
+                                            <span>BookDescription</span>
+                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna.</p>
+                                        </div>
+                                        <!--BOOK DESCRIPTION END-->
+                                        <!--BOOK WISHLIST 2 START-->
+                                        <div class="wishlist2 book-padding">
+                                            <ul>
+                                                <li><i class="icon-heart"></i><a href="#">Add to Wishlist</a></li>
+                                                <li><i class="icon-send"></i><a href="#">Email to Friend</a></li>
+                                            </ul>
+                                        </div>
+                                        <!--BOOK WISHLIST 2 END-->
+                                        <!--BOOK TAGS START-->
+                                        <div class="book-tags-wrap book-padding">
+                                            <ul class="book-tags">
+                                                <li><span>Tags:</span></li>
+                                                <li>
+                                                    <a href="#">Fiction</a>
+                                                    <a href="#">Love</a>
+                                                    <a href="#">Non Fiction</a>
+                                                    <a href="#">Read</a>
+                                                    <a href="#">Library</a>
+                                                </li>
+                                            </ul>
+                                            <ul class="social-1">
+                                                <li><span>Share:</span></li>
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <!--BOOK TAGS END-->
+                                    </div>
+                                    <!--BOOK TEXT END-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--BOOK VIEW WRAP END-->
+                    </div>
+                    <aside class="col-md-3">
+                        <!--WIDGET FEATURESD START-->
+                        <div class="widget widget-featured">
+                            <!--WIDGET HEADING START-->
+                            <div class="aside-widget-hd">
+                                <h5>Featured Books</h5>
+                            </div>
+                            <!--WIDGET HEADING END-->
+                            <div class="widget-padding">
+                                <!--FEATURED START-->
+                                <div class="featured-dec3">
+                                    <figure>
+                                        <img src="" alt="">
+                                    </figure>
+                                    <div class="text">
+                                        <div class="rating">
+                                            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                        </div>
+                                        <a href="#">Title</a>
+                                    </div>
+                                </div>
+                                <!--FEATURED END-->
+                            </div>
+                        </div>
+                        <!--WIDGET FEATURESD END-->
+                    </aside>
+                </div>
+                <!--BOOK TABS 2 WRAP START-->
+                <div class="book-tabs2">
+                    <ul class="nav nav-tabs books-tab" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews (8)</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="home">
+                            <h5>Description</h5>
+                            {{ book.annotation|raw }}
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="profile">
+                            <!--COMMENTING WRAP START-->
+                            <div class="commenting-wrap-1 cutomer-reviews">
+                                <!--HEADING 1 START-->
+                                <h3>Customer Reviews</h3>
+                                <!--HEADING 1 END-->
+                                <ul>
+                                    <li>
+                                        <!--COMMENTING DEC START-->
+                                        <div class="commenting-dec">
+                                            <figure><img src="" alt=""></figure>
+                                            <div class="text">
+                                                <div class="commenting-hd">
+                                                    <h5><a href="#">Frank Doe</a></h5>
+                                                    <div class="cutomer-rating">
+                                                        <div class="rating">
+                                                            <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                                        </div>
+                                                        <p>Posted on March25, 2016 at 6:57 am</p>
+                                                    </div>
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.</p>
+                                            </div>
+                                        </div>
+                                        <!--COMMENTING DEC END-->
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--COMMENTING WRAP END-->
+                            <!--CONTACT US WRAP START-->
+                            <div class="contact-wrap cutomer-reviews">
+                                <!--HEADING 1 START-->
+                                <h3>Leave a Comment</h3>
+                                <!--HEADING 1 END-->
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="input-dec3">
+                                                <input type="text" placeholder="Full Name">
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-dec3">
+                                                <input type="text" placeholder="Email Address">
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="input-dec3">
+                                                <div class="cutomer-rating">
+                                                    <div class="rating">
+                                                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                                    </div>
+                                                    <p>Your Rating:</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="input-dec3 before-adj">
+                                                <textarea placeholder="Type Here Message"></textarea>
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn-2">Submit</button>
+                                </form>
+                            </div>
+                            <!--CONTACT US WRAP END-->
+                        </div>
+                    </div>
+                </div>
+                <!--BOOK TABS 2 WRAP END-->
+            </div>
+        </div>
+        <section>
+            <div class="container">
+                <div class="heading-inner">
+                    <h2>Related Books</h2>
+                    <span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euis</span><span>mod tincidunt ut laoreet dolore magna aliquam erat volutpat.</span>
+                </div>
+                <!--BOOK RELATED START-->
+                <div class="tabs-slider-wrap tabs-slider-wrap6">
+                    <div class="owl-carousel owl-theme" id="tabs-slider7">
+                        <!--BOOK DEC START-->
+                        <div class="item">
+                            <div class="book-tab-dec">
+                                <figure>
+                                    <img src="" alt=""/>
+                                    <figcaption class="ribbon-wrap">
+                                        <span class="ribbon">Sale</span>
+                                    </figcaption>
+                                </figure>
+                                <div class="text">
+                                    <small>Fiction</small>
+                                    <h5><a href="#">Spells</a></h5>
+                                    <span class="price-tag red">
+                                <del> $350.00 </del>
+                                <sub>$</sub>230.00
+                            </span>
+                                    <a class="add-cart" href="#">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--BOOK DEC END-->
+                    </div>
+                </div>
+                <!--BOOK RELATED END-->
+            </div>
+        </section>
+    </div>
+</div>
 {% endblock %}

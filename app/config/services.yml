@@ -18,6 +18,7 @@ services:
         class: AppBundle\Service\ImageUploadService
         arguments:
           - "@oneup_flysystem.s3_upload_filesystem"
+          - "@vich_uploader.templating.helper.uploader_helper"
           - "%book_full_directory%"
           - "%book_preview_directory%"
           - "%author_directory%"
@@ -49,6 +50,15 @@ services:
         tags:
             - { name: fos_elastica.provider, index: routes, type: route }
 
+    search_provider.book:
+        class: AppBundle\Provider\BookProvider
+        arguments:
+            - "@fos_elastica.index.books.book"
+            - "@doctrine.orm.default_entity_manager"
+            - 100
+        tags:
+            - { name: fos_elastica.provider, index: books, type: book }
+
     routing.dynamic_router:
         class: AppBundle\Routing\DynamicRouter
         arguments:
@@ -70,3 +80,8 @@ services:
         class: AppBundle\Routing\RouteProvider
         arguments:
             - "@fos_elastica.index.routes.route"
+
+    query_service:
+        class: AppBundle\Service\QueryService
+        arguments:
+            - "@fos_elastica.index.books.book"

@@ -36,7 +36,7 @@ class Transliterator extends Urlizer
         'ь' => '',
         'ы' => 'yi',
         'ъ' => "",
-        'э' => 'e`',
+        'э' => 'e',
         'ю' => 'yu',
         'я' => 'ya'
     );

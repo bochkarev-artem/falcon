@@ -1,5 +1,5 @@
 parameters:
-    s3_base_url:            "https://s3.eu-central-1.amazonaws.com/falcon-project-images"
+    s3_base_url:            "https://s3-eu-west-1.amazonaws.com/bookary-images"
     book_full_directory:    "book_full"
     book_preview_directory: "book_preview"
     author_directory:       "author"

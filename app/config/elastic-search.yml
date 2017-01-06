@@ -2,51 +2,77 @@ fos_elastica:
     clients:
         default: { host: "%elastic_host%", port: "%elastic_port%" }
     indexes:
-        books:
-            index_name: books
-            types:
-                book:
-                    mappings:
-                        title:               { type: string }
-                        rating:              { type: float }
-                        book_type:           { type: integer }
-                        annotation:          { type: string }
-                        slug:                { type: string, index: not_analyzed }
-                        authors:
-                            type: "nested"
-                            properties:
-                                first_name:  { type: string }
-                                middle_name: { type: string }
-                                last_name:   { type: string }
-                                description: { type: string }
-                                slug:        { type: string, index: not_analyzed }
-                        genres:
-                            type: "nested"
-                            properties:
-                                title:       { type: string }
-                                slug:        { type: string, index: not_analyzed }
-
-                        tags:
-                            type: "nested"
-                            properties:
-                                title:       { type: string }
-                                slug:        { type: string, index: not_analyzed }
-
-                        sequences:
-                            type: "nested"
-                            properties:
-                                name:        { type: string }
-                                number:      { type: integer }
-                                slug:        { type: string, index: not_analyzed }
-                    persistence:
-                        driver:   orm
-                        model:    AppBundle\Entity\Book
-                        provider: ~
-                        listener: ~
-                        finder:   ~
         routes:
             index_name: routes
+            client:     default
+            use_alias:  true
             types:
                 route:
                     mappings:
                         path: { type: string, index: not_analyzed }
+        books:
+            index_name: books
+            client:     default
+            use_alias:  true
+            types:
+                book:
+                    mappings:
+                        book_id:              { type: integer }
+                        title:                { type: string }
+                        rating:               { type: float }
+                        book_type:            { type: integer }
+                        annotation:           { type: string }
+                        cover_preview_url:    { type: string }
+                        cover_url:            { type: string }
+                        path:                 { type: string, index: not_analyzed }
+                        price:                { type: float }
+                        filename:             { type: string }
+                        has_trial:            { type: boolean }
+                        reader:               { type: string }
+                        date:                 { type: string }
+                        lang:                 { type: string }
+                        sequence_number:      { type: integer }
+                        litres_id:            { type: integer }
+                        document_id:          { type: string }
+                        publisher:            { type: string }
+                        city_published:       { type: string }
+                        year_published:       { type: string }
+                        isbn:                 { type: string }
+                        review_count:         { type: integer }
+                        authors:
+                            type: "nested"
+                            properties:
+                                author_id:    { type: integer }
+                                first_name:   { type: string }
+                                middle_name:  { type: string }
+                                last_name:    { type: string }
+                                photo_url:    { type: string }
+                                description:  { type: string }
+                                level:        { type: integer }
+                                review_count: { type: integer }
+                                arts_count:   { type: integer }
+                                litres_id:    { type: integer }
+                                document_id:  { type: string }
+                                path:         { type: string, index: not_analyzed }
+                        genres:
+                            type: "nested"
+                            properties:
+                                genre_id:     { type: integer }
+                                title:        { type: string }
+                                description:  { type: string }
+                                litres_id:    { type: integer }
+                                path:         { type: string, index: not_analyzed }
+                        tags:
+                            type: "nested"
+                            properties:
+                                tag_id:       { type: integer }
+                                title:        { type: string }
+                                litres_id:    { type: integer }
+                                path:         { type: string, index: not_analyzed }
+                        sequence:
+                            type: "nested"
+                            properties:
+                                sequence_id:  { type: integer }
+                                name:         { type: string }
+                                litres_id:    { type: integer }
+                                path:         { type: string, index: not_analyzed }

@@ -117,10 +117,8 @@ class LitresService
             $parentTitle = $this->mbUcfirst($genreNode['title']);
             $parentGenre->setTitle($parentTitle);
             $parentGenre->setLitresId(0);
-            $parentGenre->setParentId(0);
             $this->em->persist($parentGenre);
             $this->em->flush();
-            $parentId = $parentGenre->getId();
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
                 $token = (string) $node['token'];
@@ -140,7 +138,7 @@ class LitresService
                             ->setLitresId($id)
                             ->setTitle($title)
                             ->setToken($token)
-                            ->setParentId($parentId)
+                            ->setParent($parentGenre)
                         ;
                     }
                     $genres[$token] = $genre;
@@ -202,7 +200,7 @@ class LitresService
             ->setLastName($lName)
             ->setDescription($description)
             ->setPhoto((string) $subject->{'photo'})
-            ->setRecensesCount((integer) $subject->{'recenses-count'})
+            ->setReviewCount((integer) $subject->{'recenses-count'})
         ;
 
         $this->em->persist($author);
@@ -218,15 +216,13 @@ class LitresService
      */
     public function getSequence($sequence)
     {
-        $sequenceId     = (integer) $sequence['id'];
-        $sequenceName   = (string) $sequence['name'];
-        $sequenceNumber = (integer) $sequence['number'];
-        $sequence       = $this->sequenceRepo->findOneByLitresId($sequenceId);
+        $sequenceId   = (integer) $sequence['id'];
+        $sequenceName = (string) $sequence['name'];
+        $sequence     = $this->sequenceRepo->findOneByLitresId($sequenceId);
         if (!$sequence && $sequenceId) {
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
-            $sequence->setNumber($sequenceNumber);
 
             $this->em->persist($sequence);
             $this->em->flush();
@@ -361,9 +357,12 @@ class LitresService
                 }
                 if ($data->{'sequences'}) {
                     foreach ($data->{'sequences'}->sequence as $sequence) {
-                        $sequence = $this->getSequence($sequence);
+                        $sequenceNumber = (integer) $sequence['number'];
+                        $sequence       = $this->getSequence($sequence);
                         if ($sequence) {
-                            $book->addSequence($sequence);
+                            $book->setSequence($sequence);
+                            $book->setSequenceNumber($sequenceNumber);
+                            break;
                         }
                     }
                 }
@@ -384,7 +383,7 @@ class LitresService
                     ->setFilename((string) $data['filename'])
                     ->setPrice((string) $data['base_price'])
                     ->setRating((string) $data['rating'])
-                    ->setRecensesCount((string) $data['recenses'])
+                    ->setReviewCount((string) $data['recenses'])
                     ->setHasTrial((string) $data['has_trial'])
                     ->setTitle(substr((string) $titleInfo->{'book-title'}, 0, 254))
                     ->setAnnotation($annotation)

@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Sequence
+class Sequence implements EntityInterface
 {
     /**
      * @var int $id
@@ -41,7 +41,7 @@ class Sequence
     /**
      * @var ArrayCollection $books
      *
-     * @ORM\ManyToMany(targetEntity="Book", cascade={"persist", "remove"}, mappedBy="sequences", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="Book", mappedBy="sequence", fetch="EXTRA_LAZY")
      */
     private $books;
 
@@ -60,12 +60,6 @@ class Sequence
      */
     private $slug;
 
-    /**
-     * @var int $number
-     *
-     * @ORM\Column(name="number", type="integer", nullable=true)
-     */
-    private $number;
 
     /**
      * Initialize fields
@@ -99,26 +93,6 @@ class Sequence
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
-    /**
-     * @param string $number
-     *
-     * @return Sequence
-     */
-    public function setNumber($number)
-    {
-        $this->number = $number;
 
         return $this;
     }
@@ -164,34 +138,6 @@ class Sequence
     }
 
     /**
-     * @param Book $book
-     *
-     * @return self
-     */
-    public function addBook(Book $book)
-    {
-        if (!$this->books->contains($book)) {
-            $book->addSequence($this);
-        };
-
-        return $this;
-    }
-
-    /**
-     * @param Book $book
-     *
-     * @return self
-     */
-    public function removeBook(Book $book)
-    {
-        if ($this->books->contains($book)) {
-            $book->removeSequence($this);
-        };
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getSlug()
@@ -217,5 +163,21 @@ class Sequence
     public function __toString()
     {
         return (string) $this->getName();
+    }
+
+    /**
+     * @return int
+     */
+    public function getSequenceId()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'series';
     }
 }

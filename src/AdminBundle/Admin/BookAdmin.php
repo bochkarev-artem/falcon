@@ -21,6 +21,7 @@ class BookAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('litresHubId')
+            ->add('documentId')
             ->add('title')
             ->add('slug')
             ->add('authors', 'entity', [
@@ -49,9 +50,9 @@ class BookAdmin extends AbstractAdmin
             ])
             ->add('price')
             ->add('cover')
-            ->add('coverName')
+            ->add('coverUrl')
             ->add('coverPreview')
-            ->add('coverPreviewName')
+            ->add('coverPreviewUrl')
             ->add('filename')
             ->add('bookType', 'choice', [
                 'choices'            => $this->getBookTypeChoices(),
@@ -62,13 +63,13 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
             ->add('yearPublished')
             ->add('isbn')
             ->add('rating')
-            ->add('recensesCount')
+            ->add('reviewCount')
+            ->add('sequenceNumber')
         ;
     }
 
@@ -138,13 +139,14 @@ class BookAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('litresHubId')
+            ->add('documentId')
             ->add('title')
             ->add('slug')
             ->add('price')
             ->add('cover')
-            ->add('coverName')
+            ->add('coverUrl')
             ->add('coverPreview')
-            ->add('coverPreviewName')
+            ->add('coverPreviewUrl')
             ->add('filename')
             ->add('bookType', null, [
                     'template' => 'AdminBundle:Book:show_book_custom.html.twig',
@@ -160,13 +162,13 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
             ->add('yearPublished')
             ->add('isbn')
             ->add('rating')
-            ->add('recensesCount')
+            ->add('reviewCount')
+            ->add('sequenceNumber')
         ;
     }
 

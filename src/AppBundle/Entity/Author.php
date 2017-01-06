@@ -21,7 +21,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     }
  * )
  */
-class Author
+class Author implements EntityInterface
 {
     /**
      * @var integer $id
@@ -90,11 +90,11 @@ class Author
     private $level;
 
     /**
-     * @var integer $recensesCount
+     * @var integer $reviewCount
      *
-     * @ORM\Column(name="recenses_count", type="integer", nullable=true)
+     * @ORM\Column(name="review_count", type="integer", nullable=true)
      */
-    private $recensesCount;
+    private $reviewCount;
 
     /**
      * @var integer $artsCount
@@ -111,6 +111,13 @@ class Author
     private $photo;
 
     /**
+     * @var string $photoUrl
+     *
+     * @ORM\Column(name="photo_url", type="string", nullable=true)
+     */
+    private $photoUrl;
+
+    /**
      * @var string $photoName
      *
      * @ORM\Column(name="photo_name", type="string", nullable=true)
@@ -118,7 +125,7 @@ class Author
     private $photoName;
 
     /**
-     * @Vich\UploadableField(mapping="author_image", fileNameProperty="photo")
+     * @Vich\UploadableField(mapping="author_image", fileNameProperty="photoName")
      *
      * @var File
      */
@@ -270,19 +277,19 @@ class Author
     /**
      * @return int
      */
-    public function getRecensesCount()
+    public function getReviewCount()
     {
-        return $this->recensesCount;
+        return $this->reviewCount;
     }
 
     /**
-     * @param int $recensesCount
+     * @param int $reviewCount
      *
      * @return Author
      */
-    public function setRecensesCount($recensesCount)
+    public function setReviewCount($reviewCount)
     {
-        $this->recensesCount = $recensesCount;
+        $this->reviewCount = $reviewCount;
 
         return $this;
     }
@@ -428,6 +435,26 @@ class Author
     /**
      * @return string
      */
+    public function getPhotoUrl()
+    {
+        return $this->photoUrl;
+    }
+
+    /**
+     * @param string $photoUrl
+     *
+     * @return Author
+     */
+    public function setPhotoUrl($photoUrl)
+    {
+        $this->photoUrl = $photoUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getPhotoName()
     {
         return $this->photoName;
@@ -471,5 +498,21 @@ class Author
     public function __toString()
     {
         return (string) $this->getFullName();
+    }
+
+    /**
+     * @return int
+     */
+    public function getAuthorId()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'author';
     }
 }

@@ -23,7 +23,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     }
  * )
  */
-class Book
+class Book implements EntityInterface
 {
     const ELECTRONIC_BOOK      = 0;
     const AUDIO_BOOK           = 1;
@@ -47,7 +47,7 @@ class Book
     private $id;
 
     /**
-     * @var $litresHubId
+     * @var integer $litresHubId
      *
      * @ORM\Column(name="litres_hub_id", type="integer")
      */
@@ -82,11 +82,25 @@ class Book
     private $coverPreviewFile;
 
     /**
-     * @var string
+     * @var string $coverPreviewUrl
+     *
+     * @ORM\Column(name="cover_preview_url", type="string", length=255, nullable=true)
+     */
+    private $coverPreviewUrl;
+
+    /**
+     * @var string $coverPreviewName
      *
      * @ORM\Column(name="cover_preview_name", type="string", length=255, nullable=true)
      */
     private $coverPreviewName;
+
+    /**
+     * @var string $coverName
+     *
+     * @ORM\Column(name="cover_name", type="string", length=255, nullable=true)
+     */
+    private $coverName;
 
     /**
      * @Vich\UploadableField(mapping="book_full_image", fileNameProperty="coverName")
@@ -96,11 +110,11 @@ class Book
     private $coverFile;
 
     /**
-     * @var string
+     * @var string $coverUrl
      *
-     * @ORM\Column(name="cover_name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="cover_url", type="string", length=255, nullable=true)
      */
-    private $coverName;
+    private $coverUrl;
 
     /**
      * @var string $filename
@@ -164,15 +178,12 @@ class Book
     private $tags;
 
     /**
-     * @var ArrayCollection $sequences
+     * @var Sequence $sequence
      *
-     * @ORM\ManyToMany(targetEntity="Sequence", inversedBy="books", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(name="book_sequence",
-     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")}
-     * )
+     * @ORM\ManyToOne(targetEntity="Sequence", inversedBy="books", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")
      */
-    private $sequences;
+    private $sequence;
 
     /**
      * @var string $title
@@ -209,6 +220,13 @@ class Book
      * @ORM\Column(name="lang", type="string", nullable=true)
      */
     private $lang;
+
+    /**
+     * @var int $sequenceNumber
+     *
+     * @ORM\Column(name="sequence_number", type="integer", nullable=true)
+     */
+    private $sequenceNumber;
 
     /**
      * @var string $documentId
@@ -253,21 +271,20 @@ class Book
     private $rating;
 
     /**
-     * @var integer $recensesCount
+     * @var integer $reviewCount
      *
-     * @ORM\Column(name="recenses_count", type="integer", nullable=true)
+     * @ORM\Column(name="review_count", type="integer", nullable=true)
      */
-    private $recensesCount;
+    private $reviewCount;
 
     /**
      * Initialize fields
      */
     public function __construct()
     {
-        $this->authors   = new ArrayCollection();
-        $this->genres    = new ArrayCollection();
-        $this->sequences = new ArrayCollection();
-        $this->tags      = new ArrayCollection();
+        $this->authors = new ArrayCollection();
+        $this->genres  = new ArrayCollection();
+        $this->tags    = new ArrayCollection();
     }
 
     /**
@@ -395,11 +412,11 @@ class Book
     }
 
     /**
-     * @return ArrayCollection
+     * @return Sequence
      */
-    public function getSequences()
+    public function getSequence()
     {
-        return $this->sequences;
+        return $this->sequence;
     }
 
     /**
@@ -407,25 +424,9 @@ class Book
      *
      * @return Book
      */
-    public function addSequence(Sequence $sequence)
+    public function setSequence($sequence)
     {
-        if (!$this->sequences->contains($sequence)) {
-            $this->sequences->add($sequence);
-        };
-
-        return $this;
-    }
-
-    /**
-     * @param Sequence $sequence
-     *
-     * @return Book
-     */
-    public function removeSequence(Sequence $sequence)
-    {
-        if ($this->sequences->contains($sequence)) {
-            $this->sequences->removeElement($sequence);
-        };
+        $this->sequence = $sequence;
 
         return $this;
     }
@@ -591,7 +592,7 @@ class Book
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getLitresHubId()
     {
@@ -599,7 +600,7 @@ class Book
     }
 
     /**
-     * @param string $litresHubId
+     * @param integer $litresHubId
      *
      * @return Book
      */
@@ -753,19 +754,59 @@ class Book
     /**
      * @return int
      */
-    public function getRecensesCount()
+    public function getReviewCount()
     {
-        return $this->recensesCount;
+        return $this->reviewCount;
     }
 
     /**
-     * @param int $recensesCount
+     * @param int $reviewCount
      *
      * @return Book
      */
-    public function setRecensesCount($recensesCount)
+    public function setReviewCount($reviewCount)
     {
-        $this->recensesCount = $recensesCount;
+        $this->reviewCount = $reviewCount;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverPreviewUrl()
+    {
+        return $this->coverPreviewUrl;
+    }
+
+    /**
+     * @param string $coverPreviewUrl
+     *
+     * @return Book
+     */
+    public function setCoverPreviewUrl($coverPreviewUrl)
+    {
+        $this->coverPreviewUrl = $coverPreviewUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverUrl()
+    {
+        return $this->coverUrl;
+    }
+
+    /**
+     * @param string $coverUrl
+     *
+     * @return Book
+     */
+    public function setCoverUrl($coverUrl)
+    {
+        $this->coverUrl = $coverUrl;
 
         return $this;
     }
@@ -873,8 +914,44 @@ class Book
     /**
      * @return string
      */
+    public function getSequenceNumber()
+    {
+        return $this->sequenceNumber;
+    }
+
+    /**
+     * @param string $sequenceNumber
+     *
+     * @return Book
+     */
+    public function setSequenceNumber($sequenceNumber)
+    {
+        $this->sequenceNumber = $sequenceNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->getTitle();
+    }
+
+    /**
+     * @return int
+     */
+    public function getBookId()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityPathPrefix()
+    {
+        return 'book';
     }
 }
