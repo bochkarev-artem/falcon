@@ -42,12 +42,7 @@ class BookAdmin extends AbstractAdmin
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('sequence', 'entity', [
-                'class'    => 'AppBundle\Entity\Sequence',
-                'expanded' => false,
-                'multiple' => true,
-                'required' => false,
-            ])
+            ->add('sequence')
             ->add('price')
             ->add('cover')
             ->add('coverUrl')

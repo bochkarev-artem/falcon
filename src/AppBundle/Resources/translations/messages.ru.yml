@@ -1,6 +1,24 @@
 meta:
     description: Описание
-    keywords: Ключевые слова
+    keywords:    Ключевые слова
 
 front:
-    genres: Жанры
+    genres:         Жанры
+    tags:           Теги
+    related_books:  Похожие книги
+    related:        Похожee
+    author:         Автор
+    book:
+        type_0:     Электронная книга
+        type_1:     Аудиокнига
+        type_2:     Мультимедиа-книга
+        type_3:     Устройство для чтения
+        type_4:     PDF-книга
+        type_5:     Print-on-Demand-книга
+        type_6:     База данных
+        type_7:     Видео
+        type_8:     Компьютерная игра
+        type_9:     Софт
+        type_11:    Книги Gardners (Adobe DRM)
+        rating:     Рейтинг
+        annotation: Описание
