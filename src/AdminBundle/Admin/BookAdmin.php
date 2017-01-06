@@ -21,6 +21,7 @@ class BookAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('litresHubId')
+            ->add('documentId')
             ->add('title')
             ->add('slug')
             ->add('authors', 'entity', [
@@ -62,7 +63,6 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
             ->add('yearPublished')
@@ -139,6 +139,7 @@ class BookAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('litresHubId')
+            ->add('documentId')
             ->add('title')
             ->add('slug')
             ->add('price')
@@ -161,7 +162,6 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation')
             ->add('date')
             ->add('lang')
-            ->add('documentId')
             ->add('publisher')
             ->add('cityPublished')
             ->add('yearPublished')

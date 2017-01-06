@@ -94,6 +94,8 @@ class BookProvider implements ProviderInterface
      */
     private function collectData(Book $book)
     {
+        /** @var Author $author */
+        $author = $book->getAuthors()->first();
         $bookData = [
             'book_id'           => $book->getId(),
             'title'             => $book->getTitle(),
@@ -116,7 +118,7 @@ class BookProvider implements ProviderInterface
             'year_published'    => $book->getYearPublished(),
             'isbn'              => $book->getIsbn(),
             'review_count'      => $book->getReviewCount(),
-            'path'              => $book->getEntityPathPrefix() . '/' . $book->getSlug(),
+            'path'              => $author->getSlug() . '/' . $book->getSlug(),
         ];
 
         $bookData = $this->collectAuthorsData($book, $bookData);
@@ -143,7 +145,6 @@ class BookProvider implements ProviderInterface
                 'title'       => $genre->getTitle(),
                 'description' => $genre->getDescription(),
                 'litres_id'   => $genre->getLitresId(),
-                'parent_id'   => $genre->getParentId(),
                 'path'        => $genre->getEntityPathPrefix() . '/' . $genre->getSlug(),
             ];
             $genresData[] = $genreData;
@@ -220,19 +221,15 @@ class BookProvider implements ProviderInterface
      */
     private function collectSequencesData(Book $book, $bookData)
     {
-        $sequencesData = [];
-        /** @var Sequence $sequence */
-        foreach ($book->getSequences() as $sequence) {
-            $sequenceData = [
-                'sequence_id' => $sequence->getId(),
-                'name'        => $sequence->getName(),
-                'litres_id'   => $sequence->getLitresId(),
-                'path'        => $sequence->getEntityPathPrefix() . '/' . $sequence->getSlug(),
-            ];
-            $sequencesData[] = $sequenceData;
-        }
+        $sequence = $book->getSequence();
+        $sequenceData = [
+            'sequence_id' => $sequence->getId(),
+            'name'        => $sequence->getName(),
+            'litres_id'   => $sequence->getLitresId(),
+            'path'        => $sequence->getEntityPathPrefix() . '/' . $sequence->getSlug(),
+        ];
 
-        $bookData['sequence'] = $sequencesData;
+        $bookData['sequence'] = $sequenceData;
 
         return $bookData;
     }

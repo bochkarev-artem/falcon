@@ -5,6 +5,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -38,11 +39,19 @@ class Genre implements EntityInterface
     private $litresId;
 
     /**
-     * @var int $parentId
+     * @var ArrayCollection $children
      *
-     * @ORM\Column(name="parent_id", type="integer", nullable=true)
+     * @ORM\OneToMany(targetEntity="Genre", mappedBy="parent")
      */
-    private $parentId;
+    private $children;
+
+    /**
+     * @var Genre $parent
+     *
+     * @ORM\ManyToOne(targetEntity="Genre", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="genre_id")
+     */
+    private $parent;
 
     /**
      * @var string $title
@@ -72,6 +81,15 @@ class Genre implements EntityInterface
      * @ORM\Column(name="slug", type="string", nullable=true)
      */
     private $slug;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+        $this->parent   = null;
+    }
 
     /**
      * @return int
@@ -162,21 +180,41 @@ class Genre implements EntityInterface
     }
 
     /**
-     * @return int
+     * @return ArrayCollection
      */
-    public function getParentId()
+    public function getChildren()
     {
-        return $this->parentId;
+        return $this->children;
     }
 
     /**
-     * @param int $parentId
+     * @param ArrayCollection $children
      *
      * @return Genre
      */
-    public function setParentId($parentId)
+    public function setChildren($children)
     {
-        $this->parentId = $parentId;
+        $this->children = $children;
+
+        return $this;
+    }
+
+    /**
+     * @return Genre
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param Genre $parent
+     *
+     * @return Genre
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
 
         return $this;
     }

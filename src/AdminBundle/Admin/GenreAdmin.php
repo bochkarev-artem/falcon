@@ -20,6 +20,7 @@ class GenreAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('litresId')
+            ->add('parent')
             ->add('title')
             ->add('slug')
             ->add('token', null, ['required' => true])
@@ -34,7 +35,6 @@ class GenreAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('litresId')
-            ->add('parentId')
             ->add('title')
             ->add('slug')
         ;
@@ -48,7 +48,7 @@ class GenreAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('id')
             ->add('litresId')
-            ->add('parentId')
+            ->add('parent')
             ->add('title')
             ->add('slug')
             ->add('_action', 'actions', array(
@@ -69,6 +69,7 @@ class GenreAdmin extends AbstractAdmin
         $showMapper
             ->add('id')
             ->add('litresId')
+            ->add('parent')
             ->add('title')
             ->add('slug')
         ;

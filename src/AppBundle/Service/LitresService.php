@@ -117,10 +117,8 @@ class LitresService
             $parentTitle = $this->mbUcfirst($genreNode['title']);
             $parentGenre->setTitle($parentTitle);
             $parentGenre->setLitresId(0);
-            $parentGenre->setParentId(0);
             $this->em->persist($parentGenre);
             $this->em->flush();
-            $parentId = $parentGenre->getId();
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
                 $token = (string) $node['token'];
@@ -140,7 +138,7 @@ class LitresService
                             ->setLitresId($id)
                             ->setTitle($title)
                             ->setToken($token)
-                            ->setParentId($parentId)
+                            ->setParent($parentGenre)
                         ;
                     }
                     $genres[$token] = $genre;
@@ -362,8 +360,9 @@ class LitresService
                         $sequenceNumber = (integer) $sequence['number'];
                         $sequence       = $this->getSequence($sequence);
                         if ($sequence) {
-                            $book->addSequence($sequence);
+                            $book->setSequence($sequence);
                             $book->setSequenceNumber($sequenceNumber);
+                            break;
                         }
                     }
                 }

@@ -178,15 +178,12 @@ class Book implements EntityInterface
     private $tags;
 
     /**
-     * @var ArrayCollection $sequences
+     * @var Sequence $sequence
      *
-     * @ORM\ManyToMany(targetEntity="Sequence", inversedBy="books", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(name="book_sequence",
-     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")}
-     * )
+     * @ORM\ManyToOne(targetEntity="Sequence", inversedBy="books", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")
      */
-    private $sequences;
+    private $sequence;
 
     /**
      * @var string $title
@@ -285,10 +282,9 @@ class Book implements EntityInterface
      */
     public function __construct()
     {
-        $this->authors   = new ArrayCollection();
-        $this->genres    = new ArrayCollection();
-        $this->sequences = new ArrayCollection();
-        $this->tags      = new ArrayCollection();
+        $this->authors = new ArrayCollection();
+        $this->genres  = new ArrayCollection();
+        $this->tags    = new ArrayCollection();
     }
 
     /**
@@ -416,11 +412,11 @@ class Book implements EntityInterface
     }
 
     /**
-     * @return ArrayCollection
+     * @return Sequence
      */
-    public function getSequences()
+    public function getSequence()
     {
-        return $this->sequences;
+        return $this->sequence;
     }
 
     /**
@@ -428,25 +424,9 @@ class Book implements EntityInterface
      *
      * @return Book
      */
-    public function addSequence(Sequence $sequence)
+    public function setSequence($sequence)
     {
-        if (!$this->sequences->contains($sequence)) {
-            $this->sequences->add($sequence);
-        };
-
-        return $this;
-    }
-
-    /**
-     * @param Sequence $sequence
-     *
-     * @return Book
-     */
-    public function removeSequence(Sequence $sequence)
-    {
-        if ($this->sequences->contains($sequence)) {
-            $this->sequences->removeElement($sequence);
-        };
+        $this->sequence = $sequence;
 
         return $this;
     }

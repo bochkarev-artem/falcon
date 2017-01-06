@@ -41,7 +41,7 @@ class Sequence implements EntityInterface
     /**
      * @var ArrayCollection $books
      *
-     * @ORM\ManyToMany(targetEntity="Book", cascade={"persist", "remove"}, mappedBy="sequences", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="Book", mappedBy="sequence", fetch="EXTRA_LAZY")
      */
     private $books;
 
@@ -133,34 +133,6 @@ class Sequence implements EntityInterface
     public function setBooks($books)
     {
         $this->books = $books;
-
-        return $this;
-    }
-
-    /**
-     * @param Book $book
-     *
-     * @return self
-     */
-    public function addBook(Book $book)
-    {
-        if (!$this->books->contains($book)) {
-            $book->addSequence($this);
-        };
-
-        return $this;
-    }
-
-    /**
-     * @param Book $book
-     *
-     * @return self
-     */
-    public function removeBook(Book $book)
-    {
-        if ($this->books->contains($book)) {
-            $book->removeSequence($this);
-        };
 
         return $this;
     }
