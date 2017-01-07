@@ -72,10 +72,8 @@ class ImageUploadService
             }
 
             $this->s3Filesystem->write($path, $fileContent);
-            if (!$book->getCoverName()) {
-                $book->setCoverName($fileName);
-                $book->setCoverPath($path);
-            }
+            $book->setCoverName($fileName);
+            $book->setCoverPath($path);
         }
 
         return true;
@@ -99,10 +97,8 @@ class ImageUploadService
             }
 
             $this->s3Filesystem->write($path, $fileContent);
-            if (!$author->getPhotoName()) {
-                $author->setPhotoName($fileName);
-                $author->setPhotoPath($path);
-            }
+            $author->setPhotoName($fileName);
+            $author->setPhotoPath($path);
         }
 
         return true;
