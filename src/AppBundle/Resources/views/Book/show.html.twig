@@ -40,16 +40,15 @@
                                             {% endif %}
                                         </div>
                                         <!--BOOK HEADING END-->
-                                        <!--BOOK DESCRIPTION START-->
-                                        <div class="book-description book-padding">
-                                            <span>{{ 'front.author'|trans }}</span>
-                                            <li>
-                                                {% for author in book.authors %}
-                                                    <a href="/{{ author.path }}">{{ author.full_name }}</a>
-                                                {% endfor %}
-                                            </li>
-                                        </div>
                                         <div class="book-tags-wrap book-padding">
+                                            <ul class="book-tags">
+                                                <li><span>{{ 'front.author'|trans }}:</span></li>
+                                                <li>
+                                                    {% for author in book.authors %}
+                                                        <a href="/{{ author.path }}">{{ author.full_name }}</a>
+                                                    {% endfor %}
+                                                </li>
+                                            </ul>
                                             <ul class="book-tags">
                                                 <li><span>{{ 'front.tags'|trans }}:</span></li>
                                                 <li>
