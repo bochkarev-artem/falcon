@@ -18,7 +18,7 @@
                                         <div class="thumb-slider">
                                             {% if book.cover_path %}
                                                 <ul class="bxslider1">
-                                                    <li><img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="" /></li>
+                                                    <li><img src="{{ book.cover_path|imagine_filter('book_full') }}" alt="" /></li>
                                                 </ul>
                                             {% endif %}
                                         </div>
@@ -96,7 +96,7 @@
                                     <div class="featured-dec3">
                                         <figure>
                                             {% if book.cover_path %}
-                                                <img src="{{ book.cover_path }}" alt=""/>
+                                                <img src="{{ book.cover_path|imagine_filter('book_featured_side') }}" alt=""/>
                                             {% endif %}
                                         </figure>
                                         <div class="text">
@@ -141,7 +141,7 @@
                                 <div class="book-tab-dec">
                                     <figure>
                                         {% if book.cover_path %}
-                                            <img src="{{ book.cover_path }}" alt=""/>
+                                            <img src="{{ book.cover_path|imagine_filter('book_featured_books') }}" alt=""/>
                                         {% endif %}
                                     </figure>
                                     <div class="text">
