@@ -7098,6 +7098,7 @@ aside .widget{
 	text-transform: uppercase;
 	font-weight: bolder;
 	float: left;
+	margin-bottom: 10px;
 }
 .book-tags li a{
 	float: left;

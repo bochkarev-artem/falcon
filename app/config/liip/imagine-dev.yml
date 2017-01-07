@@ -15,13 +15,15 @@ liip_imagine:
     filter_sets:
         book_full:
             cache:   local_upload
-            quality: 50
+            quality: 85
             filters:
                 strip: ~
+                relative_resize:
+                    widen: 409
 
         book_featured_side:
             cache:   local_upload
-            quality: 50
+            quality: 60
             filters:
                 strip: ~
                 relative_resize:
@@ -29,7 +31,7 @@ liip_imagine:
 
         book_featured_books:
             cache:   local_upload
-            quality: 50
+            quality: 80
             filters:
                 strip: ~
                 relative_resize:

@@ -29,7 +29,6 @@ liip_imagine:
             filters:
                 relative_resize:
                     widen: 54
-                background: { size: [54, 70], position: center, color: '#ffffff' }
             post_processors:
                 jpegoptim: {}
 
@@ -38,6 +37,5 @@ liip_imagine:
             filters:
                 relative_resize:
                     widen: 255
-                background: { size: [255, 346], position: center, color: '#ffffff' }
             post_processors:
                 jpegoptim: {}
