@@ -35,7 +35,7 @@ class AuthorAdmin extends AbstractAdmin
             ->add('level')
             ->add('reviewCount')
             ->add('artsCount')
-            ->add('photoUrl')
+            ->add('photoPath')
             ->add('description')
         ;
     }
@@ -94,7 +94,7 @@ class AuthorAdmin extends AbstractAdmin
             ->add('level')
             ->add('reviewCount')
             ->add('artsCount')
-            ->add('photoUrl')
+            ->add('photoPath')
             ->add('description')
         ;
     }

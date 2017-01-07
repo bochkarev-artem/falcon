@@ -22,8 +22,7 @@ fos_elastica:
                         rating:               { type: float }
                         book_type:            { type: integer }
                         annotation:           { type: string }
-                        cover_preview_url:    { type: string }
-                        cover_url:            { type: string }
+                        cover_path:           { type: string }
                         path:                 { type: string, index: not_analyzed }
                         price:                { type: float }
                         filename:             { type: string }
@@ -46,7 +45,7 @@ fos_elastica:
                                 first_name:   { type: string }
                                 middle_name:  { type: string }
                                 last_name:    { type: string }
-                                photo_url:    { type: string }
+                                photo_path:   { type: string }
                                 description:  { type: string }
                                 level:        { type: integer }
                                 review_count: { type: integer }
