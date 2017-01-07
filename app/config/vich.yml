@@ -1,7 +1,6 @@
 parameters:
     s3_base_url:            "https://s3-eu-west-1.amazonaws.com/bookary-images"
     book_full_directory:    "book_full"
-    book_preview_directory: "book_preview"
     author_directory:       "author"
 
 vich_uploader:
@@ -10,11 +9,8 @@ vich_uploader:
 
     mappings:
         book_full_image:
-            uri_prefix:         "%s3_base_url%/%book_full_directory%"
-            upload_destination: "s3_upload"
-        book_preview_image:
-            uri_prefix:         "%s3_base_url%/%book_preview_directory%"
+            uri_prefix:         "%book_full_directory%"
             upload_destination: "s3_upload"
         author_image:
-            uri_prefix:         "%s3_base_url%/%author_directory%"
+            uri_prefix:         "%author_directory%"
             upload_destination: "s3_upload"

@@ -111,11 +111,11 @@ class Author implements EntityInterface
     private $photo;
 
     /**
-     * @var string $photoUrl
+     * @var string $photoPath
      *
-     * @ORM\Column(name="photo_url", type="string", nullable=true)
+     * @ORM\Column(name="photo_path", type="string", nullable=true)
      */
-    private $photoUrl;
+    private $photoPath;
 
     /**
      * @var string $photoName
@@ -435,19 +435,19 @@ class Author implements EntityInterface
     /**
      * @return string
      */
-    public function getPhotoUrl()
+    public function getPhotoPath()
     {
-        return $this->photoUrl;
+        return $this->photoPath;
     }
 
     /**
-     * @param string $photoUrl
+     * @param string $photoPath
      *
      * @return Author
      */
-    public function setPhotoUrl($photoUrl)
+    public function setPhotoPath($photoPath)
     {
-        $this->photoUrl = $photoUrl;
+        $this->photoPath = $photoPath;
 
         return $this;
     }

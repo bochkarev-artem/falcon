@@ -66,14 +66,14 @@
 		padding-left: 20px;
 		padding-right: 20px;
 	}
-	.fetch-bookmtea{
+	.fetch-bookmeta{
 		width: 35%;
 	}
-	.fetch-bookmtea ul li a{
+	.fetch-bookmeta ul li a{
 		padding-left: 20px;
 		padding-right: 20px;
 	}
-	.fetch-bookmtea ul li a::before{
+	.fetch-bookmeta ul li a::before{
 		left: 7px;
 	}
 	.cstmr-dec .text p{

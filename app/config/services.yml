@@ -20,7 +20,6 @@ services:
           - "@oneup_flysystem.s3_upload_filesystem"
           - "@vich_uploader.templating.helper.uploader_helper"
           - "%book_full_directory%"
-          - "%book_preview_directory%"
           - "%author_directory%"
 
     twig.main_menu:

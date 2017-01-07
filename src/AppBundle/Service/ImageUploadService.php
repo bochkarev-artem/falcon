@@ -28,11 +28,6 @@ class ImageUploadService
     /**
      * @var string
      */
-    private $previewMapping;
-
-    /**
-     * @var string
-     */
     private $authorMapping;
 
     /**
@@ -44,21 +39,18 @@ class ImageUploadService
      * @param Filesystem     $filesystem
      * @param UploaderHelper $uploaderHelper
      * @param string         $bookFullMapping
-     * @param string         $bookPreviewMapping
      * @param string         $authorMapping
      */
     public function __construct(
         Filesystem $filesystem,
         UploaderHelper $uploaderHelper,
         $bookFullMapping,
-        $bookPreviewMapping,
         $authorMapping
     )
     {
         $this->s3Filesystem   = $filesystem;
         $this->uploaderHelper = $uploaderHelper;
         $this->fullMapping    = $bookFullMapping;
-        $this->previewMapping = $bookPreviewMapping;
         $this->authorMapping  = $authorMapping;
     }
 
@@ -69,24 +61,6 @@ class ImageUploadService
      */
     public function updateBookCover(Book $book)
     {
-        $coverPreviewUrl = $book->getCoverPreview();
-        $fileName        = basename($coverPreviewUrl);
-        $path            = "$this->previewMapping/" . $fileName;
-
-        if (!$this->s3Filesystem->has($path)) {
-            $fileContent = @file_get_contents($coverPreviewUrl);
-            if (false === $fileContent) {
-                return false;
-            }
-
-            $this->s3Filesystem->write($path, $fileContent);
-            if (!$book->getCoverPreviewName()) {
-                $book->setCoverPreviewName($fileName);
-                $url = $this->uploaderHelper->asset($book, 'coverPreviewFile');
-                $book->setCoverPreviewUrl($url);
-            }
-        }
-
         $coverUrl = $book->getCover();
         $fileName = basename($coverUrl);
         $path     = "$this->fullMapping/" . basename($fileName);
@@ -100,8 +74,7 @@ class ImageUploadService
             $this->s3Filesystem->write($path, $fileContent);
             if (!$book->getCoverName()) {
                 $book->setCoverName($fileName);
-                $url = $this->uploaderHelper->asset($book, 'coverFile');
-                $book->setCoverUrl($url);
+                $book->setCoverPath($path);
             }
         }
 
@@ -119,7 +92,7 @@ class ImageUploadService
         $fileName = basename($photoUrl);
         $path     = "$this->authorMapping/" . $fileName;
 
-        if (!$author->getPhotoUrl() && !$this->s3Filesystem->has($path)) {
+        if (!$this->s3Filesystem->has($path)) {
             $fileContent = @file_get_contents($photoUrl);
             if (false === $fileContent) {
                 return false;
@@ -128,8 +101,7 @@ class ImageUploadService
             $this->s3Filesystem->write($path, $fileContent);
             if (!$author->getPhotoName()) {
                 $author->setPhotoName($fileName);
-                $url = $this->uploaderHelper->asset($author, 'photoFile');
-                $author->setPhotoUrl($url);
+                $author->setPhotoPath($path);
             }
         }
 

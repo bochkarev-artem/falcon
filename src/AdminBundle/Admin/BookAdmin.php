@@ -45,9 +45,7 @@ class BookAdmin extends AbstractAdmin
             ->add('sequence')
             ->add('price')
             ->add('cover')
-            ->add('coverUrl')
-            ->add('coverPreview')
-            ->add('coverPreviewUrl')
+            ->add('coverPath')
             ->add('filename')
             ->add('bookType', 'choice', [
                 'choices'            => $this->getBookTypeChoices(),
@@ -139,9 +137,7 @@ class BookAdmin extends AbstractAdmin
             ->add('slug')
             ->add('price')
             ->add('cover')
-            ->add('coverUrl')
-            ->add('coverPreview')
-            ->add('coverPreviewUrl')
+            ->add('coverPath')
             ->add('filename')
             ->add('bookType', null, [
                     'template' => 'AdminBundle:Book:show_book_custom.html.twig',

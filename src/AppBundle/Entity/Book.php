@@ -68,34 +68,6 @@ class Book implements EntityInterface
     private $cover;
 
     /**
-     * @var string $coverPreview
-     *
-     * @ORM\Column(name="cover_preview", type="string", nullable=true)
-     */
-    private $coverPreview;
-
-    /**
-     * @Vich\UploadableField(mapping="book_preview_image", fileNameProperty="coverPreviewName")
-     *
-     * @var File
-     */
-    private $coverPreviewFile;
-
-    /**
-     * @var string $coverPreviewUrl
-     *
-     * @ORM\Column(name="cover_preview_url", type="string", length=255, nullable=true)
-     */
-    private $coverPreviewUrl;
-
-    /**
-     * @var string $coverPreviewName
-     *
-     * @ORM\Column(name="cover_preview_name", type="string", length=255, nullable=true)
-     */
-    private $coverPreviewName;
-
-    /**
      * @var string $coverName
      *
      * @ORM\Column(name="cover_name", type="string", length=255, nullable=true)
@@ -110,11 +82,11 @@ class Book implements EntityInterface
     private $coverFile;
 
     /**
-     * @var string $coverUrl
+     * @var string $coverPath
      *
-     * @ORM\Column(name="cover_url", type="string", length=255, nullable=true)
+     * @ORM\Column(name="cover_path", type="string", length=255, nullable=true)
      */
-    private $coverUrl;
+    private $coverPath;
 
     /**
      * @var string $filename
@@ -614,26 +586,6 @@ class Book implements EntityInterface
     /**
      * @return string
      */
-    public function getCoverPreview()
-    {
-        return $this->coverPreview;
-    }
-
-    /**
-     * @param string $coverPreview
-     *
-     * @return Book
-     */
-    public function setCoverPreview($coverPreview)
-    {
-        $this->coverPreview = $coverPreview;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getFilename()
     {
         return $this->filename;
@@ -774,59 +726,19 @@ class Book implements EntityInterface
     /**
      * @return string
      */
-    public function getCoverPreviewUrl()
+    public function getCoverPath()
     {
-        return $this->coverPreviewUrl;
+        return $this->coverPath;
     }
 
     /**
-     * @param string $coverPreviewUrl
+     * @param string $coverPath
      *
      * @return Book
      */
-    public function setCoverPreviewUrl($coverPreviewUrl)
+    public function setCoverPath($coverPath)
     {
-        $this->coverPreviewUrl = $coverPreviewUrl;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCoverUrl()
-    {
-        return $this->coverUrl;
-    }
-
-    /**
-     * @param string $coverUrl
-     *
-     * @return Book
-     */
-    public function setCoverUrl($coverUrl)
-    {
-        $this->coverUrl = $coverUrl;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCoverPreviewName()
-    {
-        return $this->coverPreviewName;
-    }
-
-    /**
-     * @param string $coverPreviewName
-     *
-     * @return Book
-     */
-    public function setCoverPreviewName($coverPreviewName)
-    {
-        $this->coverPreviewName = $coverPreviewName;
+        $this->coverPath = $coverPath;
 
         return $this;
     }
@@ -847,26 +759,6 @@ class Book implements EntityInterface
     public function setCoverName($coverName)
     {
         $this->coverName = $coverName;
-
-        return $this;
-    }
-
-    /**
-     * @return File
-     */
-    public function getCoverPreviewFile()
-    {
-        return $this->coverPreviewFile;
-    }
-
-    /**
-     * @param File $coverPreviewFile
-     *
-     * @return Book
-     */
-    public function setCoverPreviewFile($coverPreviewFile)
-    {
-        $this->coverPreviewFile = $coverPreviewFile;
 
         return $this;
     }

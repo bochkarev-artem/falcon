@@ -1010,15 +1010,15 @@ section{
 	bottom: auto;
 }
 /**/
-.fetch-bookmtea{
+.fetch-bookmeta{
 	float: left;
 	width: 39%;
 }
-.fetch-bookmtea ul{
+.fetch-bookmeta ul{
 	float: left;
 	width: 100%;
 }
-.fetch-bookmtea ul li{
+.fetch-bookmeta ul li{
 	float: left;
 	width: 100%;
 	position: relative;
@@ -1027,17 +1027,17 @@ section{
 	border-color: #f3f3f3;
 	padding: 0px;
 }
-.fetch-bookmtea ul li:last-child{
+.fetch-bookmeta ul li:last-child{
 	border-bottom: none;
 }
-.fetch-bookmtea .fetch-book2{
+.fetch-bookmeta .fetch-book2{
 	padding: 0 30px;
 }
-.fetch-bookmtea .fetch-book2 h4 {
+.fetch-bookmeta .fetch-book2 h4 {
 	padding:15px 0px;
 	margin: 0;
 }
-.fetch-bookmtea ul li a{
+.fetch-bookmeta ul li a{
 	padding: 9px 50px 12px;
 	float: left;
 	width: 100%;
@@ -1046,7 +1046,7 @@ section{
 	line-height: 13px;
 	font-size: 14px;
 }
-.fetch-bookmtea ul li a:before{
+.fetch-bookmeta ul li a:before{
 	position: absolute;
 	left: 30px;
 	font-size: 14px;
@@ -1056,11 +1056,11 @@ section{
 	font-family: FontAwesome;
 	content: "\f0da";
 }
-.fetch-bookmtea ul li:last-child a::before{
+.fetch-bookmeta ul li:last-child a::before{
 	font-size: 0;
 }
-.fetch-bookmtea li a:hover:before,
-.fetch-bookmtea li a:hover{
+.fetch-bookmeta li a:hover:before,
+.fetch-bookmeta li a:hover{
 	color: #fff;
 }
 /*
