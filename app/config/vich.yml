@@ -1,15 +1,15 @@
 parameters:
-    s3_base_url:            "https://s3-eu-west-1.amazonaws.com/bookary-images"
-    book_full_directory:    "book_full"
-    author_directory:       "author"
+    s3_base_url:      "https://s3-eu-west-1.amazonaws.com/bookary-images"
+    book_directory:   "book"
+    author_directory: "author"
 
 vich_uploader:
     db_driver: orm
     storage:   flysystem
 
     mappings:
-        book_full_image:
-            uri_prefix:         "%book_full_directory%"
+        book_image:
+            uri_prefix:         "%book_directory%"
             upload_destination: "s3_upload"
         author_image:
             uri_prefix:         "%author_directory%"

@@ -75,7 +75,7 @@ class Book implements EntityInterface
     private $coverName;
 
     /**
-     * @Vich\UploadableField(mapping="book_full_image", fileNameProperty="coverName")
+     * @Vich\UploadableField(mapping="book_image", fileNameProperty="coverName")
      *
      * @var File
      */

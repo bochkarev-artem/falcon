@@ -23,7 +23,7 @@ class ImageUploadService
     /**
      * @var string
      */
-    private $fullMapping;
+    private $bookMapping;
 
     /**
      * @var string
@@ -38,19 +38,19 @@ class ImageUploadService
     /**
      * @param Filesystem     $filesystem
      * @param UploaderHelper $uploaderHelper
-     * @param string         $bookFullMapping
+     * @param string         $bookMapping
      * @param string         $authorMapping
      */
     public function __construct(
         Filesystem $filesystem,
         UploaderHelper $uploaderHelper,
-        $bookFullMapping,
+        $bookMapping,
         $authorMapping
     )
     {
         $this->s3Filesystem   = $filesystem;
         $this->uploaderHelper = $uploaderHelper;
-        $this->fullMapping    = $bookFullMapping;
+        $this->bookMapping    = $bookMapping;
         $this->authorMapping  = $authorMapping;
     }
 
@@ -63,7 +63,7 @@ class ImageUploadService
     {
         $coverUrl = $book->getCover();
         $fileName = basename($coverUrl);
-        $path     = "$this->fullMapping/" . basename($fileName);
+        $path     = "$this->bookMapping/" . basename($fileName);
 
         if (!$this->s3Filesystem->has($path)) {
             $fileContent = @file_get_contents($coverUrl);
