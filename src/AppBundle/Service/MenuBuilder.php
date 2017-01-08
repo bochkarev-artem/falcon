@@ -8,8 +8,6 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Genre;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Config\ConfigCache;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -21,14 +19,9 @@ class MenuBuilder
     protected $em;
 
     /**
-     * @var Container
-     */
-    protected $container;
-
-    /**
      * @var \Twig_Environment
      */
-    protected $templating;
+    protected $twig;
 
     /**
      * @var string
@@ -41,17 +34,13 @@ class MenuBuilder
     protected $cacheFileName;
 
     /**
-     * @param EntityManager      $em
-     * @param ContainerInterface $container
-     * @param string             $cacheDir
+     * @param EntityManager     $em
+     * @param \Twig_Environment $twig
+     * @param string            $cacheDir
      */
-    public function __construct(
-        EntityManager      $em,
-        ContainerInterface $container,
-        $cacheDir
-    ) {
+    public function __construct(EntityManager $em, \Twig_Environment $twig, $cacheDir) {
         $this->em            = $em;
-        $this->container     = $container;
+        $this->twig          = $twig;
         $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
         $this->cacheDir      = $cacheDir . '/mainMenuCache';
         $this->cacheFileName = $this->cacheDir . '/mainMenu.html';
@@ -69,18 +58,6 @@ class MenuBuilder
         }
 
         return file_get_contents($cache->getPath());
-    }
-
-    /**
-     * @return \Twig_Environment
-     */
-    protected function getTemplating()
-    {
-        if (!isset($this->templating)) {
-            $this->templating = $this->container->get('twig');
-        }
-
-        return $this->templating;
     }
 
     /**
@@ -104,7 +81,7 @@ class MenuBuilder
         $parentGenres = $menuTree[0];
         unset($menuTree[0]);
 
-        return $this->getTemplating()->render(
+        return $this->twig->render(
             'AppBundle:Elements:Header/main-menu.html.twig',
             [
                 'parentGenres' => $parentGenres,
@@ -169,12 +146,6 @@ class MenuBuilder
      */
     public function resetCache()
     {
-        // ensure that elastica index is updated before resetting cache
-        sleep(1);
-
-        //refresh ES index to ensure that just indexed products are searchable
-//        $this->container->get('fos_elastica.index.products')->refresh();
-
         $this->checkCacheFolder();
 
         $finder = new Finder();

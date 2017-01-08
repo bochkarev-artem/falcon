@@ -5,6 +5,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\Timestampable\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -23,6 +24,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Author implements EntityInterface
 {
+    use TimestampableTrait;
+
     /**
      * @var integer $id
      *

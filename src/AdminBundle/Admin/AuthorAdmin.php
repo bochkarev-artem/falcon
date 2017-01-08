@@ -68,13 +68,15 @@ class AuthorAdmin extends AbstractAdmin
             ->add('fullName')
             ->add('slug')
             ->add('artsCount')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show'   => array(),
-                    'edit'   => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('updatedOn')
+            ->add('createdOn')
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show'   => [],
+                    'edit'   => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -96,6 +98,8 @@ class AuthorAdmin extends AbstractAdmin
             ->add('artsCount')
             ->add('photoPath')
             ->add('description')
+            ->add('updatedOn')
+            ->add('createdOn')
         ;
     }
 }
