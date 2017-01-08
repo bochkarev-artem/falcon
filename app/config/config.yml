@@ -9,7 +9,6 @@ imports:
     - { resource: flysystem.yml }
     - { resource: vich.yml }
     - { resource: cmf-routing.yml }
-#    - { resource: liip/imagine.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -41,15 +40,11 @@ framework:
     assets: ~
 
 knp_menu:
-    # use "twig: false" to disable the Twig extension and the TwigRenderer
     twig:
         template: knp_menu.html.twig
-    #  if true, enables the helper for PHP templates
     templating: false
-    # the renderer to use, list is also available by default
     default_renderer: twig
 
-# Twig Configuration
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
@@ -63,7 +58,6 @@ assetic:
         scssphp:
             formatter: 'Leafo\ScssPhp\Formatter\Compressed'
 
-# Doctrine Configuration
 doctrine:
     dbal:
         driver:   pdo_mysql
@@ -73,12 +67,6 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #     path:     "%database_path%"
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -90,9 +78,9 @@ stof_doctrine_extensions:
         sluggable: AdminBundle\EntityListener\SluggableListener
     orm:
         default:
-            sluggable: true
+            sluggable:     true
+            timestampable: true
 
-# Swiftmailer Configuration
 #swiftmailer:
 #    transport: "%mailer_transport%"
 #    host:      "%mailer_host%"
@@ -101,6 +89,6 @@ stof_doctrine_extensions:
 #    spool:     { type: memory }
 
 fos_user:
-    db_driver: orm
+    db_driver:     orm
     firewall_name: main
-    user_class: AppBundle\Entity\User
+    user_class:    AppBundle\Entity\User

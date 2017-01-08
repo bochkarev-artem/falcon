@@ -105,7 +105,7 @@
                                     {% spaceless %}
                                     {% for childGenre in childGenres %}
                                         {% set genreUrl = childGenre.entityPathPrefix ~ '/' ~ childGenre.slug %}
-                                        <li><a href="{{ genreUrl }}">{{ childGenre.title }}</a></li>
+                                        <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
                                     {% endfor %}
                                     {% endspaceless %}
                                     <li>

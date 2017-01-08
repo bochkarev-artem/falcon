@@ -61,7 +61,10 @@ class ImageUploadService
      */
     public function updateBookCover(Book $book)
     {
-        $coverUrl = $book->getCover();
+        if (!$coverUrl = $book->getCover()) {
+            return false;
+        }
+
         $fileName = basename($coverUrl);
         $path     = "$this->bookMapping/" . basename($fileName);
 
@@ -86,7 +89,10 @@ class ImageUploadService
      */
     public function updateAuthorPhoto(Author $author)
     {
-        $photoUrl = $author->getPhoto();
+        if (!$photoUrl = $author->getPhoto()) {
+            return false;
+        }
+
         $fileName = basename($photoUrl);
         $path     = "$this->authorMapping/" . $fileName;
 
