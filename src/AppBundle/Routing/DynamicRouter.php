@@ -74,8 +74,7 @@ class DynamicRouter extends BaseDynamicRouter
             $generator = new UrlGenerator($collection, $this->context);
 
             return $generator->generate($name, $parameters, $absolute);
-        }
-        else {
+        } else {
             return parent::generate($name, $parameters, $absolute);
         }
     }

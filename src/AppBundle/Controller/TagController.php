@@ -4,14 +4,27 @@ namespace AppBundle\Controller;
 
 use AppBundle\Model\QueryParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class TagController extends Controller
 {
-    public function showAction($id)
+    /**
+     * @param integer $id
+     * @param integer $page
+     *
+     * @return Response
+     */
+    public function showAction($id, $page)
     {
-        $queryParams = new QueryParams();
-        $queryParams->setFilterTags($id);
+        $defaultPerPage = $this->getParameter('default_per_page');
 
+        $queryParams = new QueryParams();
+        $queryParams
+            ->setFilterTags($id)
+            ->setPage($page)
+            ->setSize($defaultPerPage)
+            ->setStart($queryParams->getOffset())
+        ;
         $queryService = $this->get('query_service');
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();
