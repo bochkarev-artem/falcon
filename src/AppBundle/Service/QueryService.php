@@ -67,6 +67,22 @@ class QueryService
         if ($queryParams->getFilterId()) {
             $this->applyIdFilter($queryParams, $filters);
         }
+
+        if ($queryParams->getFilterGenres()) {
+            $this->applyGenreFilter($queryParams, $filters);
+        }
+
+        if ($queryParams->getFilterAuthors()) {
+            $this->applyAuthorFilter($queryParams, $filters);
+        }
+
+        if ($queryParams->getFilterTags()) {
+            $this->applyTagFilter($queryParams, $filters);
+        }
+
+        if ($queryParams->getFilterSequences()) {
+            $this->applySequenceFilter($queryParams, $filters);
+        }
     }
 
     /**
@@ -93,33 +109,92 @@ class QueryService
 
     /**
      * @param QueryParams     $queryParams
-     * @param Query\BoolQuery $filters
+     * @param Query\BoolQuery $query
      */
-    private function applyIdFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    private function applyIdFilter(QueryParams $queryParams, Query\BoolQuery $query)
     {
-        $filterId = $queryParams->getFilterId();
-        $filter   = is_array($filterId) ?
-            new Query\Terms('book_id', $filterId) :
-            new Query\Term(['book_id' => $filterId]);
+        $queryId   = $queryParams->getFilterId();
+        $queryTerm = is_array($queryId) ?
+            new Query\Terms('book_id', $queryId) :
+            new Query\Term(['book_id' => $queryId]);
 
-        $filters->addMust($filter);
+        $query->addMust($queryTerm);
     }
 
     /**
-     * @param array $bookData
-     *
-     * @return array
+     * @param QueryParams     $queryParams
+     * @param Query\BoolQuery $filters
      */
-    public function buildBooksData($bookData)
+    private function applyGenreFilter(QueryParams $queryParams, Query\BoolQuery $filters)
     {
-        $result = [];
-        foreach ($bookData as $book) {
-            $bookData        = $book->getData();
-            $bookId          = $bookData['book_id'];
-            $result[$bookId] = $bookData;
-        }
+        $genreIds    = $queryParams->getFilterGenres();
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('genres');
 
-        return $result;
+        $queryTerm = is_array($genreIds) ?
+            new Query\Terms('genres.genre_id', $genreIds) :
+            new Query\Term(['genres.genre_id' => $genreIds])
+        ;
+
+        $nestedQuery->setQuery($queryTerm);
+        $filters->addMust($nestedQuery);
+    }
+
+    /**
+     * @param QueryParams     $queryParams
+     * @param Query\BoolQuery $filters
+     */
+    private function applyAuthorFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    {
+        $authorIds   = $queryParams->getFilterAuthors();
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('authors');
+
+        $queryTerm = is_array($authorIds) ?
+            new Query\Terms('authors.author_id', $authorIds) :
+            new Query\Term(['authors.author_id' => $authorIds])
+        ;
+
+        $nestedQuery->setQuery($queryTerm);
+        $filters->addMust($nestedQuery);
+    }
+
+    /**
+     * @param QueryParams     $queryParams
+     * @param Query\BoolQuery $filters
+     */
+    private function applyTagFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    {
+        $tagIds      = $queryParams->getFilterTags();
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('tags');
+
+        $queryTerm = is_array($tagIds) ?
+            new Query\Terms('tags.tag_id', $tagIds) :
+            new Query\Term(['tags.tag_id' => $tagIds])
+        ;
+
+        $nestedQuery->setQuery($queryTerm);
+        $filters->addMust($nestedQuery);
+    }
+
+    /**
+     * @param QueryParams     $queryParams
+     * @param Query\BoolQuery $filters
+     */
+    private function applySequenceFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    {
+        $sequenceIds    = $queryParams->getFilterSequences();
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('sequence');
+
+        $queryTerm = is_array($sequenceIds) ?
+            new Query\Terms('sequence.sequence_id', $sequenceIds) :
+            new Query\Term(['sequence.sequence_id' => $sequenceIds])
+        ;
+
+        $nestedQuery->setQuery($queryTerm);
+        $filters->addMust($nestedQuery);
     }
 }
 

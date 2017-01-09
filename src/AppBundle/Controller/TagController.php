@@ -2,17 +2,22 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Model\QueryParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TagController extends Controller
 {
     public function showAction($id)
     {
-        $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Tag');
-        $genre     = $genreRepo->find($id);
+        $queryParams = new QueryParams();
+        $queryParams->setFilterTags($id);
+
+        $queryService = $this->get('query_service');
+        $queryResult  = $queryService->query($queryParams);
+        $books        = $queryResult->getResults();
 
         return $this->render('AppBundle:Tag:show.html.twig', [
-            'genre' => $genre,
+            'books' => $books,
         ]);
     }
 

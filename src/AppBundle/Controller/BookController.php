@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Model\QueryParams;
-use AppBundle\Service\QueryService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BookController extends Controller
@@ -13,7 +12,6 @@ class BookController extends Controller
         $queryParams = new QueryParams();
         $queryParams->setFilterId($id);
 
-        /* @var QueryService $queryService */
         $queryService = $this->get('query_service');
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();

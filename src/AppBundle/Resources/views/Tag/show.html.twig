@@ -3,5 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
+    {% for book in books %}
+        {{ book.title }}
+    {% endfor %}
 {% endblock %}
