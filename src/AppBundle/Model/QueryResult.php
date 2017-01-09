@@ -46,7 +46,7 @@ class QueryResult
     /**
      * @param int $maxTotalHits
      *
-     * @return ProductQueryResult
+     * @return QueryResult
      */
     public function setMaxTotalHits($maxTotalHits)
     {

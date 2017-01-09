@@ -2,17 +2,22 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Model\QueryParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class AuthorController extends Controller
 {
     public function showAction($id)
     {
-        $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Author');
-        $genre     = $genreRepo->find($id);
+        $queryParams = new QueryParams();
+        $queryParams->setFilterAuthors($id);
+
+        $queryService = $this->get('query_service');
+        $queryResult  = $queryService->query($queryParams);
+        $books        = $queryResult->getResults();
 
         return $this->render('AppBundle:Author:show.html.twig', [
-            'genre' => $genre,
+            'books' => $books,
         ]);
     }
 

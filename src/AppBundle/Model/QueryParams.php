@@ -28,6 +28,26 @@ class QueryParams
     private $page;
 
     /**
+     * @var int|array
+     */
+    private $filterGenres;
+
+    /**
+     * @var int|array
+     */
+    private $filterTags;
+
+    /**
+     * @var int|array
+     */
+    private $filterAuthors;
+
+    /**
+     * @var int|array
+     */
+    private $filterSequences;
+
+    /**
      * Initialize fields
      */
     public function __construct()
@@ -53,6 +73,86 @@ class QueryParams
     public function setFilterId($filterId)
     {
         $this->filterId = $filterId;
+
+        return $this;
+    }
+
+    /**
+     * @return array|int
+     */
+    public function getFilterGenres()
+    {
+        return $this->filterGenres;
+    }
+
+    /**
+     * @param int|array $genreId
+     *
+     * @return QueryParams
+     */
+    public function setFilterGenres($genreId)
+    {
+        $this->filterGenres = $genreId;
+
+        return $this;
+    }
+
+    /**
+     * @return array|int
+     */
+    public function getFilterTags()
+    {
+        return $this->filterTags;
+    }
+
+    /**
+     * @param array|int $filterTags
+     *
+     * @return QueryParams
+     */
+    public function setFilterTags($filterTags)
+    {
+        $this->filterTags = $filterTags;
+
+        return $this;
+    }
+
+    /**
+     * @return array|int
+     */
+    public function getFilterAuthors()
+    {
+        return $this->filterAuthors;
+    }
+
+    /**
+     * @param array|int $filterAuthors
+     *
+     * @return QueryParams
+     */
+    public function setFilterAuthors($filterAuthors)
+    {
+        $this->filterAuthors = $filterAuthors;
+
+        return $this;
+    }
+
+    /**
+     * @return array|int
+     */
+    public function getFilterSequences()
+    {
+        return $this->filterSequences;
+    }
+
+    /**
+     * @param array|int $filterSequences
+     *
+     * @return QueryParams
+     */
+    public function setFilterSequences($filterSequences)
+    {
+        $this->filterSequences = $filterSequences;
 
         return $this;
     }
