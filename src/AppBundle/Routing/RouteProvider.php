@@ -34,15 +34,15 @@ class RouteProvider implements RouteProviderInterface
      */
     public function getRouteCollectionForRequest(Request $request)
     {
-        $url  = trim(rawurldecode($request->getPathInfo()), '/');
+        $url  = ltrim(rawurldecode($request->getPathInfo()), '/');
         $page = preg_replace('/.+\/page\/([2-9]+[0-9]*)/', '$1', $url);
         if ($page === $url) {
-            $pageUrl =  '';
+            $pageUrl = '';
             $page    = 1;
         } else {
             $pageUrl = '/page/' . $page;
         }
-        $searchUrl = preg_replace('#^(.*?)(\/page\/\d+)(?:/\d+)?(?:\.html)?$#iu', '$1', $url);
+        $searchUrl = rtrim(preg_replace('#^(.*?)(\/page\/\d+)(?:/\d+)?(?:\.html)?$#iu', '$1', $url), '/');
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
         $pathQuery->setTerm('path', rawurldecode($searchUrl));
@@ -52,6 +52,10 @@ class RouteProvider implements RouteProviderInterface
 
         $collection = new RouteCollection();
         if ($results) {
+            $routeData = $results[0]->getData();
+            if (array_key_exists('book', $routeData)) {
+                $pageUrl = '';
+            }
             if ($url != $searchUrl . $pageUrl) {
                 $routeData = [
                     'params' => [
@@ -65,7 +69,6 @@ class RouteProvider implements RouteProviderInterface
                     ]
                 ];
             } else {
-                $routeData = $results[0]->getData();
                 $routeData['params']['defaults']['page'] = $page;
             }
 
