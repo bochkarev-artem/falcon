@@ -59,8 +59,6 @@ services:
         arguments:
             - "@router.request_context"
             - "@routing.request_matcher"
-            - "@cmf_routing.generator"
-            - "@?event_dispatcher"
             - "@fos_elastica.index.routes.route"
 
     routing.request_matcher:
