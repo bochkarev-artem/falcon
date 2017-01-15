@@ -33,14 +33,12 @@ class GenreController extends Controller
 
         $genreRepo    = $this->getDoctrine()->getRepository('AppBundle:Genre');
         $genre        = $genreRepo->find($id);
-
-        $pagination   = new Pagination($queryParams->getPage(), $queryParams->getSize());
-        $pagination->paginate($queryResult->getTotalHits());
+        $pagination   = new Pagination($page, $defaultPerPage);
 
         return $this->render('AppBundle:Genre:show.html.twig', [
             'books'      => $books,
             'genre'      => $genre,
-            'pagination' => $pagination->getViewData()
+            'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }
 

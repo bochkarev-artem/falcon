@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Model\Pagination;
 use AppBundle\Model\QueryParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,8 +30,14 @@ class TagController extends Controller
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();
 
+        $tagRepo      = $this->getDoctrine()->getRepository('AppBundle:Tag');
+        $tag          = $tagRepo->find($id);
+        $pagination   = new Pagination($page, $defaultPerPage);
+
         return $this->render('AppBundle:Tag:show.html.twig', [
-            'books' => $books,
+            'books'      => $books,
+            'tag'        => $tag,
+            'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }
 

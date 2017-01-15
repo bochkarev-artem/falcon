@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Model\Pagination;
 use AppBundle\Model\QueryParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +31,14 @@ class SequenceController extends Controller
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();
 
+        $sequenceRepo = $this->getDoctrine()->getRepository('AppBundle:Sequence');
+        $sequence     = $sequenceRepo->find($id);
+        $pagination   = new Pagination($page, $defaultPerPage);
+
         return $this->render('AppBundle:Sequence:show.html.twig', [
-            'books' => $books,
+            'books'      => $books,
+            'sequence'   => $sequence,
+            'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }
 

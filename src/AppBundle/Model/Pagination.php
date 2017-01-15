@@ -23,11 +23,6 @@ class Pagination
     private $pageRange;
 
     /**
-     * @var array
-     */
-    private $viewData;
-
-    /**
      * @var integer
      */
     private $totalPages = 1;
@@ -79,15 +74,9 @@ class Pagination
     }
 
     /**
-     * @return array
-     */
-    public function getViewData()
-    {
-        return $this->viewData;
-    }
-
-    /**
      * @param int $count
+     *
+     * @return array
      */
     public function paginate($count)
     {
@@ -102,8 +91,7 @@ class Pagination
 
         if ($current - $delta > $this->totalPages - $this->pageRange) {
             $pages = range($this->totalPages - $this->pageRange + 1, $this->totalPages);
-        }
-        else {
+        } else {
             if ($current - $delta < 0) {
                 $delta = $current;
             }
@@ -121,6 +109,6 @@ class Pagination
             'pages'       => $pages,
         ];
 
-        $this->viewData = $viewData;
+        return $viewData;
     }
 }
