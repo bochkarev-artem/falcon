@@ -32,12 +32,6 @@
                                         <div class="book-heading book-padding">
                                             <span>{{ ('front.book.type_' ~ book.book_type)|trans }}</span>
                                             <h3>{{ book.title }}</h3>
-                                            {% if book.rating > 0 %}
-                                                <div class="book-review">
-                                                    {{ 'front.book.rating'|trans }}
-                                                    {{ book.rating }}
-                                                </div>
-                                            {% endif %}
                                         </div>
                                         <!--BOOK HEADING END-->
                                         <div class="book-tags-wrap book-padding">
@@ -99,9 +93,6 @@
                                             {% endif %}
                                         </figure>
                                         <div class="text">
-                                            <div class="rating">
-                                                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
-                                            </div>
                                             <a href="/{{ book.path }}">{{ book.title }}</a>
                                         </div>
                                     </div>

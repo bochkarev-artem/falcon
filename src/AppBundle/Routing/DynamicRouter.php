@@ -9,9 +9,7 @@ use Elastica\Query\BoolQuery;
 use Elastica\Query\Term;
 use Elastica\Type;
 use Symfony\Cmf\Component\Routing\DynamicRouter as BaseDynamicRouter;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
@@ -28,8 +26,6 @@ class DynamicRouter extends BaseDynamicRouter
     /**
      * @param RequestContext                              $context
      * @param RequestMatcherInterface|UrlMatcherInterface $matcher
-     * @param UrlGeneratorInterface                       $generator
-     * @param EventDispatcherInterface                    $eventDispatcher
      * @param                                             $repository
      *
      * @throws \InvalidArgumentException
@@ -37,8 +33,6 @@ class DynamicRouter extends BaseDynamicRouter
     public function __construct(
         RequestContext $context,
         $matcher,
-        UrlGeneratorInterface $generator,
-        EventDispatcherInterface $eventDispatcher = null,
         $repository
     ) {
         $this->context = $context;
@@ -47,11 +41,7 @@ class DynamicRouter extends BaseDynamicRouter
         }
 
         $this->matcher         = $matcher;
-        $this->generator       = $generator;
-        $this->eventDispatcher = $eventDispatcher;
         $this->repository      = $repository;
-
-        $this->generator->setContext($context);
     }
 
     /**
@@ -74,8 +64,7 @@ class DynamicRouter extends BaseDynamicRouter
             $generator = new UrlGenerator($collection, $this->context);
 
             return $generator->generate($name, $parameters, $absolute);
-        }
-        else {
+        } else {
             return parent::generate($name, $parameters, $absolute);
         }
     }

@@ -15,11 +15,6 @@ class QueryResult
     private $elasticResultSet;
 
     /**
-     * @var int
-     */
-    private $maxTotalHits;
-
-    /**
      * @param \Elastica\ResultSet $elasticResultSet
      */
     public function __construct(ResultSet $elasticResultSet)
@@ -44,28 +39,11 @@ class QueryResult
     }
 
     /**
-     * @param int $maxTotalHits
-     *
-     * @return QueryResult
-     */
-    public function setMaxTotalHits($maxTotalHits)
-    {
-        $this->maxTotalHits = $maxTotalHits;
-
-        return $this;
-    }
-
-    /**
      * @return int
      */
     public function getTotalHits()
     {
-        $totalHits = $this->elasticResultSet->getTotalHits();
-        if (isset($this->maxTotalHits) && $totalHits > $this->maxTotalHits) {
-            $totalHits = $this->maxTotalHits;
-        }
-
-        return $totalHits;
+        return $this->elasticResultSet->getTotalHits();
     }
 
     /**

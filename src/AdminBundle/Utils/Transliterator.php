@@ -5,7 +5,7 @@ use Gedmo\Sluggable\Util\Urlizer;
 
 class Transliterator extends Urlizer
 {
-    private static $table =  array(
+    private static $table =  [
         'а' => 'a',
         'б' => 'b',
         'в' => 'v',
@@ -34,12 +34,12 @@ class Transliterator extends Urlizer
         'ш' => 'sh',
         'щ' => 'sh',
         'ь' => '',
-        'ы' => 'yi',
+        'ы' => 'y',
         'ъ' => "",
         'э' => 'e',
         'ю' => 'yu',
         'я' => 'ya'
-    );
+    ];
 
     public static function transliterate($text, $separator = '-')
     {

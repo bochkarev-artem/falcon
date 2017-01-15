@@ -22,3 +22,7 @@ front:
         type_11:    Книги Gardners (Adobe DRM)
         rating:     Рейтинг
         annotation: Описание
+    pagination:
+        next:       Дальше
+        previous:   Назад
+

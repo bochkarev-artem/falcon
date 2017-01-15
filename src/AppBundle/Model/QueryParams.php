@@ -60,6 +60,14 @@ class QueryParams
     /**
      * @return int
      */
+    public function getOffset()
+    {
+        return ($this->page - 1) * $this->size;
+    }
+
+    /**
+     * @return int
+     */
     public function getFilterId()
     {
         return $this->filterId;

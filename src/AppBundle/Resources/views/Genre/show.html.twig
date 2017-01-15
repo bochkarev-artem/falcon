@@ -1,9 +1,134 @@
 {% extends "@App/layout.html.twig" %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ genre.title }}{% endblock %}
 
 {% block body %}
-    {% for book in books %}
-        {{ book.title }}
-    {% endfor %}
+    <div class="kf_content_wrap">
+        <!--GRID 4 WRAP START-->
+        <div class="grid-4">
+            <div class="grid3-page">
+                <div class="container">
+                    <div class="row">
+                        <!--ASIDE BAR WRAP START-->
+                        <aside class="col-md-3">
+                            <!--WIDGET CATEGORIES WRAP START-->
+                            <div class="widget widget-categories">
+                                <!--WIDGET HEADING START-->
+                                <div class="aside-widget-hd">
+                                    <h5>{{ 'front.genres'|trans }}</h5>
+                                </div>
+                                <!--WIDGET HEADING END-->
+                                <div class="widget-padding">
+                                    <!--WIDGET HEADING END-->
+                                    <!--WIDGET ACCORDIAN START-->
+                                    <div class="side_accordian">
+                                        <div class="accordion" id="section1">
+                                            <span>Fiction</span>
+                                        </div>
+                                        <div class="accordion-content">
+                                            <ul class="side-meta">
+                                                <li><a href="#">All types</a></li>
+                                                <li><a href="#">Romance</a></li>
+                                                <li><a href="#">Thriller</a></li>
+                                                <li><a href="#">Suspense</a></li>
+                                                <li><a href="#">Humor</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!--WIDGET ACCORDIAN END-->
+                                </div>
+                            </div>
+                            <!--WIDGET CATEGORIES WRAP END-->
+                            {% include '@App/Elements/featured_books.html.twig' %}
+                        </aside>
+                        <!--ASIDE BAR WRAP END-->
+                        <div class="col-md-9">
+                            <!--FILLTER WRAP START-->
+                            {#<div class="fillter-wrap">#}
+                                {#<div class="row">#}
+                                    {#<!--SLECTRIC DEC START-->#}
+                                    {#<div class="col-md-4">#}
+                                        {#<div class="slectric-dec">#}
+                                            {#<span>Sort by:</span>#}
+                                            {#<select>#}
+                                                {#<option value="1">Default Sorting</option>#}
+                                                {#<option value="9">novel</option>#}
+                                                {#<option value="2">books</option>#}
+                                                {#<option value="3">Select 4</option>#}
+                                                {#<option value="6">Select 5</option>#}
+                                                {#<option value="8">Select 6</option>#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<!--SLECTRIC DEC END-->#}
+                                    {#<!--SLECTRIC DEC START-->#}
+                                    {#<div class="col-md-4">#}
+                                        {#<div class="slectric-dec">#}
+                                            {#<span>Show by:</span>#}
+                                            {#<select>#}
+                                                {#<option value="1"> 12 Items Per Page</option>#}
+                                                {#<option value="9">novel</option>#}
+                                                {#<option value="2">books</option>#}
+                                                {#<option value="3">Select 4</option>#}
+                                                {#<option value="6">Select 5</option>#}
+                                                {#<option value="8">Select 6</option>#}
+                                            {#</select>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<!--SLECTRIC DEC END-->#}
+                                    {#<!--TAB DEC START-->#}
+                                    {#<div class="col-md-4">#}
+                                        {#<div class="tab-dec">#}
+                                            {#<ul class="nav nav-tabs" role="tablist">#}
+                                                {#<li role="presentation" class="active">#}
+                                                    {#<a href="#">#}
+                                                        {#<i class="fa fa-th-large"></i>#}
+                                                    {#</a>#}
+                                                {#</li>#}
+                                                {#<li role="presentation">#}
+                                                    {#<a href="#">#}
+                                                        {#<i class="fa fa-th-list"></i>#}
+                                                    {#</a>#}
+                                                {#</li>#}
+                                            {#</ul>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<!--TAB DEC END-->#}
+                                {#</div>#}
+                            {#</div>#}
+                            <!--FILLTER WRAP END-->
+                            <div class="blog-grid3">
+                                <div class="row">
+                                    {% for book in books %}
+                                        <!--BOOK DEC START-->
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="book-tab-dec">
+                                                <figure>
+                                                    <a href="/{{ book.path }}">
+                                                        <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                                    </a>
+                                                    {#<figcaption class="ribbon-wrap">#}
+                                                        {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
+                                                    {#</figcaption>#}
+                                                </figure>
+                                                <div class="text">
+                                                    {% set author = book.authors|first %}
+                                                    <small><a href="/{{ author.path }}">{{ author.full_name }}</a></small>
+                                                    <h5><a href="/{{ book.path }}">{{ book.title }}</a></h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--BOOK DEC END-->
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% set url = '/' ~ genre.path ~ '/page/' %}
+                        {% include '@App/Elements/pagination.html.twig' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--GRID 4 WRAP END-->
+    </div>
 {% endblock %}

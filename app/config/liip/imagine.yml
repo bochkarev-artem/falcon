@@ -35,7 +35,13 @@ liip_imagine:
         book_featured_books:
             cache:   local_upload
             filters:
-                relative_resize:
-                    widen: 255
+                resize: { size: [255, 400] }
+            post_processors:
+                jpegoptim: {}
+
+        book_list:
+            cache:   local_upload
+            filters:
+                resize: { size: [262, 400] }
             post_processors:
                 jpegoptim: {}

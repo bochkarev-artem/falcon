@@ -1,0 +1,44 @@
+{% if pagination.total_pages > 1 %}
+    <!--KODDE PAGINATION START-->
+    <div class="col-md-12">
+        <div class="kf-pagination">
+            <ul class="pagination">
+                <li>
+                    {% if pagination.current != 1 %}
+                        <a href="{{ url ~ pagination.prev }}" aria-label="{{ 'front.pagination.previous'|trans }}">
+                            <span aria-hidden="true">
+                                <i class="fa fa-angle-left"></i>
+                            </span>
+                            <small class="page-label">
+                                {{ 'front.pagination.previous'|trans }}
+                            </small>
+                        </a>
+                    {% endif %}
+                </li>
+
+                {% for page in pagination.pages %}
+                    <li>
+                        <a{% if page == pagination.current %} class="active"{% endif %} rel="{{ page }}"
+                            href="{{ url ~ page }}">
+                            {{ page }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+                <li>
+                    {% if pagination.current != pagination.last %}
+                        <a href="{{ url ~ pagination.next }}" aria-label="{{ 'front.pagination.next'|trans }}">
+                            <span aria-hidden="true">
+                                <i class="fa fa-angle-right"></i>
+                            </span>
+                            <small class="page-label">
+                                {{ 'front.pagination.next'|trans }}
+                            </small>
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--KODDE PAGINATION END-->
+{% endif %}
