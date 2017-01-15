@@ -2119,6 +2119,8 @@ section{
 	text-align: center;
 	padding: 23px 0px 30px;
 	background-color: #f9f9f9;
+	height: 128px;
+	overflow: hidden;
 }
 .book-tab-dec .text small{
 	font-size: 13px;
@@ -2135,7 +2137,6 @@ section{
 	display: block;
 	text-align: center;
 	line-height: 18px;
-	text-transform: uppercase;
 	font-weight: 500;
 	margin-bottom: 17px;
 }
@@ -6746,7 +6747,7 @@ aside .widget{
   color: #fff;
   background: #fff;
 }
-.page-lable{
+.page-label{
   display: inline-block;
   font-size: 14px;
   line-height: 12px;
@@ -6756,21 +6757,21 @@ aside .widget{
   position: absolute;
   height: 100%;
 }
-.kf-pagination .pagination > li:first-child .page-lable {
+.kf-pagination .pagination > li:first-child .page-label {
   left: 0%;
   opacity: 0;
 }
-.kf-pagination .pagination > li:last-child .page-lable{
+.kf-pagination .pagination > li:last-child .page-label{
   opacity: 0;
   right: 0%;
 }
-.kf-pagination .pagination > li:last-child a:hover .page-lable{
+.kf-pagination .pagination > li:last-child a:hover .page-label{
   left: auto;
   opacity: 1;
   right: 100%;
 
 }
-.kf-pagination .pagination > li:first-child a:hover .page-lable{
+.kf-pagination .pagination > li:first-child a:hover .page-label{
   right: auto;
   opacity: 1;
   left: 100%;
@@ -6789,11 +6790,11 @@ aside .widget{
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
-.kf-pagination .pagination > li:first-child a:hover .page-lable{
+.kf-pagination .pagination > li:first-child a:hover .page-label{
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-.kf-pagination .pagination > li:last-child a:hover .page-lable{
+.kf-pagination .pagination > li:last-child a:hover .page-label{
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }

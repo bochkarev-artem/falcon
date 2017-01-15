@@ -34,5 +34,11 @@ liip_imagine:
             quality: 80
             filters:
                 strip: ~
-                relative_resize:
-                    widen: 255
+                resize: { size: [255, 400] }
+
+        book_list:
+            cache:   local_upload
+            quality: 80
+            filters:
+                strip: ~
+                resize: { size: [262, 400] }

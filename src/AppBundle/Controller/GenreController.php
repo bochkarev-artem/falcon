@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Model\Pagination;
 use AppBundle\Model\QueryParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +31,16 @@ class GenreController extends Controller
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();
 
+        $genreRepo    = $this->getDoctrine()->getRepository('AppBundle:Genre');
+        $genre        = $genreRepo->find($id);
+
+        $pagination   = new Pagination($queryParams->getPage(), $queryParams->getSize());
+        $pagination->paginate($queryResult->getTotalHits());
+
         return $this->render('AppBundle:Genre:show.html.twig', [
-            'books' => $books,
+            'books'      => $books,
+            'genre'      => $genre,
+            'pagination' => $pagination->getViewData()
         ]);
     }
 
