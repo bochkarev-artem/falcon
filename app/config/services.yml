@@ -54,6 +54,13 @@ services:
         tags:
             - { name: fos_elastica.provider, index: books, type: book }
 
+    routing.dynamic_router:
+        class: AppBundle\Routing\DynamicRouter
+        arguments:
+            - "@router.request_context"
+            - "@routing.request_matcher"
+            - "@fos_elastica.index.routes.route"
+
     routing.request_matcher:
         class: AppBundle\Routing\RequestMatcher
         arguments:
