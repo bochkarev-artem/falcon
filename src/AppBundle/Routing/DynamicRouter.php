@@ -76,8 +76,7 @@ class DynamicRouter extends BaseDynamicRouter
     {
         if ($name == 'dynamic_route') {
             return true;
-        }
-        else {
+        } else {
             return parent::supports($name);
         }
     }
@@ -89,7 +88,7 @@ class DynamicRouter extends BaseDynamicRouter
      */
     private function getPath($parameters)
     {
-        $searchUrl = preg_replace('#^(.*?)(?:/\d+)?(?:\.html)?$#iu', '$1', $parameters['_path']);
+        $searchUrl = preg_replace('#^(.*?)(\/page\/\d+)(?:/\d+)?(?:\.html)?$#iu', '$1', $parameters['_path']);
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
         $pathQuery->setTerm('path', rawurldecode($searchUrl));
