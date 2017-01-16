@@ -36,14 +36,10 @@ class TagController extends Controller
         $tag          = $tagRepo->find($id);
         $pagination   = new Pagination($page, $defaultPerPage);
 
-        $route        = $request->attributes->get('_route');
-        $routeParams  = $request->attributes->get('_route_params');
-        $baseUrl      = $this->generateUrl($route, $routeParams);
-
         return $this->render('AppBundle:Tag:show.html.twig', [
             'books'      => $books,
             'tag'        => $tag,
-            'base_url'   => $baseUrl,
+            'url_page'   => $tag->getPath() . '/page/',
             'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }

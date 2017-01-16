@@ -37,14 +37,10 @@ class AuthorController extends Controller
         $author       = $authorRepo->find($id);
         $pagination   = new Pagination($page, $defaultPerPage);
 
-        $route        = $request->attributes->get('_route');
-        $routeParams  = $request->attributes->get('_route_params');
-        $baseUrl      = $this->generateUrl($route, $routeParams);
-
         return $this->render('AppBundle:Author:show.html.twig', [
             'books'      => $books,
             'author'     => $author,
-            'base_url'   => $baseUrl,
+            'url_page'   => $author->getPath() . '/page/',
             'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }
