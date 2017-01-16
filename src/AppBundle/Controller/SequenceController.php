@@ -37,14 +37,10 @@ class SequenceController extends Controller
         $sequence     = $sequenceRepo->find($id);
         $pagination   = new Pagination($page, $defaultPerPage);
 
-        $route        = $request->attributes->get('_route');
-        $routeParams  = $request->attributes->get('_route_params');
-        $baseUrl      = $this->generateUrl($route, $routeParams);
-
         return $this->render('AppBundle:Sequence:show.html.twig', [
             'books'      => $books,
             'sequence'   => $sequence,
-            'base_url'   => $baseUrl,
+            'url_page'   => $sequence->getPath() . '/page/',
             'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }

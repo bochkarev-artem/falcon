@@ -37,14 +37,10 @@ class GenreController extends Controller
         $genre        = $genreRepo->find($id);
         $pagination   = new Pagination($page, $defaultPerPage);
 
-        $route        = $request->attributes->get('_route');
-        $routeParams  = $request->attributes->get('_route_params');
-        $baseUrl      = $this->generateUrl($route, $routeParams);
-
         return $this->render('AppBundle:Genre:show.html.twig', [
             'books'      => $books,
             'genre'      => $genre,
-            'base_url'   => $baseUrl,
+            'url_page'   => '/' . $genre->getPath() . '/page/',
             'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }
