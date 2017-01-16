@@ -31,7 +31,12 @@ class MenuBuilder
     /**
      * @var string
      */
-    protected $cacheFileName;
+    protected $cacheMainFile;
+
+    /**
+     * @var string
+     */
+    protected $cacheSideFile;
 
     /**
      * @param EntityManager     $em
@@ -42,8 +47,9 @@ class MenuBuilder
         $this->em            = $em;
         $this->twig          = $twig;
         $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
-        $this->cacheDir      = $cacheDir . '/mainMenuCache';
-        $this->cacheFileName = $this->cacheDir . '/mainMenu.html';
+        $this->cacheDir      = $cacheDir . '/menuCache';
+        $this->cacheMainFile = $this->cacheDir . '/mainMenu.html';
+        $this->cacheSideFile = $this->cacheDir . '/sideMenu.html';
     }
 
     /**
@@ -51,10 +57,24 @@ class MenuBuilder
      */
     public function getMainMenu()
     {
-        $cache = new ConfigCache($this->cacheFileName, false);
+        $cache = new ConfigCache($this->cacheMainFile, false);
 
         if (!$cache->isFresh()) {
-            $this->updateCache($cache);
+            $this->updateCache($cache, 'main');
+        }
+
+        return file_get_contents($cache->getPath());
+    }
+
+    /**
+     * @return string
+     */
+    public function getSideMenu()
+    {
+        $cache = new ConfigCache($this->cacheSideFile, false);
+
+        if (!$cache->isFresh()) {
+            $this->updateCache($cache, 'side');
         }
 
         return file_get_contents($cache->getPath());
@@ -71,18 +91,36 @@ class MenuBuilder
     }
 
     /**
+     * @param array $menuTree
+     *
      * @return string
      */
-    protected function buildMainMenu()
+    protected function buildMainMenu(array $menuTree)
     {
-        $genres   = $this->getAllGenres();
-        $menuTree = $this->buildMenuTree($genres);
-
         $parentGenres = $menuTree[0];
         unset($menuTree[0]);
 
         return $this->twig->render(
             'AppBundle:Elements:Header/main-menu.html.twig',
+            [
+                'parentGenres' => $parentGenres,
+                'genres'       => $menuTree,
+            ]
+        );
+    }
+
+    /**
+     * @param array $menuTree
+     *
+     * @return string
+     */
+    protected function buildSideMenu($menuTree)
+    {
+        $parentGenres = $menuTree[0];
+        unset($menuTree[0]);
+
+        return $this->twig->render(
+            'AppBundle:Elements:Header/side-menu.html.twig',
             [
                 'parentGenres' => $parentGenres,
                 'genres'       => $menuTree,
@@ -109,12 +147,26 @@ class MenuBuilder
 
     /**
      * @param ConfigCache $cache
+     * @param string      $type
      *
      * @throws \RuntimeException
      */
-    protected function updateCache(ConfigCache $cache)
+    protected function updateCache(ConfigCache $cache, $type)
     {
-        $content = $this->buildMainMenu();
+        $genres   = $this->getAllGenres();
+        $menuTree = $this->buildMenuTree($genres);
+
+        switch ($type) {
+            case 'side':
+                $content = $this->buildSideMenu($menuTree);
+                break;
+            case 'main':
+                $content = $this->buildMainMenu($menuTree);
+                break;
+            default:
+                $content = '';
+        }
+
         $this->checkCacheFolder();
         $cache->write($content);
         $this->resetSystemCaches();
@@ -126,15 +178,28 @@ class MenuBuilder
     protected function resetSystemCaches($cacheFilename = null)
     {
         if (is_null($cacheFilename)) {
-            $this->cacheFileName;
+            $cacheFilename = $this->cacheMainFile;
         }
 
         if (ini_get('apc.enabled')) {
             if (apc_exists($cacheFilename) && !apc_delete_file($cacheFilename)) {
                 throw new \RuntimeException(sprintf('Failed to clear APC Cache for file %s', $cacheFilename));
             }
+        } elseif (ini_get('opcache.enable')) {
+            if (!opcache_invalidate($cacheFilename, true)) {
+                throw new \RuntimeException(sprintf('Failed to clear OPCache for file %s', $cacheFilename));
+            }
         }
-        elseif (ini_get('opcache.enable')) {
+
+        if (is_null($cacheFilename)) {
+            $cacheFilename = $this->cacheSideFile;
+        }
+
+        if (ini_get('apc.enabled')) {
+            if (apc_exists($cacheFilename) && !apc_delete_file($cacheFilename)) {
+                throw new \RuntimeException(sprintf('Failed to clear APC Cache for file %s', $cacheFilename));
+            }
+        } elseif (ini_get('opcache.enable')) {
             if (!opcache_invalidate($cacheFilename, true)) {
                 throw new \RuntimeException(sprintf('Failed to clear OPCache for file %s', $cacheFilename));
             }

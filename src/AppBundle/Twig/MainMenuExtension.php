@@ -29,6 +29,7 @@ class MainMenuExtension extends \Twig_Extension
     {
         return [
             'main_menu' => new \Twig_Function_Method($this, 'getMainMenu'),
+            'side_menu' => new \Twig_Function_Method($this, 'getSideMenu'),
         ];
     }
 
@@ -38,6 +39,14 @@ class MainMenuExtension extends \Twig_Extension
     public function getMainMenu()
     {
         return $this->menuBuilder->getMainMenu();
+    }
+
+    /**
+     * @return string
+     */
+    public function getSideMenu()
+    {
+        return $this->menuBuilder->getSideMenu();
     }
 
     /**
