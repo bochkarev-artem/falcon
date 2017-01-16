@@ -5,17 +5,19 @@ namespace AppBundle\Controller;
 use AppBundle\Model\Pagination;
 use AppBundle\Model\QueryParams;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SequenceController extends Controller
 {
     /**
+     * @param Request $request
      * @param integer $id
      * @param integer $page
      *
      * @return Response
      */
-    public function showAction($id, $page)
+    public function showAction(Request $request, $id, $page)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
 
@@ -35,9 +37,14 @@ class SequenceController extends Controller
         $sequence     = $sequenceRepo->find($id);
         $pagination   = new Pagination($page, $defaultPerPage);
 
+        $route        = $request->attributes->get('_route');
+        $routeParams  = $request->attributes->get('_route_params');
+        $baseUrl      = $this->generateUrl($route, $routeParams);
+
         return $this->render('AppBundle:Sequence:show.html.twig', [
             'books'      => $books,
             'sequence'   => $sequence,
+            'base_url'   => $baseUrl,
             'pagination' => $pagination->paginate($queryResult->getTotalHits())
         ]);
     }
