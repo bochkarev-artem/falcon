@@ -3,6 +3,7 @@ meta:
     keywords:    Ключевые слова
 
 front:
+    to_book:        К книге
     genres:         Жанры
     tags:           Теги
     related_books:  Похожие книги

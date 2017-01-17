@@ -13,8 +13,9 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale:           ru
-    default_per_page: 20
+    locale:            ru
+    default_per_page:  15
+    default_page_view: "column"
 
 framework:
     #esi:             ~

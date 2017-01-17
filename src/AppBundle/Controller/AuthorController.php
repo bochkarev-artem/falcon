@@ -20,6 +20,8 @@ class AuthorController extends Controller
     public function showAction(Request $request, $id, $page)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
+        $defaultView    = $this->getParameter('default_page_view');
+        $view           = $request->get('view', $defaultView);
 
         $queryParams = new QueryParams();
         $queryParams
@@ -41,7 +43,8 @@ class AuthorController extends Controller
             'books'      => $books,
             'author'     => $author,
             'url_page'   => $author->getPath() . '/page/',
-            'pagination' => $pagination->paginate($queryResult->getTotalHits())
+            'pagination' => $pagination->paginate($queryResult->getTotalHits()),
+            'view'       => $view,
         ]);
     }
 
