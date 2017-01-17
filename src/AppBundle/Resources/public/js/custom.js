@@ -431,14 +431,6 @@ $(document).ready(function(){
 		});
 	});
 
-	/*
-	    ==============================================================
-	       Map Script Start
-	    ==============================================================
-	*/
-	if($('#map-canvas').length){
-		google.maps.event.addDomListener(window, 'load', initialize);
-	}
 
 	/*
 	  ==============================================================
@@ -529,86 +521,29 @@ $(document).ready(function(){
 		$( ".amount" ).val( "$" + $( ".slider-range" ).slider( "values", 0 ) + " - $" + $( ".slider-range" ).slider( "values", 1 ) );
 	}
 
+	$('.main-content').on('click', '.pageview__list', function (e) {
+		e.preventDefault();
+        var sendData = {view: 'list'};
+
+        $('.main-content').append('<span class="main-content__loading"></span>');
+        $.get($(this).prop('href'), sendData, function (response) {
+			if (response.status == true) {
+				$('.main-content').html(response.page);
+				$('.main-content__loading').remove();
+			}
+		});
+    });
+
+	$('.main-content').on('click', '.pageview__column', function (e) {
+        e.preventDefault();
+        var sendData = {view: 'column'};
+
+        $('.main-content').append('<span class="main-content__loading"></span>');
+        $.get($(this).prop('href'), sendData, function (response) {
+            if (response.status == true) {
+                $('.main-content').html(response.page);
+                $('.main-content__loading').remove();
+            }
+        });
+    });
 });
-/*
-  =======================================================================
-			Google Map Function
-  =======================================================================
-*/
-function initialize() {
-	var MY_MAPTYPE_ID = 'custom_style';
-	var map;
-	var brooklyn = new google.maps.LatLng(40.6743890, -73.9455);
-	var featureOpts = [
-		{
-		"featureType": "road",
-		"elementType": "geometry",
-		"stylers": [
-			{
-				"lightness": 100
-			},
-			{
-				"visibility": "simplified"
-			}
-		]
-	},
-	{
-		"featureType": "water",
-		"elementType": "geometry",
-		"stylers": [
-			{
-				"visibility": "on"
-			},
-			{
-				"color": "#C6E2FF"
-			}
-		]
-	},
-	{
-		"featureType": "poi",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{
-				"color": "#C5E3BF"
-			}
-		]
-	},
-	{
-		"featureType": "road",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{
-				"color": "#D1D1B8"
-			}
-		]
-	}
-	];
-
-	var mapOptions = {
-		zoom: 13,
-		scrollwheel: false,
-		center: brooklyn,
-		mapTypeControlOptions: {
-		  mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
-		},
-		mapTypeId: MY_MAPTYPE_ID
-	};
-
-
-	map = new google.maps.Map(document.getElementById('map-canvas'),
-		  mapOptions);
-
-	var styledMapOptions = {
-		name: 'Custom Style'
-	};
-
-	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
-
-	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
-	var marker=new google.maps.Marker({
-	  position:brooklyn,
-	  icon:''
-	  });
-
-	marker.setMap(map);
-}

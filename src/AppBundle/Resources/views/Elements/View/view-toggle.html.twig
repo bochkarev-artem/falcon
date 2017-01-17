@@ -1,0 +1,27 @@
+<!--FILLTER WRAP START-->
+<div class="fillter-wrap">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        {% set current_url = app.request.pathInfo %}
+        <!--TAB DEC START-->
+        <div class="col-md-4">
+            <div class="tab-dec">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation"{% if view == 'list'%} class="active"{% endif %}>
+                        <a class="pageview__list" href="{{ current_url }}">
+                            <i class="fa fa-th-list"></i>
+                        </a>
+                    </li>
+                    <li role="presentation"{% if view == 'column'%} class="active"{% endif %}>
+                        <a class="pageview__column" href="{{ current_url }}">
+                            <i class="fa fa-th-large"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--TAB DEC END-->
+    </div>
+</div>
+<!--FILLTER WRAP END-->

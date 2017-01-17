@@ -17,6 +17,8 @@ parameters:
     default_per_page:  15
     default_page_view: "column"
 
+    cookie.page_view_name: "bookary_view"
+
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }

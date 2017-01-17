@@ -16,12 +16,13 @@
                         </aside>
                         <!--ASIDE BAR WRAP END-->
                         <div class="col-md-9">
-                            {% if view == 'column' %}
-                                {% set show_genre = true %}
-                                {% include '@App/Elements/View/column.html.twig' %}
-                            {% elseif view == 'list' %}
-                                {% include '@App/Elements/View/list.html.twig' %}
-                            {% endif %}
+                            <div class="main-content">
+                                {% if view == 'column' %}
+                                    {% include '@App/Elements/View/column.html.twig' %}
+                                {% elseif view == 'list' %}
+                                    {% include '@App/Elements/View/list.html.twig' %}
+                                {% endif %}
+                            </div>
                         </div>
                         {% include '@App/Elements/pagination.html.twig' %}
                     </div>
