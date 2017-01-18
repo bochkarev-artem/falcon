@@ -159,7 +159,7 @@ class SiteController extends Controller
      *
      * @return JsonResponse|array
      */
-    public function prepareViewData($request, $queryParams, $params) {
+    protected function prepareViewData($request, $queryParams, $params) {
         $defaultView  = $this->getParameter('default_page_view');
         $cookieName   = $this->getParameter('cookie.page_view_name');
         $cookieView   = $request->cookies->get($cookieName, $defaultView);
