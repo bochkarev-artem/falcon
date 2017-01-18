@@ -16,33 +16,14 @@
                         </aside>
                         <!--ASIDE BAR WRAP END-->
                         <div class="col-md-9">
-                            <div class="blog-grid3">
-                                <div class="row">
-                                    {% for book in books %}
-                                        <!--BOOK DEC START-->
-                                        <div class="col-md-4 col-sm-6">
-                                            <div class="book-tab-dec">
-                                                <figure>
-                                                    <a href="/{{ book.path }}">
-                                                        <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
-                                                    </a>
-                                                    {#<figcaption class="ribbon-wrap">#}
-                                                    {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
-                                                    {#</figcaption>#}
-                                                </figure>
-                                                <div class="text">
-                                                    {% set genre = book.genres|first %}
-                                                    <small><a href="/{{ genre.path }}">{{ genre.title }}</a></small>
-                                                    <h5><a href="/{{ book.path }}">{{ book.title }}</a></h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--BOOK DEC END-->
-                                    {% endfor %}
-                                </div>
+                            <div class="main-content">
+                                {% if view == 'column' %}
+                                    {% include '@App/Elements/View/column.html.twig' %}
+                                {% elseif view == 'list' %}
+                                    {% include '@App/Elements/View/list.html.twig' %}
+                                {% endif %}
                             </div>
                         </div>
-                        {% include '@App/Elements/pagination.html.twig' %}
                     </div>
                 </div>
             </div>

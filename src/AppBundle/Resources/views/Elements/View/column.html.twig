@@ -1,0 +1,35 @@
+{% include '@App/Elements/View/view-toggle.html.twig' %}
+
+<div class="blog-grid3">
+    <div class="row">
+        {% for book in books %}
+            <!--BOOK DEC START-->
+            <div class="col-md-4 col-sm-6">
+                <div class="book-tab-dec">
+                    <figure>
+                        <a href="/{{ book.path }}">
+                            <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                        </a>
+                        {#<figcaption class="ribbon-wrap">#}
+                        {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
+                        {#</figcaption>#}
+                    </figure>
+                    <div class="text">
+                        {% if show_genre is defined and show_genre %}
+                            {% set genre = book.genres|first %}
+                            <small><a href="/{{ genre.path }}">{{ genre.title }}</a></small>
+                        {% endif %}
+                        {% if show_author is defined and show_author %}
+                            {% set author = book.authors|first %}
+                            <small><a href="/{{ author.path }}">{{ author.full_name }}</a></small>
+                        {% endif %}
+                        <h5><a href="/{{ book.path }}">{{ book.title }}</a></h5>
+                    </div>
+                </div>
+            </div>
+            <!--BOOK DEC END-->
+        {% endfor %}
+    </div>
+</div>
+
+{% include '@App/Elements/pagination.html.twig' %}

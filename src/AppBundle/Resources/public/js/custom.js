@@ -431,14 +431,6 @@ $(document).ready(function(){
 		});
 	});
 
-	/*
-	    ==============================================================
-	       Map Script Start
-	    ==============================================================
-	*/
-	if($('#map-canvas').length){
-		google.maps.event.addDomListener(window, 'load', initialize);
-	}
 
 	/*
 	  ==============================================================
@@ -529,86 +521,70 @@ $(document).ready(function(){
 		$( ".amount" ).val( "$" + $( ".slider-range" ).slider( "values", 0 ) + " - $" + $( ".slider-range" ).slider( "values", 1 ) );
 	}
 
+    var mainContent = $('.main-content');
+
+    mainContent.on('click', '.pageview__list', function (e) {
+        var sendData = {view: 'list'};
+
+		e.preventDefault();
+        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.css('opacity', 0.5);
+
+        $.get($(this).prop('href'), sendData, function (response) {
+			if (response.status == true) {
+                mainContent.html(response.page);
+                mainContent.css('opacity', 1);
+                $('.main-content__loading').remove();
+			}
+		});
+    });
+
+    mainContent.on('click', '.pageview__column', function (e) {
+        var sendData = {view: 'column'};
+
+        e.preventDefault();
+        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.css('opacity', 0.5);
+
+        $.get($(this).prop('href'), sendData, function (response) {
+            if (response.status == true) {
+                mainContent.html(response.page);
+                mainContent.css('opacity', 1);
+                $('.main-content__loading').remove();
+            }
+        });
+    });
+
+    mainContent.on('click', '.pageview__grid', function (e) {
+        var sendData = {view: 'grid'};
+
+        e.preventDefault();
+        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.css('opacity', 0.5);
+
+        $.get($(this).prop('href'), sendData, function (response) {
+            if (response.status == true) {
+                mainContent.html(response.page);
+                mainContent.css('opacity', 1);
+                $('.main-content__loading').remove();
+            }
+        });
+    });
+
+    mainContent.on('click', 'a.pagination-link', function (e) {
+        e.preventDefault();
+        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.css('opacity', 0.5);
+
+        $.get($(this).prop('href'), [], function (response) {
+            if (response.status == true) {
+                mainContent.html(response.page);
+                $('html, body').animate({
+                    scrollTop: $('.main-content').offset().top
+                }, 400);
+                mainContent.css('opacity', 1);
+                $('.main-content__loading').remove();
+            }
+        });
+    });
 });
-/*
-  =======================================================================
-			Google Map Function
-  =======================================================================
-*/
-function initialize() {
-	var MY_MAPTYPE_ID = 'custom_style';
-	var map;
-	var brooklyn = new google.maps.LatLng(40.6743890, -73.9455);
-	var featureOpts = [
-		{
-		"featureType": "road",
-		"elementType": "geometry",
-		"stylers": [
-			{
-				"lightness": 100
-			},
-			{
-				"visibility": "simplified"
-			}
-		]
-	},
-	{
-		"featureType": "water",
-		"elementType": "geometry",
-		"stylers": [
-			{
-				"visibility": "on"
-			},
-			{
-				"color": "#C6E2FF"
-			}
-		]
-	},
-	{
-		"featureType": "poi",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{
-				"color": "#C5E3BF"
-			}
-		]
-	},
-	{
-		"featureType": "road",
-		"elementType": "geometry.fill",
-		"stylers": [
-			{
-				"color": "#D1D1B8"
-			}
-		]
-	}
-	];
-
-	var mapOptions = {
-		zoom: 13,
-		scrollwheel: false,
-		center: brooklyn,
-		mapTypeControlOptions: {
-		  mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
-		},
-		mapTypeId: MY_MAPTYPE_ID
-	};
-
-
-	map = new google.maps.Map(document.getElementById('map-canvas'),
-		  mapOptions);
-
-	var styledMapOptions = {
-		name: 'Custom Style'
-	};
-
-	var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
-
-	map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
-	var marker=new google.maps.Marker({
-	  position:brooklyn,
-	  icon:''
-	  });
-
-	marker.setMap(map);
-}
