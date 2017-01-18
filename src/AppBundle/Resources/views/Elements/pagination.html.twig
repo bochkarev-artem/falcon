@@ -19,7 +19,7 @@
                 {% for page in pagination.pages %}
                     <li>
                         <a class="pagination-link{% if page == pagination.current %} active{% endif %}"
-                                href="{{ page != pagination.current ? url_page ~ page : '' }}">
+                                href="{{ url_page ~ page }}">
                             {{ page }}
                         </a>
                     </li>
