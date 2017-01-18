@@ -546,4 +546,16 @@ $(document).ready(function(){
             }
         });
     });
+
+	$('.pagination').on('click', 'a', function (e) {
+        e.preventDefault();
+
+        $('.main-content').append('<span class="main-content__loading"></span>');
+        $.get($(this).prop('href'), [], function (response) {
+            if (response.status == true) {
+                $('.main-content').html(response.page);
+                $('.main-content__loading').remove();
+            }
+        });
+    });
 });

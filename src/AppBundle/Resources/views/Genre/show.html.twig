@@ -16,67 +16,13 @@
                         </aside>
                         <!--ASIDE BAR WRAP END-->
                         <div class="col-md-9">
-                            <!--FILLTER WRAP START-->
-                            {#<div class="fillter-wrap">#}
-                                {#<div class="row">#}
-                                    {#<!--SLECTRIC DEC START-->#}
-                                    {#<div class="col-md-4">#}
-                                        {#<div class="slectric-dec">#}
-                                            {#<span>Sort by:</span>#}
-                                            {#<select>#}
-                                                {#<option value="1">Default Sorting</option>#}
-                                                {#<option value="9">novel</option>#}
-                                                {#<option value="2">books</option>#}
-                                                {#<option value="3">Select 4</option>#}
-                                                {#<option value="6">Select 5</option>#}
-                                                {#<option value="8">Select 6</option>#}
-                                            {#</select>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                    {#<!--SLECTRIC DEC END-->#}
-                                    {#<!--SLECTRIC DEC START-->#}
-                                    {#<div class="col-md-4">#}
-                                        {#<div class="slectric-dec">#}
-                                            {#<span>Show by:</span>#}
-                                            {#<select>#}
-                                                {#<option value="1"> 12 Items Per Page</option>#}
-                                                {#<option value="9">novel</option>#}
-                                                {#<option value="2">books</option>#}
-                                                {#<option value="3">Select 4</option>#}
-                                                {#<option value="6">Select 5</option>#}
-                                                {#<option value="8">Select 6</option>#}
-                                            {#</select>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                    {#<!--SLECTRIC DEC END-->#}
-                                    {#<!--TAB DEC START-->#}
-                                    {#<div class="col-md-4">#}
-                                        {#<div class="tab-dec">#}
-                                            {#<ul class="nav nav-tabs" role="tablist">#}
-                                                {#<li role="presentation" class="active">#}
-                                                    {#<a href="#">#}
-                                                        {#<i class="fa fa-th-large"></i>#}
-                                                    {#</a>#}
-                                                {#</li>#}
-                                                {#<li role="presentation">#}
-                                                    {#<a href="#">#}
-                                                        {#<i class="fa fa-th-list"></i>#}
-                                                    {#</a>#}
-                                                {#</li>#}
-                                            {#</ul>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                    {#<!--TAB DEC END-->#}
-                                {#</div>#}
-                            {#</div>#}
-                            <!--FILLTER WRAP END-->
-
-                            {% if view == 'column' %}
-                                {% set show_author = true %}
-                                {% include '@App/Elements/View/column.html.twig' %}
-                            {% elseif view == 'list' %}
-                                {% include '@App/Elements/View/list.html.twig' %}
-                            {% endif %}
+                            <div class="main-content">
+                                {% if view == 'column' %}
+                                    {% include '@App/Elements/View/column.html.twig' %}
+                                {% elseif view == 'list' %}
+                                    {% include '@App/Elements/View/list.html.twig' %}
+                                {% endif %}
+                            </div>
                         </div>
                         {% include '@App/Elements/pagination.html.twig' %}
                     </div>

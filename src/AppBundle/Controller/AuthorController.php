@@ -40,9 +40,10 @@ class AuthorController extends Controller
         $books        = $queryResult->getResults();
 
         $data = [
-            'show_genre' => true,
-            'books'      => $books,
-            'view'       => $view,
+            'show_genre'  => true,
+            'books'       => $books,
+            'view'        => $view,
+            'current_url' => $request->getPathInfo(),
         ];
 
         if ($request->isXmlHttpRequest()) {
@@ -51,10 +52,12 @@ class AuthorController extends Controller
             } else {
                 $template = 'AppBundle:Elements/View:list.html.twig';
             }
+
             $responseData = [
                 'page'   => $this->renderView($template, $data),
                 'status' => true,
             ];
+
             $response = new JsonResponse($responseData);
             $cookie   = new Cookie($cookieName, $view);
 
@@ -69,7 +72,7 @@ class AuthorController extends Controller
 
         $data = array_merge($data, [
             'author'     => $author,
-            'url_page'   => $author->getPath() . '/page/',
+            'url_page'   => '/' . $author->getPath() . '/page/',
             'pagination' => $pagination->paginate($queryResult->getTotalHits()),
         ]);
 
