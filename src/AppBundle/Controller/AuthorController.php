@@ -39,19 +39,28 @@ class AuthorController extends Controller
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();
 
+        $pagination   = new Pagination($page, $defaultPerPage);
+        $authorRepo   = $this->getDoctrine()->getRepository('AppBundle:Author');
+        $author       = $authorRepo->find($id);
+
         $data = [
             'show_genre'  => true,
             'books'       => $books,
             'view'        => $view,
             'current_url' => $request->getPathInfo(),
+            'pagination'  => $pagination->paginate($queryResult->getTotalHits()),
+            'author'      => $author,
+            'url_page'    => '/' . $author->getPath() . '/page/',
         ];
 
         if ($request->isXmlHttpRequest()) {
-            if ($view == 'column') {
-                $template = 'AppBundle:Elements/View:column.html.twig';
-            } else {
-                $template = 'AppBundle:Elements/View:list.html.twig';
-            }
+            $templates = [
+                'column' => 'AppBundle:Elements/View:column.html.twig',
+                'list'   => 'AppBundle:Elements/View:list.html.twig',
+                'grid'   => 'AppBundle:Elements/View:grid.html.twig',
+            ];
+
+            $template = isset($templates[$view]) ? $templates[$view] : 'AppBundle:Elements/View:column.html.twig';
 
             $responseData = [
                 'page'   => $this->renderView($template, $data),
@@ -65,16 +74,6 @@ class AuthorController extends Controller
 
             return $response;
         }
-
-        $authorRepo = $this->getDoctrine()->getRepository('AppBundle:Author');
-        $author     = $authorRepo->find($id);
-        $pagination = new Pagination($page, $defaultPerPage);
-
-        $data = array_merge($data, [
-            'author'     => $author,
-            'url_page'   => '/' . $author->getPath() . '/page/',
-            'pagination' => $pagination->paginate($queryResult->getTotalHits()),
-        ]);
 
         return $this->render('AppBundle:Author:show.html.twig', $data);
     }
