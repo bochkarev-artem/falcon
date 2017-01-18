@@ -573,6 +573,10 @@ $(document).ready(function(){
 
     mainContent.on('click', 'a.pagination-link', function (e) {
         e.preventDefault();
+        if ($(this).hasClass('active')) {
+        	return;
+		}
+
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
 

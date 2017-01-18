@@ -125,7 +125,13 @@ class RouteProvider implements ProviderInterface
             'params' => $routeParams,
             $type    => $objectId,
         ];
-        $routeData['params']['defaults']['_controller'] = "AppBundle:$className:show";
+
+        if ($className == 'Book') {
+            $routeData['params']['defaults']['_controller'] = "AppBundle:Book:show";
+        } else {
+            $routeData['params']['defaults']['_controller'] = "AppBundle:Site:show$className";
+        }
+
         $routeData['path'] = $object->getPath();
         $routes[$routeId]  = $routeData;
 

@@ -15,7 +15,7 @@ imports:
 parameters:
     locale:            ru
     default_per_page:  15
-    default_page_view: "column"
+    default_page_view: "list"
 
     cookie.page_view_name: "bookary_view"
 
