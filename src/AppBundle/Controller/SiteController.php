@@ -24,11 +24,21 @@ class SiteController extends Controller
         $query          = $request->get('query');
 
         $queryParams = new QueryParams();
-        $queryParams->setSearchQuery($query);
+        $queryParams
+            ->setSearchQuery($query)
+            ->setPage($page)
+            ->setSize($defaultPerPage)
+            ->setStart($queryParams->getOffset())
+        ;
 
         $data = $this->prepareViewData($request, $queryParams, [
             'page'     => $page,
             'per_page' => $defaultPerPage,
+        ]);
+
+        $data = array_merge($data, [
+            'url_page' => $this->generateUrl('search'),
+            'query'    => $query
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -221,6 +231,7 @@ class SiteController extends Controller
         $data = [
             'show_author' => true,
             'books'       => $books,
+            'page'        => $page,
             'view'        => $view,
             'current_url' => $request->getPathInfo(),
             'pagination'  => $pagination->paginate($queryResult->getTotalHits()),

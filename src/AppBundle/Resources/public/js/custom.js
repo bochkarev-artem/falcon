@@ -524,9 +524,11 @@ $(document).ready(function(){
     var mainContent = $('.main-content');
 
     mainContent.on('click', '.pageview__list', function (e) {
-        var sendData = {view: 'list'};
-
 		e.preventDefault();
+        var query = $('#search-query').val(),
+            page = $('#page').val(),
+            sendData = {view: 'list', 'query': query, 'page': page};
+
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
 
@@ -540,9 +542,11 @@ $(document).ready(function(){
     });
 
     mainContent.on('click', '.pageview__column', function (e) {
-        var sendData = {view: 'column'};
-
         e.preventDefault();
+        var query = $('#search-query').val(),
+            page = $('#page').val(),
+            sendData = {view: 'column', 'query': query, 'page': page};
+
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
 
@@ -556,9 +560,11 @@ $(document).ready(function(){
     });
 
     mainContent.on('click', '.pageview__grid', function (e) {
-        var sendData = {view: 'grid'};
-
         e.preventDefault();
+        var query = $('#search-query').val(),
+            page = $('#page').val(),
+            sendData = {view: 'grid', 'query': query, 'page': page};
+
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
 
@@ -573,6 +579,10 @@ $(document).ready(function(){
 
     mainContent.on('click', 'a.pagination-link', function (e) {
         e.preventDefault();
+        var query = $('#search-query').val(),
+            page  = $(this).prop('rel'),
+            sendData = {'query': query, 'page': page};
+
         if ($(this).hasClass('active')) {
         	return;
 		}
@@ -580,7 +590,7 @@ $(document).ready(function(){
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
 
-        $.get($(this).prop('href'), [], function (response) {
+        $.get($(this).prop('href'), sendData, function (response) {
             if (response.status == true) {
                 mainContent.html(response.page);
                 $('html, body').animate({
