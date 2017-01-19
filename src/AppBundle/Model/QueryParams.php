@@ -48,6 +48,11 @@ class QueryParams
     private $filterSequences;
 
     /**
+     * @var string
+     */
+    private $searchQuery;
+
+    /**
      * Initialize fields
      */
     public function __construct()
@@ -121,6 +126,26 @@ class QueryParams
     public function setFilterTags($filterTags)
     {
         $this->filterTags = $filterTags;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSearchQuery()
+    {
+        return $this->searchQuery;
+    }
+
+    /**
+     * @param string $searchQuery
+     *
+     * @return QueryParams
+     */
+    public function setSearchQuery($searchQuery)
+    {
+        $this->searchQuery = $searchQuery;
 
         return $this;
     }

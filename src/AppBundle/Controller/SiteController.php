@@ -14,6 +14,34 @@ class SiteController extends Controller
 {
     /**
      * @param Request $request
+     *
+     * @return Response|JsonResponse
+     */
+    public function searchAction(Request $request)
+    {
+        $defaultPerPage = $this->getParameter('default_per_page');
+        $page           = $request->get('page', 1);
+        $query          = $request->get('query');
+
+        $queryParams = new QueryParams();
+        $queryParams->setSearchQuery($query);
+
+        $data = $this->prepareViewData($request, $queryParams, [
+            'page'     => $page,
+            'per_page' => $defaultPerPage,
+        ]);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->prepareJsonResponse($data);
+        }
+
+        $response = $this->render('AppBundle:Search:show.html.twig', $data);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
      * @param integer $id
      * @param integer $page
      *
@@ -37,7 +65,11 @@ class SiteController extends Controller
         $data = $this->prepareViewData($request, $queryParams, [
             'page'     => $page,
             'per_page' => $defaultPerPage,
-            'entity'   => $genre
+        ]);
+
+        $data = array_merge($data, [
+            'genre'    => $genre,
+            'url_page' => '/' . $genre->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -66,13 +98,17 @@ class SiteController extends Controller
             ->setStart($queryParams->getOffset())
         ;
 
-        $authorRepo   = $this->getDoctrine()->getRepository('AppBundle:Author');
-        $author       = $authorRepo->find($id);
+        $authorRepo = $this->getDoctrine()->getRepository('AppBundle:Author');
+        $author     = $authorRepo->find($id);
 
         $data = $this->prepareViewData($request, $queryParams, [
             'page'     => $page,
             'per_page' => $defaultPerPage,
-            'entity'   => $author
+        ]);
+
+        $data = array_merge($data, [
+            'author'   => $author,
+            'url_page' => '/' . $author->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -107,7 +143,11 @@ class SiteController extends Controller
         $data = $this->prepareViewData($request, $queryParams, [
             'page'     => $page,
             'per_page' => $defaultPerPage,
-            'entity'   => $sequence
+        ]);
+
+        $data = array_merge($data, [
+            'sequence' => $sequence,
+            'url_page' => '/' . $sequence->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -142,7 +182,12 @@ class SiteController extends Controller
         $data = $this->prepareViewData($request, $queryParams, [
             'page'     => $page,
             'per_page' => $defaultPerPage,
-            'entity'   => $tag
+            'tag'      => $tag
+        ]);
+
+        $data = array_merge($data, [
+            'tag'      => $tag,
+            'url_page' => '/' . $tag->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -161,13 +206,12 @@ class SiteController extends Controller
      */
     protected function prepareViewData($request, $queryParams, $params)
     {
-        $defaultView  = $this->getParameter('default_page_view');
-        $cookieName   = $this->getParameter('cookie.page_view_name');
-        $cookieView   = $request->cookies->get($cookieName, $defaultView);
-        $view         = $request->get('view', $cookieView);
-        $perPage      = $params['per_page'];
-        $entity       = $params['entity'];
-        $page         = $params['page'];
+        $defaultView = $this->getParameter('default_page_view');
+        $cookieName  = $this->getParameter('cookie.page_view_name');
+        $cookieView  = $request->cookies->get($cookieName, $defaultView);
+        $view        = $request->get('view', $cookieView);
+        $perPage     = $params['per_page'];
+        $page        = $params['page'];
 
         $queryService = $this->get('query_service');
         $queryResult  = $queryService->query($queryParams);
@@ -180,8 +224,6 @@ class SiteController extends Controller
             'view'        => $view,
             'current_url' => $request->getPathInfo(),
             'pagination'  => $pagination->paginate($queryResult->getTotalHits()),
-            'entity'      => $entity,
-            'url_page'    => '/' . $entity->getPath() . '/page/',
         ];
 
         return $data;
