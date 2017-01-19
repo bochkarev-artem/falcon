@@ -17,7 +17,7 @@ class SiteController extends Controller
      * @param integer $id
      * @param integer $page
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function showGenreAction(Request $request, $id, $page)
     {
@@ -41,7 +41,7 @@ class SiteController extends Controller
         ]);
 
         if ($request->isXmlHttpRequest()) {
-            return $data;
+            return $this->prepareJsonResponse($data);
         }
 
         return $this->render('AppBundle:Genre:show.html.twig', $data);
@@ -52,7 +52,7 @@ class SiteController extends Controller
      * @param integer $id
      * @param integer $page
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function showAuthorAction(Request $request, $id, $page)
     {
@@ -76,7 +76,7 @@ class SiteController extends Controller
         ]);
 
         if ($request->isXmlHttpRequest()) {
-            return $data;
+            return $this->prepareJsonResponse($data);
         }
 
         return $this->render('AppBundle:Author:show.html.twig', $data);
@@ -87,7 +87,7 @@ class SiteController extends Controller
      * @param integer $id
      * @param integer $page
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function showSequenceAction(Request $request, $id, $page)
     {
@@ -111,7 +111,7 @@ class SiteController extends Controller
         ]);
 
         if ($request->isXmlHttpRequest()) {
-            return $data;
+            return $this->prepareJsonResponse($data);
         }
 
         return $this->render('AppBundle:Sequence:show.html.twig', $data);
@@ -122,7 +122,7 @@ class SiteController extends Controller
      * @param integer $id
      * @param integer $page
      *
-     * @return Response
+     * @return Response|JsonResponse
      */
     public function showTagAction(Request $request, $id, $page)
     {
@@ -146,7 +146,7 @@ class SiteController extends Controller
         ]);
 
         if ($request->isXmlHttpRequest()) {
-            return $data;
+            return $this->prepareJsonResponse($data);
         }
 
         return $this->render('AppBundle:Tag:show.html.twig', $data);
@@ -159,7 +159,8 @@ class SiteController extends Controller
      *
      * @return JsonResponse|array
      */
-    protected function prepareViewData($request, $queryParams, $params) {
+    protected function prepareViewData($request, $queryParams, $params)
+    {
         $defaultView  = $this->getParameter('default_page_view');
         $cookieName   = $this->getParameter('cookie.page_view_name');
         $cookieView   = $request->cookies->get($cookieName, $defaultView);
@@ -183,31 +184,68 @@ class SiteController extends Controller
             'url_page'    => '/' . $entity->getPath() . '/page/',
         ];
 
-        if ($request->isXmlHttpRequest()) {
-            $templates = [
-                'column' => 'AppBundle:Elements/View:column.html.twig',
-                'list'   => 'AppBundle:Elements/View:list.html.twig',
-                'grid'   => 'AppBundle:Elements/View:grid.html.twig',
-            ];
-
-            $template = isset($templates[$view]) ? $templates[$view] : 'AppBundle:Elements/View:column.html.twig';
-
-            $responseData = [
-                'page'   => $this->renderView($template, $data),
-                'status' => true,
-            ];
-
-            $response = new JsonResponse($responseData);
-            $cookie   = new Cookie($cookieName, $view);
-
-            $response->headers->setCookie($cookie);
-
-            return $response;
-        }
-
         return $data;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return JsonResponse
+     */
+    protected function prepareJsonResponse($data)
+    {
+        $cookieName = $this->getParameter('cookie.page_view_name');
+        $view       = $data['view'];
+        $templates  = [
+            'column' => 'AppBundle:Elements/View:column.html.twig',
+            'list'   => 'AppBundle:Elements/View:list.html.twig',
+            'grid'   => 'AppBundle:Elements/View:grid.html.twig',
+        ];
+
+        $template = isset($templates[$view]) ? $templates[$view] : 'AppBundle:Elements/View:column.html.twig';
+
+        $responseData = [
+            'page'   => $this->renderView($template, $data),
+            'status' => true,
+        ];
+
+        $response = new JsonResponse($responseData);
+        $cookie   = new Cookie($cookieName, $view);
+
+        $response->headers->setCookie($cookie);
+
+        return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param integer $id
+     *
+     * @return Response
+     */
+    public function showBookAction(Request $request, $id)
+    {
+        $queryParams = new QueryParams();
+        $queryParams->setFilterId($id);
+
+        $queryService = $this->get('query_service');
+        $queryResult  = $queryService->query($queryParams);
+        $books        = $queryResult->getResults();
+
+        if (!$book = array_shift($books)) {
+            throw $this->createNotFoundException();
+        } else {
+            $book = $book->getSource();
+        }
+
+        return $this->render('AppBundle:Book:show.html.twig', [
+            'book' => $book
+        ]);
+    }
+
+    /**
+     * @return Response
+     */
     public function listGenreAction()
     {
         $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Genre');
