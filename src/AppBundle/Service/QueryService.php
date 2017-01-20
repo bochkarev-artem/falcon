@@ -73,40 +73,23 @@ class QueryService
     private function getSearchQuery(QueryParams $queryParams)
     {
         if ($queryString = $queryParams->getSearchQuery()) {
-            $searchFields = [
-                'title'              => '10',
-                'authors.first_name' => '7',
-                'authors.last_name'  => '7',
-                'sequence.name'      => '6',
-                'genres.title'       => '5',
-                'tags.title'         => '2',
-            ];
-
             $fields = [
-                'product_id',
+                'book_title.exact^8',
+                'author_name.exact^10',
+                'sequence_title.exact^6',
+                'tag_title.exact^4',
+                'genre_title.exact^0.5',
             ];
 
-            $scoreFields = $fields;
-
-            foreach ($searchFields as $searchField => $boost) {
-                array_push($fields, $searchField . '^' . $boost);
-                array_push($scoreFields, $searchField . '^' . $boost);
-            }
-
-            $multiMatch = new Query\MultiMatch();
-            $multiMatch->setQuery($queryString)
+            $query = new Query\MultiMatch();
+            $query
+                ->setQuery($queryString)
+                ->setFields($fields)
                 ->setTieBreaker(0.3)
-                ->setOperator('AND')
+                ->setOperator('and')
                 ->setParam('fuzziness', 'AUTO')
                 ->setParam('lenient', true)
             ;
-
-            $multiMatch->setFields($fields);
-
-            $query  = new Query\FunctionScore();
-            $query
-                ->setQuery($multiMatch)
-                ->setBoostMode('sum');
         } else {
             $query = new Query\Match();
             $query->setField('_id', '-1');
