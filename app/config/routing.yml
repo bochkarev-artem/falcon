@@ -27,3 +27,7 @@ site_index:
 search:
     path: /search
     defaults: { _controller: AppBundle:Site:search }
+
+search_with_page:
+    path: /search/page/{page}
+    defaults: { _controller: AppBundle:Site:search }

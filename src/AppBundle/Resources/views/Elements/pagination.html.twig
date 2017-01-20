@@ -6,12 +6,7 @@
             <ul class="pagination">
                 <li>
                     {% if pagination.current != 1 %}
-                        {% if url_page == path('search') %}
-                            {% set url = url_page %}
-                        {% else %}
-                            {% set url = url_page ~ pagination.prev %}
-                        {% endif %}
-                        <a href="{{ url }}" rel="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
+                        <a href="{{ url_page ~ pagination.prev }}" rel="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
                             <span aria-hidden="true">
                                 <i class="fa fa-angle-left"></i>
                             </span>
@@ -23,14 +18,9 @@
                 </li>
 
                 {% for page in pagination.pages %}
-                    {% if url_page == path('search') %}
-                        {% set url = url_page %}
-                    {% else %}
-                        {% set url = url_page ~ page %}
-                    {% endif %}
                     <li>
                         <a class="pagination-link{% if page == pagination.current %} active{% endif %}"
-                                href="{{ url }}" rel="{{ page }}">
+                                href="{{ url_page ~ page }}" rel="{{ page }}">
                             {{ page }}
                         </a>
                     </li>
@@ -38,12 +28,7 @@
 
                 <li>
                     {% if pagination.current != pagination.last %}
-                        {% if url_page == path('search') %}
-                            {% set url = url_page %}
-                        {% else %}
-                            {% set url = url_page ~ pagination.next %}
-                        {% endif %}
-                        <a href="{{ url }}" rel="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
+                        <a href="{{ url_page ~ pagination.next }}" rel="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
                             <span aria-hidden="true">
                                 <i class="fa fa-angle-right"></i>
                             </span>

@@ -535,6 +535,9 @@ $(document).ready(function(){
         $.get($(this).prop('href'), sendData, function (response) {
 			if (response.status == true) {
                 mainContent.html(response.page);
+                $('html, body').animate({
+                    scrollTop: $('.main-content').offset().top
+                }, 400);
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
 			}
@@ -553,6 +556,9 @@ $(document).ready(function(){
         $.get($(this).prop('href'), sendData, function (response) {
             if (response.status == true) {
                 mainContent.html(response.page);
+                $('html, body').animate({
+                    scrollTop: $('.main-content').offset().top
+                }, 400);
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
             }
@@ -571,6 +577,9 @@ $(document).ready(function(){
         $.get($(this).prop('href'), sendData, function (response) {
             if (response.status == true) {
                 mainContent.html(response.page);
+                $('html, body').animate({
+                    scrollTop: $('.main-content').offset().top
+                }, 400);
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
             }

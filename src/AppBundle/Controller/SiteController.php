@@ -13,14 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 class SiteController extends Controller
 {
     /**
+     * @param integer $page
      * @param Request $request
      *
      * @return Response|JsonResponse
      */
-    public function searchAction(Request $request)
+    public function searchAction($page = null, Request $request)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $page           = $request->get('page', 1);
+        $page           = $page ?: 1;
         $query          = $request->get('query');
 
         $queryParams = new QueryParams();
@@ -37,7 +38,7 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'url_page' => $this->generateUrl('search'),
+            'url_page' => $this->generateUrl('search') . '/page/',
             'query'    => $query
         ]);
 
