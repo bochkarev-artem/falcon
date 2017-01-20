@@ -1,0 +1,8 @@
+{% extends "AppBundle:Site:list_page.html.twig" %}
+
+{% block title %}{{ 'front.search'|trans }}{% endblock %}
+
+{% block meta %}
+    {{ parent() }}
+    <meta name="robots" content="noindex">
+{% endblock meta %}

@@ -1,3 +1,4 @@
+<input type="hidden" name="page" id="page" value="{{ page }}">
 {% if pagination.total_pages > 1 %}
     <!--KODDE PAGINATION START-->
     <div class="col-md-12">
@@ -5,7 +6,7 @@
             <ul class="pagination">
                 <li>
                     {% if pagination.current != 1 %}
-                        <a href="{{ url_page ~ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
+                        <a href="{{ url_page ~ pagination.prev }}" rel="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
                             <span aria-hidden="true">
                                 <i class="fa fa-angle-left"></i>
                             </span>
@@ -19,7 +20,7 @@
                 {% for page in pagination.pages %}
                     <li>
                         <a class="pagination-link{% if page == pagination.current %} active{% endif %}"
-                                href="{{ url_page ~ page }}">
+                                href="{{ url_page ~ page }}" rel="{{ page }}">
                             {{ page }}
                         </a>
                     </li>
@@ -27,7 +28,7 @@
 
                 <li>
                     {% if pagination.current != pagination.last %}
-                        <a href="{{ url_page ~ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
+                        <a href="{{ url_page ~ pagination.next }}" rel="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
                             <span aria-hidden="true">
                                 <i class="fa fa-angle-right"></i>
                             </span>

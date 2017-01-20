@@ -3,6 +3,8 @@ meta:
     keywords:    Ключевые слова
 
 front:
+    search:         Поиск
+    no_results:     Нет книг
     to_book:        К книге
     genres:         Жанры
     tags:           Теги

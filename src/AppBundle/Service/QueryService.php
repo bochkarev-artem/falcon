@@ -35,10 +35,10 @@ class QueryService
         $filters = new Query\BoolQuery();
         $this->applyFilters($queryParams, $filters);
 
-        $baseQuery = $this->getBaseQuery();
+        $baseQuery = $this->getBaseQuery($queryParams);
+        $filtered  = new Query\Filtered($baseQuery, $filters);
+        $query     = new Query();
 
-        $filtered = new Query\Filtered($baseQuery, $filters);
-        $query    = new Query();
         $query->setQuery($filtered);
 
         $this->applySorting($query);
@@ -50,13 +50,69 @@ class QueryService
     }
 
     /**
+     * @param QueryParams $queryParams
+     *
      * @return Query\AbstractQuery|Query\MatchAll
      */
-    private function getBaseQuery()
+    private function getBaseQuery($queryParams)
     {
-        $baseQuery = new Query\MatchAll();
+        if ($queryParams->getSearchQuery()) {
+            $baseQuery = $this->getSearchQuery($queryParams);
+        } else {
+            $baseQuery = new Query\MatchAll();
+        }
 
         return $baseQuery;
+    }
+
+    /**
+     * @param QueryParams $queryParams
+     *
+     * @return Query\AbstractQuery
+     */
+    private function getSearchQuery(QueryParams $queryParams)
+    {
+        if ($queryString = $queryParams->getSearchQuery()) {
+            $searchFields = [
+                'title'              => '10',
+                'authors.first_name' => '7',
+                'authors.last_name'  => '7',
+                'sequence.name'      => '6',
+                'genres.title'       => '5',
+                'tags.title'         => '2',
+            ];
+
+            $fields = [
+                'product_id',
+            ];
+
+            $scoreFields = $fields;
+
+            foreach ($searchFields as $searchField => $boost) {
+                array_push($fields, $searchField . '^' . $boost);
+                array_push($scoreFields, $searchField . '^' . $boost);
+            }
+
+            $multiMatch = new Query\MultiMatch();
+            $multiMatch->setQuery($queryString)
+                ->setTieBreaker(0.3)
+                ->setOperator('AND')
+                ->setParam('fuzziness', 'AUTO')
+                ->setParam('lenient', true)
+            ;
+
+            $multiMatch->setFields($fields);
+
+            $query  = new Query\FunctionScore();
+            $query
+                ->setQuery($multiMatch)
+                ->setBoostMode('sum');
+        } else {
+            $query = new Query\Match();
+            $query->setField('_id', '-1');
+        }
+
+        return $query;
     }
 
     /**
@@ -197,4 +253,3 @@ class QueryService
         $filters->addMust($nestedQuery);
     }
 }
-
