@@ -43,14 +43,16 @@
                                                     {% endfor %}
                                                 </li>
                                             </ul>
-                                            <ul class="book-tags">
-                                                <li><span>{{ 'front.tags'|trans }}:</span></li>
-                                                <li>
-                                                    {% for tag in book.tags %}
-                                                        <a href="/{{ tag.path }}">{{ tag.title }}</a>
-                                                    {% endfor %}
-                                                </li>
-                                            </ul>
+                                            {% if book.tags|length > 0 %}
+                                                <ul class="book-tags">
+                                                    <li><span>{{ 'front.tags'|trans }}:</span></li>
+                                                    <li>
+                                                        {% for tag in book.tags %}
+                                                            <a href="/{{ tag.path }}">{{ tag.title }}</a>
+                                                        {% endfor %}
+                                                    </li>
+                                                </ul>
+                                            {% endif %}
                                             <ul class="book-tags">
                                                 <li><span>{{ 'front.genres'|trans }}:</span></li>
                                                 <li>

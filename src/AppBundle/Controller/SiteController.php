@@ -18,10 +18,9 @@ class SiteController extends Controller
      *
      * @return Response|JsonResponse
      */
-    public function searchAction($page = null, Request $request)
+    public function searchAction($page = 1, Request $request)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $page           = $page ?: 1;
         $query          = $request->get('query');
 
         $queryParams = new QueryParams();
@@ -38,8 +37,10 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'url_page' => $this->generateUrl('search') . '/page/',
-            'query'    => $query
+            'show_author'    => true,
+            'show_genre'     => true,
+            'query'          => $query,
+            'pagination_url' => $this->generateUrl('search') . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -79,8 +80,9 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'genre'    => $genre,
-            'url_page' => '/' . $genre->getPath() . '/page/',
+            'show_author'    => true,
+            'genre'          => $genre,
+            'pagination_url' => '/' . $genre->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -118,8 +120,9 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'author'   => $author,
-            'url_page' => '/' . $author->getPath() . '/page/',
+            'show_genre'     => true,
+            'author'         => $author,
+            'pagination_url' => '/' . $author->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -157,8 +160,9 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'sequence' => $sequence,
-            'url_page' => '/' . $sequence->getPath() . '/page/',
+            'show_author'    => true,
+            'sequence'       => $sequence,
+            'pagination_url' => '/' . $sequence->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -193,12 +197,12 @@ class SiteController extends Controller
         $data = $this->prepareViewData($request, $queryParams, [
             'page'     => $page,
             'per_page' => $defaultPerPage,
-            'tag'      => $tag
         ]);
 
         $data = array_merge($data, [
-            'tag'      => $tag,
-            'url_page' => '/' . $tag->getPath() . '/page/',
+            'show_author'    => true,
+            'tag'            => $tag,
+            'pagination_url' => '/' . $tag->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -230,7 +234,6 @@ class SiteController extends Controller
         $pagination   = new Pagination($page, $perPage);
 
         $data = [
-            'show_author' => true,
             'books'       => $books,
             'page'        => $page,
             'view'        => $view,

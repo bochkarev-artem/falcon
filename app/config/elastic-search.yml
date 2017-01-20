@@ -22,6 +22,10 @@ fos_elastica:
                                 type: custom
                                 tokenizer: standard
                                 filter: [lowercase]
+                            russian:
+                                type: custom
+                                tokenizer: standard
+                                filter: [lowercase, russian_stop, russian_stemmer]
                         filter:
                             russian_stop:
                                   type: stop

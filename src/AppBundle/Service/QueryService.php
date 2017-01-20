@@ -41,7 +41,7 @@ class QueryService
 
         $query->setQuery($filtered);
 
-        $this->applySorting($query);
+        $this->applySorting($query, $queryParams);
 
         $query->setFrom($queryParams->getStart());
         $query->setSize($queryParams->getSize());
@@ -74,11 +74,11 @@ class QueryService
     {
         if ($queryString = $queryParams->getSearchQuery()) {
             $fields = [
-                'book_title.exact^8',
-                'author_name.exact^10',
-                'sequence_title.exact^6',
-                'tag_title.exact^4',
-                'genre_title.exact^0.5',
+                'book_title.exact^3',
+                'author_name.exact^6',
+                'sequence_title.exact',
+                'tag_title.exact^2',
+                'genre_title.exact',
             ];
 
             $query = new Query\MultiMatch();
@@ -87,7 +87,7 @@ class QueryService
                 ->setFields($fields)
                 ->setTieBreaker(0.3)
                 ->setOperator('and')
-                ->setParam('fuzziness', 'AUTO')
+                ->setParam('fuzziness', '1')
                 ->setParam('lenient', true)
             ;
         } else {
@@ -139,11 +139,16 @@ class QueryService
     }
 
     /**
-     * @param Query $query
+     * @param Query       $query
+     * @param QueryParams $queryParams
      */
-    private function applySorting(Query $query)
+    private function applySorting(Query $query, QueryParams $queryParams)
     {
-        $query->addSort(['book_id' => 'asc']);
+        if ($queryParams->getSearchQuery()) {
+            $query->addSort(['_score' => 'desc', 'book_id' => 'desc']);
+        } else {
+            $query->addSort(['book_id' => 'desc']);
+        }
     }
 
     /**
