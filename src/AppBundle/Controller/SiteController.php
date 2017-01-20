@@ -263,8 +263,9 @@ class SiteController extends Controller
             'status' => true,
         ];
 
-        $response = new JsonResponse($responseData);
-        $cookie   = new Cookie($cookieName, $view);
+        $timeToExpire = time() + 3600 * 24 * 30;
+        $response     = new JsonResponse($responseData);
+        $cookie       = new Cookie($cookieName, $view, $timeToExpire);
 
         $response->headers->setCookie($cookie);
 
