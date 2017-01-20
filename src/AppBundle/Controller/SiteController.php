@@ -18,10 +18,9 @@ class SiteController extends Controller
      *
      * @return Response|JsonResponse
      */
-    public function searchAction($page = null, Request $request)
+    public function searchAction($page = 1, Request $request)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $page           = $page ?: 1;
         $query          = $request->get('query');
 
         $queryParams = new QueryParams();
