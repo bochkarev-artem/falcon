@@ -37,6 +37,8 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
+            'show_author'    => true,
+            'show_genre'     => true,
             'query'          => $query,
             'pagination_url' => $this->generateUrl('search') . '/page/',
         ]);
@@ -78,6 +80,7 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
+            'show_author'    => true,
             'genre'          => $genre,
             'pagination_url' => '/' . $genre->getPath() . '/page/',
         ]);
@@ -117,6 +120,7 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
+            'show_genre'     => true,
             'author'         => $author,
             'pagination_url' => '/' . $author->getPath() . '/page/',
         ]);
@@ -156,6 +160,7 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
+            'show_author'    => true,
             'sequence'       => $sequence,
             'pagination_url' => '/' . $sequence->getPath() . '/page/',
         ]);
@@ -192,10 +197,10 @@ class SiteController extends Controller
         $data = $this->prepareViewData($request, $queryParams, [
             'page'     => $page,
             'per_page' => $defaultPerPage,
-            'tag'      => $tag
         ]);
 
         $data = array_merge($data, [
+            'show_author'    => true,
             'tag'            => $tag,
             'pagination_url' => '/' . $tag->getPath() . '/page/',
         ]);
@@ -229,7 +234,6 @@ class SiteController extends Controller
         $pagination   = new Pagination($page, $perPage);
 
         $data = [
-            'show_author' => true,
             'books'       => $books,
             'page'        => $page,
             'view'        => $view,

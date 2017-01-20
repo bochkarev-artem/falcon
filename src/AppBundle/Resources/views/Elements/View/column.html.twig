@@ -7,20 +7,22 @@
                 <!--BOOK DEC START-->
                 <div class="col-md-4 col-sm-6">
                     <div class="book-tab-dec">
-                        <figure>
-                            <a href="/{{ book.path }}">
-                                <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
-                            </a>
-                            {#<figcaption class="ribbon-wrap">#}
-                            {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
-                            {#</figcaption>#}
-                        </figure>
+                        {% if book.cover_path is defined %}
+                            <figure>
+                                <a href="/{{ book.path }}">
+                                    <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                </a>
+                                {#<figcaption class="ribbon-wrap">#}
+                                {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
+                                {#</figcaption>#}
+                            </figure>
+                        {% endif %}
                         <div class="text">
-                            {% if show_genre is defined and show_genre %}
+                            {% if show_genre is defined and show_genre and book.genres|length > 0 %}
                                 {% set genre = book.genres|first %}
                                 <small><a href="/{{ genre.path }}">{{ genre.title }}</a></small>
                             {% endif %}
-                            {% if show_author is defined and show_author %}
+                            {% if show_author is defined and show_author and book.authors|length > 0 %}
                                 {% set author = book.authors|first %}
                                 <small><a href="/{{ author.path }}">{{ author.full_name }}</a></small>
                             {% endif %}

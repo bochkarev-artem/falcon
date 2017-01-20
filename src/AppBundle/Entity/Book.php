@@ -855,6 +855,10 @@ class Book implements EntityInterface
      */
     public function getPath()
     {
-        return $this->getAuthors()->first()->getSlug() . '/' . $this->getSlug();
+        if ($this->getAuthors()->count() > 0) {
+            return $this->getAuthors()->first()->getSlug() . '/' . $this->getSlug();
+        } else {
+            return $this->getSlug();
+        }
     }
 }
