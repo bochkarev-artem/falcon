@@ -38,8 +38,8 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'url_page' => $this->generateUrl('search') . '/page/',
-            'query'    => $query
+            'query'          => $query,
+            'pagination_url' => $this->generateUrl('search') . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -79,8 +79,8 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'genre'    => $genre,
-            'url_page' => '/' . $genre->getPath() . '/page/',
+            'genre'          => $genre,
+            'pagination_url' => '/' . $genre->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -118,8 +118,8 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'author'   => $author,
-            'url_page' => '/' . $author->getPath() . '/page/',
+            'author'         => $author,
+            'pagination_url' => '/' . $author->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -157,8 +157,8 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'sequence' => $sequence,
-            'url_page' => '/' . $sequence->getPath() . '/page/',
+            'sequence'       => $sequence,
+            'pagination_url' => '/' . $sequence->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -197,8 +197,8 @@ class SiteController extends Controller
         ]);
 
         $data = array_merge($data, [
-            'tag'      => $tag,
-            'url_page' => '/' . $tag->getPath() . '/page/',
+            'tag'            => $tag,
+            'pagination_url' => '/' . $tag->getPath() . '/page/',
         ]);
 
         if ($request->isXmlHttpRequest()) {
