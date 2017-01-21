@@ -32,14 +32,13 @@ class QueryService
      */
     public function query(QueryParams $queryParams)
     {
-        $filters = new Query\BoolQuery();
-        $this->applyFilters($queryParams, $filters);
+        $query     = new Query();
+        $boolQuery = new Query\BoolQuery();
+        $this->applyFilters($queryParams, $boolQuery);
 
         $baseQuery = $this->getBaseQuery($queryParams);
-        $filtered  = new Query\Filtered($baseQuery, $filters);
-        $query     = new Query();
-
-        $query->setQuery($filtered);
+        $boolQuery->addFilter($baseQuery);
+        $query->setQuery($boolQuery);
 
         $this->applySorting($query, $queryParams);
 
@@ -100,27 +99,27 @@ class QueryService
 
     /**
      * @param QueryParams     $queryParams
-     * @param Query\BoolQuery $filters
+     * @param Query\BoolQuery $boolQuery
      */
-    private function applyFilters(QueryParams $queryParams, Query\BoolQuery $filters) {
+    private function applyFilters(QueryParams $queryParams, Query\BoolQuery $boolQuery) {
         if ($queryParams->getFilterId()) {
-            $this->applyIdFilter($queryParams, $filters);
+            $this->applyIdFilter($queryParams, $boolQuery);
         }
 
         if ($queryParams->getFilterGenres()) {
-            $this->applyGenreFilter($queryParams, $filters);
+            $this->applyGenreFilter($queryParams, $boolQuery);
         }
 
         if ($queryParams->getFilterAuthors()) {
-            $this->applyAuthorFilter($queryParams, $filters);
+            $this->applyAuthorFilter($queryParams, $boolQuery);
         }
 
         if ($queryParams->getFilterTags()) {
-            $this->applyTagFilter($queryParams, $filters);
+            $this->applyTagFilter($queryParams, $boolQuery);
         }
 
         if ($queryParams->getFilterSequences()) {
-            $this->applySequenceFilter($queryParams, $filters);
+            $this->applySequenceFilter($queryParams, $boolQuery);
         }
     }
 
@@ -167,9 +166,9 @@ class QueryService
 
     /**
      * @param QueryParams     $queryParams
-     * @param Query\BoolQuery $filters
+     * @param Query\BoolQuery $boolQuery
      */
-    private function applyGenreFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    private function applyGenreFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
         $genreIds    = $queryParams->getFilterGenres();
         $nestedQuery = new Query\Nested();
@@ -181,14 +180,14 @@ class QueryService
         ;
 
         $nestedQuery->setQuery($queryTerm);
-        $filters->addMust($nestedQuery);
+        $boolQuery->addMust($nestedQuery);
     }
 
     /**
      * @param QueryParams     $queryParams
-     * @param Query\BoolQuery $filters
+     * @param Query\BoolQuery $boolQuery
      */
-    private function applyAuthorFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    private function applyAuthorFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
         $authorIds   = $queryParams->getFilterAuthors();
         $nestedQuery = new Query\Nested();
@@ -200,14 +199,14 @@ class QueryService
         ;
 
         $nestedQuery->setQuery($queryTerm);
-        $filters->addMust($nestedQuery);
+        $boolQuery->addMust($nestedQuery);
     }
 
     /**
      * @param QueryParams     $queryParams
-     * @param Query\BoolQuery $filters
+     * @param Query\BoolQuery $boolQuery
      */
-    private function applyTagFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    private function applyTagFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
         $tagIds      = $queryParams->getFilterTags();
         $nestedQuery = new Query\Nested();
@@ -219,14 +218,14 @@ class QueryService
         ;
 
         $nestedQuery->setQuery($queryTerm);
-        $filters->addMust($nestedQuery);
+        $boolQuery->addMust($nestedQuery);
     }
 
     /**
      * @param QueryParams     $queryParams
-     * @param Query\BoolQuery $filters
+     * @param Query\BoolQuery $boolQuery
      */
-    private function applySequenceFilter(QueryParams $queryParams, Query\BoolQuery $filters)
+    private function applySequenceFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
         $sequenceIds    = $queryParams->getFilterSequences();
         $nestedQuery = new Query\Nested();
@@ -238,6 +237,6 @@ class QueryService
         ;
 
         $nestedQuery->setQuery($queryTerm);
-        $filters->addMust($nestedQuery);
+        $boolQuery->addMust($nestedQuery);
     }
 }
