@@ -43,7 +43,8 @@ class MenuBuilder
      * @param \Twig_Environment $twig
      * @param string            $cacheDir
      */
-    public function __construct(EntityManager $em, \Twig_Environment $twig, $cacheDir) {
+    public function __construct(EntityManager $em, \Twig_Environment $twig, $cacheDir)
+    {
         $this->em            = $em;
         $this->twig          = $twig;
         $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);

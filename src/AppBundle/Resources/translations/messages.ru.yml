@@ -1,7 +1,3 @@
-meta:
-    description: Описание
-    keywords:    Ключевые слова
-
 front:
     search:         Поиск
     no_results:     Нет книг

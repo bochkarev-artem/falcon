@@ -1,3 +1,8 @@
 {% extends "AppBundle:Site:list_page.html.twig" %}
 
-{% block title %}{{ tag.title }}{% endblock %}
+{% block title %}{{ sonata_seo_title() }}{% endblock %}
+
+{% block meta %}
+    {{ parent() }}
+    {{ sonata_seo_metadatas() }}
+{% endblock %}

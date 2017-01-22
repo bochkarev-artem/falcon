@@ -2,10 +2,8 @@
     <!DOCTYPE html>
     <html lang="ru">
     <head>
-        <meta charset="utf-8">
+        {% block title %}<title>Библиотека</title>{% endblock %}
         {% block meta %}
-            <meta name="description" content="{{ meta_data.description|default('meta.description'|trans) }}">
-            <meta name="keywords" content="{{ meta_data.keywords|default('meta.keywords'|trans) }}">
             <link rel="dns-prefetch" href="">
             <meta property="og:title" content=""/>
             <meta property="og:description" content="">
@@ -14,8 +12,6 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
         {% endblock meta %}
-
-        <title>{% block title %}Библиотека{% endblock %}</title>
 
         {% block stylesheets %}
             {% stylesheets
