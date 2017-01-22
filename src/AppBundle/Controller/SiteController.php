@@ -50,7 +50,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setSearchSeo();
 
-        $response = $this->render('AppBundle:Search:show.html.twig', $data);
+        $response = $this->render('AppBundle:Site:list_page.html.twig', $data);
 
         return $response;
     }
@@ -95,7 +95,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setGenreSeo($genre);
 
-        return $this->render('AppBundle:Genre:show.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', $data);
     }
 
     /**
@@ -138,7 +138,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setAuthorSeo($author);
 
-        return $this->render('AppBundle:Author:show.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', $data);
     }
 
     /**
@@ -181,7 +181,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setSequenceSeo($sequence);
 
-        return $this->render('AppBundle:Sequence:show.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', $data);
     }
 
     /**
@@ -224,7 +224,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setTagSeo($tag);
 
-        return $this->render('AppBundle:Tag:show.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', $data);
     }
 
     /**
@@ -326,6 +326,9 @@ class SiteController extends Controller
     {
         $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Genre');
         $genres    = $genreRepo->findAll();
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setGenresSeo();
 
         return $this->render('AppBundle:Genre:list.html.twig', [
             'genres' => $genres,

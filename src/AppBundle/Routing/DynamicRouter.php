@@ -9,7 +9,10 @@ use Elastica\Query\BoolQuery;
 use Elastica\Query\Term;
 use Elastica\Type;
 use Symfony\Cmf\Component\Routing\DynamicRouter as BaseDynamicRouter;
+use Symfony\Cmf\Component\Routing\RouteProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 use Symfony\Component\Routing\RequestContext;
@@ -26,22 +29,32 @@ class DynamicRouter extends BaseDynamicRouter
     /**
      * @param RequestContext                              $context
      * @param RequestMatcherInterface|UrlMatcherInterface $matcher
-     * @param                                             $repository
-     *
-     * @throws \InvalidArgumentException
+     * @param UrlGeneratorInterface                       $generator
+     * @param string                                      $uriFilterRegexp
+     * @param EventDispatcherInterface|null               $eventDispatcher
+     * @param RouteProviderInterface                      $provider
+     * @param Type                                        $repository
      */
-    public function __construct(
-        RequestContext $context,
-        $matcher,
-        $repository
+    public function __construct(RequestContext $context,
+                                $matcher,
+                                UrlGeneratorInterface $generator,
+                                $uriFilterRegexp = '',
+                                EventDispatcherInterface $eventDispatcher = null,
+                                RouteProviderInterface $provider = null,
+                                Type $repository
     ) {
-        $this->context = $context;
         if (!$matcher instanceof RequestMatcherInterface && !$matcher instanceof UrlMatcherInterface) {
-            throw new \InvalidArgumentException('Invalid $matcher');
+            throw new \InvalidArgumentException('Matcher must implement either Symfony\Component\Routing\Matcher\RequestMatcherInterface or Symfony\Component\Routing\Matcher\UrlMatcherInterface');
         }
-
+        $this->context         = $context;
         $this->matcher         = $matcher;
+        $this->generator       = $generator;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->uriFilterRegexp = $uriFilterRegexp;
+        $this->provider        = $provider;
         $this->repository      = $repository;
+
+        $this->generator->setContext($context);
     }
 
     /**

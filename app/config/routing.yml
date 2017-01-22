@@ -23,7 +23,8 @@ _sonata_admin:
 site_index:
     path: /
     defaults: { _controller: AppBundle:Home:index }
-
+    options:
+        sitemap: true
 search:
     path: /search
     defaults: { _controller: AppBundle:Site:search }
