@@ -1,13 +1,12 @@
 sonata_seo:
     encoding:         UTF-8
     page:
-        default: sonata.seo.page.default
-        title:            Sonata Project
-        default:          sonata.seo.page.default
+        default:      sonata.seo.page.default
+        title:        Bookary
         metas:
             name:
-                keywords:             foo bar
-                description:          The description
+                keywords:             Bookary
+                description:          Bookary
                 robots:               index, follow
 
             property:

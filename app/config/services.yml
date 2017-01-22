@@ -36,6 +36,12 @@ services:
             - "%kernel.cache_dir%"
         lazy: true
 
+    seo_manager:
+        class: AppBundle\Service\SeoManager
+        arguments:
+            - "@sonata.seo.page"
+            - "@translator.default"
+
     search_provider.route:
         class: AppBundle\Provider\RouteProvider
         arguments:

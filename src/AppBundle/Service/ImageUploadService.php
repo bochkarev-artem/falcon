@@ -46,8 +46,7 @@ class ImageUploadService
         UploaderHelper $uploaderHelper,
         $bookMapping,
         $authorMapping
-    )
-    {
+    ) {
         $this->s3Filesystem   = $filesystem;
         $this->uploaderHelper = $uploaderHelper;
         $this->bookMapping    = $bookMapping;

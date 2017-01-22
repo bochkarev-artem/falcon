@@ -47,6 +47,9 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setSearchSeo();
+
         $response = $this->render('AppBundle:Search:show.html.twig', $data);
 
         return $response;
@@ -89,6 +92,9 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setGenreSeo($genre);
+
         return $this->render('AppBundle:Genre:show.html.twig', $data);
     }
 
@@ -128,6 +134,9 @@ class SiteController extends Controller
         if ($request->isXmlHttpRequest()) {
             return $this->prepareJsonResponse($data);
         }
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setAuthorSeo($author);
 
         return $this->render('AppBundle:Author:show.html.twig', $data);
     }
@@ -169,6 +178,9 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setSequenceSeo($sequence);
+
         return $this->render('AppBundle:Sequence:show.html.twig', $data);
     }
 
@@ -208,6 +220,9 @@ class SiteController extends Controller
         if ($request->isXmlHttpRequest()) {
             return $this->prepareJsonResponse($data);
         }
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setTagSeo($tag);
 
         return $this->render('AppBundle:Tag:show.html.twig', $data);
     }
@@ -295,6 +310,9 @@ class SiteController extends Controller
         } else {
             $book = $book->getSource();
         }
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setBookSeo($book);
 
         return $this->render('AppBundle:Book:show.html.twig', [
             'book' => $book
