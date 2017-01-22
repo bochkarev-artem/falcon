@@ -1,110 +1,51 @@
-<!--NAVIGATION WRAP START-->
-<div class="container">
-    <div class="navigation-wrap">
-        <!--GENRES WRAP START-->
-        <div class="categories-menu">
-            <span>{{ 'front.genres'|trans }}</span>
-            <i class="fa fa-reorder show"></i>
-            <ul class="categories-ul">
-                {% for parentGenre in parentGenres %}
-                    <li><a href="#"><i class="fa fa-book"></i>{{ parentGenre.title }}</a>
-                        <!--MEGA MENU START-->
-                        <div class="mega-menu1">
-                            <div class="fetch-bookmeta">
-                                <ul>
-                                    <li class="fetch-book2">
-                                        <h4>{{ 'front.genres'|trans }}</h4>
-                                    </li>
-                                    {% set childGenres = genres[parentGenre.id] %}
-                                    {% spaceless %}
-                                    {% for childGenre in childGenres %}
-                                        {% set genreUrl = childGenre.entityPathPrefix ~ '/' ~ childGenre.slug %}
-                                        <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
-                                    {% endfor %}
-                                    {% endspaceless %}
-                                    <li>
-                                        <a href="#">More...</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            {#<div class="fetch-book2">#}
-                                {#<h4>Featured BOOK</h4>#}
-                                {#<figure>#}
-                                    {#<img src="{{ asset('compiled/images/extra-images/featured-4.jpg') }}" alt="">#}
-                                    {#<figcaption>#}
-                                        {#<span class="pricelable">#}
-                                            {#Genre#}
-                                        {#</span>#}
-                                    {#</figcaption>#}
-                                {#</figure>#}
-                                {#<div class="text">#}
-                                    {#<h6>He LIE TREE</h6>#}
-                                    {#<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laud rem.</p>#}
-                                    {#<a class="btn-1" href="#">read more</a>#}
-                                    {#<a class="btn-1 active" href="#">purchase</a>#}
-                                {#</div>#}
-                            {#</div>#}
-                        </div>
-                        <!--MEGA MENU END-->
-                    </li>
-                {% endfor %}
-                <li><a href="#">show more categories</a></li>
-            </ul>
-        </div>
-        <!--GENRES WRAP END-->
-        <!--NAVIGATION DEC START-->
-        <ul class="nav-dec">
-            <li>
-                <a href="index.html">HOME</a>
-                <ul>
-                    <li><a href="index-2.html">HOME 2</a></li>
-                </ul>
+<!--GENRES WRAP START-->
+<div class="categories-menu">
+    <span>{{ 'front.genres'|trans }}</span>
+    <i class="fa fa-reorder show"></i>
+    <ul class="categories-ul">
+        {% for parentGenre in parentGenres %}
+            <li><a href="#"><i class="fa fa-book"></i>{{ parentGenre.title }}</a>
+                <!--MEGA MENU START-->
+                <div class="mega-menu1">
+                    <div class="fetch-bookmeta">
+                        <ul>
+                            <li class="fetch-book2">
+                                <h4>{{ 'front.genres'|trans }}</h4>
+                            </li>
+                            {% set childGenres = genres[parentGenre.id] %}
+                            {% spaceless %}
+                            {% for childGenre in childGenres %}
+                                {% set genreUrl = childGenre.entityPathPrefix ~ '/' ~ childGenre.slug %}
+                                <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
+                            {% endfor %}
+                            {% endspaceless %}
+                            <li>
+                                <a href="#">More...</a>
+                            </li>
+                        </ul>
+                    </div>
+                    {#<div class="fetch-book2">#}
+                        {#<h4>Featured BOOK</h4>#}
+                        {#<figure>#}
+                            {#<img src="{{ asset('compiled/images/extra-images/featured-4.jpg') }}" alt="">#}
+                            {#<figcaption>#}
+                                {#<span class="pricelable">#}
+                                    {#Genre#}
+                                {#</span>#}
+                            {#</figcaption>#}
+                        {#</figure>#}
+                        {#<div class="text">#}
+                            {#<h6>He LIE TREE</h6>#}
+                            {#<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laud rem.</p>#}
+                            {#<a class="btn-1" href="#">read more</a>#}
+                            {#<a class="btn-1 active" href="#">purchase</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                </div>
+                <!--MEGA MENU END-->
             </li>
-            <li>
-                <a href="blog-classic.html">blog</a>
-                <ul>
-                    <li><a href="blog-classic.html">blog-classic</a></li>
-                    <li><a href="blog-detail.html">blog-detail</a></li>
-                    <li><a href="blog-detail-fullwidth.html">blog detail 2</a></li>
-                    <li><a href="blog-full-width.html">blog full width</a></li>
-                    <li><a href="blog_masonry_2_columns.html">blog masonry</a></li>
-                    <li><a href="blog-grid2.html">blog 2</a></li>
-                    <li><a href="list-style_01_columns.html">list style 1</a></li>
-                    <li><a href="list-style_01_sidebar.html">list style sidebar</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">pages</a>
-                <ul>
-                    <li><a href="login-forms.html">login forms</a></li>
-                    <li><a href="comingsoon.html">coming soon</a></li>
-                    <li><a href="checkout.html">check out</a></li>
-                    <li><a href="widgets.html">widgets</a></li>
-                    <li><a href="shortcode.html">short code</a></li>
-                    <li><a href="header-style.html">header</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">book detail</a>
-                <ul>
-                    <li><a href="book-detail.html">book detail 1</a></li>
-                    <li><a href="book-detail2.html">book detail 2</a></li>
-                    <li><a href="book-detail3.html">book detail 3</a></li>
-                    <li><a href="grid_03_columns.html">book 3 col</a></li>
-                    <li><a href="grid_04_columns.html">book 4 col</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="about-author.html">Author</a>
-            </li>
-            <li>
-                <a href="404.html">404</a>
-            </li>
-            <li>
-                <a href="contact-us.html">Contact Us</a>
-            </li>
-        </ul>
-        <!--NAVIGATION DEC END-->
-    </div>
+        {% endfor %}
+        <li><a href="#">show more categories</a></li>
+    </ul>
 </div>
-<!--NAVIGATION WRAP END-->
+<!--GENRES WRAP END-->

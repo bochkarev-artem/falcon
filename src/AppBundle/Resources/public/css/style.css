@@ -2868,7 +2868,6 @@ section{
 .inner-banner-dec{
 	float: left;
 	width: auto;
-	padding: 36px 0 38px;
 }
 .inner-banner-dec h5{
 	text-transform: uppercase;
@@ -7489,19 +7488,19 @@ aside .kf-pagination{
 .header-3 .nav-dec > li > a{
 	padding: 27px 22px 28px;
 }
-.header-3 .nav-search{
+.header-1 .nav-search{
 	padding: 13px 0;
 }
-.header-3 .nav-search .input-dec2 input[type="text"]{
-	padding: 10px 40px 10px 30px;
+.header-1 .nav-search .input-dec2 input[type="text"]{
+	padding: 5px 40px 4px 30px;
 	border:none;
 	background: #363636;
 }
-.header-3 .nav-search .input-dec2 input[type="text"]::-webkit-input-placeholder {color: #707070; opacity: 1;}
-.header-3 .nav-search .input-dec2 input[type="text"]:-moz-placeholder { color: #707070; opacity: 1; }
-.header-3 .nav-search .input-dec2 input[type="text"]::-moz-placeholder { color: #707070; opacity: 1; }
-.header-3 .nav-search .input-dec2 input[type="text"]:-ms-input-placeholder {color: #707070; opacity: 1;}
-.header-3 .nav-search .input-dec2 i{
+.header-1 .nav-search .input-dec2 input[type="text"]::-webkit-input-placeholder {color: #707070; opacity: 1;}
+.header-1 .nav-search .input-dec2 input[type="text"]:-moz-placeholder { color: #707070; opacity: 1; }
+.header-1 .nav-search .input-dec2 input[type="text"]::-moz-placeholder { color: #707070; opacity: 1; }
+.header-1 .nav-search .input-dec2 input[type="text"]:-ms-input-placeholder {color: #707070; opacity: 1;}
+.header-1 .nav-search .input-dec2 i{
 	color: #707070;
 }
 
