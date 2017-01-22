@@ -6,6 +6,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Author;
+use AppBundle\Entity\EntityInterface;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
@@ -137,5 +138,47 @@ class SeoManager
         $seoData->setMetaDescription($sequence->getName());
         $seoData->setMetaKeywords($sequence->getName());
         $this->setSeoData($seoData);
+    }
+
+    /**
+     * @param EntityInterface|array $entity
+     *
+     * @return array
+     */
+    public function buildBreadcrumbs($entity)
+    {
+        $breadcrumbs[] = [
+            'url'  => '/',
+            'name' => $this->translator->trans('front.index_page.breadcrumb_title')
+        ];
+
+        if ($entity instanceof Sequence) {
+            $name = $entity->getName();
+        } elseif ($entity instanceof Genre || $entity instanceof Tag) {
+            $name = $entity->getTitle();
+        } elseif ($entity instanceof Author) {
+            $name = $entity->getFullName();
+        } else {
+            $name = $entity['title'];
+            if ($genre = array_shift($entity['genres'])) {
+                $breadcrumbs[] = [
+                    'url'  => '/' . $genre['path'],
+                    'name' => $genre['title']
+                ];
+            }
+
+            if ($author = array_shift($entity['authors'])) {
+                $breadcrumbs[] = [
+                    'url'  => '/' . $author['path'],
+                    'name' => $author['full_name']
+                ];
+            }
+        }
+
+        $breadcrumbs[] = [
+            'name' => $name
+        ];
+
+        return $breadcrumbs;
     }
 }

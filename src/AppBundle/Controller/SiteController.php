@@ -95,7 +95,9 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setGenreSeo($genre);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+            'breadcrumbs' => $seoManager->buildBreadcrumbs($genre)
+        ]));
     }
 
     /**
@@ -138,7 +140,9 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setAuthorSeo($author);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+            'breadcrumbs' => $seoManager->buildBreadcrumbs($author)
+        ]));
     }
 
     /**
@@ -181,7 +185,9 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setSequenceSeo($sequence);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+            'breadcrumbs' => $seoManager->buildBreadcrumbs($sequence)
+        ]));
     }
 
     /**
@@ -224,7 +230,9 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setTagSeo($tag);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+            'breadcrumbs' => $seoManager->buildBreadcrumbs($tag)
+        ]));
     }
 
     /**
@@ -315,7 +323,8 @@ class SiteController extends Controller
         $seoManager->setBookSeo($book);
 
         return $this->render('AppBundle:Book:show.html.twig', [
-            'book' => $book
+            'book'        => $book,
+            'breadcrumbs' => $seoManager->buildBreadcrumbs($book)
         ]);
     }
 

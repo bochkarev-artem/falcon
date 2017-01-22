@@ -1,8 +1,9 @@
 front:
     index_page:
-        title:       Bookary
-        description: Bookary
-        keywords:    Bookary
+        title:            Bookary
+        description:      Bookary
+        keywords:         Bookary
+        breadcrumb_title: Главная
     genres_page:
         title:       Bookary
         description: Bookary

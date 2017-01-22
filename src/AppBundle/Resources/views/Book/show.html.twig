@@ -101,6 +101,23 @@
                             </div>
                         </div>
                         <!--WIDGET FEATURESD END-->
+                        {% if book.tags|length > 0 %}
+                            <!--WIDGET TAGS START-->
+                            <div class="widget widget-tags">
+                                <!--WIDGET HEADING START-->
+                                <div class="aside-widget-hd">
+                                    <h5>{{ 'front.tags'|trans }}</h5>
+                                </div>
+                                <div class="widget-padding">
+                                    <ul>
+                                        {% for tag in book.tags %}
+                                            <li><a href="/{{ tag.path }}">{{ tag.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--WIDGET TAGS END-->
+                        {% endif %}
                     </aside>
                 </div>
                 <!--BOOK TABS 2 WRAP START-->
