@@ -22,6 +22,8 @@ class HomeController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setIndexSeo();
 
         return $this->render('AppBundle:Home:index.html.twig');
     }

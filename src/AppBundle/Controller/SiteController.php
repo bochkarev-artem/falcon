@@ -327,6 +327,9 @@ class SiteController extends Controller
         $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Genre');
         $genres    = $genreRepo->findAll();
 
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setGenresSeo();
+
         return $this->render('AppBundle:Genre:list.html.twig', [
             'genres' => $genres,
         ]);

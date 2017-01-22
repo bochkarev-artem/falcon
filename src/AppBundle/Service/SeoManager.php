@@ -51,6 +51,15 @@ class SeoManager
         }
     }
 
+    public function setIndexSeo()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.index_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.index_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.index_page.keywords'));
+        $this->setSeoData($seoData);
+    }
+
     public function setSearchSeo()
     {
         $seoData = new SeoData();
@@ -70,6 +79,15 @@ class SeoManager
         $seoData->setTitle($genre->getTitle());
         $seoData->setMetaDescription($genre->getTitle());
         $seoData->setMetaKeywords($genre->getTitle());
+        $this->setSeoData($seoData);
+    }
+
+    public function setGenresSeo()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.genres_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.genres_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.genres_page.keywords'));
         $this->setSeoData($seoData);
     }
 
