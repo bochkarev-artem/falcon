@@ -56,11 +56,18 @@ class SitemapSubscriber implements EventSubscriberInterface
         $queryBuilders[] = $this->getSequenceQueryBuilder();
         $queryBuilders[] = $this->getTagQueryBuilder();
 
+        $sections[] = 'authors';
+        $sections[] = 'books';
+        $sections[] = 'genres';
+        $sections[] = 'series';
+        $sections[] = 'tags';
+
         foreach ($queryBuilders as $queryBuilder) {
             foreach ($queryBuilder->getQuery()->iterate() as $row) {
                 /** @var EntityInterface $entity */
-                $entity = array_shift($row);
-                $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), 'default');
+                $entity  = array_shift($row);
+                $section = array_shift($sections);
+                $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), $section);
             }
         }
     }
