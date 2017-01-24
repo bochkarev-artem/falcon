@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Model\Pagination;
 use AppBundle\Model\QueryParams;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -331,7 +332,7 @@ class SiteController extends Controller
     /**
      * @return Response
      */
-    public function listGenreAction()
+    public function genresAction()
     {
         $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Genre');
         $genres    = $genreRepo->findAll();
@@ -341,6 +342,30 @@ class SiteController extends Controller
 
         return $this->render('AppBundle:Genre:list.html.twig', [
             'genres' => $genres,
+        ]);
+    }
+
+    /**
+     * @return Response
+     */
+    public function tagsAction()
+    {
+        $em   = $this->getDoctrine()->getManager();
+        /** @var QueryBuilder $qb */
+        $qb   = $em->createQueryBuilder();
+        $tags = $qb
+            ->select('b, t')
+            ->from('AppBundle:Book', 'b')
+            ->leftJoin('b.tags', 't')
+            ->getQuery()
+            ->getResult()
+        ;
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setTagsSeo();
+
+        return $this->render('AppBundle:Genre:list.html.twig', [
+            'tags' => $tags,
         ]);
     }
 }

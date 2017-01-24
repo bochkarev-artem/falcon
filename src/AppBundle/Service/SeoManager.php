@@ -92,6 +92,15 @@ class SeoManager
         $this->setSeoData($seoData);
     }
 
+    public function setTagsSeo()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.tags_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.tags_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.tags_page.keywords'));
+        $this->setSeoData($seoData);
+    }
+
     /**
      * @param Author $author
      */

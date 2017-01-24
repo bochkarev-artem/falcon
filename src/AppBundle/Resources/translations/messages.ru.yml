@@ -8,6 +8,10 @@ front:
         title:       Bookary
         description: Bookary
         keywords:    Bookary
+    tags_page:
+        title:       Bookary
+        description: Bookary
+        keywords:    Bookary
     search:         Поиск
     no_results:     Нет книг
     to_book:        К книге

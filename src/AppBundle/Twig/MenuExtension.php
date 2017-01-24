@@ -7,7 +7,7 @@ namespace AppBundle\Twig;
 
 use AppBundle\Service\MenuBuilder;
 
-class MainMenuExtension extends \Twig_Extension
+class MenuExtension extends \Twig_Extension
 {
     /**
      * @var MenuBuilder
@@ -28,8 +28,8 @@ class MainMenuExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            'main_menu' => new \Twig_Function_Method($this, 'getMainMenu'),
-            'side_menu' => new \Twig_Function_Method($this, 'getSideMenu'),
+            new \Twig_SimpleFunction('main_menu', [$this, 'getMainMenu']),
+            new \Twig_SimpleFunction('side_menu', [$this, 'getSideMenu']),
         ];
     }
 
@@ -54,6 +54,6 @@ class MainMenuExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'main_menu';
+        return 'menu';
     }
 }
