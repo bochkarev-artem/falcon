@@ -354,9 +354,12 @@ class SiteController extends Controller
         /** @var QueryBuilder $qb */
         $qb   = $em->createQueryBuilder();
         $tags = $qb
-            ->select('b, t')
-            ->from('AppBundle:Book', 'b')
-            ->leftJoin('b.tags', 't')
+            ->select('t, COUNT(b.id) as count_books')
+            ->from('AppBundle:Tag', 't')
+            ->leftJoin('t.books', 'b')
+            ->orderBy('count_books', 'DESC')
+            ->addGroupBy('t.id')
+            ->setMaxResults(150)
             ->getQuery()
             ->getResult()
         ;
@@ -364,7 +367,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setTagsSeo();
 
-        return $this->render('AppBundle:Genre:list.html.twig', [
+        return $this->render('AppBundle:Tag:list.html.twig', [
             'tags' => $tags,
         ]);
     }

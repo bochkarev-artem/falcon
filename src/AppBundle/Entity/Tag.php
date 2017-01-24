@@ -5,6 +5,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -51,6 +52,13 @@ class Tag implements EntityInterface
      * @ORM\Column(name="slug", type="string", nullable=true)
      */
     private $slug;
+
+    /**
+     * @var ArrayCollection $books
+     *
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="tags", fetch="EXTRA_LAZY")
+     */
+    private $books;
 
     /**
      * @return int
@@ -134,6 +142,54 @@ class Tag implements EntityInterface
     public function getTagId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    /**
+     * @param ArrayCollection $books
+     *
+     * @return Tag
+     */
+    public function setBooks($books)
+    {
+        $this->books = $books;
+
+        return $this;
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return Tag
+     */
+    public function addBook($book)
+    {
+        if (!$this->books->contains($book)) {
+            $book->addTag($this);
+        };
+
+        return $this;
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return Tag
+     */
+    public function removeBook($book)
+    {
+        if (!$this->books->contains($book)) {
+            $book->removeTag($this);
+        };
+
+        return $this;
     }
 
     /**

@@ -368,6 +368,14 @@ class Author implements EntityInterface
     }
 
     /**
+     * @return string
+     */
+    public function getShortName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getBooks()

@@ -166,7 +166,7 @@ class SeoManager
         } elseif ($entity instanceof Genre || $entity instanceof Tag) {
             $name = $entity->getTitle();
         } elseif ($entity instanceof Author) {
-            $name = $entity->getFullName();
+            $name = $entity->getShortName();
         } else {
             $name = $entity['title'];
             if ($genre = array_shift($entity['genres'])) {
@@ -179,7 +179,7 @@ class SeoManager
             if ($author = array_shift($entity['authors'])) {
                 $breadcrumbs[] = [
                     'url'  => '/' . $author['path'],
-                    'name' => $author['full_name']
+                    'name' => $author['short_name']
                 ];
             }
         }

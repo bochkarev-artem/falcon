@@ -61,9 +61,11 @@ fos_elastica:
                             type: "nested"
                             properties:
                                 author_id:    { type: integer }
-                                first_name:   { type: string, analyzer: russian, copy_to: author_name }
-                                middle_name:  { type: string, analyzer: russian, copy_to: author_name }
-                                last_name:    { type: string, analyzer: russian, copy_to: author_name }
+                                first_name:   { type: string, analyzer: russian }
+                                middle_name:  { type: string, analyzer: russian }
+                                last_name:    { type: string, analyzer: russian }
+                                full_name:    { type: string, analyzer: russian, copy_to: author_name }
+                                short_name:   { type: string, analyzer: russian }
                                 photo_path:   { type: string }
                                 description:  { type: string }
                                 level:        { type: integer }

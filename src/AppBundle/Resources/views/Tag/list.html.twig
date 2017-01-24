@@ -1,0 +1,44 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="kf_content_wrap">
+        <!--GRID 4 WRAP START-->
+        <div class="grid-4">
+            <div class="grid3-page">
+                <div class="container">
+                    <div class="row">
+                        <!--ASIDE BAR WRAP START-->
+                        <aside class="col-md-3">
+                            {{ side_menu()|raw }}
+                        </aside>
+                        <!--ASIDE BAR WRAP END-->
+                        <div class="col-md-9">
+                            <div class="main-content">
+                                {% if tags|length > 0 %}
+                                    <div class="widget widget-tags">
+                                        <!--WIDGET HEADING START-->
+                                        <div class="aside-widget-hd">
+                                            <h5>{{ 'front.tags'|trans }}</h5>
+                                        </div>
+                                        <div class="widget-padding">
+                                            <ul>
+                                                {% for tag in tags %}
+                                                    <li>
+                                                        <a href="/{{ tag[0].path }}">
+                                                            {{ tag[0].title }} ({{ tag.count_books }})
+                                                        </a>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--GRID 4 WRAP END-->
+    </div>
+{% endblock body %}
