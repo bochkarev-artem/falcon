@@ -6,15 +6,15 @@
                 <!--FORM FIELD START-->
                 <form>
                     <div class="input-dec3">
-                        <input type="text" placeholder="E-mail">
+                        <input type="text" placeholder="{{ 'front.email'|trans }}">
                         <i class="fa fa-envelope-o"></i>
                     </div>
                     <div class="input-dec3">
-                        <input type="text" placeholder="Password">
+                        <input type="text" placeholder="{{ 'front.password'|trans }}">
                         <i class="fa fa-envelope-o"></i>
                     </div>
                     <div class="dialog-footer">
-                        <button class="dialog-button">Register</button>
+                        <button class="dialog-button">{{ 'front.register'|trans }}</button>
                     </div>
                 </form>
                 <!--FORM FIELD END-->
@@ -33,16 +33,16 @@
                 <!--FORM FIELD START-->
                 <form>
                     <div class="input-dec3">
-                        <input type="text" placeholder="E-mail">
+                        <input type="text" placeholder="{{ 'front.email'|trans }}">
                         <i class="fa fa-envelope-o"></i>
                     </div>
                     <div class="input-dec3">
-                        <input type="text" placeholder="Password">
+                        <input type="text" placeholder="{{ 'front.password'|trans }}">
                         <i class="fa fa-envelope-o"></i>
                     </div>
                     <div class="dialog-footer">
-                        <button class="dialog-button">Login</button>
-                        <a href="#">Forgot Password<i class="fa fa-question-circle"></i></a>
+                        <button class="dialog-button">{{ 'front.login'|trans }}</button>
+                        <a href="#">{{ 'front.forgot_pass'|trans }}<i class="fa fa-question-circle"></i></a>
                     </div>
                 </form>
                 <!--FORM FIELD END-->
@@ -61,8 +61,8 @@
                 <div class="user-wrap">
                     <div class="user-dec">
                         <i class="fa fa-sign-in"></i>
-                        <a href="#" data-toggle="modal" data-target="#signin-box">Sign In</a>
-                        <a href="#" data-toggle="modal" data-target="#reg-box">Register</a>
+                        <a href="#" data-toggle="modal" data-target="#signin-box">{{ 'front.sign_in'|trans }}</a>
+                        <a href="#" data-toggle="modal" data-target="#reg-box">{{ 'front.register'|trans }}</a>
                     </div>
                 </div>
                 <ul class="social-1">
@@ -87,39 +87,12 @@
             <div class="cart-wrap">
                 <!--Mobile Menu Start-->
                 <div id="kode-responsive-navigation" class="dl-menuwrapper">
-                    <button class="dl-trigger">Open Menu</button>
+                    <button class="dl-trigger">{{ 'front.open_menu'|trans }}</button>
                     <ul class="dl-menu">
-                        <li class="menu-item kode-parent-menu"><a href="#">Pages</a>
+                        <li class="menu-item kode-parent-menu"><a href="/">{{ 'front.main'|trans }}</a></li>
+                        <li class="menu-item kode-parent-menu"><a href="#">{{ 'front.popular'|trans }}</a>
                             <ul class="dl-submenu">
-                                <li><a href="login-forms.html">login forms</a></li>
-                                <li><a href="comingsoon.html">coming soon</a></li>
-                                <li><a href="checkout.html">check out</a></li>
-                                <li><a href="404.html">404</a></li>
-                                <li><a href="widgets.html">widgets</a></li>
-                                <li><a href="shortcode.html">shortcode</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item kode-parent-menu"><a href="about-author.html">about author</a>
-                        </li>
-                        <li class="menu-item kode-parent-menu"><a href="#">products</a>
-                            <ul class="dl-submenu">
-                                <li><a href="product-detail.html">product detail</a></li>
-                                <li><a href="product-detail2.html">product detail 2</a></li>
-                                <li><a href="product-detail3.html">product detail 3</a></li>
-                                <li><a href="grid_03_columns.html">product 3 col</a></li>
-                                <li><a href="grid_04_columns.html">product 4 col</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item kode-parent-menu"><a href="#">blog</a>
-                            <ul class="dl-submenu">
-                                <li><a href="blog-classic.html">blog-classic</a></li>
-                                <li><a href="blog-detail.html">blog-detail</a></li>
-                                <li><a href="blog-detail-fullwidth.html">blog detail 2</a></li>
-                                <li><a href="blog-full-width.html">blog full width</a></li>
-                                <li><a href="blog_masonry_2_columns.html">blog masonry</a></li>
-                                <li><a href="blog-grid2.html">blog 2</a></li>
-                                <li><a href="list-style_01_columns.html">list style 1</a></li>
-                                <li><a href="list-style_01_sidebar.html">list style sidebar</a></li>
+                                <li><a href="{{ path('tags') }}">{{ 'front.tags'|trans }}</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -138,42 +111,12 @@
                     {{ main_menu()|raw }}
                     <!--NAVIGATION DEC START-->
                     <ul class="nav-dec">
+                        <li><a href="/">{{ 'front.main'|trans }}</a></li>
                         <li>
-                            <a href="blog-classic.html">blog</a>
+                            <a href="#">{{ 'front.popular'|trans }}</a>
                             <ul>
-                                <li><a href="blog-classic.html">blog-classic</a></li>
-                                <li><a href="blog-detail.html">blog-detail</a></li>
-                                <li><a href="blog-detail-fullwidth.html">blog detail 2</a></li>
-                                <li><a href="blog-full-width.html">blog full width</a></li>
-                                <li><a href="blog_masonry_2_columns.html">blog masonry</a></li>
-                                <li><a href="blog-grid2.html">blog 2</a></li>
-                                <li><a href="list-style_01_columns.html">list style 1</a></li>
-                                <li><a href="list-style_01_sidebar.html">list style sidebar</a></li>
+                                <li><a href="{{ path('tags') }}">{{ 'front.tags'|trans }}</a></li>
                             </ul>
-                        </li>
-                        <li>
-                            <a href="#">pages</a>
-                            <ul>
-                                <li><a href="login-forms.html">login forms</a></li>
-                                <li><a href="comingsoon.html">coming soon</a></li>
-                                <li><a href="checkout.html">check out</a></li>
-                                <li><a href="widgets.html">widgets</a></li>
-                                <li><a href="shortcode.html">short code</a></li>
-                                <li><a href="header-style.html">header</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">book detail</a>
-                            <ul>
-                                <li><a href="book-detail.html">book detail 1</a></li>
-                                <li><a href="book-detail2.html">book detail 2</a></li>
-                                <li><a href="book-detail3.html">book detail 3</a></li>
-                                <li><a href="grid_03_columns.html">book 3 col</a></li>
-                                <li><a href="grid_04_columns.html">book 4 col</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="about-author.html">Author</a>
                         </li>
                     </ul>
                 </div>

@@ -169,6 +169,7 @@ class BookProvider implements ProviderInterface
                 'last_name'    => $author->getLastName(),
                 'middle_name'  => $author->getMiddleName(),
                 'full_name'    => $author->getFullName(),
+                'short_name'   => $author->getShortName(),
                 'level'        => $author->getLevel(),
                 'description'  => $author->getDescription(),
                 'review_count' => $author->getReviewCount(),

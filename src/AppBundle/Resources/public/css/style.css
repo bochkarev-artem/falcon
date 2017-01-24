@@ -495,7 +495,7 @@ section{
 .logo-wrap{
 	float: left;
 	width: 100%;
-	padding: 40px 0 34px;
+	padding: 20px 0;
 	background-color: #fff;
 	text-align: center;
 }
@@ -840,7 +840,7 @@ section{
 */
 .categories-menu{
 	float: left;
-	width: 21%;
+	width: 31%;
 	position: relative;
 	padding: 20px 15px;
 }
@@ -895,14 +895,14 @@ section{
 	font-family: FontAwesome;
 	content: "\f0da";
 }
-.categories-ul > li:last-child a{
-	color: #fff;
-	background-color: #d7d7d7;
-	padding-right: 50px;
-}
-.categories-ul > li:last-child a:before{
-	content: "\f04e";
-}
+/*.categories-ul > li:last-child a{*/
+	/*color: #fff;*/
+	/*background-color: #d7d7d7;*/
+	/*padding-right: 50px;*/
+/*}*/
+/*.categories-ul > li:last-child a:before{*/
+	/*content: "\f04e";*/
+/*}*/
 .categories-ul > li a i{
 	float: left;
 	margin-right:10px;
@@ -2117,9 +2117,9 @@ section{
 }
 .book-tab-dec .text{
 	text-align: center;
-	padding: 23px 0px 30px;
+	padding: 23px 0 30px;
 	background-color: #f9f9f9;
-	height: 128px;
+	max-height: 128px;
 	overflow: hidden;
 }
 .book-tab-dec .text small{
@@ -5808,8 +5808,8 @@ aside .widget{
 .side_accordian .accordion{
 	float: left;
 	width: 100%;
-	padding-top: 16px;
-	padding-bottom: 18px;
+	padding-top: 3px;
+	padding-bottom: 4px;
 	border-bottom: 1px solid #f2f2f2;
 	position: relative;
 	cursor: pointer;
@@ -5999,7 +5999,7 @@ aside .widget{
 .side-meta{
 	float: left;
 	width: 100%;
-	padding: 14px 0 11px;
+	padding: 6px 0;
 }
 .side-meta li{
 	float: left;
@@ -6093,6 +6093,7 @@ aside .widget{
 }
 .featured-dec3 .text{
 	float: none;
+	max-height: 120px;
 	overflow: hidden;
 	width: auto;
 	padding: 0 0 0 20px;

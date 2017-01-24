@@ -130,9 +130,7 @@ class QueryService
      */
     private function getResult(Query $query)
     {
-        $options = [];
-
-        $result = new QueryResult($this->repository->search($query, $options));
+        $result = new QueryResult($this->repository->search($query));
 
         return $result;
     }

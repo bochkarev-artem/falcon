@@ -92,6 +92,15 @@ class SeoManager
         $this->setSeoData($seoData);
     }
 
+    public function setTagsSeo()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.tags_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.tags_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.tags_page.keywords'));
+        $this->setSeoData($seoData);
+    }
+
     /**
      * @param Author $author
      */
@@ -157,7 +166,7 @@ class SeoManager
         } elseif ($entity instanceof Genre || $entity instanceof Tag) {
             $name = $entity->getTitle();
         } elseif ($entity instanceof Author) {
-            $name = $entity->getFullName();
+            $name = $entity->getShortName();
         } else {
             $name = $entity['title'];
             if ($genre = array_shift($entity['genres'])) {
@@ -170,7 +179,7 @@ class SeoManager
             if ($author = array_shift($entity['authors'])) {
                 $breadcrumbs[] = [
                     'url'  => '/' . $author['path'],
-                    'name' => $author['full_name']
+                    'name' => $author['short_name']
                 ];
             }
         }

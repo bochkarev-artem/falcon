@@ -8,11 +8,25 @@ front:
         title:       Bookary
         description: Bookary
         keywords:    Bookary
+    tags_page:
+        title:       Bookary
+        description: Bookary
+        keywords:    Bookary
+    main:           Главная
     search:         Поиск
     no_results:     Нет книг
     to_book:        К книге
     genres:         Жанры
     tags:           Теги
+    popular:        Популярное
+    more:           Еще...
+    open_menu:      Открыть меню
+    register:       Регистрация
+    sign_in:        Вход
+    login:          Вход
+    email:          Email
+    password:       Пароль
+    forgot_pass:    Забыли пароль?
     related_books:  Похожие книги
     related:        Похожee
     author:         Автор

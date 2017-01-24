@@ -18,8 +18,8 @@ services:
           - "%book_directory%"
           - "%author_directory%"
 
-    twig.main_menu:
-        class: AppBundle\Twig\MainMenuExtension
+    twig.menu:
+        class: AppBundle\Twig\MenuExtension
         public: false
         arguments:
             - "@menu_builder"

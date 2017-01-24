@@ -32,3 +32,7 @@ search:
 search_with_page:
     path: /search/page/{page}
     defaults: { _controller: AppBundle:Site:search }
+
+tags:
+    path: /tags
+    defaults: { _controller: AppBundle:Site:tags }

@@ -144,7 +144,7 @@ class Book implements EntityInterface
     /**
      * @var ArrayCollection $tags
      *
-     * @ORM\ManyToMany(targetEntity="Tag", fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_tag",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
@@ -681,7 +681,23 @@ class Book implements EntityInterface
      */
     public function addTag($tag)
     {
-        $this->tags->add($tag);
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Tag $tag
+     *
+     * @return Book
+     */
+    public function removeTag($tag)
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->remove($tag);
+        }
 
         return $this;
     }

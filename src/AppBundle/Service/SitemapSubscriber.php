@@ -50,17 +50,21 @@ class SitemapSubscriber implements EventSubscriberInterface
      */
     public function generateSitemap(SitemapPopulateEvent $event)
     {
-        $queryBuilders[] = $this->getAuthorQueryBuilder();
-        $queryBuilders[] = $this->getBookQueryBuilder();
-        $queryBuilders[] = $this->getGenreQueryBuilder();
-        $queryBuilders[] = $this->getSequenceQueryBuilder();
-        $queryBuilders[] = $this->getTagQueryBuilder();
+        $queryBuilders = [
+            'authors' => $this->getAuthorQueryBuilder(),
+            'books'   => $this->getBookQueryBuilder(),
+            'genres'  => $this->getGenreQueryBuilder(),
+            'series'  => $this->getSequenceQueryBuilder(),
+            'tags'    => $this->getTagQueryBuilder()
+        ];
 
-        foreach ($queryBuilders as $queryBuilder) {
-            foreach ($queryBuilder->getQuery()->iterate() as $row) {
-                /** @var EntityInterface $entity */
-                $entity = array_shift($row);
-                $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), 'default');
+        foreach ($queryBuilders as $section => $queryBuilder) {
+            if (is_null($event->getSection()) || $event->getSection() == $section) {
+                foreach ($queryBuilder->getQuery()->iterate() as $row) {
+                    /** @var EntityInterface $entity */
+                    $entity = array_shift($row);
+                    $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), $section);
+                }
             }
         }
     }
