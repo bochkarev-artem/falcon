@@ -80,7 +80,7 @@
         <div class="container">
             <!--LOGO DEC START-->
             <div class="logo-dec">
-                <a href=""><img src="{{ asset('compiled/images/logo.png') }}" alt=""/></a>
+                <a href="{{ path('site_index') }}"><img src="{{ asset('compiled/images/logo.png') }}" alt=""/></a>
             </div>
             <!--LOGO DEC END-->
             <!--CART WRAP START-->
@@ -114,7 +114,7 @@
                     {{ main_menu()|raw }}
                     <!--NAVIGATION DEC START-->
                     <ul class="nav-dec">
-                        <li><a href="/">{{ 'front.main'|trans }}</a></li>
+                        <li><a href="{{ path('site_index') }}">{{ 'front.main'|trans }}</a></li>
                         <li>
                             <a href="#">{{ 'front.popular'|trans }}</a>
                             <ul>
