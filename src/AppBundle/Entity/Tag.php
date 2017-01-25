@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Tag implements EntityInterface
+class Tag implements PageInterface
 {
     /**
      * @var integer $id
@@ -195,7 +195,7 @@ class Tag implements EntityInterface
     /**
      * @return string
      */
-    public function getEntityPathPrefix()
+    public function getPathPrefix()
     {
         return 'tag';
     }
@@ -205,6 +205,6 @@ class Tag implements EntityInterface
      */
     public function getPath()
     {
-        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+        return $this->getPathPrefix() . '/' . $this->getSlug();
     }
 }

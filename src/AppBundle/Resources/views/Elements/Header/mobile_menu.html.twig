@@ -1,0 +1,13 @@
+<ul class="dl-submenu">
+{% for parentGenre in parentGenres %}
+    <li class="menu-item kode-parent-menu"><a href="#">{{ parentGenre.title }}</a>
+        <ul class="dl-submenu">
+            {% set childGenres = genres[parentGenre.id] %}
+            {%- for childGenre in childGenres -%}
+                {% set genreUrl = childGenre.pathPrefix ~ '/' ~ childGenre.slug %}
+                <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
+            {%- endfor -%}
+        </ul>
+    </li>
+{% endfor %}
+</ul>

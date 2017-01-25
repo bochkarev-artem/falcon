@@ -83,15 +83,6 @@ class SeoManager
         $this->setSeoData($seoData);
     }
 
-    public function setGenresSeo()
-    {
-        $seoData = new SeoData();
-        $seoData->setTitle($this->translator->trans('front.genres_page.title'));
-        $seoData->setMetaDescription($this->translator->trans('front.genres_page.description'));
-        $seoData->setMetaKeywords($this->translator->trans('front.genres_page.keywords'));
-        $this->setSeoData($seoData);
-    }
-
     public function setTagsSeo()
     {
         $seoData = new SeoData();

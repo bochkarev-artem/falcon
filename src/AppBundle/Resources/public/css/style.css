@@ -2119,7 +2119,7 @@ section{
 	text-align: center;
 	padding: 23px 0 30px;
 	background-color: #f9f9f9;
-	max-height: 128px;
+	height: 125px;
 	overflow: hidden;
 }
 .book-tab-dec .text small{

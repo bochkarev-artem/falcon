@@ -30,6 +30,7 @@ class MenuExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('main_menu', [$this, 'getMainMenu']),
             new \Twig_SimpleFunction('side_menu', [$this, 'getSideMenu']),
+            new \Twig_SimpleFunction('mobile_menu', [$this, 'getMobileMenu']),
         ];
     }
 
@@ -39,6 +40,14 @@ class MenuExtension extends \Twig_Extension
     public function getMainMenu()
     {
         return $this->menuBuilder->getMainMenu();
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobileMenu()
+    {
+        return $this->menuBuilder->getMobileMenu();
     }
 
     /**

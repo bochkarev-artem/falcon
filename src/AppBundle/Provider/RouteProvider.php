@@ -108,7 +108,7 @@ class RouteProvider implements ProviderInterface
      */
     private function collectObjectData($object)
     {
-        $type        = $object->getEntityPathPrefix();
+        $type        = $object->getPathPrefix();
         $className   = (new \ReflectionClass($object))->getShortName();
         $objectId    = $object->getId();
         $routeParams = [

@@ -19,7 +19,7 @@
                     </div>
                     <div class="text">
                         <div class="blog1-hd">
-                            <h5><a href="/{{ book.path }}">{{ book.title }}</a></h5>
+                            <h3><a href="/{{ book.path }}">{{ book.title }}</a></h3>
                             {% if show_genre is defined and show_genre and book.genres|length > 0 %}
                                 {% set genre = book.genres|first %}
                                 <a href="/{{ genre.path }}">{{ genre.title }}</a>

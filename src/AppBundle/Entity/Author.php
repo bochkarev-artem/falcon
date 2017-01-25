@@ -22,7 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     }
  * )
  */
-class Author implements EntityInterface
+class Author implements PageInterface
 {
     use TimestampableTrait;
 
@@ -522,7 +522,7 @@ class Author implements EntityInterface
     /**
      * @return string
      */
-    public function getEntityPathPrefix()
+    public function getPathPrefix()
     {
         return 'author';
     }
@@ -532,6 +532,6 @@ class Author implements EntityInterface
      */
     public function getPath()
     {
-        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+        return $this->getPathPrefix() . '/' . $this->getSlug();
     }
 }

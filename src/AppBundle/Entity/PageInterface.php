@@ -6,15 +6,15 @@
 namespace AppBundle\Entity;
 
 /**
- * Interface EntityInterface
+ * Interface PageInterface
  * @package AppBundle\Entity
  */
-interface EntityInterface
+interface PageInterface
 {
     /**
      * @return string
      */
-    public function getEntityPathPrefix();
+    public function getPathPrefix();
 
     /**
      * @return string

@@ -92,8 +92,11 @@
                         <li class="menu-item kode-parent-menu"><a href="/">{{ 'front.main'|trans }}</a></li>
                         <li class="menu-item kode-parent-menu"><a href="#">{{ 'front.popular'|trans }}</a>
                             <ul class="dl-submenu">
-                                <li><a href="{{ path('tags') }}">{{ 'front.tags'|trans }}</a></li>
+                                <li><a href="{{ path('tags') }}">{{ 'front.tags'|trans }}</a>
                             </ul>
+                        </li>
+                        <li class="menu-item kode-parent-menu"><a href="#">{{ 'front.genres'|trans }}</a>
+                            {{ mobile_menu()|raw }}
                         </li>
                     </ul>
                 </div>

@@ -1,42 +1,36 @@
 {% include '@App/Elements/View/view-toggle.html.twig' %}
 
-<div class="blog-list-wrap">
-    <div class="blog-list-style">
+<div class="blog-grid3">
+    <div class="row">
         {% if books|length > 0 %}
             {% for book in books %}
-                <!--LIST STYLE DEC START-->
-                <div class="list-style-dec list-style-dec2">
-                    <div class="blog-thumb">
+                <!--BOOK DEC START-->
+                <div class="col-md-2 col-sm-6">
+                    <div class="book-tab-dec">
                         {% if book.cover_path is defined %}
-                            <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="">
-                            <div class="blog-thumb-dec">
-                                <a href="/{{ book.path }}"><i class="fa fa-book"></i></a>
-                            </div>
+                            <figure>
+                                <a href="/{{ book.path }}">
+                                    <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                </a>
+                                {#<figcaption class="ribbon-wrap">#}
+                                {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
+                                {#</figcaption>#}
+                            </figure>
                         {% endif %}
-                        {#<div class="ribbon-wrap">#}
-                            {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
-                        {#</div>#}
-                    </div>
-                    <div class="text">
-                        <div class="blog1-hd">
-                            <h5><a href="/{{ book.path }}">{{ book.title }}</a></h5>
+                        <div class="text">
                             {% if show_genre is defined and show_genre and book.genres|length > 0 %}
                                 {% set genre = book.genres|first %}
-                                <a href="/{{ genre.path }}">{{ genre.title }}</a>
+                                <small><a href="/{{ genre.path }}">{{ genre.title }}</a></small>
                             {% endif %}
                             {% if show_author is defined and show_author and book.authors|length > 0 %}
                                 {% set author = book.authors|first %}
-                                <a href="/{{ author.path }}">{{ author.full_name }}</a>
+                                <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                             {% endif %}
+                            <h5><a href="/{{ book.path }}">{{ book.title }}</a></h5>
                         </div>
-                        {% if book.annotation is defined %}
-                            {{ book.annotation|raw }}
-                        {% endif %}
-                        <div class="clear"></div>
-                        <a class="btn-3" href="/{{ book.path }}">{{ 'front.to_book'|trans }}</a>
                     </div>
                 </div>
-                <!--LIST STYLE END-->
+                <!--BOOK DEC END-->
             {% endfor %}
         {% else %}
             {{ 'front.no_results'|trans }}
