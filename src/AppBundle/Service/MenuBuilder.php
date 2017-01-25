@@ -8,8 +8,6 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Genre;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Config\ConfigCache;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class MenuBuilder
 {
@@ -37,6 +35,10 @@ class MenuBuilder
      * @var string
      */
     protected $cacheSideFile;
+    /**
+     * @var string
+     */
+    protected $cacheMobileFile;
 
     /**
      * @param EntityManager     $em
@@ -45,12 +47,13 @@ class MenuBuilder
      */
     public function __construct(EntityManager $em, \Twig_Environment $twig, $cacheDir)
     {
-        $this->em            = $em;
-        $this->twig          = $twig;
-        $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
-        $this->cacheDir      = $cacheDir . '/menuCache';
-        $this->cacheMainFile = $this->cacheDir . '/mainMenu.html';
-        $this->cacheSideFile = $this->cacheDir . '/sideMenu.html';
+        $this->em              = $em;
+        $this->twig            = $twig;
+        $cacheDir              = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
+        $this->cacheDir        = $cacheDir . '/menuCache';
+        $this->cacheMainFile   = $this->cacheDir . '/mainMenu.html';
+        $this->cacheSideFile   = $this->cacheDir . '/sideMenu.html';
+        $this->cacheMobileFile = $this->cacheDir . '/mobileMenu.html';
     }
 
     /**
@@ -62,6 +65,20 @@ class MenuBuilder
 
         if (!$cache->isFresh()) {
             $this->updateCache($cache, 'main');
+        }
+
+        return file_get_contents($cache->getPath());
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobileMenu()
+    {
+        $cache = new ConfigCache($this->cacheMobileFile, false);
+
+        if (!$cache->isFresh()) {
+            $this->updateCache($cache, 'mobile');
         }
 
         return file_get_contents($cache->getPath());
@@ -92,36 +109,18 @@ class MenuBuilder
     }
 
     /**
-     * @param array $menuTree
+     * @param array  $menuTree
+     * @param string $type
      *
      * @return string
      */
-    protected function buildMainMenu(array $menuTree)
+    protected function buildMenu(array $menuTree, $type)
     {
         $parentGenres = $menuTree[0];
         unset($menuTree[0]);
 
         return $this->twig->render(
-            'AppBundle:Elements:Header/main-menu.html.twig',
-            [
-                'parentGenres' => $parentGenres,
-                'genres'       => $menuTree,
-            ]
-        );
-    }
-
-    /**
-     * @param array $menuTree
-     *
-     * @return string
-     */
-    protected function buildSideMenu($menuTree)
-    {
-        $parentGenres = $menuTree[0];
-        unset($menuTree[0]);
-
-        return $this->twig->render(
-            'AppBundle:Elements:Header/side-menu.html.twig',
+            'AppBundle:Elements:Header/' . $type. '_menu.html.twig',
             [
                 'parentGenres' => $parentGenres,
                 'genres'       => $menuTree,
@@ -156,17 +155,7 @@ class MenuBuilder
     {
         $genres   = $this->getAllGenres();
         $menuTree = $this->buildMenuTree($genres);
-
-        switch ($type) {
-            case 'side':
-                $content = $this->buildSideMenu($menuTree);
-                break;
-            case 'main':
-                $content = $this->buildMainMenu($menuTree);
-                break;
-            default:
-                $content = '';
-        }
+        $content  = $this->buildMenu($menuTree, $type);
 
         $this->checkCacheFolder();
         $cache->write($content);
@@ -174,57 +163,41 @@ class MenuBuilder
     }
 
     /**
-     * @param string|null $cacheFilename
+     * resets cache
      */
-    protected function resetSystemCaches($cacheFilename = null)
+    protected function resetSystemCaches()
     {
-        if (is_null($cacheFilename)) {
-            $cacheFilename = $this->cacheMainFile;
-        }
-
         if (ini_get('apc.enabled')) {
-            if (apc_exists($cacheFilename) && !apc_delete_file($cacheFilename)) {
-                throw new \RuntimeException(sprintf('Failed to clear APC Cache for file %s', $cacheFilename));
+            if (apc_exists($this->cacheMainFile) && !apc_delete_file($this->cacheMainFile)) {
+                $this->throwException($this->cacheMainFile);
+            }
+            if (apc_exists($this->cacheSideFile) && !apc_delete_file($this->cacheSideFile)) {
+                $this->throwException($this->cacheSideFile);
+            }
+            if (apc_exists($this->cacheMobileFile) && !apc_delete_file($this->cacheMobileFile)) {
+                $this->throwException($this->cacheMobileFile);
             }
         } elseif (ini_get('opcache.enable')) {
-            if (!opcache_invalidate($cacheFilename, true)) {
-                throw new \RuntimeException(sprintf('Failed to clear OPCache for file %s', $cacheFilename));
+            if (!opcache_invalidate($this->cacheMainFile, true)) {
+                $this->throwException($this->cacheMainFile);
             }
-        }
-
-        if (is_null($cacheFilename)) {
-            $cacheFilename = $this->cacheSideFile;
-        }
-
-        if (ini_get('apc.enabled')) {
-            if (apc_exists($cacheFilename) && !apc_delete_file($cacheFilename)) {
-                throw new \RuntimeException(sprintf('Failed to clear APC Cache for file %s', $cacheFilename));
+            if (!opcache_invalidate($this->cacheSideFile, true)) {
+                $this->throwException($this->cacheSideFile);
             }
-        } elseif (ini_get('opcache.enable')) {
-            if (!opcache_invalidate($cacheFilename, true)) {
-                throw new \RuntimeException(sprintf('Failed to clear OPCache for file %s', $cacheFilename));
+            if (!opcache_invalidate($this->cacheMobileFile, true)) {
+                $this->throwException($this->cacheMobileFile);
             }
         }
     }
 
     /**
-     * Resets menu cache
+     * @param $file
+     *
+     * @throws \RuntimeException
      */
-    public function resetCache()
+    protected function throwException($file)
     {
-        $this->checkCacheFolder();
-
-        $finder = new Finder();
-        $finder->files()->in($this->cacheDir);
-
-        /* @var SplFileInfo $file */
-        foreach ($finder as $file) {
-            $fullPath = $file->getRealPath();
-            if (\file_exists($fullPath)) {
-                unlink($fullPath);
-            }
-            $this->resetSystemCaches($fullPath);
-        }
+        throw new \RuntimeException(sprintf('Failed to clear APC Cache for file %s', $file));
     }
 
     /**

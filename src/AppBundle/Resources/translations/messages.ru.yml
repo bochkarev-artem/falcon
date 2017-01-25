@@ -1,4 +1,5 @@
 front:
+    404_error:       Данной страницы не существует!
     index_page:
         title:            Bookary
         description:      Bookary

@@ -5,38 +5,35 @@
         <div class="kf-pagination">
             <ul class="pagination">
                 <li>
-                    {% if pagination.current != 1 %}
-                        <a href="{{ pagination_url ~ pagination.prev }}" rel="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
-                            <span aria-hidden="true">
-                                <i class="fa fa-angle-left"></i>
-                            </span>
-                            <small class="page-label">
-                                {{ 'front.pagination.previous'|trans }}
-                            </small>
-                        </a>
-                    {% endif %}
+                {% if pagination.current != 1 %}
+                    <a href="{{ pagination_url ~ pagination.prev }}" rel="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
+                        <span aria-hidden="true">
+                            <i class="fa fa-angle-left"></i>
+                        </span>
+                        <small class="page-label">
+                            {{ 'front.pagination.previous'|trans }}
+                        </small>
+                    </a>
+                {% endif %}
                 </li>
 
-                {% for page in pagination.pages %}
+                {%- for page in pagination.pages -%}
                     <li>
-                        <a class="pagination-link{% if page == pagination.current %} active{% endif %}"
-                                href="{{ pagination_url ~ page }}" rel="{{ page }}">
-                            {{ page }}
-                        </a>
+                        <a class="pagination-link{% if page == pagination.current %} active{% endif %}" href="{{ pagination_url ~ page }}" rel="{{ page }}">{{ page }}</a>
                     </li>
-                {% endfor %}
+                {%- endfor -%}
 
                 <li>
-                    {% if pagination.current != pagination.last %}
-                        <a href="{{ pagination_url ~ pagination.next }}" rel="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
-                            <span aria-hidden="true">
-                                <i class="fa fa-angle-right"></i>
-                            </span>
-                            <small class="page-label">
-                                {{ 'front.pagination.next'|trans }}
-                            </small>
-                        </a>
-                    {% endif %}
+                {% if pagination.current != pagination.last %}
+                    <a href="{{ pagination_url ~ pagination.next }}" rel="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
+                        <span aria-hidden="true">
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                        <small class="page-label">
+                            {{ 'front.pagination.next'|trans }}
+                        </small>
+                    </a>
+                {% endif %}
                 </li>
             </ul>
         </div>

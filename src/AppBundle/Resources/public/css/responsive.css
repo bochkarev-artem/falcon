@@ -285,6 +285,9 @@
 	    float: left;
 	    margin: 0;
 	}
+	.widget-categories {
+		display: none;
+	}
 	.navigation-wrap{
 		display: none;
 	}

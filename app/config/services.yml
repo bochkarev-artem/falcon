@@ -28,8 +28,6 @@ services:
 
     menu_builder:
         class: AppBundle\Service\MenuBuilder
-        tags:
-            - { name: kernel.event_listener, event: menu.cache_reset, method: resetCache }
         arguments:
             - "@doctrine.orm.default_entity_manager"
             - "@twig"

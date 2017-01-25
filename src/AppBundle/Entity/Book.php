@@ -24,7 +24,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *     }
  * )
  */
-class Book implements EntityInterface
+class Book implements PageInterface
 {
     use TimestampableTrait;
 
@@ -861,7 +861,7 @@ class Book implements EntityInterface
     /**
      * @return string
      */
-    public function getEntityPathPrefix()
+    public function getPathPrefix()
     {
         return 'book';
     }

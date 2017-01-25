@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Sequence implements EntityInterface
+class Sequence implements PageInterface
 {
     /**
      * @var int $id
@@ -176,7 +176,7 @@ class Sequence implements EntityInterface
     /**
      * @return string
      */
-    public function getEntityPathPrefix()
+    public function getPathPrefix()
     {
         return 'series';
     }
@@ -186,6 +186,6 @@ class Sequence implements EntityInterface
      */
     public function getPath()
     {
-        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+        return $this->getPathPrefix() . '/' . $this->getSlug();
     }
 }

@@ -13,12 +13,10 @@
                                 <h4>{{ 'front.genres'|trans }}</h4>
                             </li>
                             {% set childGenres = genres[parentGenre.id] %}
-                            {% spaceless %}
-                            {% for childGenre in childGenres %}
-                                {% set genreUrl = childGenre.entityPathPrefix ~ '/' ~ childGenre.slug %}
+                            {%- for childGenre in childGenres -%}
+                                {% set genreUrl = childGenre.pathPrefix ~ '/' ~ childGenre.slug %}
                                 <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
-                            {% endfor %}
-                            {% endspaceless %}
+                            {%- endfor -%}
                         </ul>
                     </div>
                     {#<div class="fetch-book2">#}

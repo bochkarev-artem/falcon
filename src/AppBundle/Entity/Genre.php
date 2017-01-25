@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Genre implements EntityInterface
+class Genre implements PageInterface
 {
     /**
      * @var int $id
@@ -258,7 +258,7 @@ class Genre implements EntityInterface
     /**
      * @return string
      */
-    public function getEntityPathPrefix()
+    public function getPathPrefix()
     {
         return 'genre';
     }
@@ -268,6 +268,6 @@ class Genre implements EntityInterface
      */
     public function getPath()
     {
-        return $this->getEntityPathPrefix() . '/' . $this->getSlug();
+        return $this->getPathPrefix() . '/' . $this->getSlug();
     }
 }

@@ -89,7 +89,7 @@
                                     <div class="featured-dec3">
                                         <figure>
                                             {% if book.cover_path %}
-                                                <img src="{{ book.cover_path|imagine_filter('book_featured_side') }}" alt=""/>
+                                                <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
                                             {% endif %}
                                         </figure>
                                         <div class="text">
@@ -136,7 +136,7 @@
                                 <div class="book-tab-dec">
                                     <figure>
                                         {% if book.cover_path %}
-                                            <img src="{{ book.cover_path|imagine_filter('book_featured_books') }}" alt=""/>
+                                            <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
                                         {% endif %}
                                     </figure>
                                     <div class="text">

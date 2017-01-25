@@ -17,12 +17,10 @@
                 <div class="accordion-content">
                     <ul class="side-meta">
                         {% set childGenres = genres[parentGenre.id] %}
-                        {% spaceless %}
-                            {% for childGenre in childGenres %}
-                                {% set genreUrl = childGenre.entityPathPrefix ~ '/' ~ childGenre.slug %}
-                                <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
-                            {% endfor %}
-                        {% endspaceless %}
+                        {%- for childGenre in childGenres -%}
+                            {% set genreUrl = childGenre.pathPrefix ~ '/' ~ childGenre.slug %}
+                            <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
+                        {%- endfor -%}
                     </ul>
                 </div>
             {% endfor %}

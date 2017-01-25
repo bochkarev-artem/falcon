@@ -332,22 +332,6 @@ class SiteController extends Controller
     /**
      * @return Response
      */
-    public function genresAction()
-    {
-        $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Genre');
-        $genres    = $genreRepo->findAll();
-
-        $seoManager = $this->get('seo_manager');
-        $seoManager->setGenresSeo();
-
-        return $this->render('AppBundle:Genre:list.html.twig', [
-            'genres' => $genres,
-        ]);
-    }
-
-    /**
-     * @return Response
-     */
     public function tagsAction()
     {
         $em   = $this->getDoctrine()->getManager();
