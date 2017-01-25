@@ -16,6 +16,7 @@ front:
     main:           Главная
     search:         Поиск
     no_results:     Нет книг
+    featured_books: Интересное
     to_book:        К книге
     genres:         Жанры
     tags:           Теги
