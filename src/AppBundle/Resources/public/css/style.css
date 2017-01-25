@@ -6015,10 +6015,7 @@ aside .widget{
 }
 .side-meta li a:before{
 	position: absolute;
-	left: 0;
-	top: 50%;
-	margin-top: -9px;
-	font-size: 12px;
+	left: 10px;
 	color: #959595;
 	content: "\f0da";
 	font-family: FontAwesome;
