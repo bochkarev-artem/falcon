@@ -159,35 +159,6 @@ class MenuBuilder
 
         $this->checkCacheFolder();
         $cache->write($content);
-        $this->resetSystemCaches();
-    }
-
-    /**
-     * resets cache
-     */
-    protected function resetSystemCaches()
-    {
-        if (ini_get('apc.enabled')) {
-            if (apc_exists($this->cacheMainFile) && !apc_delete_file($this->cacheMainFile)) {
-                $this->throwException($this->cacheMainFile);
-            }
-            if (apc_exists($this->cacheSideFile) && !apc_delete_file($this->cacheSideFile)) {
-                $this->throwException($this->cacheSideFile);
-            }
-            if (apc_exists($this->cacheMobileFile) && !apc_delete_file($this->cacheMobileFile)) {
-                $this->throwException($this->cacheMobileFile);
-            }
-        } elseif (ini_get('opcache.enable')) {
-            if (!opcache_invalidate($this->cacheMainFile, true)) {
-                $this->throwException($this->cacheMainFile);
-            }
-            if (!opcache_invalidate($this->cacheSideFile, true)) {
-                $this->throwException($this->cacheSideFile);
-            }
-            if (!opcache_invalidate($this->cacheMobileFile, true)) {
-                $this->throwException($this->cacheMobileFile);
-            }
-        }
     }
 
     /**
