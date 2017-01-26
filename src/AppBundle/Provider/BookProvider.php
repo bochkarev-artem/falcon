@@ -105,7 +105,6 @@ class BookProvider implements ProviderInterface
             'filename'          => $book->getFilename(),
             'has_trial'         => $book->isHasTrial(),
             'reader'            => $book->getReader(),
-            'date'              => $book->getDate(),
             'lang'              => $book->getLang(),
             'sequence_number'   => $book->getSequenceNumber(),
             'litres_id'         => $book->getLitresHubId(),
@@ -117,6 +116,10 @@ class BookProvider implements ProviderInterface
             'review_count'      => $book->getReviewCount(),
             'path'              => $book->getPath(),
         ];
+
+        if ($book->getDate()) {
+            $bookData['date'] = $book->getDate()->format('Y-m-d');
+        }
 
         $bookData = $this->collectAuthorsData($book, $bookData);
         $bookData = $this->collectTagsData($book, $bookData);

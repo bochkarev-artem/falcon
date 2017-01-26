@@ -13,6 +13,14 @@ front:
         title:       Bookary
         description: Bookary
         keywords:    Bookary
+    search_page:
+        title:       Поиск
+        description: Поиск
+        keywords:    Поиск
+    new_books_page:
+        title:       Новые книги
+        description: Новые книги
+        keywords:    Новые книги
     main:           Главная
     search:         Поиск
     new:            Новинка
@@ -22,6 +30,7 @@ front:
     to_book:        К книге
     genres:         Жанры
     tags:           Теги
+    new_books:      Новые книги
     popular:        Популярное
     more:           Еще...
     open_menu:      Открыть меню

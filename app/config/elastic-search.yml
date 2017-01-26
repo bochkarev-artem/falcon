@@ -47,7 +47,7 @@ fos_elastica:
                         filename:             { type: string }
                         has_trial:            { type: boolean }
                         reader:               { type: string }
-                        date:                 { type: string }
+                        date:                 { type: date, format: "yyyy-MM-dd" }
                         lang:                 { type: string }
                         sequence_number:      { type: integer }
                         litres_id:            { type: integer }

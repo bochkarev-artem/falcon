@@ -64,10 +64,19 @@ class SeoManager
     public function setSearchSeo()
     {
         $seoData = new SeoData();
-        $seoData->setTitle($this->translator->trans('front.search'));
-        $seoData->setMetaDescription($this->translator->trans('front.search'));
-        $seoData->setMetaKeywords($this->translator->trans('front.search'));
+        $seoData->setTitle($this->translator->trans('front.search_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.search_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.search_page.keywords'));
         $seoData->setIndexPage(false);
+        $this->setSeoData($seoData);
+    }
+
+    public function setNewBooksSeo()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.new_books_page.keywords'));
+        $seoData->setMetaDescription($this->translator->trans('front.new_books_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.new_books_page.keywords'));
         $this->setSeoData($seoData);
     }
 
