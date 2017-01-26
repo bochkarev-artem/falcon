@@ -324,8 +324,9 @@ class SiteController extends Controller
         $seoManager->setBookSeo($book);
 
         return $this->render('AppBundle:Book:show.html.twig', [
-            'book'        => $book,
-            'breadcrumbs' => $seoManager->buildBreadcrumbs($book)
+            'book'             => $book,
+            'showGenresInMenu' => true,
+            'breadcrumbs'      => $seoManager->buildBreadcrumbs($book)
         ]);
     }
 

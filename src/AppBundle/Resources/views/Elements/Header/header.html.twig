@@ -111,7 +111,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-9">
-                    {{ main_menu()|raw }}
+                    {% if showGenresInMenu is defined and showGenresInMenu %}
+                        {{ main_menu()|raw }}
+                    {% endif %}
                     <!--NAVIGATION DEC START-->
                     <ul class="nav-dec">
                         <li><a href="{{ path('site_index') }}">{{ 'front.main'|trans }}</a></li>
