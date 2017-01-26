@@ -6,7 +6,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Author;
-use AppBundle\Entity\EntityInterface;
+use AppBundle\Entity\PageInterface;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
@@ -141,7 +141,7 @@ class SeoManager
     }
 
     /**
-     * @param EntityInterface|array $entity
+     * @param PageInterface|array $entity
      *
      * @return array
      */

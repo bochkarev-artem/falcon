@@ -300,12 +300,11 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param integer $id
      *
      * @return Response
      */
-    public function showBookAction(Request $request, $id)
+    public function showBookAction($id)
     {
         $queryParams = new QueryParams();
         $queryParams->setFilterId($id);
