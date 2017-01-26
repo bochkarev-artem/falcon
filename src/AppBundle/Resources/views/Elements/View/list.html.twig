@@ -8,14 +8,20 @@
                 <div class="list-style-dec list-style-dec2">
                     <div class="blog-thumb">
                         {% if book.cover_path is defined %}
-                            <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="">
+                            <figure>
+                                <a href="/{{ book.path }}">
+                                    <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="">
+                                </a>
+                                {% if book.type == constant('AppBundle\\Entity\\Book::AUDIO_BOOK') %}
+                                    <figcaption class="ribbon-wrap">
+                                        <span class="ribbon new">{{ 'front.audiobook'|trans }}</span>
+                                    </figcaption>
+                                {% endif %}
+                            </figure>
                             <div class="blog-thumb-dec">
                                 <a href="/{{ book.path }}"><i class="fa fa-book"></i></a>
                             </div>
                         {% endif %}
-                        {#<div class="ribbon-wrap">#}
-                            {#<span class="ribbon">{{ 'front.new'|trans }}</span>#}
-                        {#</div>#}
                     </div>
                     <div class="text">
                         <div class="blog1-hd">
