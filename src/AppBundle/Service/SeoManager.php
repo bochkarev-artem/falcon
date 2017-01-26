@@ -6,7 +6,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Author;
-use AppBundle\Entity\EntityInterface;
+use AppBundle\Entity\PageInterface;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
@@ -64,10 +64,19 @@ class SeoManager
     public function setSearchSeo()
     {
         $seoData = new SeoData();
-        $seoData->setTitle($this->translator->trans('front.search'));
-        $seoData->setMetaDescription($this->translator->trans('front.search'));
-        $seoData->setMetaKeywords($this->translator->trans('front.search'));
+        $seoData->setTitle($this->translator->trans('front.search_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.search_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.search_page.keywords'));
         $seoData->setIndexPage(false);
+        $this->setSeoData($seoData);
+    }
+
+    public function setNewBooksSeo()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.new_books_page.keywords'));
+        $seoData->setMetaDescription($this->translator->trans('front.new_books_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.new_books_page.keywords'));
         $this->setSeoData($seoData);
     }
 
@@ -141,7 +150,7 @@ class SeoManager
     }
 
     /**
-     * @param EntityInterface|array $entity
+     * @param PageInterface|array $entity
      *
      * @return array
      */

@@ -7,6 +7,9 @@ namespace AppBundle\Model;
 
 class QueryParams
 {
+    const SORT_DATE_DESC         = 1;
+    const SORT_DATE_PUBLISH_DESC = 2;
+
     /**
      * @var int
      */
@@ -51,6 +54,11 @@ class QueryParams
      * @var string
      */
     private $searchQuery;
+
+    /**
+     * @var integer
+     */
+    private $sort;
 
     /**
      * Initialize fields
@@ -246,6 +254,26 @@ class QueryParams
     public function setPage($page)
     {
         $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSort()
+    {
+        return $this->sort;
+    }
+
+    /**
+     * @param int $sort
+     *
+     * @return QueryParams
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
 
         return $this;
     }

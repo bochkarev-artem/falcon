@@ -398,13 +398,18 @@ class LitresService
                     ->setTitle(substr((string) $titleInfo->{'book-title'}, 0, 254))
                     ->setAnnotation($annotation)
                     ->setLang((string) $titleInfo->lang)
-                    ->setDate((string) $titleInfo->date['value'])
                     ->setDocumentId((string) $documentInfo->id)
                     ->setPublisher((string) $publishInfo->publisher)
                     ->setYearPublished((string) $publishInfo->year)
                     ->setCityPublished((string) $publishInfo->city)
                     ->setIsbn((string) $publishInfo->isbn)
                 ;
+
+                $date = (string) $titleInfo->date['value'];
+                if ($date && $date != '0000-00-00') {
+                    $date = new \DateTime($date);
+                    $book->setDate($date);
+                }
 
                 $this->em->persist($book);
                 if ($this->debug) {

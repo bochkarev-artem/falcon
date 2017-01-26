@@ -39,7 +39,6 @@ class SiteController extends Controller
 
         $data = array_merge($data, [
             'show_author'    => true,
-            'show_genre'     => true,
             'query'          => $query,
             'pagination_url' => $this->generateUrl('search') . '/page/',
         ]);
@@ -51,9 +50,45 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setSearchSeo();
 
-        $response = $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+    }
 
-        return $response;
+    /**
+     * @param integer $page
+     * @param Request $request
+     *
+     * @return Response|JsonResponse
+     */
+    public function newBooksAction($page = 1, Request $request)
+    {
+        $defaultPerPage = $this->getParameter('default_per_page');
+
+        $queryParams = new QueryParams();
+        $queryParams
+            ->setSort(QueryParams::SORT_DATE_DESC)
+            ->setPage($page)
+            ->setSize($defaultPerPage)
+            ->setStart($queryParams->getOffset())
+        ;
+
+        $data = $this->prepareViewData($request, $queryParams, [
+            'page'     => $page,
+            'per_page' => $defaultPerPage,
+        ]);
+
+        $data = array_merge($data, [
+            'show_author'    => true,
+            'pagination_url' => $this->generateUrl('new_books') . '/page/',
+        ]);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->prepareJsonResponse($data);
+        }
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setNewBooksSeo();
+
+        return $this->render('AppBundle:Site:list_page.html.twig', $data);
     }
 
     /**
@@ -257,15 +292,13 @@ class SiteController extends Controller
         $books        = $queryResult->getResults();
         $pagination   = new Pagination($page, $perPage);
 
-        $data = [
+        return [
             'books'       => $books,
             'page'        => $page,
             'view'        => $view,
             'current_url' => $request->getPathInfo(),
             'pagination'  => $pagination->paginate($queryResult->getTotalHits()),
         ];
-
-        return $data;
     }
 
     /**
@@ -300,12 +333,11 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param integer $id
      *
      * @return Response
      */
-    public function showBookAction(Request $request, $id)
+    public function showBookAction($id)
     {
         $queryParams = new QueryParams();
         $queryParams->setFilterId($id);
@@ -323,7 +355,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setBookSeo($book);
 
-        return $this->render('AppBundle:Book:show.html.twig', [
+        return $this->render('AppBundle:Site:book.html.twig', [
             'book'             => $book,
             'showGenresInMenu' => true,
             'breadcrumbs'      => $seoManager->buildBreadcrumbs($book)
@@ -352,7 +384,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setTagsSeo();
 
-        return $this->render('AppBundle:Tag:list.html.twig', [
+        return $this->render('AppBundle:Site:tags.html.twig', [
             'tags' => $tags,
         ]);
     }

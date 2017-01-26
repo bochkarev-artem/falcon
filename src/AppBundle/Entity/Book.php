@@ -183,9 +183,9 @@ class Book implements PageInterface
     private $annotation;
 
     /**
-     * @var string $date
+     * @var \DateTime $date
      *
-     * @ORM\Column(name="date", type="string", nullable=true)
+     * @ORM\Column(name="date", type="date", nullable=true)
      */
     private $date;
 
@@ -260,6 +260,7 @@ class Book implements PageInterface
         $this->authors = new ArrayCollection();
         $this->genres  = new ArrayCollection();
         $this->tags    = new ArrayCollection();
+        $this->date    = null;
     }
 
     /**
@@ -447,7 +448,7 @@ class Book implements PageInterface
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -455,7 +456,7 @@ class Book implements PageInterface
     }
 
     /**
-     * @param string $date
+     * @param \DateTime $date
      *
      * @return Book
      */

@@ -25,6 +25,7 @@ site_index:
     defaults: { _controller: AppBundle:Home:index }
     options:
         sitemap: true
+
 search:
     path: /search
     defaults: { _controller: AppBundle:Site:search }
@@ -32,6 +33,14 @@ search:
 search_with_page:
     path: /search/page/{page}
     defaults: { _controller: AppBundle:Site:search }
+
+new_books:
+    path: /new-books
+    defaults: { _controller: AppBundle:Site:newBooks }
+
+new_books_with_page:
+    path: /new-books/page/{page}
+    defaults: { _controller: AppBundle:Site:newBooks }
 
 tags:
     path: /tags

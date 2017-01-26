@@ -288,6 +288,9 @@
 	.widget-categories {
 		display: none;
 	}
+	.nav-tabs {
+		display: none !important;
+	}
 	.navigation-wrap{
 		display: none;
 	}

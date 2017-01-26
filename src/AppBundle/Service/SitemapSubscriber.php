@@ -5,7 +5,7 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\EntityInterface;
+use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
@@ -61,7 +61,7 @@ class SitemapSubscriber implements EventSubscriberInterface
         foreach ($queryBuilders as $section => $queryBuilder) {
             if (is_null($event->getSection()) || $event->getSection() == $section) {
                 foreach ($queryBuilder->getQuery()->iterate() as $row) {
-                    /** @var EntityInterface $entity */
+                    /** @var PageInterface $entity */
                     $entity = array_shift($row);
                     $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), $section);
                 }
