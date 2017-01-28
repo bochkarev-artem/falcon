@@ -388,4 +388,15 @@ class SiteController extends Controller
             'tags' => $tags,
         ]);
     }
+
+    /**
+     * @return Response
+     */
+    public function searchPageAction()
+    {
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setSearchSeo();
+
+        return $this->render('AppBundle:Site:search.html.twig');
+    }
 }
