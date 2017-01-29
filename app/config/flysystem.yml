@@ -14,7 +14,7 @@ oneup_flysystem:
     adapters:
         local_upload_adapter:
             local:
-                directory: "%kernel.root_dir%/../web"
+                directory: "%kernel.root_dir%/../../falcon-images"
         s3_upload_adapter:
             awss3v3:
                 client: aws.s3_client

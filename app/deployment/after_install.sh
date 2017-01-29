@@ -8,4 +8,5 @@ HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]gin
 sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var web/media
 sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var web/media
 php bin/console doctrine:migrations:migrate
-php bin/console presta:sitemaps:dump --gzip
+cd ./web
+ln -s images ../../falcon-images/images
