@@ -21,29 +21,31 @@ front:
         title:       Новые книги
         description: Новые книги
         keywords:    Новые книги
-    main:           Главная
-    search:         Поиск
-    year:           Год
-    new:            Новинка
-    audiobook:      Аудио
-    no_results:     Нет книг
-    featured_books: Интересное
-    to_book:        К книге
-    genres:         Жанры
-    tags:           Теги
-    new_books:      Новые книги
-    popular:        Популярное
-    more:           Еще...
-    open_menu:      Открыть меню
-    register:       Регистрация
-    sign_in:        Вход
-    login:          Вход
-    email:          Email
-    password:       Пароль
-    forgot_pass:    Забыли пароль?
-    related_books:  Похожие книги
-    author_related: Книги автора
-    author:         Автор
+    main:               Главная
+    search:             Поиск
+    year:               Год
+    new:                Новинка
+    audiobook:          Аудио
+    no_results:         Нет книг
+    featured_books:     Интересное
+    to_book:            К книге
+    genres:             Жанры
+    tags:               Теги
+    new_books:          Новые книги
+    popular:            Популярное
+    more:               Еще...
+    open_menu:          Открыть меню
+    register:           Регистрация
+    sign_in:            Вход
+    login:              Вход
+    email:              Email
+    password:           Пароль
+    forgot_pass:        Забыли пароль?
+    related_books:      Похожие книги
+    author_related:     Книги автора
+    featured_menu_book: Интересное
+    read:               Читать
+    author:             Автор
     book:
         type_0:     Электронная книга
         type_1:     Аудиокнига

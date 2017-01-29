@@ -9,6 +9,8 @@ use AppBundle\Model\QueryParams;
 
 class HomePageService
 {
+    const FEATURED_HOME_COUNT = 9;
+
     /**
      * @var QueryService
      */
@@ -23,14 +25,15 @@ class HomePageService
     }
 
     /**
-     * @param array $bookIds
-     *
      * @return array
      */
-    public function getFeaturedBooks($bookIds)
+    public function getFeaturedBooks()
     {
         $queryParams = new QueryParams();
-        $queryParams->setFilterId($bookIds);
+        $queryParams
+            ->setFilterFeaturedHome()
+            ->setSize(self::FEATURED_HOME_COUNT)
+        ;
 
         $queryResult = $this->queryService->query($queryParams);
         $books       = $queryResult->getResults();

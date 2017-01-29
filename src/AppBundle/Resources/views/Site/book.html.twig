@@ -51,14 +51,16 @@
                                                     </li>
                                                 </ul>
                                             {% endif %}
-                                            <ul class="book-tags">
-                                                <li><span>{{ 'front.genres'|trans }}:</span></li>
-                                                <li>
-                                                    {% for genre in book.genres %}
-                                                        <a href="/{{ genre.path }}">{{ genre.title }}</a>
-                                                    {% endfor %}
-                                                </li>
-                                            </ul>
+                                            {% if book.genres|length > 0 %}
+                                                <ul class="book-tags">
+                                                    <li><span>{{ 'front.genres'|trans }}:</span></li>
+                                                    <li>
+                                                        {% for genre in book.genres %}
+                                                            <a href="/{{ genre.path }}">{{ genre.title }}</a>
+                                                        {% endfor %}
+                                                    </li>
+                                                </ul>
+                                            {% endif %}
                                             {% if book.date is defined %}
                                                 <ul class="book-tags">
                                                     <li><span>{{ 'front.year'|trans }}:</span></li>

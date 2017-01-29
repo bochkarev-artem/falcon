@@ -101,7 +101,8 @@ class QueryService
      * @param QueryParams     $queryParams
      * @param Query\BoolQuery $boolQuery
      */
-    private function applyFilters(QueryParams $queryParams, Query\BoolQuery $boolQuery) {
+    private function applyFilters(QueryParams $queryParams, Query\BoolQuery $boolQuery)
+    {
         if ($queryParams->getFilterId()) {
             $this->applyIdFilter($queryParams, $boolQuery);
         }
@@ -128,6 +129,14 @@ class QueryService
 
         if ($queryParams->getFilterSequences()) {
             $this->applySequenceFilter($queryParams, $boolQuery);
+        }
+
+        if ($queryParams->isFilterFeaturedHome()) {
+            $this->applyFeaturedHomeFilter($boolQuery);
+        }
+
+        if ($queryParams->isFilterFeaturedMenu()) {
+            $this->applyFeaturedMenuFilter($boolQuery);
         }
     }
 
@@ -205,6 +214,22 @@ class QueryService
         ;
 
         $query->addMust($queryTerm);
+    }
+
+    /**
+     * @param Query\BoolQuery $query
+     */
+    private function applyFeaturedHomeFilter(Query\BoolQuery $query)
+    {
+        $query->addMust(new Query\Term(['featured_home' => true]));
+    }
+
+    /**
+     * @param Query\BoolQuery $query
+     */
+    private function applyFeaturedMenuFilter(Query\BoolQuery $query)
+    {
+        $query->addMust(new Query\Term(['featured_menu' => true]));
     }
 
     /**

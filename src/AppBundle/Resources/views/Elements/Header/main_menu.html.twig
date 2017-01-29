@@ -5,7 +5,6 @@
     <ul class="categories-ul">
         {% for parentGenre in parentGenres %}
             <li><a href="#"><i class="fa fa-book"></i>{{ parentGenre.title }}</a>
-                <!--MEGA MENU START-->
                 <div class="mega-menu1">
                     <div class="fetch-bookmeta">
                         <ul>
@@ -19,25 +18,27 @@
                             {%- endfor -%}
                         </ul>
                     </div>
-                    {#<div class="fetch-book2">#}
-                        {#<h4>Featured BOOK</h4>#}
-                        {#<figure>#}
-                            {#<img src="{{ asset('compiled/images/extra-images/featured-4.jpg') }}" alt="">#}
-                            {#<figcaption>#}
-                                {#<span class="pricelable">#}
-                                    {#Genre#}
-                                {#</span>#}
-                            {#</figcaption>#}
-                        {#</figure>#}
-                        {#<div class="text">#}
-                            {#<h6>He LIE TREE</h6>#}
-                            {#<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laud rem.</p>#}
-                            {#<a class="btn-1" href="#">read more</a>#}
-                            {#<a class="btn-1 active" href="#">purchase</a>#}
-                        {#</div>#}
-                    {#</div>#}
+                    {% if menu_genre_books and menu_genre_books[parentGenre.id] is defined %}
+                        {% set menu_book = menu_genre_books[parentGenre.id] %}
+                        <div class="fetch-book2">
+                            <h4>{{ 'front.featured_menu_book'|trans }}</h4>
+                            <figure>
+                                {% if menu_book.cover_path %}
+                                    <a href="{{ menu_book.path }}">
+                                        <img src="{{ menu_book.cover_path|imagine_filter('book_list') }}" alt="{{ menu_book.title }}">
+                                    </a>
+                                {% endif %}
+                            </figure>
+                            <div class="text">
+                                <h6>
+                                    <a href="/{{ menu_book.path }}">{{ menu_book.title }}</a>
+                                </h6>
+                                <p>{{ menu_book.annotation|striptags|truncate(320) }}</p>
+                                <a class="btn-1" href="/{{ menu_book.path }}">{{ 'front.read'|trans }}</a>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-                <!--MEGA MENU END-->
             </li>
         {% endfor %}
     </ul>
