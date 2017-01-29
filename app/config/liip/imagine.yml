@@ -15,7 +15,7 @@ liip_imagine:
         local_upload:
             flysystem:
                 filesystem_service: oneup_flysystem.local_upload_filesystem
-                cache_prefix:       "media/cache"
+                cache_prefix:       "images"
                 root_url:           "/"
 
     filter_sets:
