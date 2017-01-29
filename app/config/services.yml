@@ -10,6 +10,16 @@ services:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
 
+    book_page_service:
+        class: AppBundle\Service\BookPageService
+        arguments:
+          - "@query_service"
+
+    home_page_service:
+        class: AppBundle\Service\HomePageService
+        arguments:
+          - "@query_service"
+
     image_upload_service:
         class: AppBundle\Service\ImageUploadService
         arguments:
@@ -32,6 +42,7 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - "@twig"
             - "%kernel.cache_dir%"
+            - "@query_service"
         lazy: true
 
     seo_manager:

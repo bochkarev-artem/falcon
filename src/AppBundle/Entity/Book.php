@@ -28,17 +28,17 @@ class Book implements PageInterface
 {
     use TimestampableTrait;
 
-    const ELECTRONIC_BOOK      = 0;
-    const AUDIO_BOOK           = 1;
-    const MULTIMEDIA_BOOK      = 2;
-    const READER               = 3;
-    const PDF_BOOK             = 4;
-    const PRINT_ON_DEMAND_BOOK = 5;
-    const DB                   = 6;
-    const VIDEO                = 7;
-    const GAME                 = 8;
-    const SOFT                 = 9;
-    const ADOBE_DRM            = 11;
+    const TYPE_ELECTRONIC      = 0;
+    const TYPE_AUDIO           = 1;
+    const TYPE_MULTIMEDIA      = 2;
+    const TYPE_READER          = 3;
+    const TYPE_PDF             = 4;
+    const TYPE_PRINT_ON_DEMAND = 5;
+    const TYPE_DB              = 6;
+    const TYPE_VIDEO           = 7;
+    const TYPE_GAME            = 8;
+    const TYPE_SOFT            = 9;
+    const TYPE_ADOBE_DRM       = 11;
 
     /**
      * @var integer $id
@@ -111,6 +111,20 @@ class Book implements PageInterface
      * @ORM\Column(name="has_trial", type="boolean", nullable=true)
      */
     private $hasTrial;
+
+    /**
+     * @var boolean $featuredHome
+     *
+     * @ORM\Column(name="featured_home", type="boolean", nullable=true)
+     */
+    private $featuredHome;
+
+    /**
+     * @var boolean $featuredMenu
+     *
+     * @ORM\Column(name="featured_menu", type="boolean", nullable=true)
+     */
+    private $featuredMenu;
 
     /**
      * @var string $reader
@@ -257,10 +271,12 @@ class Book implements PageInterface
      */
     public function __construct()
     {
-        $this->authors = new ArrayCollection();
-        $this->genres  = new ArrayCollection();
-        $this->tags    = new ArrayCollection();
-        $this->date    = null;
+        $this->authors      = new ArrayCollection();
+        $this->genres       = new ArrayCollection();
+        $this->tags         = new ArrayCollection();
+        $this->date         = null;
+        $this->featuredHome = false;
+        $this->featuredMenu = false;
     }
 
     /**
@@ -839,6 +855,46 @@ class Book implements PageInterface
     public function setSequenceNumber($sequenceNumber)
     {
         $this->sequenceNumber = $sequenceNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFeaturedHome()
+    {
+        return $this->featuredHome;
+    }
+
+    /**
+     * @param bool $featuredHome
+     *
+     * @return Book
+     */
+    public function setFeaturedHome($featuredHome)
+    {
+        $this->featuredHome = $featuredHome;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFeaturedMenu()
+    {
+        return $this->featuredMenu;
+    }
+
+    /**
+     * @param bool $featuredMenu
+     *
+     * @return Book
+     */
+    public function setFeaturedMenu($featuredMenu)
+    {
+        $this->featuredMenu = $featuredMenu;
 
         return $this;
     }

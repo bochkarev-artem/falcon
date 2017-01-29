@@ -1,0 +1,28 @@
+{% if aside_featured_books is defined and aside_featured_books %}
+    <div class="widget widget-featured">
+        <div class="aside-widget-hd">
+            <h4>{{ 'front.author_related'|trans }}</h4>
+        </div>
+        <div class="widget-padding">
+            {% for aside_featured_book in aside_featured_books %}
+                <div class="featured-dec3">
+                    <figure>
+                        {% if aside_featured_book.cover_path %}
+                            <a href="/{{ aside_featured_book.path }}">
+                                <img src="{{ aside_featured_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                            </a>
+                        {% endif %}
+                    </figure>
+                    <div class="text">
+                        {% if aside_featured_book.authors|length > 0 %}
+                            <ul>
+                                <li><a href="/{{ aside_featured_book.authors[0].path }}">{{ aside_featured_book.authors[0].short_name }}</a></li>
+                            </ul>
+                        {% endif %}
+                        <a href="/{{ aside_featured_book.path }}">{{ aside_featured_book.title }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

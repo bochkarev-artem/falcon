@@ -11,7 +11,7 @@ class QueryParams
     const SORT_DATE_PUBLISH_DESC = 2;
 
     /**
-     * @var int
+     * @var int|array
      */
     private $filterId;
 
@@ -51,9 +51,29 @@ class QueryParams
     private $filterSequences;
 
     /**
+     * @var int|array
+     */
+    private $filterExcludeBooks;
+
+    /**
+     * @var int|array
+     */
+    private $filterExcludeAuthors;
+
+    /**
      * @var string
      */
     private $searchQuery;
+
+    /**
+     * @var boolean
+     */
+    private $filterFeaturedHome;
+
+    /**
+     * @var boolean
+     */
+    private $filterFeaturedMenu;
 
     /**
      * @var integer
@@ -79,7 +99,7 @@ class QueryParams
     }
 
     /**
-     * @return int
+     * @return int|array
      */
     public function getFilterId()
     {
@@ -87,7 +107,7 @@ class QueryParams
     }
 
     /**
-     * @param int $filterId
+     * @param int|array $filterId
      *
      * @return QueryParams
      */
@@ -199,6 +219,46 @@ class QueryParams
     }
 
     /**
+     * @return array|int
+     */
+    public function getFilterExcludeBooks()
+    {
+        return $this->filterExcludeBooks;
+    }
+
+    /**
+     * @param array|int $filterExcludeBooks
+     *
+     * @return QueryParams
+     */
+    public function setFilterExcludeBooks($filterExcludeBooks)
+    {
+        $this->filterExcludeBooks = $filterExcludeBooks;
+
+        return $this;
+    }
+
+    /**
+     * @return array|int
+     */
+    public function getFilterExcludeAuthors()
+    {
+        return $this->filterExcludeAuthors;
+    }
+
+    /**
+     * @param array|int $filterExcludeAuthors
+     *
+     * @return QueryParams
+     */
+    public function setFilterExcludeAuthors($filterExcludeAuthors)
+    {
+        $this->filterExcludeAuthors = $filterExcludeAuthors;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getSize()
@@ -274,6 +334,42 @@ class QueryParams
     public function setSort($sort)
     {
         $this->sort = $sort;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFilterFeaturedHome()
+    {
+        return $this->filterFeaturedHome;
+    }
+
+    /**
+     * @return QueryParams
+     */
+    public function setFilterFeaturedHome()
+    {
+        $this->filterFeaturedHome = true;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFilterFeaturedMenu()
+    {
+        return $this->filterFeaturedMenu;
+    }
+
+    /**
+     * @return QueryParams
+     */
+    public function setFilterFeaturedMenu()
+    {
+        $this->filterFeaturedMenu = true;
 
         return $this;
     }

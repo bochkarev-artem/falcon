@@ -104,6 +104,8 @@ class BookProvider implements ProviderInterface
             'price'             => $book->getPrice(),
             'filename'          => $book->getFilename(),
             'has_trial'         => $book->isHasTrial(),
+            'featured_home'     => $book->isFeaturedHome(),
+            'featured_menu'     => $book->isFeaturedMenu(),
             'reader'            => $book->getReader(),
             'lang'              => $book->getLang(),
             'sequence_number'   => $book->getSequenceNumber(),
@@ -116,6 +118,13 @@ class BookProvider implements ProviderInterface
             'review_count'      => $book->getReviewCount(),
             'path'              => $book->getPath(),
         ];
+
+        if ($book->isFeaturedMenu() && $book->getGenres()) {
+            /** @var Genre $genre */
+            $genre   = $book->getGenres()->first();
+            $genreId = $genre->getParent()->getId();
+            $bookData['featured_menu_genre'] = $genreId;
+        }
 
         if ($book->getDate()) {
             $bookData['date'] = $book->getDate()->format('Y-m-d');

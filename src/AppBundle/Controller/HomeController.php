@@ -6,7 +6,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -16,17 +15,17 @@ use Symfony\Component\HttpFoundation\Response;
 class HomeController extends Controller
 {
     /**
-     * @param Request $request
-     *
      * @return Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        $seoManager = $this->get('seo_manager');
+        $homePageService = $this->get('home_page_service');
+        $seoManager      = $this->get('seo_manager');
         $seoManager->setIndexSeo();
 
         return $this->render('AppBundle:Home:index.html.twig', [
-            'showGenresInMenu' => true,
+            'show_genres_in_menu' => true,
+            'featured_books'      => $homePageService->getFeaturedBooks()
         ]);
     }
 }

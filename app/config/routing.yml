@@ -45,3 +45,7 @@ new_books_with_page:
 tags:
     path: /tags
     defaults: { _controller: AppBundle:Site:tags }
+
+search_page:
+    path: /search-page
+    defaults: { _controller: AppBundle:Site:searchPage }

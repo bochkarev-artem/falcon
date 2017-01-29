@@ -6,6 +6,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Genre;
+use AppBundle\Model\QueryParams;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Config\ConfigCache;
 
@@ -35,20 +36,28 @@ class MenuBuilder
      * @var string
      */
     protected $cacheSideFile;
+
     /**
      * @var string
      */
     protected $cacheMobileFile;
 
     /**
+     * @var QueryService
+     */
+    protected $queryService;
+
+    /**
      * @param EntityManager     $em
      * @param \Twig_Environment $twig
      * @param string            $cacheDir
+     * @param QueryService      $queryService
      */
-    public function __construct(EntityManager $em, \Twig_Environment $twig, $cacheDir)
+    public function __construct(EntityManager $em, \Twig_Environment $twig, $cacheDir, QueryService $queryService)
     {
         $this->em              = $em;
         $this->twig            = $twig;
+        $this->queryService    = $queryService;
         $cacheDir              = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
         $this->cacheDir        = $cacheDir . '/menuCache';
         $this->cacheMainFile   = $this->cacheDir . '/mainMenu.html';
@@ -119,12 +128,35 @@ class MenuBuilder
         $parentGenres = $menuTree[0];
         unset($menuTree[0]);
 
+        $data = [
+            'parentGenres' => $parentGenres,
+            'genres'       => $menuTree,
+        ];
+
+        $additionalData = [];
+        if ($type == 'main') {
+            $queryParams = new QueryParams();
+            $queryParams
+                ->setFilterFeaturedMenu()
+                ->setSize(100)
+            ;
+
+            $queryResult = $this->queryService->query($queryParams);
+            $books       = $queryResult->getResults();
+
+            $menuGenreBooks = [];
+            foreach ($books as $book) {
+                $book    = $book->getSource();
+                $genreId = $book['featured_menu_genre'];
+                $menuGenreBooks[$genreId] = $book;
+            }
+
+            $additionalData['menu_genre_books'] = $menuGenreBooks;
+        }
+
         return $this->twig->render(
             'AppBundle:Elements:Header/' . $type. '_menu.html.twig',
-            [
-                'parentGenres' => $parentGenres,
-                'genres'       => $menuTree,
-            ]
+            array_merge($data, $additionalData)
         );
     }
 

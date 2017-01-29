@@ -52,9 +52,10 @@ class BookAdmin extends AbstractAdmin
                 'translation_domain' => 'AdminBundle',
             ])
             ->add('hasTrial')
+            ->add('featuredHome')
+            ->add('featuredMenu')
             ->add('reader')
             ->add('annotation')
-            ->add('date')
             ->add('lang')
             ->add('publisher')
             ->add('cityPublished')
@@ -173,17 +174,17 @@ class BookAdmin extends AbstractAdmin
     protected function getBookTypeChoices()
     {
         return [
-            'choice.book0'  => Book::ELECTRONIC_BOOK,
-            'choice.book1'  => Book::AUDIO_BOOK,
-            'choice.book2'  => Book::MULTIMEDIA_BOOK,
-            'choice.book3'  => Book::READER,
-            'choice.book4'  => Book::PDF_BOOK,
-            'choice.book5'  => Book::PRINT_ON_DEMAND_BOOK,
-            'choice.book6'  => Book::DB,
-            'choice.book7'  => Book::VIDEO,
-            'choice.book8'  => Book::GAME,
-            'choice.book9'  => Book::SOFT,
-            'choice.book11' => Book::ADOBE_DRM,
+            'choice.book0'  => Book::TYPE_ELECTRONIC,
+            'choice.book1'  => Book::TYPE_AUDIO,
+            'choice.book2'  => Book::TYPE_MULTIMEDIA,
+            'choice.book3'  => Book::TYPE_READER,
+            'choice.book4'  => Book::TYPE_PDF,
+            'choice.book5'  => Book::TYPE_PRINT_ON_DEMAND,
+            'choice.book6'  => Book::TYPE_DB,
+            'choice.book7'  => Book::TYPE_VIDEO,
+            'choice.book8'  => Book::TYPE_GAME,
+            'choice.book9'  => Book::TYPE_SOFT,
+            'choice.book11' => Book::TYPE_ADOBE_DRM,
         ];
     }
 

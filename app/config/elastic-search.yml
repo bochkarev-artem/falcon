@@ -46,6 +46,9 @@ fos_elastica:
                         price:                { type: float }
                         filename:             { type: string }
                         has_trial:            { type: boolean }
+                        featured_home:        { type: boolean }
+                        featured_menu:        { type: boolean }
+                        featured_menu_genre:  { type: integer }
                         reader:               { type: string }
                         date:                 { type: date, format: "yyyy-MM-dd" }
                         lang:                 { type: string }
