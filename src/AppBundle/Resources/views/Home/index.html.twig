@@ -7,31 +7,45 @@
         <div class="container">
             <!--HEADING 1 START-->
             <div class="heading-1">
-                <h2>Featured BOOKS</h2>
+                <h2>{{ 'front.featured_books'|trans }}</h2>
                 <span>Lorem ipsum dolor sit consectetuer</span>
             </div>
             <!--HEADING 1 END-->
             <div class="featured-slider">
                 <div class="row">
                     <div id="owl-demo-featured" class="owl-carousel owl-theme">
-                        <!--FEATURED DEC START-->
-                        <div class="item">
-                            <div class="featured-dec">
-                                <figure>
-                                    <img src="" alt=""/>
-                                </figure>
-                                <div class="text">
-                                    <div class="text-dec">
-                                        <ul class="tags-2">
-                                            <li>Category : <a href="#">FICTION</a></li>
-                                        </ul>
-                                        <h5><a href="#">ARGO</a></h5>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy.</p>
+                        {% for featured_book in featured_books %}
+                            <!--FEATURED DEC START-->
+                            <div class="item">
+                                <div class="featured-dec">
+                                    {% if featured_book.cover_path %}
+                                        <figure>
+                                            <a href="/{{ featured_book.path }}">
+                                                <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                            </a>
+                                        </figure>
+                                    {% endif %}
+                                    <div class="text">
+                                        <div class="text-dec">
+                                            {% if featured_book.genres %}
+                                                {% set genre = featured_book.genres|first %}
+                                                <ul class="tags-2">
+                                                    <li><a href="/{{ genre.path }}">{{ genre.title }}</a></li>
+                                                </ul>
+                                            {% endif %}
+                                            {% if featured_book.authors %}
+                                                {% set author = featured_book.authors|first %}
+                                                <ul class="tags-2">
+                                                    <li><a href="/{{ author.path }}">{{ author.short_name }}</a></li>
+                                                </ul>
+                                            {% endif %}
+                                            <h5><a href="/{{ featured_book.path }}">{{ featured_book.title }}</a></h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--FEATURED DEC END-->
+                            <!--FEATURED DEC END-->
+                        {% endfor %}
                     </div>
                 </div>
             </div>

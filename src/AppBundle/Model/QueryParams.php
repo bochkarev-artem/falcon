@@ -11,7 +11,7 @@ class QueryParams
     const SORT_DATE_PUBLISH_DESC = 2;
 
     /**
-     * @var int
+     * @var int|array
      */
     private $filterId;
 
@@ -51,6 +51,16 @@ class QueryParams
     private $filterSequences;
 
     /**
+     * @var int|array
+     */
+    private $filterExcludeBooks;
+
+    /**
+     * @var int|array
+     */
+    private $filterExcludeAuthors;
+
+    /**
      * @var string
      */
     private $searchQuery;
@@ -79,7 +89,7 @@ class QueryParams
     }
 
     /**
-     * @return int
+     * @return int|array
      */
     public function getFilterId()
     {
@@ -87,7 +97,7 @@ class QueryParams
     }
 
     /**
-     * @param int $filterId
+     * @param int|array $filterId
      *
      * @return QueryParams
      */
@@ -194,6 +204,46 @@ class QueryParams
     public function setFilterSequences($filterSequences)
     {
         $this->filterSequences = $filterSequences;
+
+        return $this;
+    }
+
+    /**
+     * @return array|int
+     */
+    public function getFilterExcludeBooks()
+    {
+        return $this->filterExcludeBooks;
+    }
+
+    /**
+     * @param array|int $filterExcludeBooks
+     *
+     * @return QueryParams
+     */
+    public function setFilterExcludeBooks($filterExcludeBooks)
+    {
+        $this->filterExcludeBooks = $filterExcludeBooks;
+
+        return $this;
+    }
+
+    /**
+     * @return array|int
+     */
+    public function getFilterExcludeAuthors()
+    {
+        return $this->filterExcludeAuthors;
+    }
+
+    /**
+     * @param array|int $filterExcludeAuthors
+     *
+     * @return QueryParams
+     */
+    public function setFilterExcludeAuthors($filterExcludeAuthors)
+    {
+        $this->filterExcludeAuthors = $filterExcludeAuthors;
 
         return $this;
     }

@@ -29,10 +29,7 @@
                                         <!--BOOK HEADING START-->
                                         <div class="book-heading book-padding">
                                             <span>{{ ('front.book.type_' ~ book.book_type)|trans }}</span>
-                                            <h3>
-                                                {{ book.title }}
-                                                {% if book.date is defined %}<small>({{ book.date }})</small>{% endif %}
-                                            </h3>
+                                            <h3>{{ book.title }}</h3>
                                         </div>
                                         <!--BOOK HEADING END-->
                                         <div class="book-tags-wrap book-padding">
@@ -62,6 +59,12 @@
                                                     {% endfor %}
                                                 </li>
                                             </ul>
+                                            {% if book.date is defined %}
+                                                <ul class="book-tags">
+                                                    <li><span>{{ 'front.year'|trans }}:</span></li>
+                                                    <li><a>{{ book.date|date('Y') }}</a></li>
+                                                </ul>
+                                            {% endif %}
                                             <ul class="social-1">
                                                 <li><a href="#"><i class="fa fa-vk"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -79,36 +82,7 @@
                         <!--BOOK VIEW WRAP END-->
                     </div>
                     <aside class="col-md-3">
-                        <!--WIDGET FEATURESD START-->
-                        <div class="widget widget-featured">
-                            <!--WIDGET HEADING START-->
-                            <div class="aside-widget-hd">
-                                <h4>{{ 'front.related'|trans }}</h4>
-                            </div>
-                            <!--WIDGET HEADING END-->
-                            <div class="widget-padding">
-                                {% for i in 1..4 %}
-                                    <!--FEATURED START-->
-                                    <div class="featured-dec3">
-                                        <figure>
-                                            {% if book.cover_path %}
-                                                <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
-                                            {% endif %}
-                                        </figure>
-                                        <div class="text">
-                                            {% if book.authors|length > 0 %}
-                                                <ul>
-                                                    <li><a href="/{{ book.authors[0].path }}">{{ book.authors[0].short_name }}</a></li>
-                                                </ul>
-                                            {% endif %}
-                                            <a href="/{{ book.path }}">{{ book.title }}</a>
-                                        </div>
-                                    </div>
-                                    <!--FEATURED END-->
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <!--WIDGET FEATURESD END-->
+                        {% include "@App/Elements/featured_books_aside.html.twig" %}
                     </aside>
                 </div>
                 <!--BOOK TABS 2 WRAP START-->
@@ -125,39 +99,7 @@
                 <!--BOOK TABS 2 WRAP END-->
             </div>
         </div>
-        <section>
-            <div class="container">
-                <div class="heading-inner">
-                    <h2>{{ 'front.related_books'|trans }}</h2>
-                </div>
-                <!--BOOK RELATED START-->
-                <div class="tabs-slider-wrap tabs-slider-wrap6">
-                    <div class="owl-carousel owl-theme" id="tabs-slider7">
-                        {% for i in 1..6 %}
-                            <!--BOOK START-->
-                            <div class="item">
-                                <div class="book-tab-dec">
-                                    <figure>
-                                        {% if book.cover_path %}
-                                            <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt=""/>
-                                        {% endif %}
-                                    </figure>
-                                    <div class="text">
-                                        {% if book.genres is defined and book.genres %}
-                                            {% set genre = book.genres|first %}
-                                            <small>{{ genre.title }}</small>
-                                        {% endif %}
-                                        <h5><a href="/{{ book.path }}">{{ book.title }}</a></h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--BOOK END-->
-                        {% endfor %}
-                    </div>
-                </div>
-                <!--BOOK RELATED END-->
-            </div>
-        </section>
+        {% include "@App/Elements/featured_books_slider.html.twig" %}
     </div>
 </div>
 {% endblock %}

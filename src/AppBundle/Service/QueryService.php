@@ -106,6 +106,14 @@ class QueryService
             $this->applyIdFilter($queryParams, $boolQuery);
         }
 
+        if ($queryParams->getFilterExcludeBooks()) {
+            $this->applyExcludeBooksFilter($queryParams, $boolQuery);
+        }
+
+        if ($queryParams->getFilterExcludeAuthors()) {
+            $this->applyExcludeAuthorsFilter($queryParams, $boolQuery);
+        }
+
         if ($queryParams->getFilterGenres()) {
             $this->applyGenreFilter($queryParams, $boolQuery);
         }
@@ -154,12 +162,47 @@ class QueryService
      * @param QueryParams     $queryParams
      * @param Query\BoolQuery $query
      */
+    private function applyExcludeBooksFilter(QueryParams $queryParams, Query\BoolQuery $query)
+    {
+        $bookId    = $queryParams->getFilterExcludeBooks();
+        $queryTerm = is_array($bookId) ?
+            new Query\Terms('book_id', $bookId) :
+            new Query\Term(['book_id' => $bookId])
+        ;
+
+        $query->addMustNot($queryTerm);
+    }
+
+    /**
+     * @param QueryParams     $queryParams
+     * @param Query\BoolQuery $query
+     */
+    private function applyExcludeAuthorsFilter(QueryParams $queryParams, Query\BoolQuery $query)
+    {
+        $authorIds = $queryParams->getFilterExcludeAuthors();
+        $queryTerm = is_array($authorIds) ?
+            new Query\Terms('authors.author_id', $authorIds) :
+            new Query\Term(['authors.author_id' => $authorIds])
+        ;
+
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('authors');
+        $nestedQuery->setQuery($queryTerm);
+
+        $query->addMustNot($nestedQuery);
+    }
+
+    /**
+     * @param QueryParams     $queryParams
+     * @param Query\BoolQuery $query
+     */
     private function applyIdFilter(QueryParams $queryParams, Query\BoolQuery $query)
     {
-        $queryId   = $queryParams->getFilterId();
-        $queryTerm = is_array($queryId) ?
-            new Query\Terms('book_id', $queryId) :
-            new Query\Term(['book_id' => $queryId]);
+        $bookId    = $queryParams->getFilterId();
+        $queryTerm = is_array($bookId) ?
+            new Query\Terms('book_id', $bookId) :
+            new Query\Term(['book_id' => $bookId])
+        ;
 
         $query->addMust($queryTerm);
     }
@@ -170,16 +213,16 @@ class QueryService
      */
     private function applyGenreFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
-        $genreIds    = $queryParams->getFilterGenres();
-        $nestedQuery = new Query\Nested();
-        $nestedQuery->setPath('genres');
-
+        $genreIds  = $queryParams->getFilterGenres();
         $queryTerm = is_array($genreIds) ?
             new Query\Terms('genres.genre_id', $genreIds) :
             new Query\Term(['genres.genre_id' => $genreIds])
         ;
 
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('genres');
         $nestedQuery->setQuery($queryTerm);
+
         $boolQuery->addMust($nestedQuery);
     }
 
@@ -189,16 +232,16 @@ class QueryService
      */
     private function applyAuthorFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
-        $authorIds   = $queryParams->getFilterAuthors();
-        $nestedQuery = new Query\Nested();
-        $nestedQuery->setPath('authors');
-
+        $authorIds = $queryParams->getFilterAuthors();
         $queryTerm = is_array($authorIds) ?
             new Query\Terms('authors.author_id', $authorIds) :
             new Query\Term(['authors.author_id' => $authorIds])
         ;
 
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('authors');
         $nestedQuery->setQuery($queryTerm);
+
         $boolQuery->addMust($nestedQuery);
     }
 
@@ -208,16 +251,16 @@ class QueryService
      */
     private function applyTagFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
-        $tagIds      = $queryParams->getFilterTags();
-        $nestedQuery = new Query\Nested();
-        $nestedQuery->setPath('tags');
-
+        $tagIds    = $queryParams->getFilterTags();
         $queryTerm = is_array($tagIds) ?
             new Query\Terms('tags.tag_id', $tagIds) :
             new Query\Term(['tags.tag_id' => $tagIds])
         ;
 
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('tags');
         $nestedQuery->setQuery($queryTerm);
+
         $boolQuery->addMust($nestedQuery);
     }
 
@@ -227,16 +270,16 @@ class QueryService
      */
     private function applySequenceFilter(QueryParams $queryParams, Query\BoolQuery $boolQuery)
     {
-        $sequenceIds    = $queryParams->getFilterSequences();
-        $nestedQuery = new Query\Nested();
-        $nestedQuery->setPath('sequence');
-
-        $queryTerm = is_array($sequenceIds) ?
+        $sequenceIds = $queryParams->getFilterSequences();
+        $queryTerm   = is_array($sequenceIds) ?
             new Query\Terms('sequence.sequence_id', $sequenceIds) :
             new Query\Term(['sequence.sequence_id' => $sequenceIds])
         ;
 
+        $nestedQuery = new Query\Nested();
+        $nestedQuery->setPath('sequence');
         $nestedQuery->setQuery($queryTerm);
+
         $boolQuery->addMust($nestedQuery);
     }
 }

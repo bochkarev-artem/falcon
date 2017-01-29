@@ -1,0 +1,33 @@
+{% if slider_featured_books is defined and slider_featured_books %}
+    <section>
+        <div class="container">
+            <div class="heading-inner">
+                <h2>{{ 'front.related_books'|trans }}</h2>
+            </div>
+            <div class="tabs-slider-wrap tabs-slider-wrap6">
+                <div class="owl-carousel owl-theme" id="tabs-slider7">
+                    {% for slider_featured_book in slider_featured_books %}
+                        <div class="item">
+                            <div class="book-tab-dec">
+                                <figure>
+                                    {% if slider_featured_book.cover_path %}
+                                        <a href="/{{ slider_featured_book.path }}">
+                                            <img src="{{ slider_featured_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                        </a>
+                                    {% endif %}
+                                </figure>
+                                <div class="text">
+                                    {% if slider_featured_book.genres is defined and slider_featured_book.genres %}
+                                        {% set genre = slider_featured_book.genres|first %}
+                                        <small>{{ genre.title }}</small>
+                                    {% endif %}
+                                    <h5><a href="/{{ slider_featured_book.path }}">{{ slider_featured_book.title }}</a></h5>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

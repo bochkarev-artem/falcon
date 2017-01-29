@@ -23,6 +23,7 @@ front:
         keywords:    Новые книги
     main:           Главная
     search:         Поиск
+    year:           Год
     new:            Новинка
     audiobook:      Аудио
     no_results:     Нет книг
@@ -41,7 +42,7 @@ front:
     password:       Пароль
     forgot_pass:    Забыли пароль?
     related_books:  Похожие книги
-    related:        Похожee
+    author_related: Книги автора
     author:         Автор
     book:
         type_0:     Электронная книга
