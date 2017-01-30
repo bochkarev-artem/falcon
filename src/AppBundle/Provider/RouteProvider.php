@@ -174,7 +174,7 @@ class RouteProvider implements ProviderInterface
                             $objectsPerSecond,
                             $active,
                             $peak
-                        )
+                        ) . "\n"
                     );
                 }
 
@@ -206,7 +206,7 @@ class RouteProvider implements ProviderInterface
                         $objectsPerSecond,
                         $active,
                         $peak
-                    )
+                    ) . "\n"
                 );
             }
 

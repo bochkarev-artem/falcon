@@ -294,7 +294,7 @@ class BookProvider implements ProviderInterface
                             $objectsPerSecond,
                             $active,
                             $peak
-                        )
+                        ) . "\n"
                     );
                 }
 
@@ -326,7 +326,7 @@ class BookProvider implements ProviderInterface
                         $objectsPerSecond,
                         $active,
                         $peak
-                    )
+                    ) . "\n"
                 );
             }
 
