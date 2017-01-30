@@ -421,14 +421,14 @@ class LitresService
             }
         }
 
+        $numberProcessed = $i * $this->perPage - $skipped;
         if ($this->logger && $this->debug) {
-            $numberProcessed = $i * $this->perPage - $skipped;
             $this->logger->log(
                 LogLevel::INFO,
                 sprintf('%s books flushed', $numberProcessed)
             );
-            echo ">>> $numberProcessed books flushed\n";
         }
+        echo ">>> $numberProcessed books flushed, $skipped skipped\n";
 
         $this->em->flush();
         $this->em->clear();

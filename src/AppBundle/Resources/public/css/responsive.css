@@ -337,15 +337,6 @@
 	footer .widget{
 		margin-bottom: 30px;
 	}
-	.masonry-2 .blog-classic-dec .text h2 {
-	    font-size: 17px;
-	    overflow: hidden;
-	    text-overflow: ellipsis;
-	    white-space: nowrap;
-	}
-	.masonry-2 .blog-classic-dec .text .blog-meta li{
-		padding: 0 6px;
-	}
 	.link-post h3{
 		font-size: 30px;
 	}
@@ -1087,9 +1078,6 @@
 	.blog-detail-page2 .grid2-blog .youtube-dec iframe {
 	    height: 289px;
 	}
-	.masonry-page .masonry-item {
-	    position: static !important;
-	}
 	.cart-footer{
 		padding: 20px;
 	}
@@ -1191,9 +1179,6 @@
 	.top-bar .user-dec i{
 		font-size: 14px;
 		margin-right: 5px;
-	}
-	.col-md-6.col-sm-6.masonry-item {
-	    position: static !important;
 	}
 	.top-bar .wishlist-wrap{
 		float: left;
@@ -1396,12 +1381,6 @@
 	}
 	.blog-fullwidth-page .blog-full-width .blockquote::before {
 	    top: 35px;
-	}
-	.masonry-page .blockquote::before {
-	    top: 45px;
-	}
-	.masonry-page .blockquote:after {
-	    bottom: 45px;
 	}
 	.go-up{
 		width: 30px;

@@ -3930,9 +3930,6 @@ section{
 .grid2-blog .youtube-dec iframe {
     height: 230px;
 }
- .masonry-2 .youtube-dec iframe{
-	height: 300px;
-}
 /*
 	  ==============================================================
 		   BLOG  GRID 2 PAGE CSS END
@@ -3986,20 +3983,6 @@ section{
 	bottom: 154px;
 }
 /*masonry2 blog*/
-.masonry-page{
-	float: left;
-	width: 100%;
-}
-.masonry-2 .blog-classic-dec .text h2{
-	font-size: 24px;
-	margin: -2px 0 20px;
-}
-.masonry-2 .blog-classic-dec .text .blog-meta {
-    margin-bottom: 14px;
-}
-.masonry-2 .blog-classic-dec .blockquote{
-    padding: 90px 30px 92px;
-}
 .link-post{
 	float: left;
 	width: 100%;

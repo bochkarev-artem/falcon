@@ -7,6 +7,7 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Author;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -24,6 +25,7 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
         $this
             ->setName('app:update-author-images')
             ->setDescription('Update Litres images.')
+            ->addArgument('force', InputArgument::OPTIONAL, 'Force update. Allowed: "y", "n"', 'n')
         ;
     }
 
@@ -32,17 +34,22 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $startTime = time();
         $output->writeln("<info>Import author images started.</info>");
-
+        $startTime = time();
+        $force     = $input->getArgument('force') === 'n' ? false : true;
         $container = $this->getContainer();
-        $em = $container->get('doctrine.orm.entity_manager');
-        $qb = $em->createQueryBuilder();
+        $em        = $container->get('doctrine.orm.entity_manager');
+        $qb        = $em->createQueryBuilder();
         $qb
             ->select('a')
             ->from('AppBundle:Author', 'a')
         ;
-        $result = $qb->getQuery()->iterate();
+
+        if (!$force) {
+            $qb->andWhere($qb->expr()->isNull('a.photoPath'));
+        }
+
+        $result    = $qb->getQuery()->iterate();
         $batchSize = 100;
         $i         = 0;
         $imageUploadService = $container->get('image_upload_service');

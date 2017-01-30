@@ -39,7 +39,7 @@ class SeoManager
     /**
      * @param SeoData $data
      */
-    public function setSeoData(SeoData $data)
+    public function setBasicSeoData(SeoData $data)
     {
         $this->seoPage
             ->setTitle($data->getTitle())
@@ -52,101 +52,101 @@ class SeoManager
         }
     }
 
-    public function setIndexSeo()
+    public function setIndexSeoData()
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.index_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.index_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.index_page.keywords'));
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
-    public function setSearchSeo()
+    public function setSearchSeoData()
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.search_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.search_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.search_page.keywords'));
         $seoData->setIndexPage(false);
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
-    public function setNewBooksSeo()
+    public function setNewBooksSeoData()
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.new_books_page.keywords'));
         $seoData->setMetaDescription($this->translator->trans('front.new_books_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.new_books_page.keywords'));
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Genre $genre
      */
-    public function setGenreSeo(Genre $genre)
+    public function setGenreSeoData(Genre $genre)
     {
         $seoData = new SeoData();
         $seoData->setTitle($genre->getTitle());
         $seoData->setMetaDescription($genre->getTitle());
         $seoData->setMetaKeywords($genre->getTitle());
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
-    public function setTagsSeo()
+    public function setTagsSeoData()
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.tags_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.tags_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.tags_page.keywords'));
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Author $author
      */
-    public function setAuthorSeo(Author $author)
+    public function setAuthorSeoData(Author $author)
     {
         $seoData = new SeoData();
         $seoData->setTitle($author->getFullName());
         $seoData->setMetaDescription($author->getFullName());
         $seoData->setMetaKeywords($author->getFullName());
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param array $book
      */
-    public function setBookSeo(array $book)
+    public function setBookSeoData(array $book)
     {
         $seoData = new SeoData();
         $seoData->setTitle($book['title']);
         $seoData->setMetaDescription($book['title']);
         $seoData->setMetaKeywords($book['title']);
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Tag $tag
      */
-    public function setTagSeo(Tag $tag)
+    public function setTagSeoData(Tag $tag)
     {
         $seoData = new SeoData();
         $seoData->setTitle($tag->getTitle());
         $seoData->setMetaDescription($tag->getTitle());
         $seoData->setMetaKeywords($tag->getTitle());
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Sequence $sequence
      */
-    public function setSequenceSeo(Sequence $sequence)
+    public function setSequenceSeoData(Sequence $sequence)
     {
         $seoData = new SeoData();
         $seoData->setTitle($sequence->getName());
         $seoData->setMetaDescription($sequence->getName());
         $seoData->setMetaKeywords($sequence->getName());
-        $this->setSeoData($seoData);
+        $this->setBasicSeoData($seoData);
     }
 
     /**
