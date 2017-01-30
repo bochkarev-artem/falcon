@@ -467,42 +467,6 @@ $(document).ready(function(){
 	*/
 	$('[data-toggle="tooltip"]').tooltip()
 
-
-	/*
-		==============================================================
-			Masonry  Script Start
-		==============================================================
-	*/
-	// Initialize Masonry
-
-    if ($('.masonry').length) {
-        var container = document.querySelector('.masonry');
-        var msnry = new Masonry(container, {
-            itemSelector: '.masonry-item'
-        });
-
-        msnry.on('layoutComplete', function() {
-
-            mr_firstSectionHeight = $('.main-container section:nth-of-type(1)').outerHeight(true);
-
-            // Fix floating project filters to bottom of projects container
-
-            if ($('.filters.floating').length) {
-                setupFloatingProjectFilters();
-                updateFloatingFilters();
-                window.addEventListener("scroll", updateFloatingFilters, false);
-            }
-
-            $('.masonry').addClass('fadeIn');
-            $('.masonry-loader').addClass('fadeOut');
-            if ($('.masonryFlyIn').length) {
-                masonryFlyIn();
-            }
-        });
-
-        msnry.layout();
-    }
-
 	/*
 	  =======================================================================
 		  		Range Slider Script Script

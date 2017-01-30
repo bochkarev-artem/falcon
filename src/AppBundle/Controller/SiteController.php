@@ -48,7 +48,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setSearchSeo();
+        $seoManager->setSearchSeoData();
 
         return $this->render('AppBundle:Site:list_page.html.twig', $data);
     }
@@ -86,7 +86,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setNewBooksSeo();
+        $seoManager->setNewBooksSeoData();
 
         return $this->render('AppBundle:Site:list_page.html.twig', $data);
     }
@@ -121,7 +121,7 @@ class SiteController extends Controller
         $data = array_merge($data, [
             'show_author'    => true,
             'genre'          => $genre,
-            'pagination_url' => '/' . $genre->getPath() . '/page/',
+            'pagination_url' => $this->buildPaginationUrl($genre->getPath()),
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -129,7 +129,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setGenreSeo($genre);
+        $seoManager->setGenreSeoData($genre);
 
         return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($genre)
@@ -166,7 +166,7 @@ class SiteController extends Controller
         $data = array_merge($data, [
             'show_genre'     => true,
             'author'         => $author,
-            'pagination_url' => '/' . $author->getPath() . '/page/',
+            'pagination_url' => $this->buildPaginationUrl($author->getPath()),
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -174,7 +174,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setAuthorSeo($author);
+        $seoManager->setAuthorSeoData($author);
 
         return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($author)
@@ -211,7 +211,7 @@ class SiteController extends Controller
         $data = array_merge($data, [
             'show_author'    => true,
             'sequence'       => $sequence,
-            'pagination_url' => '/' . $sequence->getPath() . '/page/',
+            'pagination_url' => $this->buildPaginationUrl($sequence->getPath()),
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -219,7 +219,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setSequenceSeo($sequence);
+        $seoManager->setSequenceSeoData($sequence);
 
         return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($sequence)
@@ -256,7 +256,7 @@ class SiteController extends Controller
         $data = array_merge($data, [
             'show_author'    => true,
             'tag'            => $tag,
-            'pagination_url' => '/' . $tag->getPath() . '/page/',
+            'pagination_url' => $this->buildPaginationUrl($tag->getPath()),
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -264,7 +264,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setTagSeo($tag);
+        $seoManager->setTagSeoData($tag);
 
         return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($tag)
@@ -355,7 +355,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setBookSeo($book);
+        $seoManager->setBookSeoData($book);
 
         return $this->render('AppBundle:Site:book.html.twig', [
             'book'                  => $book,
@@ -386,7 +386,7 @@ class SiteController extends Controller
         ;
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setTagsSeo();
+        $seoManager->setTagsSeoData();
 
         return $this->render('AppBundle:Site:tags.html.twig', [
             'tags' => $tags,
@@ -399,8 +399,18 @@ class SiteController extends Controller
     public function searchPageAction()
     {
         $seoManager = $this->get('seo_manager');
-        $seoManager->setSearchSeo();
+        $seoManager->setSearchSeoData();
 
         return $this->render('AppBundle:Site:search.html.twig');
+    }
+
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    protected function buildPaginationUrl($url)
+    {
+        return '/' . $url . '/page/';
     }
 }

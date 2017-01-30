@@ -346,8 +346,7 @@ class BookProvider implements ProviderInterface
     {
         try {
             $objects = $queryBuilder->getQuery()->iterate();
-        }
-        catch (QueryException $e) {
+        } catch (QueryException $e) {
             $aliases  = $queryBuilder->getRootAliases();
             $entities = $queryBuilder->getRootEntities();
 

@@ -55,8 +55,12 @@ class QueryService
      */
     private function getBaseQuery($queryParams)
     {
-        if ($queryParams->getSearchQuery()) {
+        $searchQuery = $queryParams->getSearchQuery();
+        if ($searchQuery) {
             $baseQuery = $this->getSearchQuery($queryParams);
+        } elseif (strlen($searchQuery) < 3) {
+            $baseQuery = new Query\Match();
+            $baseQuery->setField('_id', '-1');
         } else {
             $baseQuery = new Query\MatchAll();
         }
@@ -71,30 +75,26 @@ class QueryService
      */
     private function getSearchQuery(QueryParams $queryParams)
     {
-        if ($queryString = $queryParams->getSearchQuery()) {
-            $fields = [
-                'book_title.exact^3',
-                'author_name.exact^6',
-                'sequence_title.exact',
-                'tag_title.exact^2',
-                'genre_title.exact',
-            ];
+        $queryString = $queryParams->getSearchQuery();
 
-            $query = new Query\MultiMatch();
-            $query
+        $fields = [
+            'book_title.exact^3',
+            'author_name.exact^6',
+            'sequence_title.exact',
+            'tag_title.exact^2',
+            'genre_title.exact',
+        ];
+
+        $query = new Query\MultiMatch();
+
+        return $query
                 ->setQuery($queryString)
                 ->setFields($fields)
                 ->setTieBreaker(0.3)
                 ->setOperator('and')
                 ->setParam('fuzziness', '1')
                 ->setParam('lenient', true)
-            ;
-        } else {
-            $query = new Query\Match();
-            $query->setField('_id', '-1');
-        }
-
-        return $query;
+        ;
     }
 
     /**

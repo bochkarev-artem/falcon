@@ -85,9 +85,10 @@ class QueryParams
      */
     public function __construct()
     {
-        $this->size  = 20;
-        $this->page  = 1;
-        $this->start = 0;
+        $this->size        = 20;
+        $this->page        = 1;
+        $this->start       = 0;
+        $this->searchQuery = null;
     }
 
     /**
