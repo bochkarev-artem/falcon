@@ -79,6 +79,10 @@
                                         {% for link in download_links %}
                                             <a href="{{ link['url'] }}">{{ link['text'] }}</a>&nbsp;
                                         {% endfor %}
+                                        <br>
+                                        {% if read_link %}
+                                            <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                        {% endif %}
                                         <!--BOOK TAGS END-->
                                     </div>
                                     <!--BOOK TEXT END-->

@@ -45,6 +45,7 @@ front:
     author_related:     Книги автора
     featured_menu_book: Интересное
     read:               Читать
+    read_book:          Читать онлайн
     author:             Автор
     book:
         type_0:     Электронная книга
