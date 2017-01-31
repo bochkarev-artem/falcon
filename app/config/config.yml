@@ -24,6 +24,8 @@ parameters:
     router.request_context.host:   "%base_url%"
     router.request_context.scheme: "%base_scheme%"
 
+    litres_partner_id: 67999
+
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
