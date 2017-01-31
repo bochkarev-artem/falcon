@@ -21,7 +21,7 @@ class HomeController extends Controller
     {
         $homePageService = $this->get('home_page_service');
         $seoManager      = $this->get('seo_manager');
-        $seoManager->setIndexSeo();
+        $seoManager->setIndexSeoData();
 
         return $this->render('AppBundle:Home:index.html.twig', [
             'show_genres_in_menu' => true,
