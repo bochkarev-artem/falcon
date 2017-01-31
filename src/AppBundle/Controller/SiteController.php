@@ -343,10 +343,11 @@ class SiteController extends Controller
         $queryParams->setFilterId($id);
         $queryParams->setSize(1);
 
-        $queryService    = $this->get('query_service');
-        $bookPageService = $this->get('book_page_service');
-        $queryResult     = $queryService->query($queryParams);
-        $books           = $queryResult->getResults();
+        $queryService      = $this->get('query_service');
+        $bookPageService   = $this->get('book_page_service');
+        $litresBookManager = $this->get('litres_book_manager');
+        $queryResult       = $queryService->query($queryParams);
+        $books             = $queryResult->getResults();
 
         if (!$book = array_shift($books)) {
             throw $this->createNotFoundException();
@@ -362,6 +363,7 @@ class SiteController extends Controller
             'aside_featured_books'  => $bookPageService->getAsideFeaturedBooks($book),
             'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book),
             'breadcrumbs'           => $seoManager->buildBreadcrumbs($book),
+            'download_links'        => $litresBookManager->getDownloadLinks($book),
             'show_genres_in_menu'   => true,
         ]);
     }

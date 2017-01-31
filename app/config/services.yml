@@ -51,6 +51,12 @@ services:
             - "@sonata.seo.page"
             - "@translator.default"
 
+    litres_book_manager:
+        class: AppBundle\Service\LitresBookManager
+        arguments:
+            - "@translator.default"
+            - "%litres_partner_id%"
+
     sitemap_subscriber:
         class: AppBundle\Service\SitemapSubscriber
         arguments:

@@ -554,7 +554,8 @@ $(document).ready(function(){
         e.preventDefault();
         var query = $('#search-query').val(),
             page  = $(this).prop('rel'),
-            sendData = {'query': query, 'page': page};
+            sendData = {'query': query, 'page': page},
+			newLink = $(this).prop('href');
 
         if ($(this).hasClass('active')) {
         	return;
@@ -563,7 +564,7 @@ $(document).ready(function(){
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
 
-        $.get($(this).prop('href'), sendData, function (response) {
+        $.get(newLink, sendData, function (response) {
             if (response.status == true) {
                 mainContent.html(response.page);
                 $('html, body').animate({
@@ -571,6 +572,7 @@ $(document).ready(function(){
                 }, 400);
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
+                history.pushState(null, null, newLink);
             }
         });
     });

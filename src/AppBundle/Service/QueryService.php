@@ -58,7 +58,7 @@ class QueryService
         $searchQuery = $queryParams->getSearchQuery();
         if ($searchQuery) {
             $baseQuery = $this->getSearchQuery($queryParams);
-        } elseif (strlen($searchQuery) < 3) {
+        } elseif ('' === $searchQuery) {
             $baseQuery = new Query\Match();
             $baseQuery->setField('_id', '-1');
         } else {

@@ -75,6 +75,10 @@
                                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                             </ul>
                                         </div>
+                                        <span>{{ 'front.download'|trans }}:</span>&nbsp;&nbsp;
+                                        {% for link in download_links %}
+                                            <a href="{{ link['url'] }}">{{ link['text'] }}</a>&nbsp;
+                                        {% endfor %}
                                         <!--BOOK TAGS END-->
                                     </div>
                                     <!--BOOK TEXT END-->

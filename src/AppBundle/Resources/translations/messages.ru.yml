@@ -63,4 +63,10 @@ front:
     pagination:
         next:       Дальше
         previous:   Назад
+    download:                         Скачать
+    litres_download_url:              "https://www.litres.ru/gettrial/?art=%litres_hub_id%&format=%format%&lfrom=%partner_id%"
+    litres_download_link_text_fb2:    fb2
+    litres_download_link_text_rtf:    rtf
+    litres_download_link_text_a4.pdf: pdf
+    litres_download_link_text_epub:   epub
 
