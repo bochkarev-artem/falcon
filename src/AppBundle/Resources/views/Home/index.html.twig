@@ -8,7 +8,7 @@
             <div class="tabs-wrap1">
                 <ul class="nav nav-tabs books-tab" role="tablist">
                     <li role="presentation" class="active"><a href="#new" aria-controls="new" role="tab" data-toggle="tab">{{ 'front.new_arrivals'|trans }}</a></li>
-                    <li role="presentation"><a href="#other" aria-controls="other" role="tab" data-toggle="tab">{{ 'front.other_books'|trans }}</a></li>
+                    <li role="presentation"><a href="#popular" aria-controls="popular" role="tab" data-toggle="tab">{{ 'front.popular_books'|trans }}</a></li>
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="new">
@@ -37,24 +37,24 @@
                             </div>
                         </div>
                     </div>
-                    <div role="tabpanel" class="tab-pane fade" id="other">
+                    <div role="tabpanel" class="tab-pane fade" id="popular">
                         <div class="tabs-slider-wrap">
                             <div class="row">
                                 <div id="tabs-slider" class="owl-carousel owl-theme">
-                                    {% for new_arrivals_book in new_arrivals_books %}
+                                    {% for popular_book in popular_books %}
                                         <div class="item">
                                             <div class="book-tab-dec">
                                                 <figure>
-                                                    <a href="/{{ new_arrivals_book.path }}">
-                                                        <img src="{{ new_arrivals_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                                    <a href="/{{ popular_book.path }}">
+                                                        <img src="{{ popular_book.cover_path|imagine_filter('book_list') }}" alt=""/>
                                                     </a>
                                                 </figure>
                                                 <div class="text">
-                                                    {% if new_arrivals_book.authors %}
-                                                        {% set author = new_arrivals_book.authors|first %}
+                                                    {% if popular_book.authors %}
+                                                        {% set author = popular_book.authors|first %}
                                                         <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                                                     {% endif %}
-                                                    <h5><a href="/{{ new_arrivals_book.path }}">{{ new_arrivals_book.title }}</a></h5>
+                                                    <h5><a href="/{{ popular_book.path }}">{{ popular_book.title }}</a></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,7 +72,6 @@
             <!--HEADING 2 START-->
             <div class="heading-3">
                 <h2>{{ 'front.featured_books'|trans }}</h2>
-                <span>Lorem ipsum dolor sit consectetuer</span>
             </div>
             <!--HEADING 2 END-->
             <div class="soap-gallery carousel-style1 carousel box" data-front-width="250" data-front-height="366" data-slides="5" data-vAlign="top">
@@ -84,65 +83,7 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="shade">
-
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="container">
-            <!--FEATURED AUTHOR START-->
-            <div class="featured-author">
-                <!-- AUTHOR START-->
-                <div class="author-1">
-                    <figure>
-                        <img src="" alt="">
-                    </figure>
-                    <div class="text">
-                        <!--HEADING 2 START-->
-                        <div class="heading-2">
-                            <h2>Featured AUTHOR</h2>
-                            <span>Best of Stephem Johns</span>
-                        </div>
-                        <!--HEADING 2 END-->
-                        <div class="text-2">
-                            <h3><a href="#">Stephen John</a></h3>
-                            <span>Book Writer - Fiction</span>
-                            <p>Vestibulum varius fermentum risus vitae lacinia neque auctor nec. Nunc ac rutrum nulla. Nulla maximus dolor in quam euismod ac viverra libero aliquet. </p>
-                            <p>Phasellus quis ipsum in lacus accumsan posuere eu vel nunc phasellus vitae odio risus.</p>
-                            <em>Stephen Johns</em>
-                        </div>
-                        <!--SOCIAL 2 START-->
-                        <ul class="social-2">
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        </ul>
-                        <!--SOCIAL 2 END-->
-                    </div>
-                </div>
-                <!-- AUTHOR END-->
-            </div>
-            <div class="authorbook-slider">
-                <h5>Books by<span> Same author</span></h5>
-                <ul class="bxslider">
-                    <li>
-                        <div class="author-book margin-bottom">
-                            <figure>
-                                <img src="" alt="">
-                            </figure>
-                            <a class="readmore2" href="#">READ NOW<i class="fa fa-angle-right"></i></a>
-                        </div>
-                        <div class="author-book">
-                            <figure>
-                                <img src="" alt="">
-                            </figure>
-                            <a class="readmore2" href="#">READ NOW<i class="fa fa-angle-right"></i></a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <!--FEATURED AUTHOR END-->
+            <div class="shade"></div>
         </div>
     </section>
 </div>

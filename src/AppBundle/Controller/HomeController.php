@@ -27,6 +27,7 @@ class HomeController extends Controller
             'show_genres_in_menu' => true,
             'featured_books'      => $homePageService->getFeaturedBooks(),
             'new_arrivals_books'  => $homePageService->getNewArrivalsBooks(),
+            'popular_books'       => $homePageService->getPopularBooks(),
         ]);
     }
 }

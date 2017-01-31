@@ -29,6 +29,7 @@ front:
     no_results:         Нет книг
     featured_books:     Интересное
     new_arrivals:       Новые
+    popular_books:      Популярное
     to_book:            К книге
     genres:             Жанры
     sequence:           Серия

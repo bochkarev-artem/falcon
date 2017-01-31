@@ -11,6 +11,7 @@ class HomePageService
 {
     const FEATURED_HOME_COUNT     = 9;
     const NEW_ARRIVALS_HOME_COUNT = 20;
+    const POPULAR_HOME_COUNT      = 20;
 
     /**
      * @var QueryService
@@ -51,6 +52,23 @@ class HomePageService
         $queryParams
             ->setSort(QueryParams::SORT_DATE_DESC)
             ->setSize(self::NEW_ARRIVALS_HOME_COUNT)
+        ;
+
+        $queryResult = $this->queryService->query($queryParams);
+        $books       = $queryResult->getResults();
+
+        return $books;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPopularBooks()
+    {
+        $queryParams = new QueryParams();
+        $queryParams
+            ->setSort(QueryParams::SORT_RATING_DESC)
+            ->setSize(self::POPULAR_HOME_COUNT)
         ;
 
         $queryResult = $this->queryService->query($queryParams);
