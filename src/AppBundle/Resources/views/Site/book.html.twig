@@ -24,14 +24,11 @@
                                     <!--BOOK VIEW THUMB END-->
                                 </div>
                                 <div class="col-md-5">
-                                    <!--BOOK TEXT START-->
                                     <div class="book-text">
-                                        <!--BOOK HEADING START-->
                                         <div class="book-heading book-padding">
                                             <span>{{ ('front.book.type_' ~ book.book_type)|trans }}</span>
                                             <h3>{{ book.title }}</h3>
                                         </div>
-                                        <!--BOOK HEADING END-->
                                         <div class="book-tags-wrap book-padding">
                                             <ul class="book-tags">
                                                 <li><span>{{ 'front.author'|trans }}:</span></li>
@@ -61,11 +58,30 @@
                                                     </li>
                                                 </ul>
                                             {% endif %}
+                                            {% if book.sequence %}
+                                                <ul class="book-tags">
+                                                    <li><span>{{ 'front.sequence'|trans }}:</span></li>
+                                                    <li>
+                                                        <a href="/{{ book.sequence.path }}">{{ book.sequence.name }}</a>
+                                                    </li>
+                                                </ul>
+                                            {% endif %}
                                             {% if book.date is defined %}
                                                 <ul class="book-tags">
                                                     <li><span>{{ 'front.year'|trans }}:</span></li>
                                                     <li><a>{{ book.date|date('Y') }}</a></li>
                                                 </ul>
+                                            {% endif %}
+                                            <ul class="book-tags">
+                                                <li><span>{{ 'front.download'|trans }}:</span></li>
+                                                {%- for link in download_links -%}
+                                                    <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
+                                                {%- endfor -%}
+                                            </ul>
+                                            {% if read_link %}
+                                            <ul class="book-tags">
+                                                <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                            </ul>
                                             {% endif %}
                                             <ul class="social-1">
                                                 <li><a href="#"><i class="fa fa-vk"></i></a></li>
@@ -75,17 +91,7 @@
                                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                             </ul>
                                         </div>
-                                        <span>{{ 'front.download'|trans }}:</span>&nbsp;&nbsp;
-                                        {% for link in download_links %}
-                                            <a href="{{ link['url'] }}">{{ link['text'] }}</a>&nbsp;
-                                        {% endfor %}
-                                        <br>
-                                        {% if read_link %}
-                                            <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
-                                        {% endif %}
-                                        <!--BOOK TAGS END-->
                                     </div>
-                                    <!--BOOK TEXT END-->
                                 </div>
                             </div>
                         </div>
@@ -103,6 +109,17 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="annotation">
                             {{ book.annotation|raw }}
+                            {% if book.city_published and
+                                book.publisher and
+                                book.year_published and
+                                book.isbn %}
+                                <p>{{ 'front.book_published'|trans({
+                                    '%city%': book.city_published,
+                                    '%publisher%': book.publisher,
+                                    '%year%': book.year_published,
+                                    '%isbn%': book.isbn,
+                                }) }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
