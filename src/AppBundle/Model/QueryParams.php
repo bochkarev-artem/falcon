@@ -9,6 +9,7 @@ class QueryParams
 {
     const SORT_DATE_DESC         = 1;
     const SORT_DATE_PUBLISH_DESC = 2;
+    const SORT_RATING_DESC       = 3;
 
     /**
      * @var int|array

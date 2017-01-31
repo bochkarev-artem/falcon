@@ -232,7 +232,9 @@ class BookProvider implements ProviderInterface
      */
     private function collectSequencesData(Book $book, $bookData)
     {
-        $sequence = $book->getSequence();
+        $sequenceData = [];
+        $sequence     = $book->getSequence();
+
         if ($sequence) {
             $sequenceData = [
                 'sequence_id' => $sequence->getId(),
@@ -240,9 +242,9 @@ class BookProvider implements ProviderInterface
                 'litres_id'   => $sequence->getLitresId(),
                 'path'        => $sequence->getPath(),
             ];
-
-            $bookData['sequence'] = $sequenceData;
         }
+
+        $bookData['sequence'] = $sequenceData;
 
         return $bookData;
     }

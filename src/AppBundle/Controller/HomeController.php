@@ -25,7 +25,9 @@ class HomeController extends Controller
 
         return $this->render('AppBundle:Home:index.html.twig', [
             'show_genres_in_menu' => true,
-            'featured_books'      => $homePageService->getFeaturedBooks()
+            'featured_books'      => $homePageService->getFeaturedBooks(),
+            'new_arrivals_books'  => $homePageService->getNewArrivalsBooks(),
+            'popular_books'       => $homePageService->getPopularBooks(),
         ]);
     }
 }

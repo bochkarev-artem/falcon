@@ -28,8 +28,11 @@ front:
     audiobook:          Аудио
     no_results:         Нет книг
     featured_books:     Интересное
+    new_arrivals:       Новые
+    popular_books:      Популярное
     to_book:            К книге
     genres:             Жанры
+    sequence:           Серия
     tags:               Теги
     new_books:          Новые книги
     popular:            Популярное
@@ -70,4 +73,5 @@ front:
     litres_download_link_text_rtf:    rtf
     litres_download_link_text_a4.pdf: pdf
     litres_download_link_text_epub:   epub
+    book_published:                   "Книга издана в %year% году, %publisher%, %city%. ISBN: %isbn%"
 

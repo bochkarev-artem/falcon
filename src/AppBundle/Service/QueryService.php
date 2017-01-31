@@ -162,6 +162,8 @@ class QueryService
             $query->addSort(['_score' => 'desc', 'book_id' => 'desc']);
         } elseif ($queryParams->getSort() == QueryParams::SORT_DATE_DESC) {
             $query->addSort(['date' => 'desc', 'book_id' => 'desc']);
+        } elseif ($queryParams->getSort() == QueryParams::SORT_RATING_DESC) {
+            $query->addSort(['rating' => 'desc', 'review_count' => 'desc']);
         } else {
             $query->addSort(['book_id' => 'desc']);
         }
