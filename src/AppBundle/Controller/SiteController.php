@@ -364,6 +364,7 @@ class SiteController extends Controller
             'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book),
             'breadcrumbs'           => $seoManager->buildBreadcrumbs($book),
             'download_links'        => $litresBookManager->getDownloadLinks($book),
+            'read_link'             => $litresBookManager->getReadOnlineLink($book),
             'show_genres_in_menu'   => true,
         ]);
     }
