@@ -1,7 +1,6 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block body %}
-<!--CUSTOMER CARE WRAP START-->
 <div class="kf_content_wrap">
     <section>
         <div class="container">
@@ -69,16 +68,16 @@
     </section>
     <section class="slider-1">
         <div class="container">
-            <!--HEADING 2 START-->
             <div class="heading-3">
                 <h2>{{ 'front.featured_books'|trans }}</h2>
             </div>
-            <!--HEADING 2 END-->
             <div class="soap-gallery carousel-style1 carousel box" data-front-width="250" data-front-height="366" data-slides="5" data-vAlign="top">
                 <div class="slides">
                     {% for featured_book in featured_books %}
                         <div>
-                            <a href="/{{ featured_book.path }}"><img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ featured_book.title }}"></a>
+                            <a href="/{{ featured_book.path }}">
+                                <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ featured_book.title }}">
+                            </a>
                         </div>
                     {% endfor %}
                 </div>

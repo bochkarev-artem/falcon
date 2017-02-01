@@ -4,7 +4,6 @@
     <div class="row">
         {% if books|length > 0 %}
             {% for book in books %}
-                <!--BOOK DEC START-->
                 <div class="col-md-4 col-sm-6">
                     <div class="book-tab-dec">
                         {% if book.cover_path is defined %}
@@ -32,7 +31,6 @@
                         </div>
                     </div>
                 </div>
-                <!--BOOK DEC END-->
             {% endfor %}
         {% else %}
             {{ 'front.no_results'|trans }}
