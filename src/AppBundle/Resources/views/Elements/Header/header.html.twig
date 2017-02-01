@@ -1,9 +1,7 @@
-<!-- register Modal -->
 <div class="modal fade" id="reg-box" tabindex="-1" role="dialog">
     <div class="modal-dialog login1">
         <div class="modal-content">
             <div class="user-box">
-                <!--FORM FIELD START-->
                 <form>
                     <div class="input-dec3">
                         <input type="text" placeholder="{{ 'front.email'|trans }}">
@@ -17,20 +15,16 @@
                         <button class="dialog-button">{{ 'front.register'|trans }}</button>
                     </div>
                 </form>
-                <!--FORM FIELD END-->
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-<!-- register Modal end-->
 
-<!-- SIGNIN MODEL START -->
 <div class="modal fade" id="signin-box" tabindex="-1" role="dialog">
     <div class="modal-dialog login1">
         <div class="modal-content">
             <div class="user-box">
-                <!--FORM FIELD START-->
                 <form>
                     <div class="input-dec3">
                         <input type="text" placeholder="{{ 'front.email'|trans }}">
@@ -45,16 +39,12 @@
                         <a href="#">{{ 'front.forgot_pass'|trans }}<i class="fa fa-question-circle"></i></a>
                     </div>
                 </form>
-                <!--FORM FIELD END-->
             </div>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
-<!-- SIGNIN MODEL END -->
-<!--HEADER START-->
 <header class="header-1">
-    <!--TOP BAR START START-->
     <div class="top-bar">
         <div class="container">
             <div class="pull-right">
@@ -74,18 +64,12 @@
             </div>
         </div>
     </div>
-    <!--TOP BAR END-->
-    <!--LOGO WRAP START-->
     <div class="logo-wrap">
         <div class="container">
-            <!--LOGO DEC START-->
             <div class="logo-dec">
                 <a href="{{ path('site_index') }}"><img src="{{ asset('compiled/images/logo.png') }}" alt=""/></a>
             </div>
-            <!--LOGO DEC END-->
-            <!--CART WRAP START-->
             <div class="cart-wrap">
-                <!--Mobile Menu Start-->
                 <div id="kode-responsive-navigation" class="dl-menuwrapper">
                     <button class="dl-trigger">{{ 'front.open_menu'|trans }}</button>
                     <ul class="dl-menu">
@@ -102,13 +86,9 @@
                         </li>
                     </ul>
                 </div>
-                <!--Mobile Menu END-->
             </div>
-            <!--CART WRAP END-->
         </div>
     </div>
-    <!--LOGO WRAP END-->
-    <!--NAVIGATION WRAP START-->
     <div class="navigation-wrap">
         <div class="container">
             <div class="row">
@@ -116,7 +96,6 @@
                     {% if show_genres_in_menu is defined and show_genres_in_menu %}
                         {{ main_menu()|raw }}
                     {% endif %}
-                    <!--NAVIGATION DEC START-->
                     <ul class="nav-dec">
                         <li><a href="{{ path('site_index') }}">{{ 'front.main'|trans }}</a></li>
                         <li>
@@ -140,12 +119,9 @@
                     </form>
                 </div>
             </div>
-            <!--NAVIGATION DEC END-->
         </div>
     </div>
-    <!--NAVIGATION WRAP END-->
 </header>
-<!--HEADER END-->
 
 {% if breadcrumbs is defined %}
     <div class="inner-banner">

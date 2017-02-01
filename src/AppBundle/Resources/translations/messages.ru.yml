@@ -74,4 +74,11 @@ front:
     litres_download_link_text_a4.pdf: pdf
     litres_download_link_text_epub:   epub
     book_published:                   "Книга издана в %year% году, %publisher%, %city%. ISBN: %isbn%"
+    footer:
+        title:        Библиотека
+        description:  Описание
+        contacts:     Контакты
+        email:        admin@bookary.ru
+        social_links: Мы в соцсетях
+        politics:     Политика сайта
 

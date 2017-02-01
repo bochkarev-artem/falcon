@@ -2,17 +2,13 @@
 
 {% block body %}
     <div class="kf_content_wrap">
-        <!--GRID 4 WRAP START-->
         <div class="grid-4">
             <div class="grid3-page">
                 <div class="container">
                     <div class="row">
-                        <!--ASIDE BAR WRAP START-->
                         <aside class="col-md-3">
                             {{ side_menu()|raw }}
-                            {#{% include '@App/Elements/featured_books.html.twig' %}#}
                         </aside>
-                        <!--ASIDE BAR WRAP END-->
                         <div class="col-md-9">
                             <div class="main-content">
                                 {% if view == 'column' %}
@@ -28,6 +24,5 @@
                 </div>
             </div>
         </div>
-        <!--GRID 4 WRAP END-->
     </div>
 {% endblock body %}

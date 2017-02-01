@@ -4,7 +4,6 @@
     <div class="blog-list-style">
         {% if books|length > 0 %}
             {% for book in books %}
-                <!--LIST STYLE DEC START-->
                 <div class="list-style-dec list-style-dec2">
                     <div class="blog-thumb">
                         {% if book.cover_path is defined %}
@@ -42,7 +41,6 @@
                         <a class="btn-3" href="/{{ book.path }}">{{ 'front.to_book'|trans }}</a>
                     </div>
                 </div>
-                <!--LIST STYLE END-->
             {% endfor %}
         {% else %}
             {{ 'front.no_results'|trans }}
