@@ -28,7 +28,6 @@ Tags: white, light, yellow, two-columns, fluid-layout, custom-background, custom
 * 12.0 - FEATURED THUMBS 2 CSS START
 * 13.0 - CANVAS SLIDER WRAP CSS START
 * 14.0 - TABS WRAP CSS START
-* 15.0 - ORDER BAR CSS START
 * 16.0 - FEATURED AUTHOR CSS START
 * 17.0 - FEATURED BLOG 1 CSS START
 * 18.0 - FEACHERD BRAND CSS START
@@ -38,7 +37,6 @@ Tags: white, light, yellow, two-columns, fluid-layout, custom-background, custom
 * 22.0 - INNER BANNER CSS START
 * 23.0 - GRID 4 COLUMS PAGE CSS START
 * 24.0 - BRAND SLIDER CSS START
-* 25.0 - TRACKING BAR CSS START
 * 26.0 - BLOG 1 LIST STYLE CSS START
 * 27.0 - BLOG 2 LIST STYLE CSS START
 * 28.0 - BLOG  LIST STYLE WITH SIDE BAR CSS START
@@ -47,9 +45,7 @@ Tags: white, light, yellow, two-columns, fluid-layout, custom-background, custom
 * 31.0 - BLOG  FULL WIDTH PAGE CSS START
 * 32.0 - 404 PAGE CSS START
 * 33.0 - CONTACT US PAGE CSS START
-* 34.0 - CHECK OUT PAGE CSS START
 * 35.0 - BLOG DETAIL PAGE PAGE CSS START
-* 36.0 - COMING SOON PAGE CSS START
 * 37.0 - LOGIN SIGNUP FORM PAGE CSS START
 * 38.0 - CHECKBOX AND RADIO BUTTON CSS
 * 39.0 - BLOG FORM  CSS START
@@ -69,11 +65,9 @@ Tags: white, light, yellow, two-columns, fluid-layout, custom-background, custom
 * 34.0 - TAGS WIDGET   CSS START
 * 34.0 - TABS WIDGET   CSS START
 * 34.0 - WIDGET AUTHOR SLIDER  CSS START
-* 34.0 - COUNT DOWN CSS START
 * 34.0 - RATING STAR CSS START
 * 34.0 - PAGINATION CSS START
 * 34.0 - BOOK VIEW CSS START
-* 34.0 - SIDR STYLES CSS START
 * 34.0 - HEADERS CSS START
 [Color codes]
 
@@ -2180,55 +2174,6 @@ section{
 */
 /*
 	  ==============================================================
-		   ORDER BAR CSS START
-	  ==============================================================
-*/
-.order-bar{
-	background-image: url(../images/extra-images/order-bar.jpg);
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	position: relative;
-}
-.order-bar:before{
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	background-color: #7e7e7e;
-	opacity: 0.8;
-	content: "";
-}
-.order-bar .text{
-	border: 3px solid #fff;
-	text-align: center;
-	margin-bottom: 30px;
-	padding: 22px 0 30px;
-	position: relative;
-}
-.order-bar .text h5{
-	font-size: 48px;
-	font-weight: bolder;
-	text-transform: uppercase;
-	line-height: 48px;
-	color: #fff;
-	margin-bottom: 12px;
-}
-.order-bar .text span{
-	font-size: 24px;
-	line-height: 24px;
-	color: #fff;
-	font-weight: normal;
-	font-family: 'Raleway', sans-serif;
-}
-/*
-	  ==============================================================
-		   ORDER BAR CSS END
-	  ==============================================================
-*/
-/*
-	  ==============================================================
 		   FEATURED AUTHOR CSS START
 	  ==============================================================
 */
@@ -3288,73 +3233,6 @@ section{
 */
 /*
 	  ==============================================================
-		   TRACKING BAR CSS START
-	  ==============================================================
-*/
-.tracking-bar{
-	float: left;
-	width: 100%;
-	background: #f9f9f9;
-	padding: 30px 0px;
-}
-.tracking-bar .text{
-	width: auto;
-}
-.tracking-bar .text h3{
-	font-size: 25px;
-	line-height: normal;
-	font-weight: bold;
-	display: inline-block;
-	padding: 7px 0 0;
-}
-.tracking-bar .text i {
-    float: left;
-    font-size: 52px;
-    line-height: 40px;
-    margin-right: 12px;
-    width: 54px;
-    color: #363636;
-}
-.tracking-bar .text2{
-	width: auto;
-	float: right;
-	padding: 2px 0 0px;
-}
-.input-text{
-	width: 227px;
-	margin-right: 15px;
-}
-.input-text input[type="text"]{
-	border: 1px solid #aaaaaa;
-	background: transparent;
-	text-transform: uppercase;
-	font-size: 12px;
-	padding: 9px 10px 9px;
-	line-height: normal;
-}
-.input-text input[type="text"]::-webkit-input-placeholder {color: #363636; opacity: 0.6;}
-.input-text input[type="text"]:-moz-placeholder { color: #363636; opacity: 0.6; }
-.input-text input[type="text"]::-moz-placeholder { color: #363636; opacity: 0.6; }
-.input-text input[type="text"]:-ms-input-placeholder {color: #363636; opacity: 0.6;}
-.track{
-	display: inline-block;
-	font-size: 12px;
-	line-height: 12px;
-	color: #fff;
-	text-transform: uppercase;
-	font-weight: 500;
-	padding: 12px 10px 13px;
-}
-.track:hover{
-	background: #000;
-}
-/*
-	  ==============================================================
-		   TRACKING BAR CSS END
-	  ==============================================================
-*/
-/*
-	  ==============================================================
 		   BLOG 1 LIST STYLE CSS START
 	  ==============================================================
 */
@@ -4189,274 +4067,6 @@ section{
 */
 /*
 	  ==============================================================
-		   CHECK OUT PAGE CSS START
-	  ==============================================================
-*/
-
-.check-out{
-	float: left;
-	width: 100%;
-	padding: 38px 0 0;
-}
-.check-out form{
-	float: left;
-	width:100%;
-}
-.check-out .input-dec3{
-	margin-bottom: 25px;
-}
-
-.check-out .input-dec3 input[type="text"]::-webkit-input-placeholder {color: #ccc; opacity: 1;}
-.check-out .input-dec3 input[type="text"]:-moz-placeholder { color: #ccc; opacity: 1; }
-.check-out .input-dec3 input[type="text"]::-moz-placeholder { color: #ccc; opacity: 1; }
-.check-out .input-dec3 input[type="text"]:-ms-input-placeholder {color: #ccc; opacity: 1;}
-.check-out .input-dec3 textarea::-moz-placeholder,
-.check-out .select-menu .selectric .label,
-.check-out .select-menu .selectric .button{
-	color: #ccc;
-}
-.check-out .select-menu .selectric-wrapper{
-	border-radius: 4px;
-}
-.check-out .tick-mark{
-	margin-bottom: 34px;
-}
-.tick-mark{
-	float: left;
-	width: 100%;
-}
-.tick-mark label {
-    float: left;
-    width: auto;
-    margin-bottom: 0;
-}
-.tick-mark .checkbox,.tick-mark .radio {
-    display: inline-block;
-    margin:0;
-}
-.tick-mark a{
-	display: inline-block;
-	font-size: 13px;
-	color: #555555;
-}
-.tick-mark strong{
-	font-size: 14px;
-	font-weight: bolder;
-	line-height: 14px;
-	color: #555555;
-}
-/*order table*/
-.order-table{
-	float: left;
-	width: 100%;
-	padding: 20px 0 0;
-}
-.order-table h3{
-	display: block;
-	line-height: 24px;
-	font-weight: 500;
-	font-family: 'Raleway', sans-serif;
-}
-.tbody {
-    display: table;
-    width: 100%;
-    margin-bottom: 40px;
-}
-.tbody tr{
-    border-bottom: 1px solid #f3f3f3;
-}
-.tbody tbody tr:last-child{
-	border-bottom: 2px solid #f3f3f3;
-}
-.tbody .produt-name{
-	width: 50%;
-}
-.tbody .produt-quantity,
-.tbody .produt-price,
-.tbody .produt-total
-{
-	width: 16.6667%;
-}
-.tbody thead td{
-	text-transform: uppercase;
-	font-size: 14px;
-	line-height: 14px;
-	color: #555555;
-	font-weight: bolder;
-}
-.tbody .produt-name,
-.tbody .produt-quantity,
-.tbody .produt-price,
-.tbody .produt-total{
-    line-height: 18px;
-    padding: 27px 0;
-    text-align: left;
-    vertical-align: middle;
-}
-.tbody > thead > tr > th,
-.tbody > tbody > tr > th,
-.tbody > tfoot > tr > th,
-.tbody > thead > tr > td,
-.tbody > tbody > tr > td,
-.tbody > tfoot > tr > td{
-	border: none;
-	color: #363636;
-}
-.tbody thead .produt-name{
-	font-weight: bolder;
-	font-family: 'Roboto', sans-serif;
-}
-.tbody .produt-name{
-	font-weight: 600;
-	font-family: 'Raleway', sans-serif;
-}
-.tbody .price-tag del{
-	font-size: 12px;
-	color: #d7d7d7;
-}
-.tbody .price-tag sub,
-.tbody .price-tag{
-	color: #cccccc;
-}
-.sub-total{
-	float: left;
-	width: 100%;
-	margin-bottom: 80px;
-}
-.sub-total li{
-	float: left;
-	width: 100%;
-	margin-bottom: 2px;
-	border-radius: 4px;
-	background: #fafafa;
-	padding: 20px 15px;
-}
-.sub-total li:last-child{
-	margin: 0;
-}
-.sub-total p{
-	float: left;
-	margin: 0;
-	color: #555555;
-	font-weight: normal;
-}
-.sub-total .price-tag{
-	float: right;
-}
-.sub-total .price-tag sub,
-.sub-total .price-tag{
-	font-size: 14px;
-	font-weight: normal;
-	line-height: 14px;
-	color: #cccccc;
-}
-.sub-total .total-price sub,
-.sub-total .total-price{
-	font-weight: bolder;
-}
-/*order-payment*/
-.order-payment{
-	float: left;
-	width: 100%;
-}
-.order-payment ul{
-	float: left;
-	width: 100%;
-}
-.order-payment ul li{
-	float: left;
-	width: 100%;
-}
-.payment-method{
-	float: left;
-	width: 100%;
-	border-radius: 4px;
-	padding: 10px 20px 11px 50px;
-	position: relative;
-	margin-bottom: 5px;
-	border: 1px solid #fafafa;
-}
-.payment-method:after{
-	position: absolute;
-	left: 20px;
-	width: 15px;
-	height: 15px;
-	top: 13px;
-	border-radius: 100%;
-	background:  #f3f3f3;
-	content: "";
-	color: red;
-	line-height: 15px;
-	text-align: center;
-	font-family: FontAwesome;
-	font-size: 6px;
-}
-.payment-method.before:after{
-	content: "\f111";
-}
-.payment-hd{
-	float: left;
-	width: 100%;
-	position: relative;
-}
-.payment-hd span{
-	font-size: 14px;
-	color: #959595;
-	font-weight: normal;
-	line-height: 14px;
-}
-.payment-text{
-	float: left;
-	width: 100%;
-	display: none;
-}
-.payment-text p{
-	padding-top: 6px;
-	margin: 0;
-}
-.order-payment .brand-icons{
-	width: auto;
-	float: right;
-}
-.order-payment .brand-icons li{
-	width: auto;
-}
-.order-submit{
-	float: left;
-	width: 100%;
-	padding-top: 35px;
-	margin-bottom: 70px;
-}
-.order-submit span{
-	float: left;
-}
-.order-submit .tick-mark{
-	width: auto;
-	padding: 12px 0;
-}
-.order-submit .tick-mark p{
-	float: left;
-	width: auto;
-	font-size: 13px;
-	line-height: 13px;
-	margin: 0;
-}
-.order-submit .btn-2{
-	float: right;
-	border-color: #288ece;
-	background-color: #288ece;
-}
-.order-submit .btn-2:hover{
-	color: #fff;
-	background: #000;
-}
-/*
-	  ==============================================================
-		   CHECK OUT PAGE CSS END
-	  ==============================================================
-*/
-/*
-	  ==============================================================
 		 BLOG DETAIL PAGE PAGE CSS START
 	  ==============================================================
 */
@@ -4724,95 +4334,6 @@ section{
 /*
 	  ==============================================================
 		 BLOG DETAIL PAGE PAGE CSS END
-	  ==============================================================
-*/
-/*
-	  ==============================================================
-		   COMING SOON PAGE CSS START
-	  ==============================================================
-*/
-.comingsoon-wrap {
-    background: #fff;
-    bottom: 0;
-    float: left;
-    left: 0;
-    position: fixed;
-    right: 0;
-    text-align: center;
-    top: 0;
-    width: 100%;
-}
-.comingsoon-dec{
-	position: absolute;
-	display: inline-block;
-	width: 56%;
-	margin: -321px auto 0;
-	top:50%;
-	left: 0;
-	right: 0;
-}
-.coming-logo{
-	float: left;
-	width: 100%;
-	text-align: center;
-	margin-bottom: 75px;
-}
-.coming-logo a{
-	display: inline-block;
-}
-.coming-logo a img{
-	float: left;
-	width: 100%;
-}
-.comingsoon-dec span{
-	font-size: 70px;
-	font-weight: normal;
-	font-family: 'Raleway', sans-serif;
-	text-transform: uppercase;
-	display: inline-block;
-	line-height: 51px;
-	margin-bottom: 3px;
-}
-.comingsoon-dec h5
-{
-	font-weight: 300;
-	font-size: 40px;
-	line-height: normal;
-	color: #959595;
-	margin-bottom: 1px;
-}
-.comingsoon-dec h6
-{
-	font-weight: 300;
-	font-size: 20px;
-	line-height: normal;
-	color: #959595;
-	margin-bottom: 78px;
-}
-.comingsoon-dec .countdown-wrap{
-	margin-bottom: 75px;
-}
-.comingsoon-dec .text > p{
-	margin: 0;
-	color: #c2c2c2;
-	display: inline-block;
-	margin-bottom: 49px;
-}
-.comingsoon-dec .text > p a{
-	color: #363636;
-}
-.comingsoon-dec .social-1{
-	width: 100%;
-}
-.comingsoon-dec .social-1 li {
-    display: inline-block;
-    padding: 0;
-    width: auto;
-    float: none;
-}
-/*
-	  ==============================================================
-		   COMING SOON PAGE CSS END
 	  ==============================================================
 */
 /*
@@ -6603,54 +6124,6 @@ aside .widget{
 */
 /*
 =================================================
-		COUNT DOWN CSS START
-=================================================
-*/
-.countdown-wrap {
-    float: left;
-    width: 100%;
-}
-.countdown-wrap li{
-	text-align: center;
-}
-.countdown-dec{
-	float: left;
-	width: 100%;
-	background: #fafafa;
-	border-radius: 10px;
-	position: relative;
-	padding: 21px 0 24px;
-}
-.countdown-dec:before{
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	content: "";
-	height: 1px;
-	width: 30px;
-	margin: 0 auto;
-}
-.countdown-dec h4{
-	font-size: 48px;
-	line-height: 38px;
-	font-weight: normal;
-	display: inline-block;
-	margin-bottom: 8px;
-}
-.countdown-dec p{
-	text-transform: uppercase;
-	font-size: 14px;
-	line-height: 14px;
-	margin: 0;
-}
-/*
-=================================================
-		COUNT DOWN CSS END
-=================================================
-*/
-/*
-=================================================
 		RATING STAR CSS START
 =================================================
 */
@@ -7258,111 +6731,6 @@ aside .kf-pagination{
        BOOK VIEW CSS END
     ==============================================================
 */
-/*
-	  ==============================================================
-		   SIDR STYLES CSS START
-	  ==============================================================
-*/
-.kf-sidebar{
-	float: left;
-	width: 100%;
-}
-#sidr{
-	display: none;
-}
-.sidr{
-	background: #2c2c2c ;
-}
-.kf-sidebar .dl-menuwrapper{
-    float: left;
-    display: block;
-    width: 100%;
-}
-.kf-sidebar .dl-menu.dl-menu {
-    float: left;
-    position: static;
-    width: 100%;
-    opacity: 1;
-    visibility: visible;
-    pointer-events:auto;
-    margin-bottom: 30px;
-    background:transparent;
-    padding: 0;
-}
-
-.kf-sidebar .nav-dec li{
-	width: 100%;
-}
-.kf-sidebar .nav-dec li a{
-	padding: 10px 20px;
-}
-.kf-sidebar .nav-dec li ul{
-	background:rgba(175, 249, 241, 0.9);
-}
-.sidr .aside-widget-hd h5{
-	margin: 0;
-	line-height: 16px;
-}
-.kf-sidebar .input-dec input[type="text"]{
-	margin: 0;
-}
-.sidr .aside-widget-hd{
-	padding: 8px 20px 9px;
-	background: #000;
-}
-.sidr .side-meta{
-	margin: 0;
-	padding: 10px 0;
-}
-.sidr  .side_accordian .accordion span{
-	color: #fff;
-}
-.sidr .widget-pub-fillter ul li span{
-	color: #000;
-	padding: 2px 5px;
-}
-.sidr .widget-pub-fillter ul li:hover span{
-	background: #000;
-}
-.kf-sidebar .widget-tags ul li a,
-.kf-sidebar .side_accordian .accordion,
-.kf-sidebar .widget-pub-fillter ul li{
-	border-color: rgba(255, 255, 255, 0.3);
-}
-.sidr .widget-tags ul li {
-    display: block;
-    margin: 0 10px 10px 0px;
-}
-.sidr .widget-tags,
-.sidr .widget-categories,
-.sidr .widget-pub-fillter,
-.sidr .widget-search{
-	margin-bottom: 30px;
-	float: left;
-	width: 100%;
-}
-.sidr .widget-tags ul{
-	padding-top: 30px;
-}
-#responsive-menu-button2 i{
-    background: #fff none repeat scroll 0 0;
-    border-radius: 100%;
-    display: inline-block;
-    height: 20px;
-    left: 10px;
-    line-height: 20px;
-    position: fixed;
-    text-align: center;
-    top: 10px;
-    width: 20px;
-    z-index: 9999;
-}
-#responsive-menu-button2 i:hover{
-	color: #fff;
-}
-.kf-sidebar .side_accordian .accordion::before{
-	background: #000;
-}
 /*
     ==============================================================
        HEADERS CSS START

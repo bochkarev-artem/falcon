@@ -2,62 +2,12 @@ $(document).ready(function(){
 	"use strict";
 	/*
 	==============================================================
-		Bx Slider
-	==============================================================
-	*/
-	if($('.bxslider').length){
-		$('.bxslider').bxSlider();
-	}
-	/*
-	==============================================================
-		Bx Slider 2
-	==============================================================
-	*/
-	$('.bxslider2').bxSlider({
-		mode: 'vertical',
-		slideMargin: 0
-	});
-	/*
-	==============================================================
-		Bx Slider 3
-	==============================================================
-	*/
-	$('.bxslider3').bxSlider({
-		auto: true,
-		mode: 'fade',
-		pagerCustom: '#bx-pager'
-	});
-	/*
-	==============================================================
-		Bx Slider 6
-	==============================================================
-	*/
-	if($('.bxslider6').length){
-		$('.bxslider6').bxSlider({
-			auto: true,
-			mode: 'fade',
-			pager: false,
-			speed: 1000,
-			easing:'ease',
-			autoDelay: 1000
-		});
-	}
-	/*
-	==============================================================
 		Drop Down Toggle
 	==============================================================
 	*/
 	if($(".dropdown-toggle").length){
 		$('.dropdown-toggle').dropdown()
 
-	}
-	/*
-	==============================================================
-		Count Down
-	==============================================================
-	*/
-	if($('.countdown').length){
-		$('.countdown').downCount({ date: '08/08/2016 12:00:00', offset: +1 });
 	}
 	/*
 	==============================================================
@@ -69,21 +19,6 @@ $(document).ready(function(){
 	}
 	if($("select").length){
 		$('select').selectric();
-	}
-
-	/*
-	==============================================================
-		Sidr Script
-	==============================================================
-	*/
-	if($("#simple-menu").length){
-		$('#simple-menu').sidr();
-	}
-	if($("#responsive-menu-button").length){
-		$('#responsive-menu-button').sidr();
-	}
-	if($("#responsive-menu-button2").length){
-		$('#responsive-menu-button2').sidr();
 	}
 	/*
 	==============================================================
@@ -100,69 +35,6 @@ $(document).ready(function(){
 		// Animation complete.
 		});
 	});
-	/*
-	==============================================================
-		BRAND SLIDER
-	==============================================================
-	*/
-	if($('#brand-slider').length){
-		var owl = $("#brand-slider");
-		owl.owlCarousel({
-		 autoPlay: 5000, //Set AutoPlay to 3 seconds
-		  itemsCustom : [
-		  [0, 1],
-		  [450, 1],
-		  [600, 4],
-		  [700, 4],
-		  [1000, 4],
-		  [1200, 4]
-		  ],
-		  navigation : true
-
-		});
-	}
-	/*
-	==============================================================
-		Brand Slider 2
-	==============================================================
-	*/
-	if($('#brand-slider2').length){
-		var owl = $("#brand-slider2");
-		owl.owlCarousel({
-		 autoPlay: 5000, //Set AutoPlay to 3 seconds
-		  itemsCustom : [
-		  [0, 1],
-		  [450, 1],
-		  [600, 1],
-		  [700, 1],
-		  [1000, 1],
-		  [1200, 1]
-		  ],
-		  navigation : true
-
-		});
-	}
-	/*
-	==============================================================
-		Post Slider
-	==============================================================
-	*/
-	if($('#post-slider').length){
-		var owl = $("#post-slider");
-		owl.owlCarousel({
-		 autoPlay: 5000, //Set AutoPlay to 3 seconds
-		  itemsCustom : [
-		  [0, 1],
-		  [450, 1],
-		  [600, 1],
-		  [700, 1],
-		  [1000, 1],
-		  [1200, 1]
-		  ],
-		  navigation : true
-
-		});
-	}
 	/*
 	==============================================================
 		Featured  Item  Script Start
@@ -390,58 +262,6 @@ $(document).ready(function(){
 			}
 		});
 	}
-	/*
-	==============================================================
-	 Click Toggle  Script Start
-	==============================================================
-	*/
-	$('.method1').on('click',function() {
-	    $(this).toggleClass('before');
-	});
-	$( ".method1" ).on('click',function() {
-		$( ".payment1" ).slideToggle( "slow", function() {
-		// Animation complete.
-		});
-	});
-
-	$('.method2').on('click',function() {
-	    $(this).toggleClass('before');
-	});
-	$( ".method2" ).on('click',function() {
-		$( ".payment2" ).slideToggle( "slow", function() {
-		// Animation complete.
-		});
-	});
-
-	$('.method3').on('click',function() {
-	    $(this).toggleClass('before');
-	});
-	$( ".method3" ).on('click',function() {
-		$( ".payment3" ).slideToggle( "slow", function() {
-		// Animation complete.
-		});
-	});
-
-	$('.method4').on('click',function() {
-		$(this).toggleClass('before');
-	});
-	$( ".method4" ).on('click',function() {
-		$( ".payment4" ).slideToggle( "slow", function() {
-		// Animation complete.
-		});
-	});
-
-
-	/*
-	  ==============================================================
-		   Progress Bar Script Start
-	  ==============================================================
-	*/
-	$(".progressbars").jprogress();
-		$(".progressbarsone").jprogress({
-	});
-
-
   	/*
     ==============================================================
  				DL Responsive Menu
@@ -485,6 +305,11 @@ $(document).ready(function(){
 		$( ".amount" ).val( "$" + $( ".slider-range" ).slider( "values", 0 ) + " - $" + $( ".slider-range" ).slider( "values", 1 ) );
 	}
 
+	/*
+	 ==============================================================
+	 Toggle page view on book grid
+	 ==============================================================
+	 */
     var mainContent = $('.main-content');
 
     mainContent.on('click', '.pageview__list', function (e) {
@@ -549,7 +374,11 @@ $(document).ready(function(){
             }
         });
     });
-
+	/*
+	 ==============================================================
+	 Pagination
+	 ==============================================================
+	 */
     mainContent.on('click', 'a.pagination-link', function (e) {
         e.preventDefault();
         var query = $('#search-query').val(),
