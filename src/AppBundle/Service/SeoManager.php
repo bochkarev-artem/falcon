@@ -80,6 +80,15 @@ class SeoManager
         $this->setBasicSeoData($seoData);
     }
 
+    public function setPopularBooksSeoData()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.popular_books_page.keywords'));
+        $seoData->setMetaDescription($this->translator->trans('front.popular_books_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.popular_books_page.keywords'));
+        $this->setBasicSeoData($seoData);
+    }
+
     /**
      * @param Genre $genre
      */

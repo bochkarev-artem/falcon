@@ -92,6 +92,44 @@ class SiteController extends Controller
     }
 
     /**
+     * @param integer $page
+     * @param Request $request
+     *
+     * @return Response|JsonResponse
+     */
+    public function popularBooksAction($page = 1, Request $request)
+    {
+        $defaultPerPage = $this->getParameter('default_per_page');
+
+        $queryParams = new QueryParams();
+        $queryParams
+            ->setSort(QueryParams::SORT_RATING_DESC)
+            ->setPage($page)
+            ->setSize($defaultPerPage)
+            ->setStart($queryParams->getOffset())
+        ;
+
+        $data = $this->prepareViewData($request, $queryParams, [
+            'page'     => $page,
+            'per_page' => $defaultPerPage,
+        ]);
+
+        $data = array_merge($data, [
+            'show_author'    => true,
+            'pagination_url' => $this->generateUrl('popular_books') . '/page/',
+        ]);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->prepareJsonResponse($data);
+        }
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setPopularBooksSeoData();
+
+        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+    }
+
+    /**
      * @param Request $request
      * @param integer $id
      * @param integer $page

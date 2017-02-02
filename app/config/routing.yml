@@ -38,6 +38,14 @@ new_books:
     path: /new-books
     defaults: { _controller: AppBundle:Site:newBooks }
 
+popular_books:
+    path: /popular-books
+    defaults: { _controller: AppBundle:Site:popularBooks }
+
+popular_books_with_page:
+    path: /popular-books/page/{page}
+    defaults: { _controller: AppBundle:Site:popularBooks }
+
 new_books_with_page:
     path: /new-books/page/{page}
     defaults: { _controller: AppBundle:Site:newBooks }
