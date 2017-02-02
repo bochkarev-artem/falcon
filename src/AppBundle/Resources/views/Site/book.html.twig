@@ -87,7 +87,7 @@
                                                     <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
                                                 </div>
                                             {% endif %}
-                                            {% if download_links %}
+                                            {% if download_links|length > 0 %}
                                                 <ul class="social-1">
                                                     <li><a href="#"><i class="fa fa-vk"></i></a></li>
                                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
