@@ -942,6 +942,13 @@ section{
     text-transform: uppercase;
     margin-bottom: 20px;
 }
+.fetch-book2 div.h4 {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 10px;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
 .fetch-book2 figure{
 	width: 180px;
 }
@@ -1031,6 +1038,10 @@ section{
 	padding:15px 0px;
 	margin: 0;
 }
+.fetch-bookmeta .fetch-book2 div.h4 {
+	padding:15px 0px;
+	margin: 0;
+}
 .fetch-bookmeta ul li a{
 	padding: 9px 50px 12px;
 	float: left;
@@ -1054,6 +1065,32 @@ section{
 .fetch-bookmeta li a:hover{
 	color: #fff;
 }
+/* Heading Typo */
+span.aside-header {
+	color: #363636;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: normal;
+	margin: 0;
+}
+
+/* Heading Typo */
+div.h1, div.h2, div.h3, div.h4, div.h5, div.h6 {
+    color: #363636;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+div.h1 a, div.h2 a, div.h3 a, div.h4 a, div.h5 a, div.h6 a {
+	color: #363636;
+	font-family: 'Roboto', sans-serif;
+}
+
 /*
 	  ==============================================================
 		  HEADER 2 CSS START
@@ -2131,10 +2168,20 @@ section{
 	font-weight: 500;
 	margin-bottom: 17px;
 }
+.book-tab-dec .text div.h5{
+	display: block;
+	text-align: center;
+	line-height: 18px;
+	font-weight: 500;
+	margin-bottom: 17px;
+}
 .featured-slider-style .book-tab-dec .text{
 	background: #fff;
 }
 .featured-slider-style .book-tab-dec .text h5{
+	margin-bottom: 6px;
+}
+.featured-slider-style .book-tab-dec .text div.h5{
 	margin-bottom: 6px;
 }
 .book-tab-dec .rating{
@@ -2662,7 +2709,7 @@ section{
 .footer-1{
 	background-color: #262626;
 	position: relative;
-	padding: 61px 0 265px;
+	padding: 30px 0 150px;
 }
 .footer-1:before{
 	background-image: url(../images/footer-1.png);
@@ -3054,6 +3101,9 @@ section{
 }
 .tabs-slider-wrap6 .book-tab-dec .text h5,
 .grid-4 .book-tab-dec .text h5{
+}
+.tabs-slider-wrap6 .book-tab-dec .text div.h5,
+.grid-4 .book-tab-dec .text div.h5{
 }
 .book-tab-bx{
 	float: left;

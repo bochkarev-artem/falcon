@@ -59,7 +59,14 @@
                                                 <ul class="book-tags">
                                                     <li><span>{{ 'front.sequence'|trans }}:</span></li>
                                                     <li>
-                                                        <a href="/{{ book.sequence.path }}">{{ book.sequence.name }}</a>
+                                                        <a href="/{{ book.sequence.path }}">
+                                                            {{- book.sequence.name -}}
+                                                            {%- if book.sequence_number -%}
+                                                                {{ 'front.number_in_sequence'|trans({
+                                                                    '%number%': book.sequence_number
+                                                                }) }}
+                                                            {%- endif -%}
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             {% endif %}
@@ -76,17 +83,19 @@
                                                 {%- endfor -%}
                                             </ul>
                                             {% if read_link %}
-                                            <ul class="book-tags">
-                                                <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
-                                            </ul>
+                                                <div class="book-tags">
+                                                    <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                                </div>
                                             {% endif %}
-                                            <ul class="social-1">
-                                                <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-yahoo"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                            </ul>
+                                            {% if download_links|length > 0 %}
+                                                <ul class="social-1">
+                                                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-yahoo"></i></a></li>
+                                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                </ul>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>

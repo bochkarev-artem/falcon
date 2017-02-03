@@ -16,6 +16,9 @@
 .featured-dec .text h5 a:hover,
 .book-tab-dec .text h5 a:hover,
 .blog-meta li a:hover,
+.featured-dec .text div.h5 a:hover,
+.book-tab-dec .text div.h5 a:hover,
+.featured-blog1 .text div.h5 a:hover,
 .featured-blog1 .text h5 a:hover,
 .play-icon,
 .featured2-dec .text .shopnow:hover,
@@ -25,6 +28,8 @@
 .text-2 h3 a:hover,
 .fetch-book2 h4,
 .fetch-bookmeta h4,
+.fetch-book2 div.h4,
+.fetch-bookmeta div.h4,
 .signature,
 .cart-form .text p,
 .ad-cart i,
@@ -437,10 +442,6 @@ p em,
 ::selection {
 	background: #29adcd;
 	color: #ffffff;
-}
-::-webkit-selection {
- background: #29adcd;
- color: #ffffff;
 }
 ::-moz-selection {
  background: #29adcd;

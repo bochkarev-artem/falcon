@@ -6,21 +6,25 @@ front:
         keywords:         Bookary
         breadcrumb_title: Главная
     genres_page:
-        title:       Bookary
-        description: Bookary
-        keywords:    Bookary
+        title:          Bookary
+        description:    Bookary
+        keywords:       Bookary
     tags_page:
-        title:       Bookary
-        description: Bookary
-        keywords:    Bookary
+        title:          Теги
+        description:    Теги
+        keywords:       Теги
     search_page:
-        title:       Поиск
-        description: Поиск
-        keywords:    Поиск
+        title:          Поиск
+        description:    Поиск
+        keywords:       Поиск
     new_books_page:
-        title:       Новые книги
-        description: Новые книги
-        keywords:    Новые книги
+        title:          Новые книги
+        description:    Новые книги
+        keywords:       Новые книги
+    popular_books_page:
+        title:          Популярные книги
+        description:    Популярные книги
+        keywords:       Популярные книги
     main:               Главная
     search:             Поиск
     year:               Год
@@ -29,10 +33,11 @@ front:
     no_results:         Нет книг
     featured_books:     Интересное
     new_arrivals:       Новые
-    popular_books:      Популярное
+    popular_books:      Популярные книги
     to_book:            К книге
     genres:             Жанры
     sequence:           Серия
+    number_in_sequence: " (%number% книга)"
     tags:               Теги
     new_books:          Новые книги
     popular:            Популярное
@@ -81,4 +86,6 @@ front:
         email:        admin@bookary.ru
         social_links: Мы в соцсетях
         politics:     Политика сайта
-
+        vk_url:       https://vk.com/bookary
+        twitter_url:  https://twitter.com/audio_knigki
+        site_name:    Bookary

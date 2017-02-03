@@ -27,7 +27,7 @@
                                                         {% set author = new_arrivals_book.authors|first %}
                                                         <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                                                     {% endif %}
-                                                    <h5><a href="/{{ new_arrivals_book.path }}">{{ new_arrivals_book.title }}</a></h5>
+                                                    <div class="h5"><a href="/{{ new_arrivals_book.path }}">{{ new_arrivals_book.title }}</a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,7 +53,7 @@
                                                         {% set author = popular_book.authors|first %}
                                                         <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                                                     {% endif %}
-                                                    <h5><a href="/{{ popular_book.path }}">{{ popular_book.title }}</a></h5>
+                                                    <div class="h5"><a href="/{{ popular_book.path }}">{{ popular_book.title }}</a></div>
                                                 </div>
                                             </div>
                                         </div>

@@ -14,11 +14,6 @@
                         {% endif %}
                     </figure>
                     <div class="text">
-                        {% if aside_featured_book.authors|length > 0 %}
-                            <ul>
-                                <li><a href="/{{ aside_featured_book.authors[0].path }}">{{ aside_featured_book.authors[0].short_name }}</a></li>
-                            </ul>
-                        {% endif %}
                         <a href="/{{ aside_featured_book.path }}">{{ aside_featured_book.title }}</a>
                     </div>
                 </div>
