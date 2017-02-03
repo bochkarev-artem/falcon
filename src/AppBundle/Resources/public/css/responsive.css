@@ -119,12 +119,8 @@
 	.grid-4 .rangsldr-dec .slider-range.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all{
 		width: 65%;
 	}
-	.grid-4 .book-tab-dec .text h5{
+	.grid-4 .book-tab-dec .text div.h5{
 		font-size: 17px;
-	}
-	.comingsoon-dec h5{
-		font-size: 28px;
-		line-height:50px;
 	}
 	.blog-list-wrap .slectric-dec span{
 		width: 40%;

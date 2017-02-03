@@ -8,7 +8,7 @@
                     <div class="fetch-bookmeta">
                         <ul>
                             <li class="fetch-book2">
-                                <h4>{{ 'front.genres'|trans }}</h4>
+                                <div class="h4">{{ 'front.genres'|trans }}</div>
                             </li>
                             {% set childGenres = genres[parentGenre.id] %}
                             {%- for childGenre in childGenres -%}
@@ -20,7 +20,7 @@
                     {% if menu_genre_books and menu_genre_books[parentGenre.id] is defined %}
                         {% set menu_book = menu_genre_books[parentGenre.id] %}
                         <div class="fetch-book2">
-                            <h4>{{ 'front.featured_menu_book'|trans }}</h4>
+                            <div class="h4">{{ 'front.featured_menu_book'|trans }}</div>
                             <figure>
                                 {% if menu_book.cover_path %}
                                     <a href="{{ menu_book.path }}">
@@ -29,9 +29,9 @@
                                 {% endif %}
                             </figure>
                             <div class="text">
-                                <h6>
+                                <div class="h6">
                                     <a href="/{{ menu_book.path }}">{{ menu_book.title }}</a>
-                                </h6>
+                                </div>
                                 <p>{{ menu_book.annotation|striptags|truncate(320) }}</p>
                                 <a class="btn-1" href="/{{ menu_book.path }}">{{ 'front.read'|trans }}</a>
                             </div>
