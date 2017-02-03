@@ -979,7 +979,7 @@ section{
     width: auto;
     padding:10px 0 8px 15px;
 }
-.fetch-book2 .text h6{
+.fetch-book2 .text h6, .fetch-book2 .text div.h6{
 	line-height: 14px;
 	font-size: 14px;
 	text-transform: uppercase;
