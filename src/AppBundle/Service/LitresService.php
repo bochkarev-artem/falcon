@@ -58,7 +58,12 @@ class LitresService
     /**
      * @var int $perPage
      */
-    private $perPage = 100;
+    private $perPage = 1000;
+
+    /**
+     * @var int $batch
+     */
+    private $batch = 100;
 
     /**
      * @var bool $debug
@@ -305,120 +310,123 @@ class LitresService
     {
         $skipped = 0;
         $step    = 0;
-        $xml     = $this->getXml($endpoint . "?limit=0,103000");
-        foreach ($xml->{'fb2-book'} as $data) {
-            $step++;
-            $hubId = (string) $data['hub_id'];
-            if ($book = $this->bookRepo->findOneByLitresHubId($hubId)) {
-                /** @var Book $book */
-                if ($this->debug) {
-                    echo ">>> " . $book->getId() . " book id already exists ($step)\n";
-                }
-                $skipped++;
-
-                continue;
-            }
-
-            $annotation   = '';
-            $book         = new Book;
-            $titleInfo    = $data->{'text_description'}->hidden->{'title-info'};
-            $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
-            $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
-
-            foreach ($titleInfo->author as $author) {
-                $authorId = $author->id;
-                $author   = $this->getAuthor($authorId);
-                if ($author) {
-                    $book->addAuthor($author);
-                } else {
-                    if ($this->logger && $this->debug) {
-                        $this->logger->log(
-                            LogLevel::CRITICAL,
-                            sprintf('Author %s not found', $authorId)
-                        );
+        for ($i = 0; $i < 103; $i++) {
+            $start = $i * $this->perPage + 1;
+            $xml = $this->getXml($endpoint . "?limit=$start,$this->perPage");
+            foreach ($xml->{'fb2-book'} as $data) {
+                $step++;
+                $hubId = (string)$data['hub_id'];
+                if ($book = $this->bookRepo->findOneByLitresHubId($hubId)) {
+                    /** @var Book $book */
+                    if ($this->debug) {
+                        echo ">>> " . $book->getId() . " book id already exists ($step)\n";
                     }
-
                     $skipped++;
-                    continue 2;
+
+                    continue;
                 }
-            }
 
-            $genres = [];
-            foreach ($titleInfo->genre as $token) {
-                $token = (string) $token;
-                $genres[$token] = $token; // To exclude duplicated
-            }
+                $annotation = '';
+                $book = new Book;
+                $titleInfo = $data->{'text_description'}->hidden->{'title-info'};
+                $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
+                $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
 
-            foreach ($genres as $token) {
-                $genre = $this->getGenre($token);
-                if ($genre) {
-                    $book->addGenre($genre);
-                }
-            }
+                foreach ($titleInfo->author as $author) {
+                    $authorId = $author->id;
+                    $author = $this->getAuthor($authorId);
+                    if ($author) {
+                        $book->addAuthor($author);
+                    } else {
+                        if ($this->logger && $this->debug) {
+                            $this->logger->log(
+                                LogLevel::CRITICAL,
+                                sprintf('Author %s not found', $authorId)
+                            );
+                        }
 
-            foreach ($data->{'art_tags'}->tag as $tag) {
-                $tag = $this->getTag($tag);
-                if ($tag) {
-                    $book->addTag($tag);
-                }
-            }
-
-            if ($data->{'sequences'}) {
-                foreach ($data->{'sequences'}->sequence as $sequence) {
-                    $sequenceNumber = (integer) $sequence['number'];
-                    $sequence       = $this->getSequence($sequence);
-                    if ($sequence) {
-                        $book->setSequence($sequence);
-                        $book->setSequenceNumber($sequenceNumber);
-                        break;
+                        $skipped++;
+                        continue 2;
                     }
                 }
-            }
 
-            if ($titleInfo->annotation) {
-                $annotation = strip_tags($titleInfo->annotation->asXML(), '<p><br>');
-            }
+                $genres = [];
+                foreach ($titleInfo->genre as $token) {
+                    $token = (string)$token;
+                    $genres[$token] = $token; // To exclude duplicated
+                }
 
-            if ($titleInfo->reader) {
-                $book->setReader((string) $titleInfo->reader->nickname);
-            }
+                foreach ($genres as $token) {
+                    $genre = $this->getGenre($token);
+                    if ($genre) {
+                        $book->addGenre($genre);
+                    }
+                }
 
-            $book
-                ->setLitresHubId($hubId)
-                ->setBookType((string) $data['type'])
-                ->setCover((string) $data['cover'])
-                ->setPrice((string) $data['base_price'])
-                ->setRating((string) $data['rating'])
-                ->setReviewCount((string) $data['recenses'])
-                ->setHasTrial((string) $data['has_trial'])
-                ->setTitle(substr((string) $titleInfo->{'book-title'}, 0, 254))
-                ->setAnnotation($annotation)
-                ->setLang((string) $titleInfo->lang)
-                ->setDocumentId((string) $documentInfo->id)
-                ->setPublisher((string) $publishInfo->publisher)
-                ->setYearPublished((string) $publishInfo->year)
-                ->setCityPublished((string) $publishInfo->city)
-                ->setIsbn((string) $publishInfo->isbn)
-            ;
+                foreach ($data->{'art_tags'}->tag as $tag) {
+                    $tag = $this->getTag($tag);
+                    if ($tag) {
+                        $book->addTag($tag);
+                    }
+                }
 
-            $date = (string) $titleInfo->date['value'];
-            if ($date && $date != '0000-00-00') {
-                $date = new \DateTime($date);
-                $book->setDate($date);
-            }
+                if ($data->{'sequences'}) {
+                    foreach ($data->{'sequences'}->sequence as $sequence) {
+                        $sequenceNumber = (integer)$sequence['number'];
+                        $sequence = $this->getSequence($sequence);
+                        if ($sequence) {
+                            $book->setSequence($sequence);
+                            $book->setSequenceNumber($sequenceNumber);
+                            break;
+                        }
+                    }
+                }
 
-            $this->em->persist($book);
-            if ($this->debug) {
-                echo ">>> " . $book->getId() . " book id persisted ($step)\n";
-            }
+                if ($titleInfo->annotation) {
+                    $annotation = strip_tags($titleInfo->annotation->asXML(), '<p><br>');
+                }
 
-            if ($step % $this->perPage === 0) {
-                $this->em->flush();
-                $this->em->clear();
+                if ($titleInfo->reader) {
+                    $book->setReader((string)$titleInfo->reader->nickname);
+                }
+
+                $book
+                    ->setLitresHubId($hubId)
+                    ->setBookType((string)$data['type'])
+                    ->setCover((string)$data['cover'])
+                    ->setPrice((string)$data['base_price'])
+                    ->setRating((string)$data['rating'])
+                    ->setReviewCount((string)$data['recenses'])
+                    ->setHasTrial((string)$data['has_trial'])
+                    ->setTitle(substr((string)$titleInfo->{'book-title'}, 0, 254))
+                    ->setAnnotation($annotation)
+                    ->setLang((string)$titleInfo->lang)
+                    ->setDocumentId((string)$documentInfo->id)
+                    ->setPublisher((string)$publishInfo->publisher)
+                    ->setYearPublished((string)$publishInfo->year)
+                    ->setCityPublished((string)$publishInfo->city)
+                    ->setIsbn((string)$publishInfo->isbn)
+                ;
+
+                $date = (string)$titleInfo->date['value'];
+                if ($date && $date != '0000-00-00') {
+                    $date = new \DateTime($date);
+                    $book->setDate($date);
+                }
+
+                $this->em->persist($book);
+                if ($this->debug) {
+                    echo ">>> " . $book->getId() . " book id persisted ($step)\n";
+                }
+
+                if ($step % $this->batch === 0) {
+                    $this->em->flush();
+                    $this->em->clear();
+                }
             }
         }
 
-        $numberProcessed = $step - $skipped;
+        $numberProcessed = $i * $this->perPage - $skipped;
         if ($this->logger && $this->debug) {
             $this->logger->log(
                 LogLevel::INFO,
