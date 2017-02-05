@@ -44,7 +44,6 @@ fos_elastica:
                         cover_path:           { type: string }
                         path:                 { type: string, index: not_analyzed }
                         price:                { type: float }
-                        filename:             { type: string }
                         has_trial:            { type: boolean }
                         featured_home:        { type: boolean }
                         featured_menu:        { type: boolean }

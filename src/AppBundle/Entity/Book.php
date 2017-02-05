@@ -92,13 +92,6 @@ class Book implements PageInterface
     private $coverPath;
 
     /**
-     * @var string $filename
-     *
-     * @ORM\Column(name="filename", type="string", nullable=true)
-     */
-    private $filename;
-
-    /**
      * @var integer $bookType
      *
      * @ORM\Column(name="book_type", type="integer", nullable=true)
@@ -599,26 +592,6 @@ class Book implements PageInterface
     public function setLitresHubId($litresHubId)
     {
         $this->litresHubId = $litresHubId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilename()
-    {
-        return $this->filename;
-    }
-
-    /**
-     * @param string $filename
-     *
-     * @return Book
-     */
-    public function setFilename($filename)
-    {
-        $this->filename = $filename;
 
         return $this;
     }
