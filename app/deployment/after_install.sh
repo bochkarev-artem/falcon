@@ -9,4 +9,4 @@ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var web/media
 sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX var web/media
 php bin/console doctrine:migrations:migrate
 cd ./web
-ln -s images ../../falcon-images/images
+ln -s ../../falcon-images/images images
