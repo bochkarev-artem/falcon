@@ -305,7 +305,7 @@ class LitresService
     {
         $skipped = 0;
         $step    = 0;
-        for ($i = 0; $i < 2; $i++) {
+        for ($i = 0; $i < 1030; $i++) {
             $start = $i * $this->perPage + 1;
             $xml   = $this->getXml($endpoint . "?limit=$start,$this->perPage");
 
