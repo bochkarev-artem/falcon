@@ -102,7 +102,6 @@ class BookProvider implements ProviderInterface
             'annotation'        => $book->getAnnotation(),
             'cover_path'        => $book->getCoverPath(),
             'price'             => $book->getPrice(),
-            'filename'          => $book->getFilename(),
             'has_trial'         => $book->isHasTrial(),
             'featured_home'     => $book->isFeaturedHome(),
             'featured_menu'     => $book->isFeaturedMenu(),

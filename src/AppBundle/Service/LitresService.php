@@ -390,7 +390,6 @@ class LitresService
                     ->setLitresHubId($hubId)
                     ->setBookType((string) $data['type'])
                     ->setCover((string) $data['cover'])
-                    ->setFilename((string) $data['filename'])
                     ->setPrice((string) $data['base_price'])
                     ->setRating((string) $data['rating'])
                     ->setReviewCount((string) $data['recenses'])
