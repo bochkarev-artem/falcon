@@ -72,6 +72,8 @@ class ImageUploadService
             if (false === $fileContent) {
                 return false;
             }
+            $bookId = $book->getId();
+            echo ">>> $bookId book updated with photo\n";
 
             $this->s3Filesystem->write($path, $fileContent);
             $book->setCoverName($fileName);
@@ -100,6 +102,8 @@ class ImageUploadService
             if (false === $fileContent) {
                 return false;
             }
+            $authorId = $author->getId();
+            echo ">>> $authorId author updated with photo\n";
 
             $this->s3Filesystem->write($path, $fileContent);
             $author->setPhotoName($fileName);
