@@ -17,12 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Entity
  * @Vich\Uploadable
- * @ORM\Table(
- *     name="book",
- *     uniqueConstraints={
- *           @ORM\UniqueConstraint(name="book_ids", columns={"litres_hub_id"})
- *     }
- * )
+ * @ORM\Table(name="book")
  */
 class Book implements PageInterface
 {

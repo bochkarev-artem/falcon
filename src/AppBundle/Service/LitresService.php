@@ -58,7 +58,7 @@ class LitresService
     /**
      * @var int $perPage
      */
-    private $perPage = 1000;
+    private $perPage = 125;
 
     /**
      * @var int $batch
@@ -310,9 +310,9 @@ class LitresService
     {
         $skipped = 0;
         $step    = 0;
-        for ($i = 0; $i < 103; $i++) {
+        for ($i = 0; $i < 830; $i++) {
             $start = $i * $this->perPage + 1;
-            $xml = $this->getXml($endpoint . "?limit=$start,$this->perPage");
+            $xml   = $this->getXml($endpoint . "?limit=$start,$this->perPage");
             foreach ($xml->{'fb2-book'} as $data) {
                 $step++;
                 $hubId = (string)$data['hub_id'];
@@ -416,7 +416,7 @@ class LitresService
 
                 $this->em->persist($book);
                 if ($this->debug) {
-                    echo ">>> " . $book->getId() . " book id persisted ($step)\n";
+                    echo ">>> book persisted ($step)\n";
                 }
 
                 if ($step % $this->batch === 0) {
@@ -445,24 +445,10 @@ class LitresService
      * @param string $endpoint
      *
      * @return \SimpleXMLElement
-     * @throws \ErrorException
      */
     private function getXml($endpoint)
     {
-        $content = file_get_contents($endpoint);
-        try {
-            $xml = simplexml_load_string(mb_convert_encoding(gzdecode($content), 'utf-8'));
-        } catch (\Exception $e) {
-            if ($this->logger && $this->debug) {
-                $this->logger->log(
-                    LogLevel::ERROR,
-                    sprintf('Message: %s. Endpoint: %s', $e->getMessage(), $endpoint)
-                );
-            }
-            throw new \ErrorException;
-        }
-
-        return $xml;
+        return simplexml_load_string(mb_convert_encoding(gzdecode(file_get_contents($endpoint)), 'utf-8'));
     }
 
     /**
