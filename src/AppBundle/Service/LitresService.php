@@ -61,9 +61,14 @@ class LitresService
     private $perPage = 125;
 
     /**
-     * @var int $batch
+     * @var int $batchSize
      */
-    private $batch = 100;
+    private $batchSize = 100;
+
+    /**
+     * @var int $bookExistedCount
+     */
+    private $bookExistedCount = 500;
 
     /**
      * @var bool $debug
@@ -419,10 +424,14 @@ class LitresService
                     echo ">>> book persisted ($step)\n";
                 }
 
-                if ($step % $this->batch === 0) {
+                if ($step % $this->batchSize === 0) {
                     $this->em->flush();
                     $this->em->clear();
                 }
+            }
+
+            if ($skipped >= $this->bookExistedCount) {
+                break;
             }
         }
 
