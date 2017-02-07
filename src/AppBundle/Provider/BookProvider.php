@@ -8,7 +8,6 @@ namespace AppBundle\Provider;
 use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Genre;
-use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Internal\Hydration\IterableResult;
