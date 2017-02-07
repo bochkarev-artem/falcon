@@ -43,7 +43,6 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
         $qb
             ->select('a')
             ->from('AppBundle:Author', 'a')
-            ->andWhere($qb->expr()->neq('a.photo', ''))
         ;
 
         if (!$force) {

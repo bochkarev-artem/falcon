@@ -43,7 +43,6 @@ class ImportBookImagesCommand extends ContainerAwareCommand
         $qb
             ->select('b')
             ->from('AppBundle:Book', 'b')
-            ->andWhere($qb->expr()->neq('b.cover', ''))
         ;
 
         if (!$force) {
