@@ -9,10 +9,10 @@ use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
+use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class SitemapSubscriber implements EventSubscriberInterface
+class SitemapListener implements SitemapListenerInterface
 {
     /**
      * @var EntityManager
@@ -36,19 +36,9 @@ class SitemapSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @inheritdoc
-     */
-    public static function getSubscribedEvents()
-    {
-        return [
-            SitemapPopulateEvent::ON_SITEMAP_POPULATE => 'generateSitemap',
-        ];
-    }
-
-    /**
      * @param SitemapPopulateEvent $event
      */
-    public function generateSitemap(SitemapPopulateEvent $event)
+    public function populateSitemap(SitemapPopulateEvent $event)
     {
         $queryBuilders = [
             'authors' => $this->getAuthorQueryBuilder(),
@@ -63,7 +53,9 @@ class SitemapSubscriber implements EventSubscriberInterface
                 foreach ($queryBuilder->getQuery()->iterate() as $row) {
                     /** @var PageInterface $entity */
                     $entity = array_shift($row);
-                    $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), $section);
+                    if ($entity instanceof PageInterface) {
+                        $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), $section);
+                    }
                 }
             }
         }

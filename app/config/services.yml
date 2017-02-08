@@ -57,14 +57,14 @@ services:
             - "@translator.default"
             - "%litres_partner_id%"
 
-    sitemap_subscriber:
-        class: AppBundle\Service\SitemapSubscriber
+    sitemap_listener:
+        class: AppBundle\Service\SitemapListener
         arguments:
             - "@doctrine.orm.default_entity_manager"
             - "%base_url%"
             - "%base_scheme%"
         tags:
-            - { name: "kernel.event_subscriber", priority: 100 }
+            - { name: "presta.sitemap.listener", priority: 100 }
 
     search_provider.route:
         class: AppBundle\Provider\RouteProvider
