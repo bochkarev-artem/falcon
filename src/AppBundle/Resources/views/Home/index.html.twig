@@ -15,21 +15,23 @@
                             <div class="row">
                                 <div id="tabs-slider" class="owl-carousel owl-theme">
                                     {% for new_arrivals_book in new_arrivals_books %}
-                                        <div class="item">
-                                            <div class="book-tab-dec">
-                                                <figure>
-                                                    <a href="/{{ new_arrivals_book.path }}">
-                                                        <img src="{{ new_arrivals_book.cover_path|imagine_filter('book_list') }}" alt=""/>
-                                                    </a>
-                                                </figure>
-                                                <div class="text">
-                                                    {% if new_arrivals_book.authors %}
-                                                        {% set author = new_arrivals_book.authors|first %}
-                                                        <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
-                                                    {% endif %}
-                                                    <div class="h5"><a href="/{{ new_arrivals_book.path }}">{{ new_arrivals_book.title }}</a></div>
+                                        {% if new_arrivals_book.cover_path is defined %}
+                                            <div class="item">
+                                                <div class="book-tab-dec">
+                                                    <figure>
+                                                        <a href="/{{ new_arrivals_book.path }}">
+                                                            <img src="{{ new_arrivals_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                                        </a>
+                                                    </figure>
+                                                    <div class="text">
+                                                        {% if new_arrivals_book.authors %}
+                                                            {% set author = new_arrivals_book.authors|first %}
+                                                            <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
+                                                        {% endif %}
+                                                        <div class="h5"><a href="/{{ new_arrivals_book.path }}">{{ new_arrivals_book.title }}</a></div>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            {% endif %}
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -41,22 +43,24 @@
                             <div class="row">
                                 <div id="tabs-slider" class="owl-carousel owl-theme">
                                     {% for popular_book in popular_books %}
-                                        <div class="item">
-                                            <div class="book-tab-dec">
-                                                <figure>
-                                                    <a href="/{{ popular_book.path }}">
-                                                        <img src="{{ popular_book.cover_path|imagine_filter('book_list') }}" alt=""/>
-                                                    </a>
-                                                </figure>
-                                                <div class="text">
-                                                    {% if popular_book.authors %}
-                                                        {% set author = popular_book.authors|first %}
-                                                        <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
-                                                    {% endif %}
-                                                    <div class="h5"><a href="/{{ popular_book.path }}">{{ popular_book.title }}</a></div>
+                                        {% if popular_book.cover_path is defined %}
+                                            <div class="item">
+                                                <div class="book-tab-dec">
+                                                    <figure>
+                                                        <a href="/{{ popular_book.path }}">
+                                                            <img src="{{ popular_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                                        </a>
+                                                    </figure>
+                                                    <div class="text">
+                                                        {% if popular_book.authors %}
+                                                            {% set author = popular_book.authors|first %}
+                                                            <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
+                                                        {% endif %}
+                                                        <div class="h5"><a href="/{{ popular_book.path }}">{{ popular_book.title }}</a></div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
@@ -74,11 +78,13 @@
             <div class="soap-gallery carousel-style1 carousel box" data-front-width="250" data-front-height="366" data-slides="5" data-vAlign="top">
                 <div class="slides">
                     {% for featured_book in featured_books %}
-                        <div>
-                            <a href="/{{ featured_book.path }}">
-                                <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ featured_book.title }}">
-                            </a>
-                        </div>
+                        {% if featured_book.cover_path is defined %}
+                            <div>
+                                <a href="/{{ featured_book.path }}">
+                                    <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ featured_book.title }}">
+                                </a>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
