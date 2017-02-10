@@ -37,10 +37,14 @@ search_with_page:
 new_books:
     path: /new-books
     defaults: { _controller: AppBundle:Site:newBooks }
+    options:
+        sitemap: true
 
 popular_books:
     path: /popular-books
     defaults: { _controller: AppBundle:Site:popularBooks }
+    options:
+        sitemap: true
 
 popular_books_with_page:
     path: /popular-books/page/{page}
@@ -53,6 +57,8 @@ new_books_with_page:
 tags:
     path: /tags
     defaults: { _controller: AppBundle:Site:tags }
+    options:
+        sitemap: true
 
 search_page:
     path: /search-page
