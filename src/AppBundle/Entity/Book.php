@@ -901,7 +901,7 @@ class Book implements PageInterface
     /**
      * @return string
      */
-    public function getMainAuthorSlug(): string
+    public function getMainAuthorSlug()
     {
         return $this->mainAuthorSlug;
     }
@@ -911,7 +911,7 @@ class Book implements PageInterface
      *
      * @return Book
      */
-    public function setMainAuthorSlug(string $mainAuthorSlug)
+    public function setMainAuthorSlug($mainAuthorSlug)
     {
         $this->mainAuthorSlug = $mainAuthorSlug;
 
