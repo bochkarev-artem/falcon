@@ -43,6 +43,7 @@ class SitemapListener implements SitemapListenerInterface
         $queryBuilders = [
             'authors' => $this->getAuthorQueryBuilder(),
             'books'   => $this->getBookQueryBuilder(),
+            'books2'  => $this->getBook2QueryBuilder(),
             'genres'  => $this->getGenreQueryBuilder(),
             'series'  => $this->getSequenceQueryBuilder(),
             'tags'    => $this->getTagQueryBuilder()
@@ -70,6 +71,23 @@ class SitemapListener implements SitemapListenerInterface
         $qb
             ->select('b')
             ->from('AppBundle:Book', 'b')
+            ->setMaxResults(50000)
+        ;
+
+        return $qb;
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    protected function getBook2QueryBuilder()
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('b')
+            ->from('AppBundle:Book', 'b')
+            ->setMaxResults(50000)
+            ->setFirstResult(50001)
         ;
 
         return $qb;
