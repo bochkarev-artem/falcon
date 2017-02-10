@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportLitresDataCommand
+ * Class ImportBookImagesCommand
  * @package AppBundle\Command
  */
 class ImportBookImagesCommand extends ContainerAwareCommand
@@ -64,6 +64,7 @@ class ImportBookImagesCommand extends ContainerAwareCommand
         }
 
         $em->flush();
+        $em->clear();
         $endTime   = time();
         $totalTime = $endTime - $startTime;
 

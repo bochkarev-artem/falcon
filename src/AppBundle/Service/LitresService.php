@@ -395,6 +395,9 @@ class LitresService
                     $book->setReader((string)$titleInfo->reader->nickname);
                 }
 
+                /** @var Author $mainAuthor */
+                $mainAuthor = $book->getAuthors()->first();
+
                 $book
                     ->setLitresHubId($hubId)
                     ->setBookType((string)$data['type'])
@@ -411,6 +414,7 @@ class LitresService
                     ->setYearPublished((string)$publishInfo->year)
                     ->setCityPublished((string)$publishInfo->city)
                     ->setIsbn((string)$publishInfo->isbn)
+                    ->setMainAuthorSlug($mainAuthor->getSlug())
                 ;
 
                 $date = (string)$titleInfo->date['value'];

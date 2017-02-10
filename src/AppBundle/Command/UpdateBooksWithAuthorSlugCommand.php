@@ -5,17 +5,16 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Author;
+use AppBundle\Entity\Book;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ImportAuthorImagesCommand
+ * Class UpdateBooksWithAuthorSlugCommand
  * @package AppBundle\Command
  */
-class ImportAuthorImagesCommand extends ContainerAwareCommand
+class UpdateBooksWithAuthorSlugCommand extends ContainerAwareCommand
 {
     /**
      * {@inheritdoc}
@@ -23,9 +22,8 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('app:update-author-images')
+            ->setName('app:update-books')
             ->setDescription('Update Litres images.')
-            ->addArgument('force', InputArgument::OPTIONAL, 'Force update. Allowed: "y", "n"', 'n')
         ;
     }
 
@@ -34,29 +32,26 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("<info>Import author images started.</info>");
+        $output->writeln("<info>Update started.</info>");
         $startTime = time();
-        $force     = $input->getArgument('force') === 'n' ? false : true;
         $container = $this->getContainer();
         $em        = $container->get('doctrine.orm.entity_manager');
         $qb        = $em->createQueryBuilder();
         $qb
-            ->select('a')
-            ->from('AppBundle:Author', 'a')
+            ->select('b')
+            ->from('AppBundle:Book', 'b')
+            ->where($qb->expr()->isNull('b.mainAuthorSlug'))
         ;
-
-        if (!$force) {
-            $qb->andWhere($qb->expr()->isNull('a.photoPath'));
-        }
 
         $result    = $qb->getQuery()->iterate();
         $batchSize = 100;
         $i         = 0;
-        $imageUploadService = $container->get('image_upload_service');
         foreach ($result as $row) {
-            /** @var Author $author */
-            $author = $row[0];
-            $imageUploadService->updateAuthorPhoto($author);
+            /** @var Book $book */
+            $book   = $row[0];
+            $author = $book->getAuthors()->first();
+            echo $book->getId() . "\n";
+            $book->setMainAuthorSlug($author->getSlug());
             if ((++$i % $batchSize) === 0) {
                 $em->flush();
                 $em->clear();
@@ -68,6 +63,6 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
         $endTime   = time();
         $totalTime = $endTime - $startTime;
 
-        $output->writeln("<info>Import images finished. Total time: $totalTime seconds</info>");
+        $output->writeln("<info>Update finished. Total time: $totalTime seconds</info>");
     }
 }

@@ -34,7 +34,6 @@ class ImportLitresDataCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        ini_set('memory_limit', '1G');
         $output->writeln("<info>Import data started.</info>");
         $startTime = time();
         $type      = $input->getArgument('type');

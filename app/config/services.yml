@@ -112,3 +112,8 @@ services:
         class: AppBundle\Service\QueryService
         arguments:
             - "@fos_elastica.index.books.book"
+
+    author_listener:
+        class: AdminBundle\EventListener\AuthorListener
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }

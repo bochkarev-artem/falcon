@@ -122,6 +122,13 @@ class Book implements PageInterface
     private $reader;
 
     /**
+     * @var string $mainAuthorSlug
+     *
+     * @ORM\Column(name="main_author_slug", type="string", nullable=true)
+     */
+    private $mainAuthorSlug;
+
+    /**
      * @var ArrayCollection $genres
      *
      * @ORM\ManyToMany(targetEntity="Genre", fetch="EXTRA_LAZY")
@@ -894,12 +901,28 @@ class Book implements PageInterface
     /**
      * @return string
      */
+    public function getMainAuthorSlug(): string
+    {
+        return $this->mainAuthorSlug;
+    }
+
+    /**
+     * @param string $mainAuthorSlug
+     *
+     * @return Book
+     */
+    public function setMainAuthorSlug(string $mainAuthorSlug)
+    {
+        $this->mainAuthorSlug = $mainAuthorSlug;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getPath()
     {
-        if ($this->getAuthors()->count() > 0) {
-            return $this->getAuthors()->first()->getSlug() . '/' . $this->getSlug();
-        } else {
-            return $this->getSlug();
-        }
+        return $this->getMainAuthorSlug() . '/' . $this->getSlug();
     }
 }
