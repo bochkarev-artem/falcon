@@ -12,9 +12,4 @@ cd /home/ubuntu/falcon/web
 unlink images
 ln -s ../../falcon-images/images images
 cd /home/ubuntu/falcon/
-php bin/console presta:sitemaps:dump --env=prod --no-debug --section=books
-php bin/console presta:sitemaps:dump --env=prod --no-debug --section=books2
-php bin/console presta:sitemaps:dump --env=prod --no-debug --section=authors
-php bin/console presta:sitemaps:dump --env=prod --no-debug --section=tags
-php bin/console presta:sitemaps:dump --env=prod --no-debug --section=genres
-php bin/console presta:sitemaps:dump --env=prod --no-debug --section=series
+php bin/console presta:sitemaps:dump --gzip --env=prod --no-debug

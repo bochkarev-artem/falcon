@@ -7,7 +7,7 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
 use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
@@ -23,6 +23,11 @@ class SitemapListener implements SitemapListenerInterface
      * @var string
      */
     protected $siteUrl;
+
+    /**
+     * @var integer
+     */
+    protected $bookOffset = 0;
 
     /**
      * @param EntityManager $em
@@ -41,111 +46,53 @@ class SitemapListener implements SitemapListenerInterface
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $queryBuilders = [
-            'authors' => $this->getAuthorQueryBuilder(),
-            'books'   => $this->getBookQueryBuilder(),
-            'books2'  => $this->getBook2QueryBuilder(),
-            'genres'  => $this->getGenreQueryBuilder(),
-            'series'  => $this->getSequenceQueryBuilder(),
-            'tags'    => $this->getTagQueryBuilder()
+            'books'   => 'Book',
+            'books2'  => 'Book',
+            'authors' => 'Author',
+            'genres'  => 'Genre',
+            'series'  => 'Sequence',
+            'tags'    => 'Tag',
         ];
 
-        foreach ($queryBuilders as $section => $queryBuilder) {
+        foreach ($queryBuilders as $section => $entityName) {
             if (is_null($event->getSection()) || $event->getSection() == $section) {
-                foreach ($queryBuilder->getQuery()->iterate() as $row) {
+                $query = $this->getQuery($entityName);
+                foreach ($query->iterate() as $row) {
                     /** @var PageInterface $entity */
                     $entity = array_shift($row);
                     if ($entity instanceof PageInterface) {
                         $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), $section);
                     }
                 }
+                $query = null;
+                $this->em->clear();
             }
         }
     }
 
     /**
-     * @return QueryBuilder
+     * @param string $entityName
+     *
+     * @return Query
      */
-    protected function getBookQueryBuilder()
+    protected function getQuery($entityName)
     {
         $qb = $this->em->createQueryBuilder();
         $qb
-            ->select('b')
-            ->from('AppBundle:Book', 'b')
-            ->setMaxResults(50000)
+            ->select('e')
+            ->from("AppBundle:$entityName", 'e')
         ;
 
-        return $qb;
-    }
+        if ('Book' == $entityName) {
+            $qb->setMaxResults(50000);
 
-    /**
-     * @return QueryBuilder
-     */
-    protected function getBook2QueryBuilder()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb
-            ->select('b')
-            ->from('AppBundle:Book', 'b')
-            ->setMaxResults(50000)
-            ->setFirstResult(50001)
-        ;
+            if ($this->bookOffset) {
+                $qb->setFirstResult($this->bookOffset + 1);
+            }
 
-        return $qb;
-    }
+            $this->bookOffset += 50000;
+        }
 
-    /**
-     * @return QueryBuilder
-     */
-    protected function getGenreQueryBuilder()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb
-            ->select('g')
-            ->from('AppBundle:Genre', 'g')
-        ;
-
-        return $qb;
-    }
-
-    /**
-     * @return QueryBuilder
-     */
-    protected function getTagQueryBuilder()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb
-            ->select('t')
-            ->from('AppBundle:Tag', 't')
-        ;
-
-        return $qb;
-    }
-
-    /**
-     * @return QueryBuilder
-     */
-    protected function getAuthorQueryBuilder()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb
-            ->select('a')
-            ->from('AppBundle:Author', 'a')
-        ;
-
-        return $qb;
-    }
-
-    /**
-     * @return QueryBuilder
-     */
-    protected function getSequenceQueryBuilder()
-    {
-        $qb = $this->em->createQueryBuilder();
-        $qb
-            ->select('s')
-            ->from('AppBundle:Sequence', 's')
-        ;
-
-        return $qb;
+        return $qb->getQuery();
     }
 }
