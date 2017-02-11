@@ -20,13 +20,6 @@ class SequenceAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('litresId')
-            ->add('books', 'entity', [
-                'class'        => 'AppBundle\Entity\Book',
-                'expanded'     => false,
-                'multiple'     => true,
-                'required'     => false,
-                'by_reference' => false,
-            ])
             ->add('name', null, ['required' => true])
             ->add('slug')
         ;

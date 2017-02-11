@@ -21,7 +21,7 @@
                                                 {% for tag in tags %}
                                                     <li>
                                                         <a href="/{{ tag[0].path }}">
-                                                            {{ tag[0].title }} ({{ tag.count_books }})
+                                                            {{ tag[0].title|capitalize }} ({{ tag.count_books }})
                                                         </a>
                                                     </li>
                                                 {% endfor %}

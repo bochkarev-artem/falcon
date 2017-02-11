@@ -24,29 +24,10 @@ class BookAdmin extends AbstractAdmin
             ->add('documentId')
             ->add('title')
             ->add('slug')
-            ->add('authors', 'entity', [
-                'class'    => 'AppBundle\Entity\Author',
-                'expanded' => false,
-                'multiple' => true,
-                'required' => false,
-            ])
-            ->add('genres', 'sonata_type_model', [
-                'class'    => 'AppBundle\Entity\Genre',
-                'expanded' => false,
-                'multiple' => true,
-                'required' => false,
-            ])
-            ->add('tags', 'sonata_type_model', [
-                'class'    => 'AppBundle\Entity\Tag',
-                'expanded' => false,
-                'multiple' => true,
-                'required' => false,
-            ])
             ->add('sequence')
             ->add('price')
             ->add('cover')
             ->add('coverPath')
-            ->add('filename')
             ->add('bookType', 'choice', [
                 'choices'            => $this->getBookTypeChoices(),
                 'translation_domain' => 'AdminBundle',
@@ -141,7 +122,6 @@ class BookAdmin extends AbstractAdmin
             ->add('price')
             ->add('cover')
             ->add('coverPath')
-            ->add('filename')
             ->add('bookType', null, [
                     'template' => 'AdminBundle:Book:show_book_custom.html.twig',
                     'widget'   => 'type',

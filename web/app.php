@@ -17,6 +17,7 @@ $apcLoader = new Symfony\Component\ClassLoader\ApcClassLoader(sha1(__FILE__), $l
 $loader->unregister();
 $apcLoader->register(true);
 */
+ini_set('memory_limit', '1G');
 
 $kernel = new AppKernel('prod', false);
 $kernel->loadClassCache();

@@ -21,13 +21,6 @@ class AuthorAdmin extends AbstractAdmin
         $formMapper
             ->add('litresHubId')
             ->add('documentId')
-            ->add('books', 'entity', [
-                'class'        => 'AppBundle\Entity\Book',
-                'expanded'     => false,
-                'multiple'     => true,
-                'required'     => false,
-                'by_reference' => false,
-            ])
             ->add('firstName')
             ->add('lastName')
             ->add('middleName')
