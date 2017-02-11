@@ -48,6 +48,8 @@ class SitemapListener implements SitemapListenerInterface
         $queryBuilders = [
             'books'   => 'Book',
             'books2'  => 'Book',
+            'books3'  => 'Book',
+            'books4'  => 'Book',
             'authors' => 'Author',
             'genres'  => 'Genre',
             'series'  => 'Sequence',
@@ -84,13 +86,13 @@ class SitemapListener implements SitemapListenerInterface
         ;
 
         if ('Book' == $entityName) {
-            $qb->setMaxResults(50000);
+            $qb->setMaxResults(30000);
 
             if ($this->bookOffset) {
                 $qb->setFirstResult($this->bookOffset + 1);
             }
 
-            $this->bookOffset += 50000;
+            $this->bookOffset += 30000;
         }
 
         return $qb->getQuery();
