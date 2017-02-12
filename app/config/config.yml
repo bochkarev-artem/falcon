@@ -103,3 +103,6 @@ fos_user:
     db_driver:     orm
     firewall_name: main
     user_class:    AppBundle\Entity\User
+    from_email:
+        address:        admin@bookary.ru
+        sender_name:    Bookary.ru
