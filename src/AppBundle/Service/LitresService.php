@@ -124,7 +124,7 @@ class LitresService
         $genres = [];
         foreach ($xml->genre as $genreNode) {
             $parentGenre = new Genre();
-            $parentTitle = $this->mbUcfirst($genreNode['title']);
+            $parentTitle = $this->mbUcfirstOnly($genreNode['title']);
             $parentGenre->setTitle($parentTitle);
             $parentGenre->setLitresId(0);
             $this->em->persist($parentGenre);
@@ -132,7 +132,7 @@ class LitresService
             foreach ($genreNode as $node) {
                 $id    = (integer) $node['id'];
                 $token = (string) $node['token'];
-                $title = $this->mbUcfirst($node['title']);
+                $title = $this->mbUcfirstOnly($node['title']);
                 if (!is_null($id)) {
                     /** @var Genre $genre */
                     if ($genre = $this->genreRepo->findOneByToken($token)) {
@@ -291,7 +291,7 @@ class LitresService
     public function getTag($tag)
     {
         $tagId    = $tag['id'];
-        $tagTitle = $tag['tag_title'];
+        $tagTitle = $this->mbUcfirst($tag['tag_title']);
         $tag      = $this->tagRepo->findOneByLitresId($tagId);
         if (!$tag && $tagId) {
             $tag = new Tag();
@@ -469,10 +469,20 @@ class LitresService
      *
      * @return string
      */
-    protected function mbUcfirst($string) {
-        $string      = mb_strtolower($string);
-        $firstLetter = mb_strtoupper(mb_substr($string, 0, 1));
+    protected function mbUcfirstOnly($string)
+    {
+        $string = mb_strtolower($string);
 
-        return $firstLetter . mb_substr($string, 1);
+        return $this->mbUcfirst($string);
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function mbUcfirst($string)
+    {
+        return mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1);
     }
 }

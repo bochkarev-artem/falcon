@@ -72,11 +72,6 @@ class QueryParams
     private $filterFeaturedHome;
 
     /**
-     * @var boolean
-     */
-    private $filterFeaturedMenu;
-
-    /**
      * @var integer
      */
     private $sort;
@@ -354,24 +349,6 @@ class QueryParams
     public function setFilterFeaturedHome()
     {
         $this->filterFeaturedHome = true;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isFilterFeaturedMenu()
-    {
-        return $this->filterFeaturedMenu;
-    }
-
-    /**
-     * @return QueryParams
-     */
-    public function setFilterFeaturedMenu()
-    {
-        $this->filterFeaturedMenu = true;
 
         return $this;
     }

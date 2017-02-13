@@ -27,7 +27,7 @@
                                 {% set author = book.authors|first %}
                                 <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                             {% endif %}
-                            <div class="h5"><a href="/{{ book.path }}">{{ book.title }}</a></div>
+                            <div class="h5"><a href="/{{ book.path }}">{{ book.title|truncate(40) }}</a></div>
                         </div>
                     </div>
                 </div>

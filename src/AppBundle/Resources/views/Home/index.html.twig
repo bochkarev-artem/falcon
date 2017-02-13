@@ -19,7 +19,7 @@
                                             <div class="item">
                                                 <div class="book-tab-dec">
                                                     <a href="/{{ new_arrivals_book.path }}">
-                                                        <img class="owl-lazy" data-src="{{ new_arrivals_book.cover_path|imagine_filter('book_list') }}" width="262" height="400" alt=""/>
+                                                        <img class="owl-lazy" data-src="{{ new_arrivals_book.cover_path|imagine_filter('book_list') }}" alt=""/>
                                                     </a>
                                                     <div class="text">
                                                         {% if new_arrivals_book.authors %}
@@ -45,7 +45,7 @@
                                             <div class="item">
                                                 <div class="book-tab-dec">
                                                     <a href="/{{ popular_book.path }}">
-                                                        <img class="owl-lazy" data-src="{{ popular_book.cover_path|imagine_filter('book_list') }}" width="262" height="400" alt=""/>
+                                                        <img class="owl-lazy" data-src="{{ popular_book.cover_path|imagine_filter('book_list') }}" alt=""/>
                                                     </a>
                                                     <div class="text">
                                                         {% if popular_book.authors %}

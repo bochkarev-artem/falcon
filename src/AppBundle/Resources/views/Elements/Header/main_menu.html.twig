@@ -22,9 +22,9 @@
                         <div class="fetch-book2">
                             <div class="h4">{{ 'front.featured_menu_book'|trans }}</div>
                             <figure>
-                                {% if menu_book.cover_path %}
+                                {% if menu_book.coverPath %}
                                     <a href="{{ menu_book.path }}">
-                                        <img src="{{ menu_book.cover_path|imagine_filter('book_list') }}" alt="{{ menu_book.title }}">
+                                        <img src="{{ menu_book.coverPath|imagine_filter('book_list') }}" alt="{{ menu_book.title }}">
                                     </a>
                                 {% endif %}
                             </figure>

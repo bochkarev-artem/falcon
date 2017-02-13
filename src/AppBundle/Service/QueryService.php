@@ -134,10 +134,6 @@ class QueryService
         if ($queryParams->isFilterFeaturedHome()) {
             $this->applyFeaturedHomeFilter($boolQuery);
         }
-
-        if ($queryParams->isFilterFeaturedMenu()) {
-            $this->applyFeaturedMenuFilter($boolQuery);
-        }
     }
 
     /**
@@ -224,14 +220,6 @@ class QueryService
     private function applyFeaturedHomeFilter(Query\BoolQuery $query)
     {
         $query->addMust(new Query\Term(['featured_home' => true]));
-    }
-
-    /**
-     * @param Query\BoolQuery $query
-     */
-    private function applyFeaturedMenuFilter(Query\BoolQuery $query)
-    {
-        $query->addMust(new Query\Term(['featured_menu' => true]));
     }
 
     /**

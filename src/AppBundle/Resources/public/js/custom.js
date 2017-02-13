@@ -49,7 +49,15 @@ $(document).ready(function(){
             autoplay: true,
             autoplayTimeout: 5000,
             autoplayHoverPause: true,
-            loop: true
+            loop: true,
+            responsive:{
+                0: {items:1},
+                450: {items:1},
+                600: {items:2},
+                700: {items:4},
+                1000: {items:4},
+                1200: {items:4}
+            }
         });
     }
 	/*

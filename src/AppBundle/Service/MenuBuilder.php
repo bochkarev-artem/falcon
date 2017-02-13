@@ -5,8 +5,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Book;
 use AppBundle\Entity\Genre;
-use AppBundle\Model\QueryParams;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Config\ConfigCache;
 
@@ -135,20 +135,28 @@ class MenuBuilder
 
         $additionalData = [];
         if ($type == 'main') {
-            $queryParams = new QueryParams();
-            $queryParams
-                ->setFilterFeaturedMenu()
-                ->setSize(100)
+            $menuGenreBooks = [];
+            $qb = $this->em->createQueryBuilder();
+            $qb
+                ->select('b, g')
+                ->from('AppBundle:Book', 'b')
+                ->leftJoin('b.genres', 'g')
+                ->andWhere($qb->expr()->eq('b.featuredMenu', ':featured_menu'))
+                ->setParameter('featured_menu', true)
+                ->addOrderBy('b.rating', 'DESC')
+                ->addOrderBy('b.reviewCount', 'DESC')
             ;
 
-            $queryResult = $this->queryService->query($queryParams);
-            $books       = $queryResult->getResults();
-
-            $menuGenreBooks = [];
+            $books = $qb->getQuery()->getResult();
+            /** @var Book $book */
             foreach ($books as $book) {
-                $book    = $book->getSource();
-                $genreId = $book['featured_menu_genre'];
-                $menuGenreBooks[$genreId] = $book;
+                foreach ($book->getGenres() as $genre) {
+                    $genreId = $genre->getParent()->getId();
+                    if (!array_key_exists($genreId, $menuGenreBooks)) {
+                        $menuGenreBooks[$genreId] = $book;
+                        break;
+                    }
+                }
             }
 
             $additionalData['menu_genre_books'] = $menuGenreBooks;
