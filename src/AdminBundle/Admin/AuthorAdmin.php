@@ -24,6 +24,11 @@ class AuthorAdmin extends AbstractAdmin
             ->add('firstName')
             ->add('lastName')
             ->add('middleName')
+            ->add('books', 'sonata_type_model_autocomplete', [
+                'property' => 'title',
+                'required' => false,
+                'multiple' => true,
+            ])
             ->add('slug')
             ->add('level')
             ->add('reviewCount')

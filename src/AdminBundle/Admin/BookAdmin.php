@@ -6,6 +6,7 @@
 namespace AdminBundle\Admin;
 
 use AppBundle\Entity\Book;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -27,6 +28,38 @@ class BookAdmin extends AbstractAdmin
             ->add('sequence')
             ->add('price')
             ->add('cover')
+            ->add('authors', 'sonata_type_model_autocomplete', [
+                'property' => 'lastName',
+                'multiple' => true,
+                'required' => false,
+                'callback' => function(AuthorAdmin $admin, $property, $value) {
+                    /** @var QueryBuilder $qb */
+                    $qb      = $admin->getDatagrid()->getQuery();
+                    $aliases = $qb->getRootAliases();
+                    $qb
+                        ->where($qb->expr()->like($aliases[0] . '.' . $property, ':fname'))
+                        ->orWhere($qb->expr()->like($aliases[0] . '.firstName', ':mname'))
+                        ->orWhere($qb->expr()->like($aliases[0] . '.middleName', ':lname'))
+                        ->setParameter('fname', "%$value%")
+                        ->setParameter('mname', "%$value%")
+                        ->setParameter('lname', "%$value%")
+                    ;
+                },
+            ])
+            ->add('tags', 'sonata_type_model_autocomplete', [
+                'property' => 'title',
+                'required' => false,
+                'multiple' => true,
+            ])
+            ->add('genres', 'sonata_type_model_autocomplete', [
+                'property' => 'title',
+                'required' => false,
+                'multiple' => true,
+            ])
+            ->add('sequence', 'sonata_type_model_autocomplete', [
+                'property' => 'name',
+                'required' => false,
+            ])
             ->add('coverPath')
             ->add('bookType', 'choice', [
                 'choices'            => $this->getBookTypeChoices(),

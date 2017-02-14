@@ -351,6 +351,42 @@ class Book implements PageInterface
     }
 
     /**
+     * @param ArrayCollection $genres
+     *
+     * @return Book
+     */
+    public function setGenres(ArrayCollection $genres)
+    {
+        $this->genres = $genres;
+
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $authors
+     *
+     * @return Book
+     */
+    public function setAuthors(ArrayCollection $authors)
+    {
+        $this->authors = $authors;
+
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     *
+     * @return Book
+     */
+    public function setTags(ArrayCollection $tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
      * @param Genre $genre
      *
      * @return Book
