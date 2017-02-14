@@ -1,30 +1,47 @@
 front:
     404_error:       Данной страницы не существует!
     index_page:
-        title:            Bookary
-        description:      Bookary
-        keywords:         Bookary
+        title:         "Электронная библиотека Bookary - читать книги онлайн или скачать бесплатно и без регистрации в формате fb2, doc"
+        description:   "Электронная библиотека Bookary позволяет читателю без труда найти любую книгу и с легкостью скачать в одном из популярных форматов: fb2, txt, doc, pdf. Также вы можете читать книги онлайн. И никакой регистрации для этого не требуется."
+        keywords:      "книги, электронная библиотека, скачать книги бесплато, читать книги онлан, скачать книги без регистрации"
         breadcrumb_title: Главная
-    genres_page:
-        title:          Bookary
-        description:    Bookary
-        keywords:       Bookary
+    book_page:
+        title:        "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf"
+        description:  "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf."
+        keywords:     "книга, %book_title%, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, pdf"
+    tag_page:
+        title:        "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf"
+        description:  "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf."
+        keywords:     "книга, %tag_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, pdf"
+    genre_page:
+        title:        "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf"
+        description:  "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf."
+        keywords:     "книга, %genre_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, pdf"
+    author_page:
+        title:        "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf"
+        description:  "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf."
+        keywords:     "книга, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, pdf"
+    sequence_page:
+        title:        "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf"
+        description:  "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, pdf."
+        keywords:     "книга, %sequence_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, pdf"
     tags_page:
-        title:          Теги
-        description:    Теги
-        keywords:       Теги
+        title:          Все теги - электронная библиотека Bookary
+        description:    Все теги - электронная библиотека Bookary
+        keywords:       теги
     search_page:
-        title:          Поиск
-        description:    Поиск
-        keywords:       Поиск
+        title:          Поиск - электронная библиотека Bookary
+        description:    Поиск - электронная библиотека Bookary
+        keywords:       поиск
     new_books_page:
-        title:          Новые книги
-        description:    Новые книги
-        keywords:       Новые книги
+        title:          Новые книги, новинки литературы скачать бесплатно - электронная библиотека Bookary
+        description:    Новые книги, новинки литературы скачать бесплатно - электронная библиотека Bookary
+        keywords:       новые книги, новинки, литература, скачать бесплатно
     popular_books_page:
-        title:          Популярные книги
-        description:    Популярные книги
-        keywords:       Популярные книги
+        title:          Популярные книги, бестселееры, bestsellers скачать бесплатно - электронная библиотека Bookary
+        description:    Популярные книги, бестселееры, bestsellers скачать бесплатно - электронная библиотека Bookary
+        keywords:       популярные книги, бестселееры, bestsellers, скачать бесплатно
+
     main:               Главная
     search:             Поиск
     year:               Год

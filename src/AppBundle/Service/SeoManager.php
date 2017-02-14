@@ -52,7 +52,7 @@ class SeoManager
         }
     }
 
-    public function setIndexSeoData()
+    public function setHomeSeoData()
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.index_page.title'));
@@ -74,7 +74,7 @@ class SeoManager
     public function setNewBooksSeoData()
     {
         $seoData = new SeoData();
-        $seoData->setTitle($this->translator->trans('front.new_books_page.keywords'));
+        $seoData->setTitle($this->translator->trans('front.new_books_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.new_books_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.new_books_page.keywords'));
         $this->setBasicSeoData($seoData);
@@ -83,21 +83,9 @@ class SeoManager
     public function setPopularBooksSeoData()
     {
         $seoData = new SeoData();
-        $seoData->setTitle($this->translator->trans('front.popular_books_page.keywords'));
+        $seoData->setTitle($this->translator->trans('front.popular_books_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.popular_books_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.popular_books_page.keywords'));
-        $this->setBasicSeoData($seoData);
-    }
-
-    /**
-     * @param Genre $genre
-     */
-    public function setGenreSeoData(Genre $genre)
-    {
-        $seoData = new SeoData();
-        $seoData->setTitle($genre->getTitle());
-        $seoData->setMetaDescription($genre->getTitle());
-        $seoData->setMetaKeywords($genre->getTitle());
         $this->setBasicSeoData($seoData);
     }
 
@@ -111,14 +99,38 @@ class SeoManager
     }
 
     /**
+     * @param Genre $genre
+     */
+    public function setGenreSeoData(Genre $genre)
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.genre_page.title', [
+            '%genre_title%' => $genre->getTitle(),
+        ]));
+        $seoData->setMetaDescription($this->translator->trans('front.genre_page.description', [
+            '%genre_title%' => $genre->getTitle(),
+        ]));
+        $seoData->setMetaKeywords($this->translator->trans('front.genre_page.keywords', [
+            '%genre_title%' => $genre->getTitle(),
+        ]));
+        $this->setBasicSeoData($seoData);
+    }
+
+    /**
      * @param Author $author
      */
     public function setAuthorSeoData(Author $author)
     {
         $seoData = new SeoData();
-        $seoData->setTitle($author->getFullName());
-        $seoData->setMetaDescription($author->getFullName());
-        $seoData->setMetaKeywords($author->getFullName());
+        $seoData->setTitle($this->translator->trans('front.author_page.title', [
+            '%author_name%' => $author->getFullName(),
+        ]));
+        $seoData->setMetaDescription($this->translator->trans('front.author_page.description', [
+            '%author_name%' => $author->getFullName(),
+        ]));
+        $seoData->setMetaKeywords($this->translator->trans('front.author_page.keywords', [
+            '%author_name%' => $author->getFullName(),
+        ]));
         $this->setBasicSeoData($seoData);
     }
 
@@ -128,9 +140,19 @@ class SeoManager
     public function setBookSeoData(array $book)
     {
         $seoData = new SeoData();
-        $seoData->setTitle($book['title']);
-        $seoData->setMetaDescription($book['title']);
-        $seoData->setMetaKeywords($book['title']);
+        $author  = $book['authors'][0];
+        $seoData->setTitle($this->translator->trans('front.book_page.title', [
+            '%book_title%'  => $book['title'],
+            '%author_name%' => $author['full_name']
+        ]));
+        $seoData->setMetaDescription($this->translator->trans('front.book_page.description', [
+            '%book_title%'  => $book['title'],
+            '%author_name%' => $author['full_name']
+        ]));
+        $seoData->setMetaKeywords($this->translator->trans('front.book_page.keywords', [
+            '%book_title%'  => $book['title'],
+            '%author_name%' => $author['full_name']
+        ]));
         $this->setBasicSeoData($seoData);
     }
 
@@ -140,9 +162,15 @@ class SeoManager
     public function setTagSeoData(Tag $tag)
     {
         $seoData = new SeoData();
-        $seoData->setTitle($tag->getTitle());
-        $seoData->setMetaDescription($tag->getTitle());
-        $seoData->setMetaKeywords($tag->getTitle());
+        $seoData->setTitle($this->translator->trans('front.tag_page.title', [
+            '%tag_title%' => $tag->getTitle(),
+        ]));
+        $seoData->setMetaDescription($this->translator->trans('front.tag_page.description', [
+            '%tag_title%' => $tag->getTitle(),
+        ]));
+        $seoData->setMetaKeywords($this->translator->trans('front.tag_page.keywords', [
+            '%tag_title%' => $tag->getTitle(),
+        ]));
         $this->setBasicSeoData($seoData);
     }
 
@@ -152,9 +180,15 @@ class SeoManager
     public function setSequenceSeoData(Sequence $sequence)
     {
         $seoData = new SeoData();
-        $seoData->setTitle($sequence->getName());
-        $seoData->setMetaDescription($sequence->getName());
-        $seoData->setMetaKeywords($sequence->getName());
+        $seoData->setTitle($this->translator->trans('front.sequence_page.title', [
+            '%sequence_name%' => $sequence->getName(),
+        ]));
+        $seoData->setMetaDescription($this->translator->trans('front.sequence_page.description', [
+            '%sequence_name%' => $sequence->getName(),
+        ]));
+        $seoData->setMetaKeywords($this->translator->trans('front.sequence_page.keywords', [
+            '%sequence_name%' => $sequence->getName(),
+        ]));
         $this->setBasicSeoData($seoData);
     }
 
