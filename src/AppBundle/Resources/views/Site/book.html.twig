@@ -76,26 +76,27 @@
                                                     <li><a>{{ book.date|date('Y') }}</a></li>
                                                 </ul>
                                             {% endif %}
-                                            <ul class="book-tags">
-                                                <li><span>{{ 'front.download'|trans }}:</span></li>
-                                                {%- for link in download_links -%}
-                                                    <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
-                                                {%- endfor -%}
-                                            </ul>
-                                            {% if read_link %}
-                                                <div class="book-tags">
-                                                    <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
-                                                </div>
-                                            {% endif %}
+
                                             {% if download_links|length > 0 %}
-                                                <ul class="social-1">
-                                                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-yahoo"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <ul class="book-tags">
+                                                    <li><span>{{ 'front.download'|trans }}:</span></li>
+                                                    {%- for link in download_links -%}
+                                                        <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
+                                                    {%- endfor -%}
                                                 </ul>
                                             {% endif %}
+
+                                            <div class="book-tags">
+                                                <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                            </div>
+
+                                            <ul class="social-1">
+                                                <li><a href="#"><i class="fa fa-vk"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-yahoo"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

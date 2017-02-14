@@ -72,7 +72,7 @@ class LitresBookManager
     public function getReadOnlineLink(array $book)
     {
         if (!$book['has_trial']) {
-            return '';
+            return 'https://www.litres.ru/pages/biblio_book/?art=' . $book['litres_id'] . '&lfrom=' . $this->partnerId;
         }
 
         $litresId         = $book['litres_id'];
