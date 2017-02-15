@@ -14,7 +14,7 @@
                                         <div class="thumb-slider">
                                             {% if book.cover_path %}
                                                 <ul class="bxslider1">
-                                                    <li><img src="{{ book.cover_path|imagine_filter('book_full') }}" alt="" /></li>
+                                                    <li><img src="{{ book.cover_path|imagine_filter('book_full') }}" alt="{{ book.title }}" /></li>
                                                 </ul>
                                             {% endif %}
                                         </div>

@@ -9,7 +9,7 @@
                         {% if book.cover_path is defined %}
                             <figure>
                                 <a href="/{{ book.path }}">
-                                    <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="">
+                                    <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="{{ book.title }}">
                                 </a>
                                 {% if book.type == constant('AppBundle\\Entity\\Book::TYPE_AUDIO') %}
                                     <figcaption class="ribbon-wrap">

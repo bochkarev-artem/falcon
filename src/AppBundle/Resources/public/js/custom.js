@@ -222,7 +222,7 @@ $(document).ready(function(){
     mainContent.on('click', 'a.pagination-link', function (e) {
         e.preventDefault();
         var query = $('#search-query').val(),
-            page  = $(this).prop('rel'),
+            page  = $(this).data('page'),
             sendData = {'query': query, 'page': page},
             newLink = $(this).prop('href');
 

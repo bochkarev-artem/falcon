@@ -72,7 +72,10 @@ class LitresBookManager
     public function getReadOnlineLink(array $book)
     {
         if (!$book['has_trial']) {
-            return 'https://www.litres.ru/pages/biblio_book/?art=' . $book['litres_id'] . '&lfrom=' . $this->partnerId;
+            return $this->translator->trans('front.litres_book_url', [
+                '%litres_hub_id%' => $book['litres_id'],
+                '%partner_id%'    => $this->partnerId
+            ]);
         }
 
         $litresId         = $book['litres_id'];
@@ -80,7 +83,13 @@ class LitresBookManager
         $litres8DigitId   = $this->get8DigitCode($litresId);
         $litres6DigitId   = $this->get6DigitCode($litres8DigitId);
 
-        return "https://www.litres.ru/static/or4/view/or.html?baseurl=/static/trials/$litres6DigitId/$litres8DigitId.&uuid=$litresDocumentId&art=$litresId&trials=1&lfrom=$this->partnerId";
+        return $this->translator->trans('front.litres_read_book_url', [
+            '%litres_6_digit_id%'  => $litres6DigitId,
+            '%litres_8_digit_id%'  => $litres8DigitId,
+            '%litres_document_id%' => $litresDocumentId,
+            '%litres_hub_id%'      => $litresId,
+            '%partner_id%'         => $this->partnerId
+        ]);
     }
 
     /**

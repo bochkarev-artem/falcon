@@ -11,7 +11,7 @@
                             <div class="book-tab-dec">
                                 {% if slider_featured_book.cover_path %}
                                     <a href="/{{ slider_featured_book.path }}">
-                                        <img class="owl-lazy" data-src="{{ slider_featured_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                        <img class="owl-lazy" data-src="{{ slider_featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ slider_featured_book.title }}"/>
                                     </a>
                                 {% endif %}
                                 <div class="text">

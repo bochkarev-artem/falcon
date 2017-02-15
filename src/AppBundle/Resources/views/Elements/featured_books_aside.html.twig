@@ -9,7 +9,7 @@
                     <figure>
                         {% if aside_featured_book.cover_path %}
                             <a href="/{{ aside_featured_book.path }}">
-                                <img src="{{ aside_featured_book.cover_path|imagine_filter('book_list') }}" alt=""/>
+                                <img src="{{ aside_featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ aside_featured_book.title }}"/>
                             </a>
                         {% endif %}
                     </figure>

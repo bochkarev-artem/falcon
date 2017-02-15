@@ -5,7 +5,7 @@
             <ul class="pagination">
                 <li>
                 {% if pagination.current != 1 %}
-                    <a href="{{ pagination_url ~ pagination.prev }}" rel="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
+                    <a href="{{ pagination_url ~ pagination.prev }}" rel="prev" data-page="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
                         <span aria-hidden="true">
                             <i class="fa fa-angle-left"></i>
                         </span>
@@ -18,13 +18,13 @@
 
                 {%- for page in pagination.pages -%}
                     <li>
-                        <a class="pagination-link{% if page == pagination.current %} active{% endif %}" href="{{ pagination_url ~ page }}" rel="{{ page }}">{{ page }}</a>
+                        <a class="pagination-link{% if page == pagination.current %} active{% endif %}" href="{{ pagination_url ~ page }}" data-page="{{ page }}">{{ page }}</a>
                     </li>
                 {%- endfor -%}
 
                 <li>
                 {% if pagination.current != pagination.last %}
-                    <a href="{{ pagination_url ~ pagination.next }}" rel="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
+                    <a href="{{ pagination_url ~ pagination.next }}" rel="next" data-page="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
                         <span aria-hidden="true">
                             <i class="fa fa-angle-right"></i>
                         </span>
