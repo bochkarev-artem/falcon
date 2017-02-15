@@ -45,7 +45,8 @@
         "friendsofsymfony/elastica-bundle": "dev-master",
         "symfony-cmf/routing-bundle": "dev-master",
         "liip/imagine-bundle": "^1.6",
-        "presta/sitemap-bundle": "^1.5"
+        "presta/sitemap-bundle": "^1.5",
+        "lexik/translation-bundle": "dev-master"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0"

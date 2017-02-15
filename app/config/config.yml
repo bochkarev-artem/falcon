@@ -106,3 +106,7 @@ fos_user:
     from_email:
         address:        admin@bookary.ru
         sender_name:    Bookary.ru
+
+lexik_translation:
+    fallback_locale: [ru]
+    managed_locales: [ru]
