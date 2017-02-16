@@ -76,13 +76,19 @@ class RouteProvider implements ProviderInterface
      */
     private function createQueryBuilder($entity)
     {
-        /* @var QueryBuilder $queryBuilder */
+        /* @var QueryBuilder $qb */
         $qb = $this->em->createQueryBuilder();
 
-        return $qb
+        $qb = $qb
             ->select('o')
             ->from("AppBundle:$entity", 'o')
         ;
+
+        if ('Genre' == $entity) {
+            $qb->andWhere($qb->expr()->isNotNull('o.parent'));
+        }
+
+        return $qb;
     }
 
     /**

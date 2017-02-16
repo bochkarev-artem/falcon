@@ -863,7 +863,7 @@ section{
 	display: none;
 	background-color: #fff;
 	padding: 10px 0;
-	z-index: 2;
+	z-index: 200;
 }
 .categories-ul > li{
 	float: left;
