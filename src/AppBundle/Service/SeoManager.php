@@ -71,21 +71,31 @@ class SeoManager
         $this->setBasicSeoData($seoData);
     }
 
-    public function setNewBooksSeoData()
+    /**
+     * @param boolean $isPageIndexed
+     */
+    public function setNewBooksSeoData($isPageIndexed)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.new_books_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.new_books_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.new_books_page.keywords'));
+        $seoData->setIndexPage($isPageIndexed);
+
         $this->setBasicSeoData($seoData);
     }
 
-    public function setPopularBooksSeoData()
+    /**
+     * @param boolean $isPageIndexed
+     */
+    public function setPopularBooksSeoData($isPageIndexed)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.popular_books_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.popular_books_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.popular_books_page.keywords'));
+        $seoData->setIndexPage($isPageIndexed);
+
         $this->setBasicSeoData($seoData);
     }
 
@@ -95,13 +105,15 @@ class SeoManager
         $seoData->setTitle($this->translator->trans('front.tags_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.tags_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.tags_page.keywords'));
+
         $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Genre $genre
+     * @param boolean $isPageIndexed
      */
-    public function setGenreSeoData(Genre $genre)
+    public function setGenreSeoData(Genre $genre, $isPageIndexed)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.genre_page.title', [
@@ -113,13 +125,16 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.genre_page.keywords', [
             '%genre_title%' => $genre->getTitle(),
         ]));
+        $seoData->setIndexPage($isPageIndexed);
+
         $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Author $author
+     * @param boolean $isPageIndexed
      */
-    public function setAuthorSeoData(Author $author)
+    public function setAuthorSeoData(Author $author, $isPageIndexed)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.author_page.title', [
@@ -131,6 +146,8 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.author_page.keywords', [
             '%author_name%' => $author->getFullName(),
         ]));
+        $seoData->setIndexPage($isPageIndexed);
+
         $this->setBasicSeoData($seoData);
     }
 
@@ -158,8 +175,9 @@ class SeoManager
 
     /**
      * @param Tag $tag
+     * @param boolean $isPageIndexed
      */
-    public function setTagSeoData(Tag $tag)
+    public function setTagSeoData(Tag $tag, $isPageIndexed)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.tag_page.title', [
@@ -171,13 +189,16 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.tag_page.keywords', [
             '%tag_title%' => $tag->getTitle(),
         ]));
+        $seoData->setIndexPage($isPageIndexed);
+
         $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Sequence $sequence
+     * @param boolean $isPageIndexed
      */
-    public function setSequenceSeoData(Sequence $sequence)
+    public function setSequenceSeoData(Sequence $sequence, $isPageIndexed)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.sequence_page.title', [
@@ -189,6 +210,8 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.sequence_page.keywords', [
             '%sequence_name%' => $sequence->getName(),
         ]));
+        $seoData->setIndexPage($isPageIndexed);
+
         $this->setBasicSeoData($seoData);
     }
 
