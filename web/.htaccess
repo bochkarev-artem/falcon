@@ -30,6 +30,9 @@ DirectoryIndex app.php
     RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
     RewriteRule ^(.*) - [E=BASE:%1]
 
+    RewriteCond %{HTTP_HOST} ^www.bookary.ru$ [NC]
+    RewriteRule ^(.*) http://bookary.ru/$1 [R=301,L]
+
     # Sets the HTTP_AUTHORIZATION header removed by Apache
     RewriteCond %{HTTP:Authorization} .
     RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

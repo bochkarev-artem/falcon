@@ -1,5 +1,8 @@
+User-agent: Yandex
+Crawl-delay: 10
+
 User-agent: *
-Allow: /
+Disallow: /*/page/*
 
 Host: bookary.ru
 Sitemap: http://bookary.ru/sitemap.xml
