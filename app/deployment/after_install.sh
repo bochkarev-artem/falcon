@@ -13,3 +13,4 @@ unlink images
 ln -s ../../falcon-images/images images
 cd /home/ubuntu/falcon/
 php bin/console presta:sitemaps:dump --gzip --env=prod --no-debug
+php bin/console lexik:translations:import --cache-clear
