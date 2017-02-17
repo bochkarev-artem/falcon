@@ -58,7 +58,7 @@ Tags: white, light, yellow, two-columns, fluid-layout, custom-background, custom
 * 46.0 - WIDGET SIDE META  CSS START
 * 47.0 - WIDGET RANGE SLIDER   CSS START
 * 48.0 - WIDGET FEATURED ITEM   CSS START
-* 49.0 - WIDGET SLECTRIC FILLTER  CSS START
+* 49.0 - WIDGET SELECTRIC FILTER  CSS START
 * 50.0 - WIDGET AD  CSS START
 * 51.0 - WIDGET INPUTS  CSS START
 * 52.0 - WIDGET SLIDER 2  CSS START
@@ -2924,31 +2924,31 @@ div.h1 a, div.h2 a, div.h3 a, div.h4 a, div.h5 a, div.h6 a {
 */
 /*
 	 ================
-		   FILLTER OUTER WrAP CSS START
+		   FILTER OUTER WrAP CSS START
 	 ================
 */
-.fillter-outerwrap{
+.filter-outerwrap{
 	border-bottom:1px solid #f3f3f3;
 	float: left;
 	width: 100%;
 	padding: 70px 0 40px;
 }
-.fillter-wrap{
+.filter-wrap{
 	float: left;
 	width: 100%;
 	position: relative;
 }
-.slectric-dec{
+.selectric-dec{
 	float: left;
 	width: 100%;
 	border: 1px solid #f2f2f2;
 	border-radius: 2px;
 	position: relative;
 }
-.fillter-wrap .slectric-dec{
+.filter-wrap .selectric-dec{
 	margin-bottom: 30px;
 }
-.slectric-dec span{
+.selectric-dec span{
 	float: left;
 	width: 31%;
 	font-size: 14px;
@@ -2957,7 +2957,7 @@ div.h1 a, div.h2 a, div.h3 a, div.h4 a, div.h5 a, div.h6 a {
 	font-weight: normal;
 	padding:12px 0 15px 20px;
 }
-.slectric-dec .selectric-wrapper {
+.selectric-dec .selectric-wrapper {
     background: transparent none repeat scroll 0 0;
     border: medium none;
     left: 0;
@@ -2966,7 +2966,7 @@ div.h1 a, div.h2 a, div.h3 a, div.h4 a, div.h5 a, div.h6 a {
     right: 0;
     width: 100%;
 }
-.slectric-dec .selectric .label{
+.selectric-dec .selectric .label{
 	line-height: normal;
 	height: auto;
 	padding: 11px 50px 14px 32%;
@@ -2974,7 +2974,7 @@ div.h1 a, div.h2 a, div.h3 a, div.h4 a, div.h5 a, div.h6 a {
 	font-weight: normal;
 	color: #555555;
 }
-.slectric-dec .selectric .button{
+.selectric-dec .selectric .button{
 	height: 44px;
 	font-size: 0;
 	line-height: 44px;
@@ -2983,7 +2983,7 @@ div.h1 a, div.h2 a, div.h3 a, div.h4 a, div.h5 a, div.h6 a {
 	color: #b7b7b7;
 	width: 44px;
 }
-.slectric-dec .selectric .button:before{
+.selectric-dec .selectric .button:before{
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -2995,7 +2995,7 @@ div.h1 a, div.h2 a, div.h3 a, div.h4 a, div.h5 a, div.h6 a {
 	font-family: FontAwesome;
 	text-align: center;
 }
-.slectric-dec .selectric-open .selectric-items {
+.selectric-dec .selectric-open .selectric-items {
     right: 0;
     width: 100%!important;
     z-index: 999;
@@ -5584,22 +5584,22 @@ aside .widget{
 		WIDGET RANGE SLIDER   CSS START
 =================================================
 */
-.side-fillter .widget-padding{
+.side-filter .widget-padding{
 	padding:29px 30px 30px;
 }
 .rangsldr-meta{
 	float: left;
 	width: 100%;
 }
-.side-fillter .widget-padding .slider-range.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all{
+.side-filter .widget-padding .slider-range.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all{
 	width: 100%;
 	margin-bottom: 27px;
 }
-.side-fillter .widget-padding .rangsldr-meta span{
+.side-filter .widget-padding .rangsldr-meta span{
 	width: auto;
 	padding: 7px 4px 7px 0;
 }
-.side-fillter .widget-padding .rangsldr-meta .amount{
+.side-filter .widget-padding .rangsldr-meta .amount{
 	width: 40%;
 	padding: 7px 0 6px;
 	color: #555;
@@ -5608,7 +5608,7 @@ aside .widget{
 	float: right;
 	padding: 4px 12px 3px;
 }
-.side-fillter .ui-slider .ui-slider-handle {
+.side-filter .ui-slider .ui-slider-handle {
     background: #363636 none repeat scroll 0 0;
     cursor: pointer;
     height: 15px;
@@ -5681,22 +5681,22 @@ aside .widget{
 		WIDGET FILTER 2  CSS END
 =================================================
 */
-.widget-pub-fillter .widget-padding{
+.widget-pub-filter .widget-padding{
 	padding: 10px 30px 13px;
 }
-.widget-pub-fillter ul{
+.widget-pub-filter ul{
 	float: left;
 	width: 100%;
 }
-.widget-pub-fillter ul li{
+.widget-pub-filter ul li{
 	float: left;
 	width: 100%;
 	border-bottom: 1px solid #f2f2f2;
 }
-.widget-pub-fillter ul li:last-child{
+.widget-pub-filter ul li:last-child{
 	border:none;
 }
-.widget-pub-fillter ul li a{
+.widget-pub-filter ul li a{
 	float: left;
 	width: 100%;
 	text-align: left;
@@ -5705,38 +5705,38 @@ aside .widget{
 	padding: 14px 0;
 	line-height: 20px;
 }
-.widget-pub-fillter ul li a:hover{
+.widget-pub-filter ul li a:hover{
 	padding-left:10px;
 	padding-right: 10px;
 	color: #fff;
 }
-.widget-pub-fillter ul li span{
+.widget-pub-filter ul li span{
 	float: right;
 	color: #d7d7d7;
 	font-size: 11px;
 	background: #f5f5f5;
 	padding: 0 5px 0px;
 }
-.widget-pub-fillter ul li a:hover span{
+.widget-pub-filter ul li a:hover span{
 	color: #fff;
 }
 /*
 =================================================
-		WIDGET SLECTRIC FILLTER  CSS START
+		WIDGET SELECTRIC FILTER  CSS START
 =================================================
 */
-.widget-fillter .slectric-dec span{
+.widget-filter .selectric-dec span{
 	padding-left: 10px;
 	width: 100%;
 	max-width: 100%;
 	background: #fff;
 }
-.widget-fillter .slectric-dec .selectric .label{
+.widget-filter .selectric-dec .selectric .label{
 	padding-left: 37%;
 }
 /*
 =================================================
-		WIDGET SLECTRIC FILLTER  CSS END
+		WIDGET SELECTRIC FILTER  CSS END
 =================================================
 */
 
@@ -5930,7 +5930,7 @@ aside .widget{
 .widget-page .featured2-dec{
 	margin-top: 40px;
 }
-.side-fillter{
+.side-filter{
 	float: left;
 	width: 100%;
 	background: #fff;
@@ -6478,17 +6478,17 @@ aside .widget{
 	font-size: 18px;
 	line-height: 18px;
 }
-.book-fillter .select-menu {
+.book-filter .select-menu {
     float: left;
     width: 100%;
 }
-.book-fillter .select-menu .selectric-wrapper{
+.book-filter .select-menu .selectric-wrapper{
     border-radius: 4px;
 }
 .select-menu .selectric .label{
 	color: #555555;
 }
-.book-fillter .selectric .button {
+.book-filter .selectric .button {
     background: #f2f2f2;
     color: #b7b7b7;
     font-size: 0;
@@ -6497,7 +6497,7 @@ aside .widget{
     padding: 0;
     width: 42px;
 }
-.book-fillter .selectric .button::before {
+.book-filter .selectric .button::before {
     bottom: 0;
     color: #b7b7b7;
     content: "";

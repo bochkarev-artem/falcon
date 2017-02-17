@@ -1,7 +1,23 @@
-<div class="fillter-wrap">
+{% set select_options = {
+    (constant('AppBundle\\Model\\QueryParams::SORT_DATE_DESC')): 'front.sort.new_arrivals'|trans,
+    (constant('AppBundle\\Model\\QueryParams::SORT_RATING_DESC')): 'front.sort.popular'|trans
+} %}
+
+<div class="filter-wrap">
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4"></div>
+        <div class="col-md-5">
+            <div class="selectric-dec">
+                <span>{{ 'front.sort.sorting'|trans }}</span>
+                <select>
+                    {% for value, select_option in select_options %}
+                        <option value="{{ value }}"{% if sorting is defined and sorting == value %} selected{% endif %}>
+                            {{ select_option }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
         <div class="col-md-4">
             <div class="tab-dec">
                 <ul class="nav nav-tabs" role="tablist">

@@ -14,11 +14,16 @@ $(document).ready(function(){
 	 Select Menu
 	 ==============================================================
 	 */
-    if($("#select-menu").length){
-        $("#select-menu").selectbox();
+
+    var selector = $("select"),
+        selectMenu = $("#select-menu");
+
+    if (selectMenu.length){
+        selectMenu.selectbox();
     }
-    if($("select").length){
-        $('select').selectric();
+
+    if (selector.length){
+        selector.selectric();
     }
 	/*
 	 ==============================================================
@@ -156,7 +161,8 @@ $(document).ready(function(){
         e.preventDefault();
         var query = $('#search-query').val(),
             page = $('#page').val(),
-            sendData = {view: 'list', 'query': query, 'page': page};
+            sort = $('.selectric-dec option:selected').val(),
+            sendData = {view: 'list', 'query': query, 'page': page, 'sort': sort};
 
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
@@ -169,6 +175,7 @@ $(document).ready(function(){
                 }, 400);
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
+                $('select').selectric('init');
             }
         });
     });
@@ -177,7 +184,8 @@ $(document).ready(function(){
         e.preventDefault();
         var query = $('#search-query').val(),
             page = $('#page').val(),
-            sendData = {view: 'column', 'query': query, 'page': page};
+            sort = $('.selectric-dec option:selected').val(),
+            sendData = {view: 'column', 'query': query, 'page': page, 'sort': sort};
 
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
@@ -190,6 +198,7 @@ $(document).ready(function(){
                 }, 400);
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
+                $('select').selectric('init');
             }
         });
     });
@@ -198,7 +207,8 @@ $(document).ready(function(){
         e.preventDefault();
         var query = $('#search-query').val(),
             page = $('#page').val(),
-            sendData = {view: 'grid', 'query': query, 'page': page};
+            sort = $('.selectric-dec option:selected').val(),
+            sendData = {view: 'grid', 'query': query, 'page': page, 'sort': sort};
 
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);
@@ -211,6 +221,7 @@ $(document).ready(function(){
                 }, 400);
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
+                $('select').selectric('init');
             }
         });
     });
@@ -223,7 +234,8 @@ $(document).ready(function(){
         e.preventDefault();
         var query = $('#search-query').val(),
             page  = $(this).data('page'),
-            sendData = {'query': query, 'page': page},
+            sort = $('.selectric-dec option:selected').val(),
+            sendData = {'query': query, 'page': page, 'sort': sort},
             newLink = $(this).prop('href');
 
         if ($(this).hasClass('active')) {
@@ -242,7 +254,30 @@ $(document).ready(function(){
                 mainContent.css('opacity', 1);
                 $('.main-content__loading').remove();
                 history.pushState(null, null, newLink);
+                $('select').selectric('init');
             }
         });
     });
+
+    mainContent.on('change', '.selectric-dec', function () {
+        var query = $('#search-query').val(),
+            page = $('#page').val(),
+            sort = $('.selectric-dec option:selected').val(),
+            sendData = {'query': query, 'page': page, 'sort': sort};
+
+        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.css('opacity', 0.5);
+
+        $.get(window.location.href, sendData, function (response) {
+            if (response.status == true) {
+                mainContent.html(response.page);
+                $('html, body').animate({
+                    scrollTop: $('.main-content').offset().top
+                }, 400);
+                mainContent.css('opacity', 1);
+                $('.main-content__loading').remove();
+                $('select').selectric('init');
+            }
+        });
+    })
 });

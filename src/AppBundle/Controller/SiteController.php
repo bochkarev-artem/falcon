@@ -62,6 +62,7 @@ class SiteController extends Controller
     public function newBooksAction($page = 1, Request $request)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
+//        $sorting        = $request->get('sort', QueryParams::SORT_DATE_DESC);
         $isPageIndexed  = $page === 1;
 
         $queryParams = new QueryParams();

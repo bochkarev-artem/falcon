@@ -110,7 +110,7 @@
 	.grid2-page .grid2-blog .blockquote::after{
 		bottom: 40px;
 	}
-	.grid-4 .slectric-dec span{
+	.grid-4 .selectric-dec span{
 		padding-left: 5px;
 	}
 	.grid-4 .rangsldr-dec span{
@@ -122,7 +122,7 @@
 	.grid-4 .book-tab-dec .text div.h5{
 		font-size: 17px;
 	}
-	.blog-list-wrap .slectric-dec span{
+	.blog-list-wrap .selectric-dec span{
 		width: 40%;
 		padding-left: 5px;
 	}
@@ -212,18 +212,18 @@
 	.blog-list-page2 .list-style-dec2 .text .price-tag {
 	    margin-bottom: 18px;
 	}
-	.side-fillter .rangsldr-meta .add-cart{
+	.side-filter .rangsldr-meta .add-cart{
 		width: 100%;
 		text-align: center;
 	}
-	.side-fillter .widget-padding .slider-range.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all{
+	.side-filter .widget-padding .slider-range.ui-slider.ui-slider-horizontal.ui-widget.ui-widget-content.ui-corner-all{
 		margin-bottom: 5px;
 	}
-	.side-fillter .widget-padding .rangsldr-meta span{
+	.side-filter .widget-padding .rangsldr-meta span{
 		width: 40%;
 		float: left;
 	}
-	.side-fillter .widget-padding  .rangsldr-meta .amount{
+	.side-filter .widget-padding  .rangsldr-meta .amount{
 		width: 60%;
 		text-align: right;
 	}
@@ -411,7 +411,7 @@
 	.book-tab-bx .bx-wrapper {
 	    margin: 0 auto 1px;
 	}
-	.grid-4 .slectric-dec .selectric .label{
+	.grid-4 .selectric-dec .selectric .label{
 		padding-left: 83px;
 	}
 	.comingsoon-dec{
@@ -436,7 +436,7 @@
 		width:16.6%;
 		float:left;
 	}
-	.modal-quickview  .book-fillter .select-menu{
+	.modal-quickview  .book-filter .select-menu{
 		margin-bottom:20px;
 	}
 	.grid2-page .grid2-blog .youtube-dec iframe,
@@ -1025,7 +1025,7 @@
 		float:left;
 		margin:0;
 	}
-	.book-fillter .select-menu{
+	.book-filter .select-menu{
 		margin-bottom:20px;
 	}
 	.books-tab li{
@@ -1048,7 +1048,7 @@
 		width:16.6%;
 		float:left;
 	}
-	.modal-quickview  .book-fillter .select-menu{
+	.modal-quickview  .book-filter .select-menu{
 		margin-bottom:20px;
 	}
 	.modal-quickview .cart-3{
@@ -1058,10 +1058,10 @@
 		margin:0 0 20px 0;
 		width:100%;
 	}
-	.fillter-wrap .slectric-dec{
+	.filter-wrap .selectric-dec{
 		margin:0 0 10px 0;
 	}
-	.slectric-dec .selectric .label{
+	.selectric-dec .selectric .label{
 		padding:13px 50px 14px 90px;
 	}
 	.grid2-page .grid2-blog .youtube-dec iframe,
