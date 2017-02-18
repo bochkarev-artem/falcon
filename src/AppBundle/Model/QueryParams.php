@@ -7,6 +7,7 @@ namespace AppBundle\Model;
 
 class QueryParams
 {
+    const SORT_NO                = 0;
     const SORT_DATE_DESC         = 1;
     const SORT_DATE_PUBLISH_DESC = 2;
     const SORT_RATING_DESC       = 3;
@@ -84,6 +85,7 @@ class QueryParams
         $this->size        = 20;
         $this->page        = 1;
         $this->start       = 0;
+        $this->sort        = self::SORT_NO;
         $this->searchQuery = null;
     }
 

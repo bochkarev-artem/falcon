@@ -50,7 +50,7 @@ front:
     no_results:         Нет книг
     featured_books:     Бестселлеры
     new_arrivals:       Новые
-    popular_books:      Популярные книги
+    popular_books:      Бестселлеры
     to_book:            Читать книгу
     genres:             Жанры
     sequence:           Серия
@@ -109,6 +109,7 @@ front:
         site_name:    Bookary
     sort:
         sorting:      "Сортировка:"
-        popular:      Популярные
+        no_sort:      Без сортировки
+        popular:      Бестселлеры
         new_arrivals: Новые
 

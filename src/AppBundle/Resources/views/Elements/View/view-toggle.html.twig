@@ -1,4 +1,5 @@
 {% set select_options = {
+    (constant('AppBundle\\Model\\QueryParams::SORT_NO')): 'front.sort.no_sort'|trans,
     (constant('AppBundle\\Model\\QueryParams::SORT_DATE_DESC')): 'front.sort.new_arrivals'|trans,
     (constant('AppBundle\\Model\\QueryParams::SORT_RATING_DESC')): 'front.sort.popular'|trans
 } %}
@@ -6,33 +7,36 @@
 <div class="filter-wrap">
     <div class="row">
         <div class="col-md-5">
-            <div class="selectric-dec">
-                <span>{{ 'front.sort.sorting'|trans }}</span>
-                <select>
-                    {% for value, select_option in select_options %}
-                        <option value="{{ value }}"{% if sorting is defined and sorting == value %} selected{% endif %}>
-                            {{ select_option }}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
+            {% if sort_order is defined %}
+                <div class="selectric-dec">
+                    <span>{{ 'front.sort.sorting'|trans }}</span>
+                    <select>
+                        {% for value, select_option in select_options %}
+                            <option value="{{ value }}"
+                                    {% if sort_order is defined and sort_order == value %} selected{% endif %}>
+                                {{ select_option }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
         </div>
         <div class="col-md-3"></div>
         <div class="col-md-4">
             <div class="tab-dec">
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation"{% if view == 'list'%} class="active"{% endif %}>
-                        <a class="pageview__list" href="{{ current_url }}">
+                        <a class="pageview" data-view="list" href="{{ current_url }}">
                             <i class="fa fa-th-list"></i>
                         </a>
                     </li>
                     <li role="presentation"{% if view == 'column'%} class="active"{% endif %}>
-                        <a class="pageview__column" href="{{ current_url }}">
+                        <a class="pageview" data-view="column" href="{{ current_url }}">
                             <i class="fa fa-th-large"></i>
                         </a>
                     </li>
                     <li role="presentation"{% if view == 'grid'%} class="active"{% endif %}>
-                        <a class="pageview__grid" href="{{ current_url }}">
+                        <a class="pageview" data-view="grid" href="{{ current_url }}">
                             <i class="fa fa-th"></i>
                         </a>
                     </li>

@@ -130,25 +130,27 @@ $(document).ready(function(){
 	 Toll Tip  Script Start
 	 ==============================================================
 	 */
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 
 	/*
 	 =======================================================================
 	 Range Slider Script Script
 	 =======================================================================
 	 */
-    if($('.slider-range').length){
-        $( ".slider-range" ).slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [ 50, 450 ],
-            slide: function( event, ui ) {
-                $( ".amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            }
-        });
-        $( ".amount" ).val( "$" + $( ".slider-range" ).slider( "values", 0 ) + " - $" + $( ".slider-range" ).slider( "values", 1 ) );
-    }
+    // var sliderRange = $('.slider-range');
+    //
+    // if(sliderRange.length){
+    //     sliderRange.slider({
+    //         range: true,
+    //         min: 0,
+    //         max: 500,
+    //         values: [ 50, 450 ],
+    //         slide: function( event, ui ) {
+    //             $( ".amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+    //         }
+    //     });
+    //     $( ".amount" ).val( "$" + sliderRange.slider( "values", 0 ) + " - $" + sliderRange.slider( "values", 1 ) );
+    // }
 
 	/*
 	 ==============================================================
@@ -157,58 +159,13 @@ $(document).ready(function(){
 	 */
     var mainContent = $('.main-content');
 
-    mainContent.on('click', '.pageview__list', function (e) {
+    mainContent.on('click', '.pageview', function (e) {
         e.preventDefault();
         var query = $('#search-query').val(),
             page = $('#page').val(),
+            view = $(this).data('view'),
             sort = $('.selectric-dec option:selected').val(),
-            sendData = {view: 'list', 'query': query, 'page': page, 'sort': sort};
-
-        mainContent.append('<span class="main-content__loading"></span>');
-        mainContent.css('opacity', 0.5);
-
-        $.get($(this).prop('href'), sendData, function (response) {
-            if (response.status == true) {
-                mainContent.html(response.page);
-                $('html, body').animate({
-                    scrollTop: $('.main-content').offset().top
-                }, 400);
-                mainContent.css('opacity', 1);
-                $('.main-content__loading').remove();
-                $('select').selectric('init');
-            }
-        });
-    });
-
-    mainContent.on('click', '.pageview__column', function (e) {
-        e.preventDefault();
-        var query = $('#search-query').val(),
-            page = $('#page').val(),
-            sort = $('.selectric-dec option:selected').val(),
-            sendData = {view: 'column', 'query': query, 'page': page, 'sort': sort};
-
-        mainContent.append('<span class="main-content__loading"></span>');
-        mainContent.css('opacity', 0.5);
-
-        $.get($(this).prop('href'), sendData, function (response) {
-            if (response.status == true) {
-                mainContent.html(response.page);
-                $('html, body').animate({
-                    scrollTop: $('.main-content').offset().top
-                }, 400);
-                mainContent.css('opacity', 1);
-                $('.main-content__loading').remove();
-                $('select').selectric('init');
-            }
-        });
-    });
-
-    mainContent.on('click', '.pageview__grid', function (e) {
-        e.preventDefault();
-        var query = $('#search-query').val(),
-            page = $('#page').val(),
-            sort = $('.selectric-dec option:selected').val(),
-            sendData = {view: 'grid', 'query': query, 'page': page, 'sort': sort};
+            sendData = {view: view, 'query': query, 'page': page, 'sort': sort};
 
         mainContent.append('<span class="main-content__loading"></span>');
         mainContent.css('opacity', 0.5);

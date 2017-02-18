@@ -62,7 +62,6 @@ class SiteController extends Controller
     public function newBooksAction($page = 1, Request $request)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-//        $sorting        = $request->get('sort', QueryParams::SORT_DATE_DESC);
         $isPageIndexed  = $page === 1;
 
         $queryParams = new QueryParams();
@@ -143,6 +142,7 @@ class SiteController extends Controller
     {
         $defaultPerPage = $this->getParameter('default_per_page');
         $isPageIndexed  = $page === 1;
+        $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
         $queryParams
@@ -150,6 +150,7 @@ class SiteController extends Controller
             ->setPage($page)
             ->setSize($defaultPerPage)
             ->setStart($queryParams->getOffset())
+            ->setSort($sortOrder)
         ;
 
         $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Genre');
@@ -164,6 +165,7 @@ class SiteController extends Controller
             'show_author'    => true,
             'genre'          => $genre,
             'pagination_url' => $this->buildPaginationUrl($genre->getPath()),
+            'sort_order'     => $sortOrder
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -189,6 +191,7 @@ class SiteController extends Controller
     {
         $defaultPerPage = $this->getParameter('default_per_page');
         $isPageIndexed  = $page === 1;
+        $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
         $queryParams
@@ -196,6 +199,7 @@ class SiteController extends Controller
             ->setPage($page)
             ->setSize($defaultPerPage)
             ->setStart($queryParams->getOffset())
+            ->setSort($sortOrder)
         ;
 
         $authorRepo = $this->getDoctrine()->getRepository('AppBundle:Author');
@@ -210,6 +214,7 @@ class SiteController extends Controller
             'show_genre'     => true,
             'author'         => $author,
             'pagination_url' => $this->buildPaginationUrl($author->getPath()),
+            'sort_order'     => $sortOrder
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -235,6 +240,7 @@ class SiteController extends Controller
     {
         $defaultPerPage = $this->getParameter('default_per_page');
         $isPageIndexed  = $page === 1;
+        $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
         $queryParams
@@ -242,6 +248,7 @@ class SiteController extends Controller
             ->setPage($page)
             ->setSize($defaultPerPage)
             ->setStart($queryParams->getOffset())
+            ->setSort($sortOrder)
         ;
 
         $sequenceRepo = $this->getDoctrine()->getRepository('AppBundle:Sequence');
@@ -256,6 +263,7 @@ class SiteController extends Controller
             'show_author'    => true,
             'sequence'       => $sequence,
             'pagination_url' => $this->buildPaginationUrl($sequence->getPath()),
+            'sort_order'     => $sortOrder
         ]);
 
         if ($request->isXmlHttpRequest()) {
@@ -281,6 +289,7 @@ class SiteController extends Controller
     {
         $defaultPerPage = $this->getParameter('default_per_page');
         $isPageIndexed  = $page === 1;
+        $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
         $queryParams
@@ -288,6 +297,7 @@ class SiteController extends Controller
             ->setPage($page)
             ->setSize($defaultPerPage)
             ->setStart($queryParams->getOffset())
+            ->setSort($sortOrder)
         ;
 
         $tagRepo = $this->getDoctrine()->getRepository('AppBundle:Tag');
@@ -302,6 +312,7 @@ class SiteController extends Controller
             'show_author'    => true,
             'tag'            => $tag,
             'pagination_url' => $this->buildPaginationUrl($tag->getPath()),
+            'sort_order'     => $sortOrder
         ]);
 
         if ($request->isXmlHttpRequest()) {
