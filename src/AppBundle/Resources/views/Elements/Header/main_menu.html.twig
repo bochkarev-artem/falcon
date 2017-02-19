@@ -23,7 +23,7 @@
                             <div class="h4">{{ 'front.featured_menu_book'|trans }}</div>
                             <figure>
                                 {% if menu_book.coverPath %}
-                                    <a href="{{ menu_book.path }}">
+                                    <a href="/{{ menu_book.path }}">
                                         <img src="{{ menu_book.coverPath|imagine_filter('book_list') }}" alt="{{ menu_book.title }}">
                                     </a>
                                 {% endif %}
