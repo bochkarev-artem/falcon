@@ -156,11 +156,11 @@ class QueryService
     {
         if ($queryParams->getSearchQuery()) {
             $query->addSort(['_score' => 'desc', 'book_id' => 'desc']);
-        } elseif ($queryParams->getSort() === QueryParams::SORT_DATE_DESC) {
+        } elseif ($queryParams->getSort() == QueryParams::SORT_DATE_DESC) {
             $query->addSort(['date' => 'desc', 'book_id' => 'desc']);
-        } elseif ($queryParams->getSort() === QueryParams::SORT_RATING_DESC) {
+        } elseif ($queryParams->getSort() == QueryParams::SORT_RATING_DESC) {
             $query->addSort(['rating' => 'desc', 'review_count' => 'desc']);
-        } elseif ($queryParams->getSort() === QueryParams::SORT_NO) {
+        } elseif ($queryParams->getSort() == QueryParams::SORT_NO) {
             $query->addSort(['book_id' => 'desc']);
         }
     }
