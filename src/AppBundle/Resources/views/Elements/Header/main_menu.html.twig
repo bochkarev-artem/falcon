@@ -32,6 +32,10 @@
                                 <div class="h6">
                                     <a href="/{{ menu_book.path }}">{{ menu_book.title }}</a>
                                 </div>
+                                <div class="h5">
+                                    {% set author = menu_book.authors|first %}
+                                    <a href="/{{ author.path }}">{{ author.fullName }}</a>
+                                </div>
                                 <p>{{ menu_book.annotation|striptags|truncate(320) }}</p>
                                 <a class="btn-1" href="/{{ menu_book.path }}">{{ 'front.read'|trans }}</a>
                             </div>
