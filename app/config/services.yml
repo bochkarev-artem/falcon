@@ -117,3 +117,19 @@ services:
         class: AdminBundle\EventListener\AuthorListener
         tags:
             - { name: doctrine.event_listener, event: onFlush }
+
+    facebook_authenticator:
+        class: AppBundle\Security\FacebookAuthenticator
+        arguments:
+            - "@oauth2.registry"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+            - "@translator.default"
+
+    google_authenticator:
+        class: AppBundle\Security\GoogleAuthenticator
+        arguments:
+            - "@oauth2.registry"
+            - "@doctrine.orm.entity_manager"
+            - "@router"
+            - "@translator.default"
