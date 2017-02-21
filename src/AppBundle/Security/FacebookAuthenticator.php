@@ -5,6 +5,7 @@
 
 namespace AppBundle\Security;
 
+use AppBundle\Entity\FrontUser;
 use Doctrine\ORM\EntityManager;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
@@ -109,7 +110,7 @@ class FacebookAuthenticator extends SocialAuthenticator
      * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
-     * @return \AppBundle\Entity\User|null|object
+     * @return FrontUser|null|object
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {

@@ -6,13 +6,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="front_user")
  */
-class FrontUser extends BaseUser
+class FrontUser implements UserInterface
 {
     /**
      * @ORM\Id
@@ -22,21 +22,28 @@ class FrontUser extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string", name="api_key", unique=true)
-     */
-    protected $apiKey;
-
-    /**
-     * @var integer $facebookId
-     * @ORM\Column(type="integer", name="facebook_id", unique=true)
+     * @var string $facebookId
+     * @ORM\Column(type="string", name="facebook_id", unique=true, nullable=true)
      */
     protected $facebookId;
 
     /**
-     * @var integer $googleId
-     * @ORM\Column(type="integer", name="google_id", unique=true)
+     * @var string $googleId
+     * @ORM\Column(type="string", name="google_id", unique=true, nullable=true)
      */
     protected $googleId;
+
+    /**
+     * @var string $username
+     * @ORM\Column(type="string", name="username", unique=true)
+     */
+    protected $username;
+
+    /**
+     * @var string $email
+     * @ORM\Column(type="string", name="email", unique=true)
+     */
+    protected $email;
 
     /**
      * @return integer
@@ -44,26 +51,6 @@ class FrontUser extends BaseUser
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getApiKey()
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * @param mixed $apiKey
-     *
-     * @return FrontUser
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = $apiKey;
-
-        return $this;
     }
 
     /**
@@ -75,7 +62,7 @@ class FrontUser extends BaseUser
     }
 
     /**
-     * @return integer
+     * @return string
      */
     public function getFacebookId()
     {
@@ -83,7 +70,7 @@ class FrontUser extends BaseUser
     }
 
     /**
-     * @param integer $facebookId
+     * @param string $facebookId
      *
      * @return FrontUser
      */
@@ -95,7 +82,7 @@ class FrontUser extends BaseUser
     }
 
     /**
-     * @return integer
+     * @return string
      */
     public function getGoogleId()
     {
@@ -103,7 +90,7 @@ class FrontUser extends BaseUser
     }
 
     /**
-     * @param integer $googleId
+     * @param string $googleId
      *
      * @return FrontUser
      */
@@ -112,6 +99,61 @@ class FrontUser extends BaseUser
         $this->googleId = $googleId;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return FrontUser
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return FrontUser
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getPassword()
+    {
+
+    }
+
+    public function getSalt()
+    {
+
+    }
+
+    public function eraseCredentials()
+    {
+
     }
 
     /**

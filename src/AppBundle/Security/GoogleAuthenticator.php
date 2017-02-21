@@ -5,6 +5,7 @@
 
 namespace AppBundle\Security;
 
+use AppBundle\Entity\FrontUser;
 use Doctrine\ORM\EntityManager;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
@@ -98,7 +99,7 @@ class GoogleAuthenticator extends SocialAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        if ($request->getPathInfo() == $this->router->generate('connect_google_check')) {
+        if ($request->getPathInfo() == $this->router->generate('connect_google')) {
             return $this->fetchAccessToken($this->getGoogleClient());
         }
 
@@ -109,7 +110,7 @@ class GoogleAuthenticator extends SocialAuthenticator
      * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
-     * @return \AppBundle\Entity\User|null|object
+     * @return FrontUser|null|object
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
@@ -121,12 +122,16 @@ class GoogleAuthenticator extends SocialAuthenticator
             return $existingUser;
         }
 
-        $email = $googleUser->getEmail();
-        var_dump($email);
-        die();
-        $user  = $userRepo->findOneBy(['email' => $email]);
+        $email        = $googleUser->getEmail();
+        $existingUser = $userRepo->findOneBy(['email' => $email]);
+        if ($existingUser) {
+            return $existingUser;
+        }
 
+        $user = new FrontUser();
         $user->setGoogleId($googleUser->getId());
+        $user->setEmail($email);
+        $user->setUsername($googleUser->getName());
         $this->em->persist($user);
         $this->em->flush();
 
