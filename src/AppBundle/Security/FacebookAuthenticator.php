@@ -122,10 +122,16 @@ class FacebookAuthenticator extends SocialAuthenticator
             return $existingUser;
         }
 
-        $email = $facebookUser->getEmail();
-        $user  = $userRepo->findOneBy(['email' => $email]);
+        $email        = $facebookUser->getEmail();
+        $existingUser = $userRepo->findOneBy(['email' => $email]);
+        if ($existingUser) {
+            return $existingUser;
+        }
 
-        $user->setFacebookId($facebookUser->getId());
+        $user = new FrontUser();
+        $user->setGoogleId($facebookUser->getId());
+        $user->setEmail($email);
+        $user->setUsername($facebookUser->getName());
         $this->em->persist($user);
         $this->em->flush();
 
