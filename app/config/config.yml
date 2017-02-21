@@ -110,3 +110,21 @@ fos_user:
 lexik_translation:
     fallback_locale: [ru]
     managed_locales: [ru]
+
+knpu_oauth2_client:
+    clients:
+        facebook:
+            type: facebook
+            client_id:     "%facebook_client_id%"
+            client_secret: "%facebook_client_secret%"
+            redirect_route: connect_facebook_check
+            redirect_params: {}
+            graph_api_version: v2.5
+        google:
+            type: google
+            client_id:     "%google_client_id%"
+            client_secret: "%google_client_secret%"
+            redirect_route: connect_google_check
+            redirect_params: {}
+            access_type:    "offline"
+            hosted_domain:  ""
