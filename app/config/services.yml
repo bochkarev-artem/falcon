@@ -118,18 +118,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
 
-    facebook_authenticator:
-        class: AppBundle\Security\FacebookAuthenticator
+    oauth_aware_user_provider:
+        class: AppBundle\Security\AuthFOSUserProvider
         arguments:
-            - "@oauth2.registry"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
-            - "@translator.default"
-
-    google_authenticator:
-        class: AppBundle\Security\GoogleAuthenticator
-        arguments:
-            - "@oauth2.registry"
-            - "@doctrine.orm.entity_manager"
-            - "@router"
-            - "@translator.default"
+            - '@fos_user.user_manager'
+            - { facebook: facebookId, google: googleId }
+            - '@doctrine.orm.default_entity_manager'

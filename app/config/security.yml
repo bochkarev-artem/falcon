@@ -9,13 +9,34 @@ security:
         front_user:
             entity:
                 class: AppBundle:FrontUser
-                property: apiKey
+                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        social:
+            anonymous: true
+            pattern:    ^/
+            form_login:
+                provider:   front_user
+                login_path: /connect/
+                check_path: /login/login_check
+            logout:
+                path:   /logout
+                target: /
+            oauth:
+                resource_owners:
+                    facebook:      "/login/check-facebook"
+                    google:        "/login/check-google"
+                login_path:        /
+                failure_path:      /
+                use_forward:       false
+
+                oauth_user_provider:
+                    service: oauth_aware_user_provider
 
         main:
             anonymous: true
@@ -31,11 +52,6 @@ security:
             logout:
                 path:   /admin/logout
                 target: /
-            guard:
-                authenticators:
-                    - facebook_authenticator
-                    - google_authenticator
-                entry_point: facebook_authenticator
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER

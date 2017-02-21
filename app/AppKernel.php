@@ -34,7 +34,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Presta\SitemapBundle\PrestaSitemapBundle(),
             new Lexik\Bundle\TranslationBundle\LexikTranslationBundle(),
-            new KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

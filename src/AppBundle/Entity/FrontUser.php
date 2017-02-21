@@ -5,45 +5,35 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
  * @ORM\Table(name="front_user")
+ * @ORM\Entity
  */
-class FrontUser implements UserInterface
+class FrontUser extends BaseUser
 {
     /**
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
     /**
-     * @var string $facebookId
-     * @ORM\Column(type="string", name="facebook_id", unique=true, nullable=true)
+     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
      */
-    protected $facebookId;
+    private $facebookId;
+
+    private $facebookAccessToken;
 
     /**
-     * @var string $googleId
-     * @ORM\Column(type="string", name="google_id", unique=true, nullable=true)
+     * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
      */
-    protected $googleId;
+    private $googleId;
 
-    /**
-     * @var string $username
-     * @ORM\Column(type="string", name="username", unique=true)
-     */
-    protected $username;
-
-    /**
-     * @var string $email
-     * @ORM\Column(type="string", name="email", unique=true)
-     */
-    protected $email;
+    private $googleAccessToken;
 
     /**
      * @return integer
@@ -51,22 +41,6 @@ class FrontUser implements UserInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return array
-     */
-    public function getRoles()
-    {
-        return ['ROLE_USER'];
-    }
-
-    /**
-     * @return string
-     */
-    public function getFacebookId()
-    {
-        return $this->facebookId;
     }
 
     /**
@@ -84,13 +58,41 @@ class FrontUser implements UserInterface
     /**
      * @return string
      */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param string $facebookAccessToken
+     *
+     * @return FrontUser
+     */
+    public function setFacebookAccessToken($facebookAccessToken)
+    {
+        $this->facebookAccessToken = $facebookAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebookAccessToken;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getGoogleId()
     {
         return $this->googleId;
     }
 
     /**
-     * @param string $googleId
+     * @param mixed $googleId
      *
      * @return FrontUser
      */
@@ -102,65 +104,22 @@ class FrontUser implements UserInterface
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getEmail()
+    public function getGoogleAccessToken()
     {
-        return $this->email;
+        return $this->googleAccessToken;
     }
 
     /**
-     * @param string $email
+     * @param mixed $googleAccessToken
      *
      * @return FrontUser
      */
-    public function setEmail($email)
+    public function setGoogleAccessToken($googleAccessToken)
     {
-        $this->email = $email;
+        $this->googleAccessToken = $googleAccessToken;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * @param string $username
-     *
-     * @return FrontUser
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getPassword()
-    {
-
-    }
-
-    public function getSalt()
-    {
-
-    }
-
-    public function eraseCredentials()
-    {
-
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getUsername();
     }
 }

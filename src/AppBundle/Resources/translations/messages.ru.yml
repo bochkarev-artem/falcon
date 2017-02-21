@@ -112,6 +112,3 @@ front:
         no_sort:      Без сортировки
         popular:      Бестселлеры
         new_arrivals: Новые
-
-    auth:
-        auth_required: Необходима авторизация
