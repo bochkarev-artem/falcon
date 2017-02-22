@@ -6,10 +6,6 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
-        front_user:
-            entity:
-                class: AppBundle:FrontUser
-                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -18,10 +14,11 @@ security:
             security: false
 
         social:
-            anonymous: true
+            anonymous:  true
             pattern:    ^/
+            provider:   fos_userbundle
             form_login:
-                provider:   front_user
+                provider:   fos_userbundle
                 login_path: /connect/
                 check_path: /login/login_check
             logout:
@@ -42,8 +39,6 @@ security:
             anonymous: true
             http_basic: ~
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             pattern: ^/
             form_login:

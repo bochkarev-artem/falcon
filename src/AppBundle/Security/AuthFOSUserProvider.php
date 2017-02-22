@@ -1,9 +1,7 @@
 <?php
 namespace AppBundle\Security;
 
-use AppBundle\Entity\FrontUser;
-use Doctrine\ORM\EntityManager;
-use FOS\UserBundle\Model\UserManagerInterface;
+use AppBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseFOSUBProvider;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
@@ -12,35 +10,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AuthFOSUserProvider extends BaseFOSUBProvider
 {
     /**
-     * @var EntityManager
-     */
-    protected $em;
-
-    /**
      * @var array
      */
-    protected $properties = array(
+    protected $properties = [
         'identifier' => 'id',
-    );
+    ];
 
     /**
      * @var PropertyAccessor
      */
     protected $accessor;
-
-    /**
-     * Constructor.
-     *
-     * @param UserManagerInterface $userManager fOSUB user provider
-     * @param array                $properties  property mapping
-     * @param EntityManager        $em
-     */
-    public function __construct(UserManagerInterface $userManager, array $properties, EntityManager $em)
-    {
-        parent::__construct($userManager, $properties);
-
-        $this->em = $em;
-    }
 
     /**
      * {@inheritDoc}
@@ -70,17 +49,20 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         $userEmail = $response->getEmail();
-        $user      = $this->em->getRepository('AppBundle:FrontUser')->findOneByEmail($userEmail);
+        $property  = $this->getProperty($response);
+        $user      = $this->userManager->findUserBy([$property => $userEmail]);
 
         if (null === $user) {
-            $user = new FrontUser();
+            $user = new User();
             $user->setUsername($response->getRealName());
-            $user->setEmail($response->getEmail());
+            $user->setEmail($userEmail);
             $user->setPassword('');
             $user->setEnabled(true);
 
-            $this->em->persist($user);
-            $this->em->flush($user);
+            $providerSetter = 'set' . ucfirst($property);
+            $user->$providerSetter($userEmail);
+
+            $this->userManager->updateUser($user);
 
             return $user;
         }

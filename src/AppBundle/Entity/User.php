@@ -22,6 +22,26 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
+     */
+    private $facebookId;
+
+    /**
+     * @var string
+     */
+    private $facebookAccessToken;
+
+    /**
+     * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
+     */
+    private $googleId;
+
+    /**
+     * @var string
+     */
+    private $googleAccessToken;
+
+    /**
      * @var string $firstName
      */
     protected $firstName;
@@ -98,5 +118,85 @@ class User extends BaseUser
     public function __toString()
     {
         return $this->getFullName() ?: '-';
+    }
+
+    /**
+     * @param string $facebookId
+     *
+     * @return User
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param string $facebookAccessToken
+     *
+     * @return User
+     */
+    public function setFacebookAccessToken($facebookAccessToken)
+    {
+        $this->facebookAccessToken = $facebookAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFacebookAccessToken()
+    {
+        return $this->facebookAccessToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+
+    /**
+     * @param string $googleId
+     *
+     * @return User
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGoogleAccessToken()
+    {
+        return $this->googleAccessToken;
+    }
+
+    /**
+     * @param string $googleAccessToken
+     *
+     * @return User
+     */
+    public function setGoogleAccessToken($googleAccessToken)
+    {
+        $this->googleAccessToken = $googleAccessToken;
+
+        return $this;
     }
 }
