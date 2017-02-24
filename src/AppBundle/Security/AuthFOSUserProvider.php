@@ -45,6 +45,10 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
         $user      = $this->userManager->findUserBy([$property => $userEmail]);
         if (null === $user) {
             $user = $this->userManager->findUserByEmail($userEmail);
+            $providerSetter = 'set' . ucfirst($property);
+            $user->$providerSetter($userEmail);
+
+            $this->userManager->updateUser($user);
         }
 
         if (null === $user) {
