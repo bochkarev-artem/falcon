@@ -136,7 +136,7 @@ class QueryService
         }
 
         if ($queryParams->getBookType()) {
-            $this->applyBookTypeFilter($boolQuery);
+            $this->applyBookTypeFilter($queryParams, $boolQuery);
         }
     }
 
@@ -227,11 +227,12 @@ class QueryService
     }
 
     /**
+     * @param QueryParams     $queryParams
      * @param Query\BoolQuery $query
      */
-    private function applyBookTypeFilter(Query\BoolQuery $query)
+    private function applyBookTypeFilter(QueryParams $queryParams, Query\BoolQuery $query)
     {
-        $query->addMust(new Query\Term(['book_type' => true]));
+        $query->addMust(new Query\Term(['book_type' => $queryParams->getBookType()]));
     }
 
     /**
