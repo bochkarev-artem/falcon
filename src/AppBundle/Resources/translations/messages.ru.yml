@@ -52,7 +52,7 @@ front:
     to_book:            Читать книгу
     genres:             Жанры
     sequence:           Серия
-    number_in_sequence: " (%number% книга)"
+    number_in_sequence: " (%number%-ая книга)"
     tags:               Теги
     email:              Email
     new_books:          Новые книги

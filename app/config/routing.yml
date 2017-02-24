@@ -19,6 +19,7 @@ _liip_imagine:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    prefix:   /admin
 
 admin:
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"

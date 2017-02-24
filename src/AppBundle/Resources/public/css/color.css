@@ -216,7 +216,7 @@ p em,
 #responsive-menu-button2 i:hover,
 .categories-menu:hover,
 .banner2-caption .select-menu .selectric-wrapper:hover,
-.searh-wrap .select-menu .selectric-wrapper:hover
+.search-wrap .select-menu .selectric-wrapper:hover
 {
 	background-color: #fea422;
 }
@@ -225,7 +225,7 @@ p em,
 		   Border Color
 	  ============================================================
 */
-.searh-wrap form,
+.search-wrap form,
 .caption-dec:before,
 .caption-dec:after,
 .book-tab-dec .add-cart:hover,

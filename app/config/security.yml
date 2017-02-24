@@ -13,6 +13,21 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        admin:
+            anonymous:          true
+            pattern:            /admin(.*)
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /admin/login
+                use_forward:    false
+                check_path:     /admin/login_check
+                failure_path:   /admin/login
+                use_referer:    true
+                default_target_path: /admin/
+            logout:
+                path:           sonata_user_admin_security_logout
+                target:         /admin/login
+
         social:
             anonymous:  true
             pattern:    ^/
@@ -37,18 +52,18 @@ security:
                 oauth_user_provider:
                     service: oauth_aware_user_provider
 
-        main:
-            anonymous: true
-            http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            pattern: ^/
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-            logout:
-                path:   /admin/logout
-                target: /
+#        main:
+#            anonymous: true
+#            http_basic: ~
+#            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+#            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+#            pattern: ^/
+#            form_login:
+#                provider: fos_userbundle
+#                csrf_token_generator: security.csrf.token_manager
+#            logout:
+#                path:   /admin/logout
+#                target: /
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -59,6 +74,9 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         # http://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html
     encoders:
         FOS\UserBundle\Model\UserInterface:
