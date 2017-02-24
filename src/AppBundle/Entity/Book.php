@@ -23,18 +23,6 @@ class Book implements PageInterface
 {
     use TimestampableTrait;
 
-    const TYPE_ELECTRONIC      = 0;
-    const TYPE_AUDIO           = 1;
-    const TYPE_MULTIMEDIA      = 2;
-    const TYPE_READER          = 3;
-    const TYPE_PDF             = 4;
-    const TYPE_PRINT_ON_DEMAND = 5;
-    const TYPE_DB              = 6;
-    const TYPE_VIDEO           = 7;
-    const TYPE_GAME            = 8;
-    const TYPE_SOFT            = 9;
-    const TYPE_ADOBE_DRM       = 11;
-
     /**
      * @var integer $id
      *
@@ -87,13 +75,6 @@ class Book implements PageInterface
     private $coverPath;
 
     /**
-     * @var integer $bookType
-     *
-     * @ORM\Column(name="book_type", type="integer", nullable=true)
-     */
-    private $bookType;
-
-    /**
      * @var boolean $hasTrial
      *
      * @ORM\Column(name="has_trial", type="boolean", nullable=true)
@@ -113,13 +94,6 @@ class Book implements PageInterface
      * @ORM\Column(name="featured_menu", type="boolean", nullable=true)
      */
     private $featuredMenu;
-
-    /**
-     * @var string $reader
-     *
-     * @ORM\Column(name="reader", type="string", nullable=true)
-     */
-    private $reader;
 
     /**
      * @var string $mainAuthorSlug
@@ -318,26 +292,6 @@ class Book implements PageInterface
     public function setCover($cover)
     {
         $this->cover = $cover;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getBookType()
-    {
-        return $this->bookType;
-    }
-
-    /**
-     * @param integer $bookType
-     *
-     * @return Book
-     */
-    public function setBookType($bookType)
-    {
-        $this->bookType = $bookType;
 
         return $this;
     }
@@ -650,26 +604,6 @@ class Book implements PageInterface
     public function setDocumentId($documentId)
     {
         $this->documentId = $documentId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReader()
-    {
-        return $this->reader;
-    }
-
-    /**
-     * @param string $reader
-     *
-     * @return Book
-     */
-    public function setReader($reader)
-    {
-        $this->reader = $reader;
 
         return $this;
     }

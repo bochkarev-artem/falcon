@@ -66,16 +66,6 @@ popular_books_with_page:
     path: /popular-books/page/{page}
     defaults: { _controller: AppBundle:Site:popularBooks }
 
-audio_books:
-    path: /audio-books
-    defaults: { _controller: AppBundle:Site:audioBooks }
-    options:
-        sitemap: true
-
-audio_books_with_page:
-    path: /audio-books/page/{page}
-    defaults: { _controller: AppBundle:Site:audioBooks }
-
 new_books_with_page:
     path: /new-books/page/{page}
     defaults: { _controller: AppBundle:Site:newBooks }

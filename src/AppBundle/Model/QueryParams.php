@@ -78,11 +78,6 @@ class QueryParams
     private $sort;
 
     /**
-     * @var integer
-     */
-    private $bookType;
-
-    /**
      * Initialize fields
      */
     public function __construct()
@@ -92,7 +87,6 @@ class QueryParams
         $this->start       = 0;
         $this->sort        = self::SORT_NO;
         $this->searchQuery = null;
-        $this->bookType    = null;
     }
 
     /**
@@ -357,26 +351,6 @@ class QueryParams
     public function setFilterFeaturedHome()
     {
         $this->filterFeaturedHome = true;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBookType()
-    {
-        return $this->bookType;
-    }
-
-    /**
-     * @param int $bookType
-     *
-     * @return QueryParams
-     */
-    public function setBookType($bookType)
-    {
-        $this->bookType = $bookType;
 
         return $this;
     }

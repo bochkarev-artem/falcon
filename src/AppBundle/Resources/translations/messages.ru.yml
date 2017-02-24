@@ -41,21 +41,14 @@ front:
         title:          Популярные книги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
         description:    Популярные книги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
         keywords:       популярные книги, бестселлеры, bestsellers, скачать бесплатно
-    popular_audio_books_page:
-        title:          Популярные аудиокниги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
-        description:    Популярные аудиокниги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
-        keywords:       популярные аудиокниги, бестселлеры, bestsellers, скачать бесплатно
-
     main:               Главная
     search:             Поиск
     year:               Год
     new:                Новинка
-    audiobook:          Аудио
     no_results:         Нет книг
     featured_books:     Бестселлеры
     new_arrivals:       Новые
     popular_books:      Бестселлеры
-    audio_books:        Аудиокниги
     to_book:            Читать книгу
     genres:             Жанры
     sequence:           Серия

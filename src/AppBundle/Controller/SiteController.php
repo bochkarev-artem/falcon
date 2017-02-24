@@ -133,47 +133,6 @@ class SiteController extends Controller
     }
 
     /**
-     * @param integer $page
-     * @param Request $request
-     *
-     * @return Response|JsonResponse
-     */
-    public function audioBooksAction($page = 1, Request $request)
-    {
-        $defaultPerPage = $this->getParameter('default_per_page');
-        $isPageIndexed  = $page === 1;
-
-        $queryParams = new QueryParams();
-        $queryParams
-            ->setSort(QueryParams::SORT_RATING_DESC)
-            ->setPage($page)
-            ->setSize($defaultPerPage)
-            ->setStart($queryParams->getOffset())
-            ->setBookType(Book::TYPE_AUDIO)
-        ;
-
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
-        $data = array_merge($data, [
-            'show_author'       => true,
-            'hide_audio_ribbon' => true,
-            'pagination_url'    => $this->generateUrl('audio_books') . '/page/',
-        ]);
-
-        if ($request->isXmlHttpRequest()) {
-            return $this->prepareJsonResponse($data);
-        }
-
-        $seoManager = $this->get('seo_manager');
-        $seoManager->setAudioBooksSeoData($isPageIndexed);
-
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
-    }
-
-    /**
      * @param Request $request
      * @param integer $id
      * @param integer $page

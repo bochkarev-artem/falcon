@@ -391,16 +391,11 @@ class LitresService
                     $annotation = strip_tags($titleInfo->annotation->asXML(), '<p><br>');
                 }
 
-                if ($titleInfo->reader) {
-                    $book->setReader((string)$titleInfo->reader->nickname);
-                }
-
                 /** @var Author $mainAuthor */
                 $mainAuthor = $book->getAuthors()->first();
 
                 $book
                     ->setLitresHubId($hubId)
-                    ->setBookType((string)$data['type'])
                     ->setCover((string)$data['cover'])
                     ->setPrice((string)$data['base_price'])
                     ->setRating((string)$data['rating'])

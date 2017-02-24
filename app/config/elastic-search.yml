@@ -39,14 +39,12 @@ fos_elastica:
                         book_id:              { type: integer }
                         title:                { type: string, analyzer: russian, copy_to: book_title }
                         rating:               { type: float }
-                        book_type:            { type: integer }
                         annotation:           { type: string }
                         cover_path:           { type: string }
                         path:                 { type: string, index: not_analyzed }
                         price:                { type: float }
                         has_trial:            { type: boolean }
                         featured_home:        { type: boolean }
-                        reader:               { type: string }
                         date:                 { type: date, format: "yyyy-MM-dd" }
                         lang:                 { type: string }
                         sequence_number:      { type: integer }

@@ -23,7 +23,6 @@
                                 <div class="col-md-5">
                                     <div class="book-text">
                                         <div class="book-heading book-padding">
-                                            <span>{{ ('front.book.type_' ~ book.book_type)|trans }}</span>
                                             <h3>{{ book.title }}</h3>
                                         </div>
                                         <div class="book-tags-wrap book-padding">
@@ -77,20 +76,18 @@
                                                 </ul>
                                             {% endif %}
 
-                                            {% if book.book_type != constant('AppBundle\\Entity\\Book::TYPE_AUDIO') %}
-                                                {% if download_links|length > 0 %}
-                                                    <ul class="book-tags">
-                                                        <li><span>{{ 'front.download'|trans }}:</span></li>
-                                                        {%- for link in download_links -%}
-                                                            <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
-                                                        {%- endfor -%}
-                                                    </ul>
-                                                {% endif %}
-
-                                                <div class="book-tags">
-                                                    <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
-                                                </div>
+                                            {% if download_links|length > 0 %}
+                                                <ul class="book-tags">
+                                                    <li><span>{{ 'front.download'|trans }}:</span></li>
+                                                    {%- for link in download_links -%}
+                                                        <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
+                                                    {%- endfor -%}
+                                                </ul>
                                             {% endif %}
+
+                                            <div class="book-tags">
+                                                <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                            </div>
 
                                             <ul class="social-1">
                                                 <li><a href="#"><i class="fa fa-vk"></i></a></li>
