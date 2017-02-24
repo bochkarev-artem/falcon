@@ -33,7 +33,7 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $startTime = time();
-        $output->writeln("<info>Started</info>");
+        $output->writeln("<info>Update featured menu started</info>");
         $container = $this->getContainer();
         $em        = $container->get('doctrine.orm.entity_manager');
         $qb        = $em->createQueryBuilder();
@@ -67,6 +67,6 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
         $em->clear();
         $endTime   = time();
         $totalTime = $endTime - $startTime;
-        $output->writeln("<info>Finished. Total time: $totalTime seconds</info>");
+        $output->writeln("<info>Update featured menu finished. Total time: $totalTime seconds</info>");
     }
 }
