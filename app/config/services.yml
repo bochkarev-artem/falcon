@@ -122,4 +122,4 @@ services:
         class: AppBundle\Security\AuthFOSUserProvider
         arguments:
             - '@fos_user.user_manager'
-            - { facebook: facebookId, google: googleId, yandex: yandexId, facebook: vkontakteId }
+            - { facebook: facebookId, google: googleId, yandex: yandexId, vkontakte: vkontakteId }
