@@ -32,6 +32,26 @@ class User extends BaseUser
     private $facebookAccessToken;
 
     /**
+     * @ORM\Column(name="yandex_id", type="string", length=255, nullable=true)
+     */
+    private $yandexId;
+
+    /**
+     * @var string
+     */
+    private $yandexAccessToken;
+
+    /**
+     * @ORM\Column(name="vkontakte_id", type="string", length=255, nullable=true)
+     */
+    private $vkontakteId;
+
+    /**
+     * @var string
+     */
+    private $vkontakteAccessToken;
+
+    /**
      * @ORM\Column(name="google_id", type="string", length=255, nullable=true)
      */
     private $googleId;
@@ -196,6 +216,86 @@ class User extends BaseUser
     public function setGoogleAccessToken($googleAccessToken)
     {
         $this->googleAccessToken = $googleAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getYandexId()
+    {
+        return $this->yandexId;
+    }
+
+    /**
+     * @param mixed $yandexId
+     *
+     * @return User
+     */
+    public function setYandexId($yandexId)
+    {
+        $this->yandexId = $yandexId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getYandexAccessToken()
+    {
+        return $this->yandexAccessToken;
+    }
+
+    /**
+     * @param string $yandexAccessToken
+     *
+     * @return User
+     */
+    public function setYandexAccessToken($yandexAccessToken)
+    {
+        $this->yandexAccessToken = $yandexAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVkontakteId()
+    {
+        return $this->vkontakteId;
+    }
+
+    /**
+     * @param mixed $vkontakteId
+     *
+     * @return User
+     */
+    public function setVkontakteId($vkontakteId)
+    {
+        $this->vkontakteId = $vkontakteId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVkontakteAccessToken()
+    {
+        return $this->vkontakteAccessToken;
+    }
+
+    /**
+     * @param string $vkontakteAccessToken
+     *
+     * @return User
+     */
+    public function setVkontakteAccessToken($vkontakteAccessToken)
+    {
+        $this->vkontakteAccessToken = $vkontakteAccessToken;
 
         return $this;
     }

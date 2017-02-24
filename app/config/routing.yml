@@ -80,8 +80,29 @@ search_page:
     path: /search-page
     defaults: { _controller: AppBundle:Site:searchPage }
 
-facebook_login:
+facebook_login_check:
     path: /login/check-facebook
 
-google_login:
+google_login_check:
     path: /login/check-google
+
+vkontakte_login_check:
+    path: /login/check-vkontakte
+
+yandex_login_check:
+    path: /login/check-yandex
+
+facebook_login:
+    path: /connect/facebook
+
+google_login:
+    path: /connect/google
+
+vkontakte_login:
+    path: /connect/vkontakte
+
+yandex_login:
+    path: /connect/yandex
+
+front_logout:
+    path: /logout

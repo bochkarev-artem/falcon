@@ -120,6 +120,8 @@ hwi_oauth:
         properties:
             facebook:        facebookId
             google:          googleId
+            yandex:          yandexId
+            vkontakte:       vkontakteId
     resource_owners:
         google:
             type:            google
@@ -135,3 +137,11 @@ hwi_oauth:
             client_secret:   "%facebook_client_secret%"
             options:
                 csrf:        true
+        yandex:
+            type:                yandex
+            client_id:           "%yandex_client_id%"
+            client_secret:       "%yandex_client_secret%"
+        vkontakte:
+            type:                vkontakte
+            client_id:           "%vk_client_id%"
+            client_secret:       "%vk_client_secret%"

@@ -26,20 +26,12 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      */
     public function connect(UserInterface $user, UserResponseInterface $response)
     {
-        // get property from provider configuration by provider name
-        // , it will return `facebook_id` in that case (see service definition below)
         $property = $this->getProperty($response);
-        $username = $response->getUsername(); // get the unique user identifier
-        //we "disconnect" previously connected users
+        $username = $response->getUsername();
         $existingUser = $this->userManager->findUserBy([$property => $username]);
         if (null !== $existingUser) {
-            // set current user id and token to null for disconnect
-            // ...
-
             $this->userManager->updateUser($existingUser);
         }
-        // we connect current user, set current user id and token
-        // ...
         $this->userManager->updateUser($user);
     }
 
@@ -51,6 +43,9 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
         $userEmail = $response->getEmail();
         $property  = $this->getProperty($response);
         $user      = $this->userManager->findUserBy([$property => $userEmail]);
+        if (null === $user) {
+            $user = $this->userManager->findUserByEmail($userEmail);
+        }
 
         if (null === $user) {
             $user = new User();

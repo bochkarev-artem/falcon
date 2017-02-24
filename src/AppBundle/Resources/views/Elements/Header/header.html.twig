@@ -1,69 +1,39 @@
-<div class="modal fade" id="reg-box" tabindex="-1" role="dialog">
-    <div class="modal-dialog login1">
-        <div class="modal-content">
-            <div class="user-box">
-                <form>
-                    <div class="input-dec3">
-                        <input type="text" placeholder="{{ 'front.email'|trans }}">
-                        <i class="fa fa-envelope-o"></i>
-                    </div>
-                    <div class="input-dec3">
-                        <input type="text" placeholder="{{ 'front.password'|trans }}">
-                        <i class="fa fa-envelope-o"></i>
-                    </div>
-                    <div class="dialog-footer">
-                        <button class="dialog-button">{{ 'front.register'|trans }}</button>
-                    </div>
-                </form>
+{% if not app.user %}
+    <div class="modal fade" id="signin-box" tabindex="-1" role="dialog">
+        <div class="modal-dialog login1">
+            <div class="modal-content">
+                {{ 'front.social_sign_in'|trans }}
+                <div class="user-box">
+                        <ul class="social-1">
+                            <li><a href="{{ path('vkontakte_login') }}"><i class="fa fa-vk"></i></a></li>
+                            <li><a href="{{ path('facebook_login') }}"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="{{ path('google_login') }}"><i class="fa fa-google"></i></a></li>
+                            <li><a href="{{ path('yandex_login') }}"><i class="fa fa-yahoo"></i></a></li>
+                        </ul>
+                </div>
             </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
     </div>
-</div>
-
-<div class="modal fade" id="signin-box" tabindex="-1" role="dialog">
-    <div class="modal-dialog login1">
-        <div class="modal-content">
-            <div class="user-box">
-                <form>
-                    <div class="input-dec3">
-                        <input type="text" placeholder="{{ 'front.email'|trans }}">
-                        <i class="fa fa-envelope-o"></i>
-                    </div>
-                    <div class="input-dec3">
-                        <input type="text" placeholder="{{ 'front.password'|trans }}">
-                        <i class="fa fa-envelope-o"></i>
-                    </div>
-                    <div class="dialog-footer">
-                        <button class="dialog-button">{{ 'front.login'|trans }}</button>
-                        <a href="#">{{ 'front.forgot_pass'|trans }}<i class="fa fa-question-circle"></i></a>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
+{% endif %}
 <header class="header-1">
-    <div class="top-bar">
-        <div class="container">
-            <div class="pull-right">
-                <div class="user-wrap">
-                    <div class="user-dec">
-                        <i class="fa fa-sign-in"></i>
-                        <a href="#" data-toggle="modal" data-target="#signin-box">{{ 'front.sign_in'|trans }}</a>
-                        <a href="#" data-toggle="modal" data-target="#reg-box">{{ 'front.register'|trans }}</a>
+        <div class="top-bar">
+            <div class="container">
+                <div class="pull-right">
+                    <div class="user-wrap">
+                        <div class="user-dec">
+                            {% if app.user %}
+                                <i class="fa fa-sign-out"></i>
+                                <a href="{{ path('front_logout') }}">{{ 'front.sign_out'|trans }}</a>
+                            {% else %}
+                                <i class="fa fa-sign-in"></i>
+                                <a href="#" data-toggle="modal" data-target="#signin-box">{{ 'front.sign_in'|trans }}</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-                <ul class="social-1">
-                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google"></i></a></li>
-                    <li><a href="#"><i class="fa fa-yahoo"></i></a></li>
-                </ul>
             </div>
         </div>
-    </div>
     <div class="logo-wrap">
         <div class="container">
             <div class="logo-dec">

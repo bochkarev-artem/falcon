@@ -59,12 +59,9 @@ front:
     new_books:          Новые книги
     popular:            Популярное
     open_menu:          Открыть меню
-    register:           Регистрация
     sign_in:            Вход
-    login:              Вход
-    email:              Email
-    password:           Пароль
-    forgot_pass:        Забыли пароль?
+    sign_out:           Выход
+    social_sign_in:     Войти через социальные сети
     related_books:      Похожие книги
     author_related:     Книги автора
     featured_menu_book: Интересное

@@ -28,6 +28,8 @@ security:
                 resource_owners:
                     facebook:      "/login/check-facebook"
                     google:        "/login/check-google"
+                    yandex:        "/login/check-yandex"
+                    vkontakte:     "/login/check-vkontakte"
                 login_path:        /
                 failure_path:      /
                 use_forward:       false
