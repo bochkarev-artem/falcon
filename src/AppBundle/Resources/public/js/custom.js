@@ -167,7 +167,7 @@ $(document).ready(function(){
             sort = $('.selectric-dec option:selected').val(),
             sendData = {view: view, 'query': query, 'page': page, 'sort': sort};
 
-        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.append('<span class="main-content__loading fa fa-spinner fa-spin fa-3x fa-fw"></span>');
         mainContent.css('opacity', 0.5);
 
         $.get($(this).prop('href'), sendData, function (response) {
@@ -199,7 +199,7 @@ $(document).ready(function(){
             return;
         }
 
-        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.append('<span class="main-content__loading fa fa-spinner fa-spin fa-3x fa-fw"></span>');
         mainContent.css('opacity', 0.5);
 
         $.get(newLink, sendData, function (response) {
@@ -222,7 +222,7 @@ $(document).ready(function(){
             sort = $('.selectric-dec option:selected').val(),
             sendData = {'query': query, 'page': page, 'sort': sort};
 
-        mainContent.append('<span class="main-content__loading"></span>');
+        mainContent.append('<span class="main-content__loading fa fa-spinner fa-spin fa-3x fa-fw"></span>');
         mainContent.css('opacity', 0.5);
 
         $.get(window.location.href, sendData, function (response) {
