@@ -99,6 +99,20 @@ class SeoManager
         $this->setBasicSeoData($seoData);
     }
 
+    /**
+     * @param boolean $isPageIndexed
+     */
+    public function setAudioBooksSeoData($isPageIndexed)
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.popular_audio_books_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.popular_audio_books_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.popular_audio_books_page.keywords'));
+        $seoData->setIndexPage($isPageIndexed);
+
+        $this->setBasicSeoData($seoData);
+    }
+
     public function setTagsSeoData()
     {
         $seoData = new SeoData();

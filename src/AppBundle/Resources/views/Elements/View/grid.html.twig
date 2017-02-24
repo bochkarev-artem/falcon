@@ -11,7 +11,7 @@
                                 <a href="/{{ book.path }}">
                                     <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="{{ book.title }}"/>
                                 </a>
-                                {% if book.type == constant('AppBundle\\Entity\\Book::TYPE_AUDIO') %}
+                                {% if book.type == constant('AppBundle\\Entity\\Book::TYPE_AUDIO') and hide_audio_ribbon is not defined %}
                                     <figcaption class="ribbon-wrap">
                                         <span class="ribbon new">{{ 'front.audiobook'|trans }}</span>
                                     </figcaption>

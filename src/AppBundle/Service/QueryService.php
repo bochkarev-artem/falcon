@@ -134,6 +134,10 @@ class QueryService
         if ($queryParams->isFilterFeaturedHome()) {
             $this->applyFeaturedHomeFilter($boolQuery);
         }
+
+        if ($queryParams->getBookType()) {
+            $this->applyBookTypeFilter($boolQuery);
+        }
     }
 
     /**
@@ -220,6 +224,14 @@ class QueryService
     private function applyFeaturedHomeFilter(Query\BoolQuery $query)
     {
         $query->addMust(new Query\Term(['featured_home' => true]));
+    }
+
+    /**
+     * @param Query\BoolQuery $query
+     */
+    private function applyBookTypeFilter(Query\BoolQuery $query)
+    {
+        $query->addMust(new Query\Term(['book_type' => true]));
     }
 
     /**
