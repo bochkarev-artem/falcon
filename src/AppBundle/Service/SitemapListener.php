@@ -46,14 +46,14 @@ class SitemapListener implements SitemapListenerInterface
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $queryBuilders = [
+            'genres'  => 'Genre',
+            'authors' => 'Author',
+            'series'  => 'Sequence',
+            'tags'    => 'Tag',
             'books'   => 'Book',
             'books2'  => 'Book',
             'books3'  => 'Book',
             'books4'  => 'Book',
-            'authors' => 'Author',
-            'genres'  => 'Genre',
-            'series'  => 'Sequence',
-            'tags'    => 'Tag',
         ];
 
         foreach ($queryBuilders as $section => $entityName) {
@@ -84,6 +84,10 @@ class SitemapListener implements SitemapListenerInterface
             ->select('e')
             ->from("AppBundle:$entityName", 'e')
         ;
+
+        if ('Genre' == $entityName) {
+            $qb->andWhere($qb->expr()->isNotNull('e.parent'));
+        }
 
         if ('Book' == $entityName) {
             $qb->setMaxResults(30000);
