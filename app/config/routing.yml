@@ -17,9 +17,16 @@ app:
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
-fos_user:
+fos_user_admin:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
     prefix:   /admin
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+default:
+    path:  /admin/
+    defaults: { _controller: SonataAdminBundle:Core:dashboard }
 
 admin:
     resource: "@SonataAdminBundle/Resources/config/routing/sonata_admin.xml"
@@ -28,9 +35,6 @@ admin:
 lexik_translation_edition:
     resource: "@LexikTranslationBundle/Resources/config/routing.yml"
     prefix:   /admin/translation
-
-logout:
-    path: /admin/logout
 
 _sonata_admin:
     resource: .

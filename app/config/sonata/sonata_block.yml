@@ -2,7 +2,7 @@ sonata_block:
     default_contexts: [sonata_page_bundle]
     blocks:
         sonata.admin.block.admin_list:
-            contexts:   [admin]
+            contexts:   [social]
 
         #sonata.admin_doctrine_orm.block.audit:
         #    contexts:   [admin]
