@@ -4,6 +4,7 @@ label:
     book:     Книги
     tag:      Теги
     sequence: Циклы
+    user:     Пользователи
 
 choice:
     book0:  Электронная книга

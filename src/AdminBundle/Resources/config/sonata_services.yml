@@ -9,6 +9,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, ['AdminBundle']]
+
     admin.genre:
         class: AdminBundle\Admin\GenreAdmin
         tags:
@@ -19,6 +20,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, ['AdminBundle']]
+
     admin.sequence:
         class: AdminBundle\Admin\SequenceAdmin
         tags:
@@ -29,6 +31,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, ['AdminBundle']]
+
     admin.tag:
         class: AdminBundle\Admin\TagAdmin
         tags:
@@ -39,6 +42,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, ['AdminBundle']]
+
     admin.book:
         class: AdminBundle\Admin\BookAdmin
         tags:
@@ -46,6 +50,17 @@ services:
         arguments:
             - ~
             - AppBundle\Entity\Book
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
+
+    admin.user:
+        class: AdminBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.user" }
+        arguments:
+            - ~
+            - AppBundle\Entity\User
             - ~
         calls:
             - [ setTranslationDomain, ['AdminBundle']]
