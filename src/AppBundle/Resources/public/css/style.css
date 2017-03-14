@@ -6614,21 +6614,12 @@ aside .widget{
 .book-tags li a:last-child{
 	margin: 0;
 }
-.book-tags li a:before{
-	position: absolute;
-	right: -3px;
-	bottom: 5px;
-	content: ",";
-	font-size: 18px;
-	color: #ccc;
-}
 .book-tags li a:last-child:before{
 	font-size: 0;
 }
 .book-tags-wrap .social-1 li span{
 	text-transform: uppercase;
 	font-weight: bolder;
-
 }
 .book-tags-wrap .social-1 li a{
 	font-size: 12px;
