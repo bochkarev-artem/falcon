@@ -35,6 +35,11 @@ fos_elastica:
                                   language: russian
             types:
                 book:
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Book
+                        provider: ~
+                        listener: ~
                     properties:
                         book_id:              { type: integer }
                         title:                { type: string, analyzer: russian, copy_to: book_title }
@@ -57,6 +62,11 @@ fos_elastica:
                         review_count:         { type: integer }
                         authors:
                             type: "nested"
+                            persistence:
+                                driver: orm
+                                model: AppBundle\Entity\Author
+                                provider: ~
+                                listener: ~
                             properties:
                                 author_id:    { type: integer }
                                 first_name:   { type: string, analyzer: russian }
@@ -89,6 +99,11 @@ fos_elastica:
                                 path:         { type: string, index: not_analyzed }
                         sequence:
                             type: "nested"
+                            persistence:
+                                driver: orm
+                                model: AppBundle\Entity\Sequence
+                                provider: ~
+                                listener: ~
                             properties:
                                 sequence_id:  { type: integer }
                                 name:         { type: string, analyzer: russian, copy_to: sequence_title }
