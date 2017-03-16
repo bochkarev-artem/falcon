@@ -5,7 +5,6 @@
 
 namespace AdminBundle\Admin;
 
-use AppBundle\Entity\Book;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Show\ShowMapper;

@@ -53,7 +53,7 @@ class LitresBookManager
         $i = 0;
         foreach ($formats as $format) {
             $links[$i]['url'] = $this->translator->trans('front.litres_download_url', [
-                '%litres_hub_id%' => $book['litres_id'],
+                '%litres_hub_id%' => $book['litres_hub_id'],
                 '%format%'        => $format,
                 '%partner_id%'    => $this->partnerId
             ]);
@@ -73,12 +73,12 @@ class LitresBookManager
     {
         if (!$book['has_trial']) {
             return $this->translator->trans('front.litres_book_url', [
-                '%litres_hub_id%' => $book['litres_id'],
+                '%litres_hub_id%' => $book['litres_hub_id'],
                 '%partner_id%'    => $this->partnerId
             ]);
         }
 
-        $litresId         = $book['litres_id'];
+        $litresId         = $book['litres_hub_id'];
         $litresDocumentId = $book['document_id'];
         $litres8DigitId   = $this->get8DigitCode($litresId);
         $litres6DigitId   = $this->get6DigitCode($litres8DigitId);

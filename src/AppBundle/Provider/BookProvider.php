@@ -104,7 +104,7 @@ class BookProvider implements ProviderInterface
             'featured_home'     => $book->isFeaturedHome(),
             'lang'              => $book->getLang(),
             'sequence_number'   => $book->getSequenceNumber(),
-            'litres_id'         => $book->getLitresHubId(),
+            'litres_hub_id'     => $book->getLitresHubId(),
             'document_id'       => $book->getDocumentId(),
             'publisher'         => $book->getPublisher(),
             'city_published'    => $book->getCityPublished(),
@@ -164,20 +164,20 @@ class BookProvider implements ProviderInterface
         /** @var Author $author */
         foreach ($book->getAuthors() as $author) {
             $authorData = [
-                'author_id'    => $author->getId(),
-                'first_name'   => $author->getFirstName(),
-                'last_name'    => $author->getLastName(),
-                'middle_name'  => $author->getMiddleName(),
-                'full_name'    => $author->getFullName(),
-                'short_name'   => $author->getShortName(),
-                'level'        => $author->getLevel(),
-                'description'  => $author->getDescription(),
-                'review_count' => $author->getReviewCount(),
-                'arts_count'   => $author->getArtsCount(),
-                'photo_path'   => $author->getPhotoPath(),
-                'litres_id'    => $author->getLitresHubId(),
-                'document_id'  => $author->getDocumentId(),
-                'path'         => $author->getPath(),
+                'author_id'     => $author->getId(),
+                'first_name'    => $author->getFirstName(),
+                'last_name'     => $author->getLastName(),
+                'middle_name'   => $author->getMiddleName(),
+                'full_name'     => $author->getFullName(),
+                'short_name'    => $author->getShortName(),
+                'level'         => $author->getLevel(),
+                'description'   => $author->getDescription(),
+                'review_count'  => $author->getReviewCount(),
+                'arts_count'    => $author->getArtsCount(),
+                'photo_path'    => $author->getPhotoPath(),
+                'litres_hub_id' => $author->getLitresHubId(),
+                'document_id'   => $author->getDocumentId(),
+                'path'          => $author->getPath(),
             ];
             $authorsData[] = $authorData;
         }
