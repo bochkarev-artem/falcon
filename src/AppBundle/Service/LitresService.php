@@ -271,16 +271,8 @@ class LitresService
     public function getGenre($genreToken)
     {
         $genre = $this->genreRepo->findOneByToken($genreToken);
-        if (!$genre && $genreToken) {
-            $genre = new Genre();
-            $genre->setToken($genreToken);
-            $genre->setTitle($genreToken);
 
-            $this->em->persist($genre);
-            $this->em->flush();
-        }
-
-       return $genre;
+        return $genre;
     }
 
     /**
@@ -365,6 +357,16 @@ class LitresService
                     $genre = $this->getGenre($token);
                     if ($genre) {
                         $book->addGenre($genre);
+                    } else {
+                        if ($this->logger && $this->debug) {
+                            $this->logger->log(
+                                LogLevel::CRITICAL,
+                                sprintf('Genre %s not found', $genre)
+                            );
+                        }
+
+                        $skipped++;
+                        continue 2;
                     }
                 }
 
