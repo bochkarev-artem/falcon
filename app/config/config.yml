@@ -71,7 +71,7 @@ assetic:
 
 doctrine:
     dbal:
-        driver:   pdo_mysql
+        driver:   "pdo_mysql"
         host:     "%database_host%"
         port:     "%database_port%"
         dbname:   "%database_name%"
@@ -108,8 +108,8 @@ fos_user:
         sender_name:    Bookary.ru
 
 lexik_translation:
-    fallback_locale: [ru]
-    managed_locales: [ru]
+    fallback_locale: ["%locale%"]
+    managed_locales: ["%locale%"]
 
 hwi_oauth:
     connect:
