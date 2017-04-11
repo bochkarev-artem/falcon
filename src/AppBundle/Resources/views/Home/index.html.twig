@@ -14,6 +14,27 @@
 
 {% block body %}
 <div class="kf_content_wrap">
+    <section class="slider-1">
+        <div class="container">
+            <div class="heading-3">
+                <h2>{{ 'front.featured_books'|trans }}</h2>
+            </div>
+            <div class="soap-gallery carousel-style1 carousel box" data-front-width="250" data-front-height="366" data-slides="5" data-vAlign="top">
+                <div class="slides">
+                    {% for featured_book in featured_books %}
+                        {% if featured_book.cover_path is defined %}
+                            <div>
+                                <a href="/{{ featured_book.path }}">
+                                    <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ featured_book.title }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="shade"></div>
+        </div>
+    </section>
     <section>
         <div class="container">
             <div class="tabs-wrap1">
@@ -76,27 +97,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="slider-1">
-        <div class="container">
-            <div class="heading-3">
-                <h2>{{ 'front.featured_books'|trans }}</h2>
-            </div>
-            <div class="soap-gallery carousel-style1 carousel box" data-front-width="250" data-front-height="366" data-slides="5" data-vAlign="top">
-                <div class="slides">
-                    {% for featured_book in featured_books %}
-                        {% if featured_book.cover_path is defined %}
-                            <div>
-                                <a href="/{{ featured_book.path }}">
-                                    <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ featured_book.title }}">
-                                </a>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="shade"></div>
         </div>
     </section>
 </div>

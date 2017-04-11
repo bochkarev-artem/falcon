@@ -21,9 +21,7 @@
             '@AppBundle/Resources/public/css/typography.css'
             '@AppBundle/Resources/public/css/shortcodes.css'
             '@AppBundle/Resources/public/css/style.css'
-            '@AppBundle/Resources/public/css/range-slider.css'
             '@AppBundle/Resources/public/css/color.css'
-            '@AppBundle/Resources/public/css/selectric.css'
             '@AppBundle/Resources/public/js/dl-menu/component.css'
             '@AppBundle/Resources/public/css/responsive.css'
             filter='scssphp' output='compiled/css/styles.css' %}
@@ -54,15 +52,11 @@
             {% javascripts
                 '@AppBundle/Resources/public/js/jquery.js'
                 '@AppBundle/Resources/public/js/bootstrap.min.js'
-                '@AppBundle/Resources/public/js/range-slider.js'
                 '@AppBundle/Resources/public/js/waypoints-min.js'
-                '@AppBundle/Resources/public/js/jquery.selectric.min.js'
-                '@AppBundle/Resources/public/js/jquery.accordion.js'
                 '@AppBundle/Resources/public/js/dl-menu/modernizr.custom.js'
                 '@AppBundle/Resources/public/js/dl-menu/jquery.dlmenu.js'
-                '@AppBundle/Resources/public/js/custom.js'
-                '@AppBundle/Resources/public/js/es5-shims.min.js'
-                '@AppBundle/Resources/public/js/share.js'
+                '@AppBundle/Resources/public/js/base.js'
+                '@AppBundle/Resources/public/js/jquery.accordion.js'
                 filter='?jsqueeze' output='compiled/js/scripts.js' %}
 
                 {% block javascripts %}
@@ -80,7 +74,6 @@
 
             ga('create', 'UA-40513359-9', 'auto');
             ga('send', 'pageview');
-
         </script>
 
         <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter42824504 = new Ya.Metrika({ id:42824504, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/42824504" style="position:absolute; left:-9999px;" alt="" /></div></noscript>

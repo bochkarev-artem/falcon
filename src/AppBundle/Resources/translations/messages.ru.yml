@@ -46,7 +46,7 @@ front:
     year:               Год
     new:                Новинка
     no_results:         Нет книг
-    featured_books:     Бестселлеры
+    featured_books:     Популярные
     new_arrivals:       Новые
     popular_books:      Бестселлеры
     to_book:            Читать книгу
@@ -67,6 +67,7 @@ front:
     read:               Читать
     read_book:          Читать онлайн
     author:             Автор
+    user_rating:        Ваша оценка
     book:
         type_0:     Электронная книга
         type_1:     Аудиокнига

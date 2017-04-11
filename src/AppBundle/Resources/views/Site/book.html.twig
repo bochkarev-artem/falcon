@@ -3,11 +3,23 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/app/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/jquery.star-rating-svg.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/es5-shims.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/share.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/book-page.js') }}"></script>
+    <script>
+        var userRatingText = "{{ 'front.user_rating'|trans }}:";
+        var bookRating     = {{ book.rating|default(0) }};
+        {% if app.user.id is defined %}
+            var bookRatingPath = "{{ path('add_book_rating', {"userId": app.user.id, "bookId": book.book_id }) }}";
+        {% endif %}
+    </script>
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/app/css/owl.carousel.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/star-rating-svg.css') }}" />
 {% endblock %}
 
 {% block body %}
@@ -34,6 +46,10 @@
                                     <div class="book-text">
                                         <div class="book-heading book-padding">
                                             <h3>{{ book.title }}</h3>
+                                            <div class="book-review">
+                                                <div class="book-rating"></div>
+                                                <span class="book-user-rating"></span>
+                                            </div>
                                         </div>
                                         <div class="book-tags-wrap book-padding">
                                             <ul class="book-tags">
