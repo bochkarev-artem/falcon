@@ -7,7 +7,7 @@
             {% for aside_featured_book in aside_featured_books %}
                 <div class="featured-dec3">
                     <figure>
-                        {% if aside_featured_book.cover_path %}
+                        {% if aside_featured_book.cover_path is defined and aside_featured_book.cover_path %}
                             <a href="/{{ aside_featured_book.path }}">
                                 <img src="{{ aside_featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ aside_featured_book.title }}"/>
                             </a>
