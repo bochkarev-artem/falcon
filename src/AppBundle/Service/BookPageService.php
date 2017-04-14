@@ -52,6 +52,7 @@ class BookPageService
                 ->setFilterGenres($genreIds)
                 ->setSize(self::FEATURED_BOTTOM_COUNT)
                 ->setFilterExcludeAuthors($authorIds)
+                ->setSort(QueryParams::SORT_RATING_DESC)
             ;
 
             $queryResult = $this->queryService->query($queryParams);

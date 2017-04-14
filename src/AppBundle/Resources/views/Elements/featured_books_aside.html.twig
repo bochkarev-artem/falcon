@@ -7,11 +7,9 @@
             {% for aside_featured_book in aside_featured_books %}
                 <div class="featured-dec3">
                     <figure>
-                        {% if aside_featured_book.cover_path is defined and aside_featured_book.cover_path %}
-                            <a href="/{{ aside_featured_book.path }}">
-                                <img src="{{ aside_featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ aside_featured_book.title }}"/>
-                            </a>
-                        {% endif %}
+                        <a href="/{{ aside_featured_book.path }}">
+                            <img src="{{ aside_featured_book.cover_path is defined and aside_featured_book.cover_path ? aside_featured_book.cover_path|imagine_filter('book_list') : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ aside_featured_book.title }}"/>
+                        </a>
                     </figure>
                     <div class="text">
                         <a href="/{{ aside_featured_book.path }}">{{ aside_featured_book.title }}</a>

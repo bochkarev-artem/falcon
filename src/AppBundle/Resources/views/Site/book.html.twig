@@ -34,11 +34,9 @@
                                 <div class="col-md-6">
                                     <div class="thumb">
                                         <div class="thumb-slider">
-                                            {% if book.cover_path %}
-                                                <ul class="bxslider1">
-                                                    <li><img src="{{ book.cover_path|imagine_filter('book_full') }}" alt="{{ book.title }}" /></li>
-                                                </ul>
-                                            {% endif %}
+                                            <ul class="bxslider1">
+                                                <li><img src="{{ book.cover_path is defined and book.cover_path ? book.cover_path|imagine_filter('book_full') : asset('compiled/images/no-cover.jpg') }}" alt="{{ book.title }}" /></li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

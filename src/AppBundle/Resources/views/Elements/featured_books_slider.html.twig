@@ -9,11 +9,9 @@
                     {% for slider_featured_book in slider_featured_books %}
                         <div class="item">
                             <div class="book-tab-dec">
-                                {% if slider_featured_book.cover_path %}
-                                    <a href="/{{ slider_featured_book.path }}">
-                                        <img class="owl-lazy" data-src="{{ slider_featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ slider_featured_book.title }}"/>
-                                    </a>
-                                {% endif %}
+                                <a href="/{{ slider_featured_book.path }}">
+                                    <img class="owl-lazy" data-src="{{ slider_featured_book.cover_path is defined and slider_featured_book.cover_path ? slider_featured_book.cover_path|imagine_filter('book_list') : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ slider_featured_book.title }}"/>
+                                </a>
                                 <div class="text">
                                     {% if slider_featured_book.genres is defined and slider_featured_book.genres %}
                                         {% set genre = slider_featured_book.genres|first %}
