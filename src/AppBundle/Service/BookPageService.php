@@ -111,7 +111,7 @@ class BookPageService
         $qb = $this->em->createQueryBuilder();
         $qb
             ->select('AVG(bc.rating) as avg_rating, COUNT(bc.rating) as total_rating')
-            ->from('AppBundle:BookCard', 'bc')
+            ->from('AppBundle:BookRating', 'bc')
             ->leftJoin('bc.book', 'b')
             ->andWhere($qb->expr()->eq('b.id', ':book_id'))
             ->setParameter('book_id', $bookId)
@@ -133,7 +133,7 @@ class BookPageService
         $qb = $this->em->createQueryBuilder();
         $qb
             ->select('AVG(bc.rating)')
-            ->from('AppBundle:BookCard', 'bc')
+            ->from('AppBundle:BookRating', 'bc')
             ->leftJoin('bc.book', 'b')
             ->leftJoin('bc.user', 'u')
             ->andWhere($qb->expr()->eq('b.id', ':book_id'))

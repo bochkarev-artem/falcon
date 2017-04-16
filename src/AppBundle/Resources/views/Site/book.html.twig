@@ -8,14 +8,29 @@
     <script src="{{ asset('bundles/app/js/share.js') }}"></script>
     <script src="{{ asset('bundles/app/js/book-page.js') }}"></script>
     <script>
+        {% set userRatingAdd = user_book_rating ? 0 : 1 %}
         var userRatingText  = "{{ 'front.user_rating'|trans }}";
-        var votesTotalText  = "{{ 'front.votes'|trans }}";
+        var votesTotalText  = "{{ 'front.vote'|transchoice(book_rating_data['total'] + userRatingAdd) }}";
         var bookRating      = {{ book_rating_data['rating'] }};
         var bookRatingTotal = {{ book_rating_data['total'] }};
         var bookId          = {{ book.book_id }};
         {% if app.user.id is defined %}
             var bookRatingPath = "{{ path('add_book_rating') }}";
         {% endif %}
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org/",
+        "@type": "Book",
+        "name": "{{ book.title }}",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "{{ book_rating_data['rating'] }}",
+            "bestRating": "5",
+            "worstRating": "0",
+            "ratingCount": "{{ book_rating_data['total'] }}"
+        }
+    }
     </script>
 {% endblock %}
 
@@ -47,9 +62,20 @@
                                     <div class="book-text">
                                         <div class="book-heading book-padding">
                                             <h3>{{ book.title }}</h3>
-                                            <div class="book-review">
-                                                <div class="book-rating"></div>
-                                                <div class="book-rating-votes-total">{{ book_rating_data['total'] ? book_rating_data['total'] ~ ' ' ~ 'front.votes'|trans : '' }}</div>
+                                            <div itemscope itemtype="http://schema.org/Book">
+                                                <div class="book-review"
+                                                     itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                                    <div class="book-rating"></div>
+                                                    <div class="rating-value" itemprop="ratingValue">{{ book_rating_data['rating'] }}</div>
+                                                    <div class="book-rating-votes-total">
+                                                        <span class="rating-total-value" itemprop="ratingCount">
+                                                            {{ book_rating_data['total'] ? book_rating_data['total'] : '' }}
+                                                        </span>
+                                                        <span class="rating-total-text">
+                                                            {{ book_rating_data['total'] ? ' ' ~ 'front.vote'|transchoice(book_rating_data['total']) : '' }}
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="book-user-rating">{{ user_book_rating ? 'front.user_rating'|trans ~ ': ' ~ user_book_rating : '' }}</div>
                                         </div>

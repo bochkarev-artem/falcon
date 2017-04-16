@@ -28,12 +28,20 @@ class BookReview
     private $id;
 
     /**
-     * @var BookCard $bookCard
+     * @var Book $book
      *
-     * @ORM\ManyToOne(targetEntity="BookCard", inversedBy="reviews", fetch="EXTRA_LAZY")
-     * @ORM\JoinColumn(name="book_card_id", referencedColumnName="book_card_id")
+     * @ORM\ManyToOne(targetEntity="Book", inversedBy="reviews", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id")
      */
-    private $bookCard;
+    private $book;
+
+    /**
+     * @var User $user
+     *
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="reviews", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * @var string $text
@@ -63,26 +71,6 @@ class BookReview
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return BookCard
-     */
-    public function getBookCard()
-    {
-        return $this->bookCard;
-    }
-
-    /**
-     * @param BookCard $bookCard
-     *
-     * @return BookReview
-     */
-    public function setBookCard($bookCard)
-    {
-        $this->bookCard = $bookCard;
-
-        return $this;
     }
 
     /**
@@ -121,6 +109,46 @@ class BookReview
     public function setApproved($approved)
     {
         $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * @return Book
+     */
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+    /**
+     * @param Book $book
+     *
+     * @return BookReview
+     */
+    public function setBook($book)
+    {
+        $this->book = $book;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return BookReview
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
 
         return $this;
     }

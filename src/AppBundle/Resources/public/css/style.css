@@ -6442,6 +6442,14 @@ aside .widget{
 .book-rating-votes-total{
 	float: right;
 }
+.rating-value{
+	float: left;
+	color: #ff4c00;
+	margin: 5px 0 0 5px;
+	font-size: 14px;
+	line-height: 20px;
+	font-weight: bold;
+}
 .book-review{
 	float: left;
 	width: 100%;

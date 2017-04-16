@@ -144,11 +144,18 @@ class Book implements PageInterface
     private $sequence;
 
     /**
-     * @var ArrayCollection $bookCards
+     * @var ArrayCollection $ratings
      *
-     * @ORM\OneToMany(targetEntity="BookCard", mappedBy="book", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="BookRating", mappedBy="book", fetch="EXTRA_LAZY")
      */
-    private $bookCards;
+    private $ratings;
+
+    /**
+     * @var ArrayCollection $reviews
+     *
+     * @ORM\OneToMany(targetEntity="BookReview", mappedBy="book", fetch="EXTRA_LAZY")
+     */
+    private $reviews;
 
     /**
      * @var string $title
@@ -250,6 +257,8 @@ class Book implements PageInterface
         $this->authors      = new ArrayCollection();
         $this->genres       = new ArrayCollection();
         $this->tags         = new ArrayCollection();
+        $this->reviews      = new ArrayCollection();
+        $this->ratings      = new ArrayCollection();
         $this->date         = null;
         $this->featuredHome = false;
         $this->featuredMenu = false;
@@ -870,46 +879,94 @@ class Book implements PageInterface
     /**
      * @return ArrayCollection
      */
-    public function getBookCards()
+    public function getRatings()
     {
-        return $this->bookCards;
+        return $this->ratings;
     }
 
     /**
-     * @param ArrayCollection $bookCards
+     * @param ArrayCollection $ratings
      *
      * @return Book
      */
-    public function setBookCards($bookCards)
+    public function setRatings($ratings)
     {
-        $this->bookCards = $bookCards;
+        $this->ratings = $ratings;
 
         return $this;
     }
 
     /**
-     * @param BookCard $bookCard
+     * @param BookRating $rating
      *
      * @return Book
      */
-    public function addBookCard($bookCard)
+    public function addRating($rating)
     {
-        if (!$this->bookCards->contains($bookCard)) {
-            $this->bookCards->add($bookCard);
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
         }
 
         return $this;
     }
 
     /**
-     * @param BookCard $bookCard
+     * @param BookRating $rating
      *
      * @return Book
      */
-    public function removeBookCard($bookCard)
+    public function removeRating($rating)
     {
-        if ($this->bookCards->contains($bookCard)) {
-            $this->bookCards->remove($bookCard);
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->remove($rating);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * @param ArrayCollection $reviews
+     *
+     * @return Book
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * @param BookReview $review
+     *
+     * @return Book
+     */
+    public function addReview($review)
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param BookReview $review
+     *
+     * @return Book
+     */
+    public function removeReview($review)
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->remove($review);
         }
 
         return $this;

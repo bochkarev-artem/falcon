@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\BookCard;
+use AppBundle\Entity\BookRating;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,24 +16,24 @@ class BookController extends Controller
      */
     public function addBookRatingAction(Request $request)
     {
-        $em           = $this->getDoctrine()->getManager();
-        $rating       = $request->request->get('rating');
-        $bookId       = $request->request->get('book_id');
-        $bookRepo     = $this->getDoctrine()->getRepository('AppBundle:Book');
-        $bookCardRepo = $this->getDoctrine()->getRepository('AppBundle:BookCard');
-        $user         = $this->getUser();
-        $book         = $bookRepo->find($bookId);
-        $bookCard     = $bookCardRepo->findOneBy(['user' => $user, 'book' => $book]);
-        if ($bookCard) {
-            $bookCard->setRating($rating);
+        $em             = $this->getDoctrine()->getManager();
+        $rating         = $request->request->get('rating');
+        $bookId         = $request->request->get('book_id');
+        $bookRepo       = $this->getDoctrine()->getRepository('AppBundle:Book');
+        $bookRatingRepo = $this->getDoctrine()->getRepository('AppBundle:BookRating');
+        $user           = $this->getUser();
+        $book           = $bookRepo->find($bookId);
+        $bookRating     = $bookRatingRepo->findOneBy(['user' => $user, 'book' => $book]);
+        if ($bookRating) {
+            $bookRating->setRating($rating);
         } else {
-            $bookCard = new BookCard();
-            $bookCard
+            $bookRating = new BookRating();
+            $bookRating
                 ->setBook($book)
                 ->setUser($user)
                 ->setRating($rating)
             ;
-            $em->persist($bookCard);
+            $em->persist($bookRating);
         }
         $em->flush();
 

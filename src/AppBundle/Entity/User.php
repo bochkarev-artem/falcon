@@ -73,11 +73,18 @@ class User extends BaseUser
     protected $lastName;
 
     /**
-     * @var ArrayCollection $bookCards
+     * @var ArrayCollection $ratings
      *
-     * @ORM\OneToMany(targetEntity="BookCard", mappedBy="user", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="BookRating", mappedBy="user", fetch="EXTRA_LAZY")
      */
-    private $bookCards;
+    private $ratings;
+
+    /**
+     * @var ArrayCollection $reviews
+     *
+     * @ORM\OneToMany(targetEntity="BookReview", mappedBy="user", fetch="EXTRA_LAZY")
+     */
+    private $reviews;
 
     /**
      * Initialize fields
@@ -86,7 +93,7 @@ class User extends BaseUser
     {
         parent::__construct();
 
-        $this->bookCards = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
 
     /**
@@ -321,46 +328,94 @@ class User extends BaseUser
     /**
      * @return ArrayCollection
      */
-    public function getBookCards()
+    public function getRatings()
     {
-        return $this->bookCards;
+        return $this->ratings;
     }
 
     /**
-     * @param ArrayCollection $bookCards
+     * @param ArrayCollection $ratings
      *
      * @return User
      */
-    public function setBookCards($bookCards)
+    public function setRatings($ratings)
     {
-        $this->bookCards = $bookCards;
+        $this->ratings = $ratings;
 
         return $this;
     }
 
     /**
-     * @param BookCard $bookCard
+     * @param BookRating $rating
      *
      * @return User
      */
-    public function addBookCard($bookCard)
+    public function addRating($rating)
     {
-        if (!$this->bookCards->contains($bookCard)) {
-            $this->bookCards->add($bookCard);
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
         }
 
         return $this;
     }
 
     /**
-     * @param BookCard $bookCard
+     * @param BookRating $rating
      *
      * @return User
      */
-    public function removeBookCard($bookCard)
+    public function removeRating($rating)
     {
-        if ($this->bookCards->contains($bookCard)) {
-            $this->bookCards->remove($bookCard);
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->remove($rating);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getReviews()
+    {
+        return $this->reviews;
+    }
+
+    /**
+     * @param ArrayCollection $reviews
+     *
+     * @return User
+     */
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+
+        return $this;
+    }
+
+    /**
+     * @param BookReview $review
+     *
+     * @return User
+     */
+    public function addReview($review)
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param BookReview $review
+     *
+     * @return User
+     */
+    public function removeReview($review)
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->remove($review);
         }
 
         return $this;

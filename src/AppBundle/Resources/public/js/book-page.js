@@ -6,10 +6,14 @@ $(document).ready(function(){
     $(".book-rating").starRating({
         initialRating: bookRating,
         readOnly: !isUserLoggedIn,
+        emptyColor: 'lightgray',
         strokeColor: '#894A00',
+        hoverColor: '#228B22',
+        activeColor: '#ff4c00',
         strokeWidth: 10,
         starSize: 25,
         useFullStars: false,
+        useGradient: false,
         disableAfterRate: false,
         callback: function(currentRating, $el) {
             if (bookRatingPath) {
@@ -20,7 +24,9 @@ $(document).ready(function(){
                     data: {rating: currentRating, book_id: bookId}
                 }).done(function(data) {
                     $(".book-rating").starRating('setRating', data.rating);
-                    $(".book-rating-votes-total").text(data.total + ' ' + votesTotalText);
+                    $(".rating-total-value").text(data.total);
+                    $(".rating-total-text").text(' ' + votesTotalText);
+                    $(".rating-value").text(data.rating);
                 });
             }
         }
