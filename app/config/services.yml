@@ -14,6 +14,7 @@ services:
         class: AppBundle\Service\BookPageService
         arguments:
           - "@query_service"
+          - "@doctrine.orm.default_entity_manager"
 
     home_page_service:
         class: AppBundle\Service\HomePageService

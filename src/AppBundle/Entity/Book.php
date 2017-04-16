@@ -144,6 +144,13 @@ class Book implements PageInterface
     private $sequence;
 
     /**
+     * @var ArrayCollection $bookCards
+     *
+     * @ORM\OneToMany(targetEntity="BookCard", mappedBy="book", fetch="EXTRA_LAZY")
+     */
+    private $bookCards;
+
+    /**
      * @var string $title
      *
      * @ORM\Column(name="title", type="string", nullable=true)
@@ -858,6 +865,54 @@ class Book implements PageInterface
     public function getBookId()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBookCards()
+    {
+        return $this->bookCards;
+    }
+
+    /**
+     * @param ArrayCollection $bookCards
+     *
+     * @return Book
+     */
+    public function setBookCards($bookCards)
+    {
+        $this->bookCards = $bookCards;
+
+        return $this;
+    }
+
+    /**
+     * @param BookCard $bookCard
+     *
+     * @return Book
+     */
+    public function addBookCard($bookCard)
+    {
+        if (!$this->bookCards->contains($bookCard)) {
+            $this->bookCards->add($bookCard);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param BookCard $bookCard
+     *
+     * @return Book
+     */
+    public function removeBookCard($bookCard)
+    {
+        if ($this->bookCards->contains($bookCard)) {
+            $this->bookCards->remove($bookCard);
+        }
+
+        return $this;
     }
 
     /**

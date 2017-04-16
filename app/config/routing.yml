@@ -82,7 +82,7 @@ tags:
         sitemap: true
 
 add_book_rating:
-    path: /add-book-rating/{userId}/{bookId}
+    path: /add-book-rating
     defaults: { _controller: AppBundle:Book:addBookRating }
 
 search_page:

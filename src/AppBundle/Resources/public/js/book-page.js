@@ -4,7 +4,7 @@ $(document).ready(function(){
     var isUserLoggedIn = typeof bookRatingPath !== 'undefined';
 
     $(".book-rating").starRating({
-        initialRating: bookRating/2,
+        initialRating: bookRating,
         readOnly: !isUserLoggedIn,
         strokeColor: '#894A00',
         strokeWidth: 10,
@@ -13,13 +13,14 @@ $(document).ready(function(){
         disableAfterRate: false,
         callback: function(currentRating, $el) {
             if (bookRatingPath) {
-                $(".book-user-rating").text(userRatingText + ' ' + currentRating);
+                $(".book-user-rating").text(userRatingText + ': ' + currentRating);
                 $.ajax({
                     method: "POST",
                     url: bookRatingPath,
-                    data: {rating: currentRating}
+                    data: {rating: currentRating, book_id: bookId}
                 }).done(function(data) {
                     $(".book-rating").starRating('setRating', data.rating);
+                    $(".book-rating-votes-total").text(data.total + ' ' + votesTotalText);
                 });
             }
         }

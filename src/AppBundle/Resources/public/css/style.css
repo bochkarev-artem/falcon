@@ -6436,6 +6436,12 @@ aside .widget{
 	width: 100%;
 	margin-bottom: 12px;
 }
+.book-rating{
+	float: left;
+}
+.book-rating-votes-total{
+	float: right;
+}
 .book-review{
 	float: left;
 	width: 100%;

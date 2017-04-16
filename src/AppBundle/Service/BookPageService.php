@@ -6,6 +6,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Model\QueryParams;
+use Doctrine\ORM\EntityManager;
 
 class BookPageService
 {
@@ -18,11 +19,18 @@ class BookPageService
     protected $queryService;
 
     /**
-     * @param QueryService $queryService
+     * @var EntityManager
      */
-    public function __construct(QueryService $queryService)
+    protected $em;
+
+    /**
+     * @param QueryService  $queryService
+     * @param EntityManager $em
+     */
+    public function __construct(QueryService $queryService, EntityManager $em)
     {
         $this->queryService = $queryService;
+        $this->em           = $em;
     }
 
     /**
@@ -91,5 +99,51 @@ class BookPageService
         }
 
         return $books;
+    }
+
+    /**
+     * @param int $bookId
+     *
+     * @return array
+     */
+    public function getBookRatingData($bookId)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('AVG(bc.rating) as avg_rating, COUNT(bc.rating) as total_rating')
+            ->from('AppBundle:BookCard', 'bc')
+            ->leftJoin('bc.book', 'b')
+            ->andWhere($qb->expr()->eq('b.id', ':book_id'))
+            ->setParameter('book_id', $bookId)
+        ;
+
+        $result = $qb->getQuery()->getSingleResult();
+
+        return ['rating' => $result['avg_rating'] ?: 0, 'total' => $result['total_rating'] ?: 0];
+    }
+
+    /**
+     * @param int $userId
+     * @param int $bookId
+     *
+     * @return float
+     */
+    public function getUserBookRating($userId, $bookId)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('AVG(bc.rating)')
+            ->from('AppBundle:BookCard', 'bc')
+            ->leftJoin('bc.book', 'b')
+            ->leftJoin('bc.user', 'u')
+            ->andWhere($qb->expr()->eq('b.id', ':book_id'))
+            ->andWhere($qb->expr()->eq('u.id', ':user_id'))
+            ->setParameter('book_id', $bookId)
+            ->setParameter('user_id', $userId)
+        ;
+
+        $rating = $qb->getQuery()->getSingleScalarResult() ?: 0;
+
+        return $rating;
     }
 }

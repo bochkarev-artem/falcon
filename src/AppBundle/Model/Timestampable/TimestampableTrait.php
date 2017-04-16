@@ -5,6 +5,8 @@
 
 namespace AppBundle\Model\Timestampable;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+
 trait TimestampableTrait
 {
     /**

@@ -415,10 +415,16 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setBookSeoData($book);
 
+        if ($user = $this->getUser()) {
+            $userRating = $bookPageService->getUserBookRating($user->getId(), $id);
+        }
+
         return $this->render('AppBundle:Site:book.html.twig', [
             'book'                  => $book,
             'aside_featured_books'  => $bookPageService->getAsideFeaturedBooks($book),
             'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book),
+            'book_rating_data'      => $bookPageService->getBookRatingData($id),
+            'user_book_rating'      => $userRating ?? null,
             'breadcrumbs'           => $seoManager->buildBreadcrumbs($book),
             'download_links'        => $litresBookManager->getDownloadLinks($book),
             'read_link'             => $litresBookManager->getReadOnlineLink($book),

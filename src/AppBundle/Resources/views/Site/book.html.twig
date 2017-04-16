@@ -8,10 +8,13 @@
     <script src="{{ asset('bundles/app/js/share.js') }}"></script>
     <script src="{{ asset('bundles/app/js/book-page.js') }}"></script>
     <script>
-        var userRatingText = "{{ 'front.user_rating'|trans }}:";
-        var bookRating     = {{ book.rating|default(0) }};
+        var userRatingText  = "{{ 'front.user_rating'|trans }}";
+        var votesTotalText  = "{{ 'front.votes'|trans }}";
+        var bookRating      = {{ book_rating_data['rating'] }};
+        var bookRatingTotal = {{ book_rating_data['total'] }};
+        var bookId          = {{ book.book_id }};
         {% if app.user.id is defined %}
-            var bookRatingPath = "{{ path('add_book_rating', {"userId": app.user.id, "bookId": book.book_id }) }}";
+            var bookRatingPath = "{{ path('add_book_rating') }}";
         {% endif %}
     </script>
 {% endblock %}
@@ -46,8 +49,9 @@
                                             <h3>{{ book.title }}</h3>
                                             <div class="book-review">
                                                 <div class="book-rating"></div>
-                                                <span class="book-user-rating"></span>
+                                                <div class="book-rating-votes-total">{{ book_rating_data['total'] ? book_rating_data['total'] ~ ' ' ~ 'front.votes'|trans : '' }}</div>
                                             </div>
+                                            <div class="book-user-rating">{{ user_book_rating ? 'front.user_rating'|trans ~ ': ' ~ user_book_rating : '' }}</div>
                                         </div>
                                         <div class="book-tags-wrap book-padding">
                                             <ul class="book-tags">

@@ -68,6 +68,7 @@ front:
     read_book:          Читать онлайн
     author:             Автор
     user_rating:        Ваша оценка
+    votes:              голоса (-ов)
     book:
         type_0:     Электронная книга
         type_1:     Аудиокнига
