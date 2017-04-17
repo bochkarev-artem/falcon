@@ -1,7 +1,6 @@
 {% extends "@App/layout.html.twig" %}
 
 {% block javascripts %}
-    {{ parent() }}
     <script src="{{ asset('bundles/app/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/jquery.star-rating-svg.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/es5-shims.min.js') }}"></script>
@@ -16,6 +15,8 @@
         var bookId          = {{ book.book_id }};
         {% if app.user.id is defined %}
             var bookRatingPath = "{{ path('add_book_rating') }}";
+            var bookReviewPath = "{{ path('add_book_review') }}";
+            var bookReviewMsg  = "{{ 'front.book_review_added'|trans }}";
         {% endif %}
     </script>
     <script type="application/ld+json">
@@ -35,7 +36,6 @@
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/app/css/owl.carousel.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/app/css/star-rating-svg.css') }}" />
 {% endblock %}
@@ -53,7 +53,11 @@
                                     <div class="thumb">
                                         <div class="thumb-slider">
                                             <ul class="bxslider1">
-                                                <li><img src="{{ book.cover_path is defined and book.cover_path ? book.cover_path|imagine_filter('book_full') : asset('compiled/images/no-cover.jpg') }}" alt="{{ book.title }}" /></li>
+                                                <li>
+                                                    <img src="{{ book.cover_path is defined and book.cover_path
+                                                    ? book.cover_path|imagine_filter('book_full')
+                                                    : asset('compiled/images/no-cover.jpg') }}" alt="{{ book.title }}" />
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -66,7 +70,7 @@
                                                 <div class="book-review"
                                                      itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                                                     <div class="book-rating"></div>
-                                                    <div class="rating-value" itemprop="ratingValue">{{ book_rating_data['rating'] }}</div>
+                                                    <div class="rating-value" itemprop="ratingValue">{{ book_rating_data['rating'] ? book_rating_data['rating'] : '' }}</div>
                                                     <div class="book-rating-votes-total">
                                                         <span class="rating-total-value" itemprop="ratingCount">
                                                             {{ book_rating_data['total'] ? book_rating_data['total'] : '' }}
@@ -78,6 +82,9 @@
                                                 </div>
                                             </div>
                                             <div class="book-user-rating">{{ user_book_rating ? 'front.user_rating'|trans ~ ': ' ~ user_book_rating : '' }}</div>
+                                            <ul class="blog-meta">
+                                                <li>{{ reviews|length ~ ' ' ~ 'front.review'|transchoice(reviews|length) }}</li>
+                                            </ul>
                                         </div>
                                         <div class="book-tags-wrap book-padding">
                                             <ul class="book-tags">
@@ -156,7 +163,12 @@
                 </div>
                 <div class="book-tabs2">
                     <ul class="nav nav-tabs books-tab" role="tablist">
-                        <li role="presentation" class="active"><a href="#annotation" aria-controls="annotation" role="tab" data-toggle="tab">{{ 'front.book.annotation'|trans }}</a></li>
+                        <li role="presentation" class="active">
+                            <a href="#annotation" aria-controls="annotation" role="tab" data-toggle="tab">{{ 'front.book.annotation'|trans }}</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">{{ 'front.book.reviews'|trans }}</a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane fade in active" id="annotation">
@@ -171,6 +183,58 @@
                                     '%year%': book.year_published,
                                     '%isbn%': book.isbn,
                                 }) }}</p>
+                            {% endif %}
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="reviews">
+                            {% if reviews %}
+                                <div class="commenting-wrap-1 cutomer-reviews">
+                                    <h3>{{ 'front.book.reviews'|trans }}</h3>
+                                    <ul>
+                                        {% for review in reviews %}
+                                            <li>
+                                                <div class="commenting-dec">
+                                                    {% if review.user.picture %}
+                                                        <figure>
+                                                            <img src="{{ review.user.picture }}" alt="{{ review.user.fullName }}">
+                                                        </figure>
+                                                    {% endif %}
+                                                    <div class="text">
+                                                        <div class="commenting-hd">
+                                                            <h5>{{ review.user.fullName }}</h5>
+                                                            <div class="cutomer-rating">
+                                                                <p>{{ review.createdOn|date("d M Y g:ia") }}</p>
+                                                            </div>
+                                                        </div>
+                                                        <p>{{ review.text }}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            {% if app.user %}
+                                <div class="contact-wrap cutomer-reviews">
+                                    <h3>{{ 'front.post_review_text'|trans }}</h3>
+                                    <span class="review-flush-msg"></span>
+                                    <form id="review-form">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="input-dec3 before-adj">
+                                                    <textarea class="review-text" placeholder="{{ 'front.minimum_chars'|trans }}"></textarea>
+                                                    <i class="fa fa-file-text-o"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn-2 send-review-btn disabled" disabled="disabled">
+                                            {{ 'front.send'|trans }}
+                                        </button>&nbsp;
+                                        <span class="review-counter">500</span>
+                                    </form>
+                                </div>
+                            {% else %}
+                                <span>{{ 'front.please_login'|trans|raw }}</span>
                             {% endif %}
                         </div>
                     </div>

@@ -1,13 +1,11 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block javascripts %}
-    {{ parent() }}
     <script src="{{ asset('bundles/app/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/new-slider.min.js') }}"></script>
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/app/css/owl.carousel.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/app/css/new-slider.css') }}" />
 {% endblock %}

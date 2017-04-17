@@ -10,7 +10,7 @@
 .social-1 li{
     float: left;
     width: auto;
-    padding:0; 
+    padding:0;
     margin-right: 6px;
 	margin-bottom: 10px;
 }
@@ -35,7 +35,7 @@
     display: block;
     font-size: 14px;
     line-height: 30px;
-    padding:0; 
+    padding:0;
     text-align: center;
 }
 /*SOCIAL 2 START*/
@@ -200,13 +200,13 @@
   color: #fff;
 }
 .lg-btn1{
-  padding:8px 30px 9px; 
+  padding:8px 30px 9px;
 }
 .lg-btn2{
-  padding:18px 30px; 
+  padding:18px 30px;
 }
 .lg-btn3{
-  padding:18px 30px; 
+  padding:18px 30px;
 }
 .sm-btn2{
   padding: 11px 20px;

@@ -252,7 +252,6 @@ p em,
 .cutomer-reviews .input-dec3 textarea:focus,
 .contact-wrap .input-dec3 input[type="text"]:focus,
 .contact-wrap .input-dec3 textarea:focus
-
 {
 	border-color: #fea422;
 }
@@ -446,4 +445,9 @@ p em,
 ::-moz-selection {
  background: #29adcd;
  color: #ffffff;
+}
+
+.btn-2.disabled, .btn-2:hover.disabled {
+	background-color: grey;
+	border-color: grey;
 }

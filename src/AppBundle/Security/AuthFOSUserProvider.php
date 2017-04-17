@@ -53,7 +53,16 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
 
         if (null === $user) {
             $user = new User();
+            $userFirstName = $response->getFirstName();
+            $userLastName  = $response->getLastName();
+            $responseArray = $response->getResponse();
+            $userGender    = $responseArray['gender'];
+            $userPicture   = $response->getProfilePicture();
             $user->setUsername($response->getRealName());
+            $user->setFirstName($userFirstName);
+            $user->setLastName($userLastName);
+            $user->setGender($userGender);
+            $user->setPicture($userPicture);
             $user->setEmail($userEmail);
             $user->setPassword('');
             $user->setEnabled(true);

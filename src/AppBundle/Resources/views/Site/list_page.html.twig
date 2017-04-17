@@ -1,14 +1,12 @@
 {% extends "@App/layout.html.twig" %}
 
 {% block javascripts %}
-    {{ parent() }}
     <script src="{{ asset('bundles/app/js/jquery.selectric.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/book-list-page.js') }}"></script>
     {#<script src="{{ asset('bundles/app/js/range-slider.js') }}"></script>#}
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('bundles/app/css/selectric.css') }}" />
     {#<link rel="stylesheet" href="{{ asset('bundles/app/css/range-slider.css') }}" />#}
 {% endblock %}

@@ -114,4 +114,12 @@ class BookRating
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    function __toString()
+    {
+        return (string) $this->getId();
+    }
 }

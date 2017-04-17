@@ -5,6 +5,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\BookReview;
 use AppBundle\Model\QueryParams;
 use Doctrine\ORM\EntityManager;
 
@@ -132,10 +133,10 @@ class BookPageService
     {
         $qb = $this->em->createQueryBuilder();
         $qb
-            ->select('AVG(bc.rating)')
-            ->from('AppBundle:BookRating', 'bc')
-            ->leftJoin('bc.book', 'b')
-            ->leftJoin('bc.user', 'u')
+            ->select('AVG(book_rating.rating)')
+            ->from('AppBundle:BookRating', 'book_rating')
+            ->leftJoin('book_rating.book', 'b')
+            ->leftJoin('book_rating.user', 'u')
             ->andWhere($qb->expr()->eq('b.id', ':book_id'))
             ->andWhere($qb->expr()->eq('u.id', ':user_id'))
             ->setParameter('book_id', $bookId)
@@ -145,5 +146,28 @@ class BookPageService
         $rating = $qb->getQuery()->getSingleScalarResult() ?: 0;
 
         return $rating;
+    }
+
+    /**
+     * @param int $bookId
+     *
+     * @return array
+     */
+    public function getBookReviews($bookId)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('book_review')
+            ->from('AppBundle:BookReview', 'book_review')
+            ->leftJoin('book_review.book', 'b')
+            ->andWhere($qb->expr()->eq('b.id', ':book_id'))
+            ->andWhere($qb->expr()->eq('book_review.status', ':status'))
+            ->setParameter('book_id', $bookId)
+            ->setParameter('status', BookReview::STATUS_APPROVED)
+        ;
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
     }
 }

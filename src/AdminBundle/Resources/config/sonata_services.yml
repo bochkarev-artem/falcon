@@ -54,6 +54,17 @@ services:
         calls:
             - [ setTranslationDomain, ['AdminBundle']]
 
+    admin.review:
+        class: AdminBundle\Admin\ReviewAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.review" }
+        arguments:
+            - ~
+            - AppBundle\Entity\BookReview
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]
+
     admin.user:
         class: AdminBundle\Admin\UserAdmin
         tags:

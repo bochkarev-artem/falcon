@@ -425,6 +425,7 @@ class SiteController extends Controller
             'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book),
             'book_rating_data'      => $bookPageService->getBookRatingData($id),
             'user_book_rating'      => $userRating ?? null,
+            'reviews'               => $bookPageService->getBookReviews($id),
             'breadcrumbs'           => $seoManager->buildBreadcrumbs($book),
             'download_links'        => $litresBookManager->getDownloadLinks($book),
             'read_link'             => $litresBookManager->getReadOnlineLink($book),

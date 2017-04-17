@@ -18,6 +18,10 @@ class BookReview
 {
     use TimestampableTrait;
 
+    const STATUS_PENDING  = 0;
+    const STATUS_APPROVED = 1;
+    const STATUS_REJECTED = 2;
+
     /**
      * @var integer $id
      *
@@ -51,18 +55,25 @@ class BookReview
     private $text;
 
     /**
-     * @var boolean $approved
+     * @var integer $status
      *
-     * @ORM\Column(name="approved", type="boolean")
+     * @ORM\Column(name="status", type="smallint")
      */
-    private $approved;
+    private $status;
+
+    /**
+     * @var string $rejectReason
+     *
+     * @ORM\Column(name="reject_reason", type="string", nullable=true)
+     */
+    private $rejectReason;
 
     /**
      * Initialize fields
      */
     public function __construct()
     {
-        $this->approved = false;
+        $this->status = self::STATUS_PENDING;
     }
 
     /**
@@ -94,21 +105,21 @@ class BookReview
     }
 
     /**
-     * @return bool
+     * @return integer
      */
-    public function isApproved()
+    public function isStatus()
     {
-        return $this->approved;
+        return $this->status;
     }
 
     /**
-     * @param bool $approved
+     * @param integer $status
      *
      * @return BookReview
      */
-    public function setApproved($approved)
+    public function setStatus($status)
     {
-        $this->approved = $approved;
+        $this->status = $status;
 
         return $this;
     }
@@ -151,5 +162,33 @@ class BookReview
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRejectReason()
+    {
+        return $this->rejectReason;
+    }
+
+    /**
+     * @param string $rejectReason
+     *
+     * @return BookReview
+     */
+    public function setRejectReason($rejectReason)
+    {
+        $this->rejectReason = $rejectReason;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    function __toString()
+    {
+        return (string) $this->getId();
     }
 }

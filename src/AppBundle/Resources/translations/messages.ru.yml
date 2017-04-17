@@ -68,21 +68,17 @@ front:
     read_book:          Читать онлайн
     author:             Автор
     user_rating:        Ваша оценка
+    book_review_added:  Ваша рецензия была отправлена и появится на сайте после модерации
     vote:               'голос|голоса|голосов'
+    post_review_text:   Оставить рецензию на книгу
+    please_login:       'Пожалуйста <a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">войдите</a> чтобы написать резензию.'
+    minimum_chars:      Длина отзыва должна быть больше 500 символов
+    send:               Отправить
+    review:             'рецензия|рецензии|рецензий'
     book:
-        type_0:     Электронная книга
-        type_1:     Аудиокнига
-        type_2:     Мультимедиа-книга
-        type_3:     Устройство для чтения
-        type_4:     PDF-книга
-        type_5:     Print-on-Demand-книга
-        type_6:     База данных
-        type_7:     Видео
-        type_8:     Компьютерная игра
-        type_9:     Софт
-        type_11:    Книги Gardners (Adobe DRM)
         rating:     Рейтинг
         annotation: Описание
+        reviews:    Рецензии
     pagination:
         next:       Дальше
         previous:   Назад

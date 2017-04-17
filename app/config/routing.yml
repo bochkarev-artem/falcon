@@ -85,6 +85,10 @@ add_book_rating:
     path: /add-book-rating
     defaults: { _controller: AppBundle:Book:addBookRating }
 
+add_book_review:
+    path: /add-book-review
+    defaults: { _controller: AppBundle:Book:addBookReview }
+
 search_page:
     path: /search-page
     defaults: { _controller: AppBundle:Site:searchPage }

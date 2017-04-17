@@ -6,6 +6,7 @@
 namespace AdminBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -13,6 +14,19 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 class UserAdmin extends AbstractAdmin
 {
+    /**
+     * @param FormMapper $formMapper
+     */
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add('username')
+            ->add('firstName')
+            ->add('lastName')
+            ->add('email')
+        ;
+    }
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -33,6 +47,8 @@ class UserAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('id')
             ->add('username')
+            ->add('firstName')
+            ->add('lastName')
             ->add('email')
             ->add('_action', 'actions', [
                 'actions' => [

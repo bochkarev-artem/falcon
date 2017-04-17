@@ -64,13 +64,31 @@ class User extends BaseUser
 
     /**
      * @var string $firstName
+     *
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
      */
     protected $firstName;
 
     /**
      * @var string $lastName
+     *
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      */
     protected $lastName;
+
+    /**
+     * @var string $picture
+     *
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     */
+    protected $picture;
+
+    /**
+     * @var string $gender
+     *
+     * @ORM\Column(name="gender", type="string", length=255, nullable=true)
+     */
+    protected $gender;
 
     /**
      * @var ArrayCollection $ratings
@@ -94,6 +112,7 @@ class User extends BaseUser
         parent::__construct();
 
         $this->ratings = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     /**
@@ -162,7 +181,7 @@ class User extends BaseUser
      */
     public function __toString()
     {
-        return $this->getFullName() ?: '-';
+        return $this->getFullName() ?: $this->getUsername();
     }
 
     /**
@@ -417,6 +436,46 @@ class User extends BaseUser
         if ($this->reviews->contains($review)) {
             $this->reviews->remove($review);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param string $gender
+     *
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     *
+     * @return User
+     */
+    public function setPicture($picture)
+    {
+        $this->picture = $picture;
 
         return $this;
     }

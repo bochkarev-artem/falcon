@@ -25,11 +25,10 @@
             '@AppBundle/Resources/public/js/dl-menu/component.css'
             '@AppBundle/Resources/public/css/responsive.css'
             filter='scssphp' output='compiled/css/styles.css' %}
-
-            {% block stylesheets %}
-                <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endblock %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+
+        {% block stylesheets %}{% endblock %}
 
         {% block favicons %}
             <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -58,11 +57,10 @@
                 '@AppBundle/Resources/public/js/base.js'
                 '@AppBundle/Resources/public/js/jquery.accordion.js'
                 filter='?jsqueeze' output='compiled/js/scripts.js' %}
-
-                {% block javascripts %}
-                    <script src="{{ asset_url }}"></script>
-                {% endblock %}
+                <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
+
+            {% block javascripts %}{% endblock %}
         </div>
 
     {% block analytics %}

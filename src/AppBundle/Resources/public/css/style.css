@@ -7183,3 +7183,6 @@ aside .kf-pagination{
 	left: 50%;
 	z-index: 2;
 }
+.login-link {
+	color: #337ab7;
+}
