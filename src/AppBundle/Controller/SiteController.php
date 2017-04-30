@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Book;
 use AppBundle\Model\Pagination;
 use AppBundle\Model\QueryParams;
 use Doctrine\ORM\QueryBuilder;
@@ -14,6 +13,23 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SiteController extends Controller
 {
+    /**
+     * @return Response
+     */
+    public function indexAction()
+    {
+        $homePageService = $this->get('home_page_service');
+        $seoManager      = $this->get('seo_manager');
+        $seoManager->setHomeSeoData();
+
+        return $this->render('@App/Home/index.html.twig', [
+            'show_genres_in_menu' => true,
+            'featured_books'      => $homePageService->getFeaturedBooks(),
+            'new_arrivals_books'  => $homePageService->getNewArrivalsBooks(),
+            'popular_books'       => $homePageService->getPopularBooks(),
+        ]);
+    }
+
     /**
      * @param integer $page
      * @param Request $request
@@ -51,7 +67,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setSearchSeoData();
 
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
@@ -90,7 +106,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setNewBooksSeoData($isPageIndexed);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
@@ -129,7 +145,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setPopularBooksSeoData($isPageIndexed);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', $data);
+        return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
@@ -176,7 +192,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setGenreSeoData($genre, $isPageIndexed);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+        return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($genre)
         ]));
     }
@@ -225,7 +241,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setAuthorSeoData($author, $isPageIndexed);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+        return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($author)
         ]));
     }
@@ -274,7 +290,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setSequenceSeoData($sequence, $isPageIndexed);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+        return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($sequence)
         ]));
     }
@@ -323,7 +339,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setTagSeoData($tag, $isPageIndexed);
 
-        return $this->render('AppBundle:Site:list_page.html.twig', array_merge($data, [
+        return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($tag)
         ]));
     }
@@ -351,7 +367,6 @@ class SiteController extends Controller
 
         return [
             'books'       => $books,
-            'page'        => $page,
             'view'        => $view,
             'current_url' => $request->getPathInfo(),
             'pagination'  => $pagination->paginate($queryResult->getTotalHits()),
@@ -419,7 +434,7 @@ class SiteController extends Controller
             $userRating = $bookPageService->getUserBookRating($user->getId(), $id);
         }
 
-        return $this->render('AppBundle:Site:book.html.twig', [
+        return $this->render('@App/Site/book.html.twig', [
             'book'                  => $book,
             'aside_featured_books'  => $bookPageService->getAsideFeaturedBooks($book),
             'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book),
@@ -455,7 +470,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setTagsSeoData();
 
-        return $this->render('AppBundle:Site:tags.html.twig', [
+        return $this->render('@App/Site/tags.html.twig', [
             'tags' => $tags,
         ]);
     }
@@ -468,7 +483,7 @@ class SiteController extends Controller
         $seoManager = $this->get('seo_manager');
         $seoManager->setSearchSeoData();
 
-        return $this->render('AppBundle:Site:search.html.twig');
+        return $this->render('@App/Site/search.html.twig');
     }
 
     /**

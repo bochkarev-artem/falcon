@@ -56,7 +56,7 @@ $(document).ready(function(){
         }
     });
 
-    if (bookReviewPath) {
+    if (isUserLoggedIn && bookReviewPath) {
         $('.send-review-btn').on('click', function (e) {
             e.preventDefault();
             var text = $('.review-text').val();

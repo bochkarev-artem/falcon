@@ -1,0 +1,27 @@
+{% extends "@App/layout.html.twig" %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/jquery.star-rating-svg.min.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/star-rating-svg.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="kf_content_wrap">
+        <div class="grid-4">
+            <div class="grid3-page">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="main-content">
+                                {% include '@App/Elements/View/profile-grid.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -103,7 +103,7 @@ class Book implements PageInterface
     private $mainAuthorSlug;
 
     /**
-     * @var ArrayCollection $genres
+     * @var Genre[]|ArrayCollection $genres
      *
      * @ORM\ManyToMany(targetEntity="Genre", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_genre",
@@ -114,7 +114,7 @@ class Book implements PageInterface
     private $genres;
 
     /**
-     * @var ArrayCollection $authors
+     * @var Author[]|ArrayCollection $authors
      *
      * @ORM\ManyToMany(targetEntity="Author", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_author",
@@ -125,7 +125,7 @@ class Book implements PageInterface
     private $authors;
 
     /**
-     * @var ArrayCollection $tags
+     * @var Tag[]|ArrayCollection $tags
      *
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_tag",
@@ -144,16 +144,16 @@ class Book implements PageInterface
     private $sequence;
 
     /**
-     * @var ArrayCollection $ratings
+     * @var BookRating[]|ArrayCollection $ratings
      *
-     * @ORM\OneToMany(targetEntity="BookRating", mappedBy="book", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="BookRating", mappedBy="book", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $ratings;
 
     /**
-     * @var ArrayCollection $reviews
+     * @var BookReview[]|ArrayCollection $reviews
      *
-     * @ORM\OneToMany(targetEntity="BookReview", mappedBy="book", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="BookReview", mappedBy="book", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $reviews;
 
@@ -234,20 +234,6 @@ class Book implements PageInterface
      * @ORM\Column(name="isbn", type="string", nullable=true)
      */
     private $isbn;
-
-    /**
-     * @var float $rating
-     *
-     * @ORM\Column(name="rating", type="float", nullable=true)
-     */
-    private $rating;
-
-    /**
-     * @var integer $reviewCount
-     *
-     * @ORM\Column(name="review_count", type="integer", nullable=true)
-     */
-    private $reviewCount;
 
     /**
      * Initialize fields
@@ -676,46 +662,6 @@ class Book implements PageInterface
         if ($this->tags->contains($tag)) {
             $this->tags->remove($tag);
         }
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getRating()
-    {
-        return $this->rating;
-    }
-
-    /**
-     * @param float $rating
-     *
-     * @return Book
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getReviewCount()
-    {
-        return $this->reviewCount;
-    }
-
-    /**
-     * @param int $reviewCount
-     *
-     * @return Book
-     */
-    public function setReviewCount($reviewCount)
-    {
-        $this->reviewCount = $reviewCount;
 
         return $this;
     }

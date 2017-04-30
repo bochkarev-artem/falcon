@@ -43,7 +43,7 @@ _sonata_admin:
 
 site_index:
     path: /
-    defaults: { _controller: AppBundle:Home:index }
+    defaults: { _controller: AppBundle:Site:index }
     options:
         sitemap: true
 
@@ -81,6 +81,10 @@ tags:
     options:
         sitemap: true
 
+search_page:
+    path: /search-page
+    defaults: { _controller: AppBundle:Site:searchPage }
+
 add_book_rating:
     path: /add-book-rating
     defaults: { _controller: AppBundle:Book:addBookRating }
@@ -89,9 +93,9 @@ add_book_review:
     path: /add-book-review
     defaults: { _controller: AppBundle:Book:addBookReview }
 
-search_page:
-    path: /search-page
-    defaults: { _controller: AppBundle:Site:searchPage }
+user_profile:
+    path: /user-profile
+    defaults: { _controller: AppBundle:User:profile }
 
 facebook_login_check:
     path: /login/check-facebook

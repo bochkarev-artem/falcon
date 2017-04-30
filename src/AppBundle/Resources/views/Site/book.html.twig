@@ -69,7 +69,7 @@
                                             <div itemscope itemtype="http://schema.org/Book">
                                                 <div class="book-review"
                                                      itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                                                    <div class="book-rating"></div>
+                                                    <div class="book-rating{% if app.user.id is not defined %} disabled{% endif %}"></div>
                                                     <div class="rating-value" itemprop="ratingValue">{{ book_rating_data['rating'] ? book_rating_data['rating'] : '' }}</div>
                                                     <div class="book-rating-votes-total">
                                                         <span class="rating-total-value" itemprop="ratingCount">
@@ -222,7 +222,9 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="input-dec3 before-adj">
-                                                    <textarea class="review-text" placeholder="{{ 'front.minimum_chars'|trans }}"></textarea>
+                                                    <textarea class="review-text" placeholder="{{ 'front.minimum_chars'|trans({
+                                                        '%chars%': review_minimum_char
+                                                    }) }}"></textarea>
                                                     <i class="fa fa-file-text-o"></i>
                                                 </div>
                                             </div>
@@ -230,7 +232,7 @@
                                         <button class="btn-2 send-review-btn disabled" disabled="disabled">
                                             {{ 'front.send'|trans }}
                                         </button>&nbsp;
-                                        <span class="review-counter">500</span>
+                                        <span class="review-counter">{{ review_minimum_char }}</span>
                                     </form>
                                 </div>
                             {% else %}

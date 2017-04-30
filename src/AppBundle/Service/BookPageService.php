@@ -170,4 +170,31 @@ class BookPageService
 
         return $result;
     }
+
+    /**
+     * @param int $userId
+     *
+     * @return array
+     */
+    public function getUserBooks($userId)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('book.id as book_id, ratings.rating, reviews.text, reviews.status as review_status, reviews.createdOn as review_date')
+            ->from('AppBundle:Book', 'book', 'book.id')
+            ->leftJoin('book.ratings', 'ratings')
+            ->leftJoin('book.reviews', 'reviews')
+            ->leftJoin('ratings.user', 'user_ratings')
+            ->leftJoin('reviews.user', 'user_reviews')
+            ->andWhere($qb->expr()->orX(
+                $qb->expr()->eq('user_ratings.id', ':user_id'),
+                $qb->expr()->eq('user_reviews.id', ':user_id')
+            ))
+            ->setParameter('user_id', $userId)
+        ;
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
 }

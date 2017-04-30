@@ -5,6 +5,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Model\Timestampable\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,6 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BookRating
 {
+    use TimestampableTrait;
+
     /**
      * @var integer $id
      *

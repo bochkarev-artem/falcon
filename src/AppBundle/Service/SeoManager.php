@@ -61,6 +61,13 @@ class SeoManager
         $this->setBasicSeoData($seoData);
     }
 
+    public function setUserProfileSeoData()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.user_profile.title'));
+        $this->setBasicSeoData($seoData);
+    }
+
     public function setSearchSeoData()
     {
         $seoData = new SeoData();

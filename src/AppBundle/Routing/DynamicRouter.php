@@ -35,24 +35,26 @@ class DynamicRouter extends BaseDynamicRouter
      * @param RouteProviderInterface                      $provider
      * @param Type                                        $repository
      */
-    public function __construct(RequestContext $context,
-                                $matcher,
-                                UrlGeneratorInterface $generator,
-                                $uriFilterRegexp = '',
-                                EventDispatcherInterface $eventDispatcher = null,
-                                RouteProviderInterface $provider = null,
-                                Type $repository
+    public function __construct(
+        RequestContext $context,
+        $matcher,
+        UrlGeneratorInterface $generator,
+        $uriFilterRegexp = '',
+        EventDispatcherInterface $eventDispatcher = null,
+        RouteProviderInterface $provider = null,
+        Type $repository
     ) {
-        if (!$matcher instanceof RequestMatcherInterface && !$matcher instanceof UrlMatcherInterface) {
-            throw new \InvalidArgumentException('Matcher must implement either Symfony\Component\Routing\Matcher\RequestMatcherInterface or Symfony\Component\Routing\Matcher\UrlMatcherInterface');
-        }
-        $this->context         = $context;
-        $this->matcher         = $matcher;
-        $this->generator       = $generator;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->uriFilterRegexp = $uriFilterRegexp;
-        $this->provider        = $provider;
-        $this->repository      = $repository;
+        parent::__construct(
+            $context,
+            $matcher,
+            $generator,
+            $uriFilterRegexp,
+            $eventDispatcher,
+            $provider
+        );
+
+        $this->context    = $context;
+        $this->repository = $repository;
 
         $this->generator->setContext($context);
     }
@@ -101,7 +103,7 @@ class DynamicRouter extends BaseDynamicRouter
      */
     private function getPath($parameters)
     {
-        $searchUrl = preg_replace('#^(.*?)(\/page\/\d+)(?:/\d+)?(?:\.html)?$#iu', '$1', $parameters['_path']);
+        $searchUrl = preg_replace('#^(.*?)(\/page\/\d+)(?:/\d+)?(?:\.html)?$#iu', '$1', $parameters['_path']); //TODO potentially delete d+
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
         $pathQuery->setTerm('path', rawurldecode($searchUrl));

@@ -400,8 +400,6 @@ class LitresService
                     ->setLitresHubId($hubId)
                     ->setCover((string)$data['cover'])
                     ->setPrice((string)$data['base_price'])
-                    ->setRating((string)$data['rating'])
-                    ->setReviewCount((string)$data['recenses'])
                     ->setHasTrial((string)$data['has_trial'])
                     ->setTitle(substr((string)$titleInfo->{'book-title'}, 0, 254))
                     ->setAnnotation($annotation)

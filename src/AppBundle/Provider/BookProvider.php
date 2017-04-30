@@ -9,6 +9,7 @@ use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\Tag;
+use AppBundle\Service\BookPageService;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Internal\Hydration\IterableResult;
 use Doctrine\ORM\Query\Expr;
@@ -37,15 +38,22 @@ class BookProvider implements ProviderInterface
     private $batchSize;
 
     /**
-     * @param Type          $bookType
-     * @param EntityManager $em
-     * @param integer       $batchSize
+     * @var BookPageService
      */
-    public function __construct(Type $bookType, EntityManager $em, $batchSize)
+    private $bookPageService;
+
+    /**
+     * @param Type            $bookType
+     * @param EntityManager   $em
+     * @param BookPageService $bookPageService
+     * @param integer         $batchSize
+     */
+    public function __construct(Type $bookType, EntityManager $em, BookPageService $bookPageService, $batchSize)
     {
-        $this->bookType  = $bookType;
-        $this->em        = $em;
-        $this->batchSize = $batchSize;
+        $this->bookType        = $bookType;
+        $this->em              = $em;
+        $this->bookPageService = $bookPageService;
+        $this->batchSize       = $batchSize;
     }
 
     /**
@@ -93,25 +101,26 @@ class BookProvider implements ProviderInterface
      */
     private function collectData(Book $book)
     {
-        $bookData = [
-            'book_id'           => $book->getId(),
-            'title'             => $book->getTitle(),
-            'rating'            => $book->getRating(),
-            'annotation'        => $book->getAnnotation(),
-            'cover_path'        => $book->getCoverPath(),
-            'price'             => $book->getPrice(),
-            'has_trial'         => $book->isHasTrial(),
-            'featured_home'     => $book->isFeaturedHome(),
-            'lang'              => $book->getLang(),
-            'sequence_number'   => $book->getSequenceNumber(),
-            'litres_hub_id'     => $book->getLitresHubId(),
-            'document_id'       => $book->getDocumentId(),
-            'publisher'         => $book->getPublisher(),
-            'city_published'    => $book->getCityPublished(),
-            'year_published'    => $book->getYearPublished(),
-            'isbn'              => $book->getIsbn(),
-            'review_count'      => $book->getReviewCount(),
-            'path'              => $book->getPath(),
+        $ratingData = $this->bookPageService->getBookRatingData($book->getId());
+        $bookData   = [
+            'book_id'         => $book->getId(),
+            'title'           => $book->getTitle(),
+            'annotation'      => $book->getAnnotation(),
+            'cover_path'      => $book->getCoverPath(),
+            'price'           => $book->getPrice(),
+            'has_trial'       => $book->isHasTrial(),
+            'featured_home'   => $book->isFeaturedHome(),
+            'lang'            => $book->getLang(),
+            'sequence_number' => $book->getSequenceNumber(),
+            'litres_hub_id'   => $book->getLitresHubId(),
+            'document_id'     => $book->getDocumentId(),
+            'publisher'       => $book->getPublisher(),
+            'city_published'  => $book->getCityPublished(),
+            'year_published'  => $book->getYearPublished(),
+            'isbn'            => $book->getIsbn(),
+            'rating'          => $ratingData['rating'],
+            'review_count'    => $book->getReviews()->count(),
+            'path'            => $book->getPath(),
         ];
 
         if ($book->getDate()) {

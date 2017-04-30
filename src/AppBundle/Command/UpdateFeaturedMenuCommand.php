@@ -49,10 +49,10 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
             ->select('b, g')
             ->from('AppBundle:Book', 'b')
             ->leftJoin('b.genres', 'g')
-            ->andWhere($qb->expr()->gt('b.rating', 0))
-            ->andWhere($qb->expr()->gt('b.reviewCount', 0))
-            ->addOrderBy('b.rating', 'DESC')
-            ->addOrderBy('b.reviewCount', 'DESC')
+//            ->andWhere($qb->expr()->gt('b.rating', 0)) //TODO
+//            ->andWhere($qb->expr()->gt('b.reviewCount', 0))
+//            ->addOrderBy('b.rating', 'DESC')
+//            ->addOrderBy('b.reviewCount', 'DESC')
             ->groupBy('g.id')
         ;
 

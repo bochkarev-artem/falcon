@@ -1,7 +1,6 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
-#    parameter_name: value
 
 services:
     litres_service:
@@ -81,6 +80,7 @@ services:
         arguments:
             - "@fos_elastica.index.books.book"
             - "@doctrine.orm.default_entity_manager"
+            - "@book_page_service"
             - 100
         tags:
             - { name: fos_elastica.provider, index: books, type: book }

@@ -5,6 +5,8 @@ front:
         description:   "Электронная библиотека Bookary позволяет читателю без труда найти любую книгу и с легкостью скачать в одном из популярных форматов: fb2, epub, rtf, pdf. Также вы можете читать книги онлайн. И никакой регистрации для этого не требуется."
         keywords:      "книги, электронная библиотека, скачать книги бесплато, читать книги онлан, скачать книги без регистрации"
         breadcrumb_title: Главная
+    user_profile:
+        title:        "Личный кабинет - Bookary.ru"
     book_page:
         title:        "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
         description:  "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
@@ -60,6 +62,7 @@ front:
     open_menu:          Открыть меню
     sign_in:            Вход
     sign_out:           Выход
+    profile:            Кабинет
     social_sign_in:     Войти через социальные сети
     related_books:      Похожие книги
     author_related:     Книги автора
@@ -72,7 +75,7 @@ front:
     vote:               'голос|голоса|голосов'
     post_review_text:   Оставить рецензию на книгу
     please_login:       'Пожалуйста <a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">войдите</a> чтобы написать резензию.'
-    minimum_chars:      Длина отзыва должна быть больше 500 символов
+    minimum_chars:      "Длина отзыва должна быть больше %chars% символов"
     send:               Отправить
     review:             'рецензия|рецензии|рецензий'
     book:

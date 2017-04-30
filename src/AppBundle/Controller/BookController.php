@@ -54,7 +54,7 @@ class BookController extends Controller
         $reviewText = $request->request->get('review');
         $response   = ['status' => false];
 
-        if (strlen($reviewText) >= 500) {
+        if (strlen($reviewText) >= $this->getParameter('review_minimum_char')) {
             $em         = $this->getDoctrine()->getManager();
             $bookId     = $request->request->get('book_id');
             $bookRepo   = $this->getDoctrine()->getRepository('AppBundle:Book');
