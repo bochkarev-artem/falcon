@@ -176,20 +176,39 @@ class BookPageService
      *
      * @return array
      */
-    public function getUserBooks($userId)
+    public function getUserReviews($userId)
     {
         $qb = $this->em->createQueryBuilder();
         $qb
-            ->select('book.id as book_id, ratings.rating, reviews.text, reviews.status as review_status, reviews.createdOn as review_date')
+            ->select('book, reviews.text, reviews.status, reviews.updatedOn, authors')
+            ->from('AppBundle:Book', 'book', 'book.id')
+            ->leftJoin('book.reviews', 'reviews')
+            ->leftJoin('reviews.user', 'user_reviews')
+            ->leftJoin('book.authors', 'authors')
+            ->andWhere($qb->expr()->eq('user_reviews.id', ':user_id'))
+            ->setParameter('user_id', $userId)
+        ;
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return array
+     */
+    public function getUserRatings($userId)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('book, ratings.rating, ratings.updatedOn, authors')
             ->from('AppBundle:Book', 'book', 'book.id')
             ->leftJoin('book.ratings', 'ratings')
-            ->leftJoin('book.reviews', 'reviews')
             ->leftJoin('ratings.user', 'user_ratings')
-            ->leftJoin('reviews.user', 'user_reviews')
-            ->andWhere($qb->expr()->orX(
-                $qb->expr()->eq('user_ratings.id', ':user_id'),
-                $qb->expr()->eq('user_reviews.id', ':user_id')
-            ))
+            ->leftJoin('book.authors', 'authors')
+            ->andWhere($qb->expr()->eq('user_ratings.id', ':user_id'))
             ->setParameter('user_id', $userId)
         ;
 

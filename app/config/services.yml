@@ -113,6 +113,7 @@ services:
         class: AppBundle\Service\QueryService
         arguments:
             - "@fos_elastica.index.books.book"
+            - "%default_per_page%"
 
     author_listener:
         class: AdminBundle\EventListener\AuthorListener

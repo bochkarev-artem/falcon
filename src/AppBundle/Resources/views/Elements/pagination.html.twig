@@ -1,5 +1,5 @@
 {% if pagination.total_pages > 1 %}
-    <input type="hidden" name="page" id="page" value="{{ page }}">
+    <input type="hidden" name="page" id="page" value="{{ pagination.current }}">
     <div class="col-md-12">
         <div class="kf-pagination">
             <ul class="pagination">

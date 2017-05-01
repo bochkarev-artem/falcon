@@ -16,33 +16,59 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function profileAction(Request $request)
+    public function ratingsAction(Request $request)
     {
         if (!$user = $this->getUser()) {
             return new RedirectResponse('/');
         }
 
-        $defaultPerPage  = $this->getParameter('default_per_page');
-        $page            = 1;
-        $bookPageService = $this->get('book_page_service');
-        $bookData        = $bookPageService->getUserBooks($user->getId());
-        $bookIds         = array_keys($bookData);
-
-        $queryParams = new QueryParams();
-        $queryParams->setFilterId($bookIds);
-
-        $queryService = $this->get('query_service');
-        $queryResult  = $queryService->query($queryParams);
-        $books        = $queryResult->getResults();
-        $pagination   = new Pagination($page, $defaultPerPage);
+        $perPage     = $this->getParameter('default_per_page');
+        $page        = $request->get('page', 1);
+        $pageService = $this->get('book_page_service');
+        $bookData    = $pageService->getUserRatings($user->getId());
+        $bookIds     = array_keys($bookData);
+        $bookRepo    = $this->get('doctrine')->getRepository('AppBundle:Book');
+        $books       = $bookRepo->findBy(['id' => $bookIds], ['updatedOn' => 'DESC']);
+        $pagination  = new Pagination($page, $perPage);
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setUserProfileSeoData();
+        $seoManager->setUserProfileRatingsSeoData();
 
-        return $this->render('AppBundle:User:profile.html.twig', [
+        return $this->render('@App/User/profile-ratings.html.twig', [
             'books'       => $books,
-            'pagination'  => $pagination->paginate($queryResult->getTotalHits()),
-            'page'        => $page,
+            'bookRatings' => $bookData,
+            'pagination'  => $pagination->paginate(count($bookIds)),
+            'show_author' => true,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function reviewsAction(Request $request)
+    {
+        if (!$user = $this->getUser()) {
+            return new RedirectResponse('/');
+        }
+
+        $perPage     = $this->getParameter('default_per_page');
+        $page        = $request->get('page', 1);
+        $pageService = $this->get('book_page_service');
+        $bookData    = $pageService->getUserReviews($user->getId());
+        $bookIds     = array_keys($bookData);
+        $bookRepo    = $this->get('doctrine')->getRepository('AppBundle:Book');
+        $books       = $bookRepo->findBy(['id' => $bookIds], ['updatedOn' => 'DESC']);
+        $pagination  = new Pagination($page, $perPage);
+
+        $seoManager = $this->get('seo_manager');
+        $seoManager->setUserProfileReviewsSeoData();
+
+        return $this->render('@App/User/profile-reviews.html.twig', [
+            'books'       => $books,
+            'bookReviews' => $bookData,
+            'pagination'  => $pagination->paginate(count($bookIds)),
             'show_author' => true,
         ]);
     }

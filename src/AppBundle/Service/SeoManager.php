@@ -61,7 +61,14 @@ class SeoManager
         $this->setBasicSeoData($seoData);
     }
 
-    public function setUserProfileSeoData()
+    public function setUserProfileRatingsSeoData()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.user_profile.title'));
+        $this->setBasicSeoData($seoData);
+    }
+
+    public function setUserProfileReviewsSeoData()
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.user_profile.title'));
@@ -79,29 +86,31 @@ class SeoManager
     }
 
     /**
-     * @param boolean $isPageIndexed
+     * @param integer $page
      */
-    public function setNewBooksSeoData($isPageIndexed)
+    public function setNewBooksSeoData($page)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.new_books_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.new_books_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.new_books_page.keywords'));
-        $seoData->setIndexPage($isPageIndexed);
+        $doIndex = $page === 1;
+        $seoData->setIndexPage($doIndex);
 
         $this->setBasicSeoData($seoData);
     }
 
     /**
-     * @param boolean $isPageIndexed
+     * @param integer $page
      */
-    public function setPopularBooksSeoData($isPageIndexed)
+    public function setPopularBooksSeoData($page)
     {
+        $doIndex = $page === 1;
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.popular_books_page.title'));
         $seoData->setMetaDescription($this->translator->trans('front.popular_books_page.description'));
         $seoData->setMetaKeywords($this->translator->trans('front.popular_books_page.keywords'));
-        $seoData->setIndexPage($isPageIndexed);
+        $seoData->setIndexPage($doIndex);
 
         $this->setBasicSeoData($seoData);
     }
@@ -117,10 +126,10 @@ class SeoManager
     }
 
     /**
-     * @param Genre $genre
-     * @param boolean $isPageIndexed
+     * @param Genre   $genre
+     * @param integer $page
      */
-    public function setGenreSeoData(Genre $genre, $isPageIndexed)
+    public function setGenreSeoData(Genre $genre, $page)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.genre_page.title', [
@@ -132,16 +141,17 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.genre_page.keywords', [
             '%genre_title%' => $genre->getTitle(),
         ]));
-        $seoData->setIndexPage($isPageIndexed);
+        $doIndex = $page === 1;
+        $seoData->setIndexPage($doIndex);
 
         $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Author $author
-     * @param boolean $isPageIndexed
+     * @param integer $page
      */
-    public function setAuthorSeoData(Author $author, $isPageIndexed)
+    public function setAuthorSeoData(Author $author, $page)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.author_page.title', [
@@ -153,7 +163,8 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.author_page.keywords', [
             '%author_name%' => $author->getFullName(),
         ]));
-        $seoData->setIndexPage($isPageIndexed);
+        $doIndex = $page === 1;
+        $seoData->setIndexPage($doIndex);
 
         $this->setBasicSeoData($seoData);
     }
@@ -182,9 +193,9 @@ class SeoManager
 
     /**
      * @param Tag $tag
-     * @param boolean $isPageIndexed
+     * @param integer $page
      */
-    public function setTagSeoData(Tag $tag, $isPageIndexed)
+    public function setTagSeoData(Tag $tag, $page)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.tag_page.title', [
@@ -196,16 +207,17 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.tag_page.keywords', [
             '%tag_title%' => $tag->getTitle(),
         ]));
-        $seoData->setIndexPage($isPageIndexed);
+        $doIndex = $page === 1;
+        $seoData->setIndexPage($doIndex);
 
         $this->setBasicSeoData($seoData);
     }
 
     /**
      * @param Sequence $sequence
-     * @param boolean $isPageIndexed
+     * @param integer $page
      */
-    public function setSequenceSeoData(Sequence $sequence, $isPageIndexed)
+    public function setSequenceSeoData(Sequence $sequence, $page)
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.sequence_page.title', [
@@ -217,7 +229,8 @@ class SeoManager
         $seoData->setMetaKeywords($this->translator->trans('front.sequence_page.keywords', [
             '%sequence_name%' => $sequence->getName(),
         ]));
-        $seoData->setIndexPage($isPageIndexed);
+        $doIndex = $page === 1;
+        $seoData->setIndexPage($doIndex);
 
         $this->setBasicSeoData($seoData);
     }

@@ -23,10 +23,12 @@ $(document).ready(function(){
                     url: bookRatingPath,
                     data: {rating: currentRating, book_id: bookId}
                 }).done(function(data) {
-                    $(".book-rating").starRating('setRating', data.rating);
-                    $(".rating-total-value").text(data.total);
-                    $(".rating-total-text").text(' ' + votesTotalText);
-                    $(".rating-value").text(data.rating);
+                    if (data.status) {
+                        $(".book-rating").starRating('setRating', data.rating);
+                        $(".rating-total-value").text(data.total);
+                        $(".rating-total-text").text(' ' + votesTotalText);
+                        $(".rating-value").text(data.rating);
+                    }
                 });
             }
         }

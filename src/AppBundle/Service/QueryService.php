@@ -18,11 +18,18 @@ class QueryService
     private $repository;
 
     /**
-     * @param Type $repository
+     * @var integer
      */
-    public function __construct(Type $repository)
+    private $perPage;
+
+    /**
+     * @param Type    $repository
+     * @param integer $perPage
+     */
+    public function __construct(Type $repository, $perPage)
     {
         $this->repository = $repository;
+        $this->perPage    = $perPage;
     }
 
     /**
@@ -42,10 +49,23 @@ class QueryService
 
         $this->applySorting($query, $queryParams);
 
+        $perPage = $queryParams->getSize() ?? $this->perPage;
         $query->setFrom($queryParams->getStart());
-        $query->setSize($queryParams->getSize());
+        $query->setSize($perPage);
 
         return $this->getResult($query);
+    }
+
+    /**
+     * @param Query $query
+     *
+     * @return QueryResult
+     */
+    private function getResult(Query $query)
+    {
+        $result = new QueryResult($this->repository->search($query));
+
+        return $result;
     }
 
     /**
@@ -134,18 +154,6 @@ class QueryService
         if ($queryParams->isFilterFeaturedHome()) {
             $this->applyFeaturedHomeFilter($boolQuery);
         }
-    }
-
-    /**
-     * @param Query $query
-     *
-     * @return QueryResult
-     */
-    private function getResult(Query $query)
-    {
-        $result = new QueryResult($this->repository->search($query));
-
-        return $result;
     }
 
     /**

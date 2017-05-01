@@ -42,7 +42,7 @@ class RouteProvider implements RouteProviderInterface
         } else {
             $pageUrl = '/page/' . $page;
         }
-        $searchUrl = rtrim(preg_replace('#^(.*?)(\/page\/\d+)(?:/\d+)?(?:\.html)?$#iu', '$1', $url), '/');
+        $searchUrl = rtrim(preg_replace('#^(.*?)(\/page\/\d+)(?:\.html)?$#iu', '$1', $url), '/');
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
         $pathQuery->setTerm('path', rawurldecode($searchUrl));

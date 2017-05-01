@@ -49,11 +49,7 @@ class SiteController extends Controller
             ->setStart($queryParams->getOffset())
         ;
 
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
+        $data = $this->prepareViewData($request, $queryParams);
         $data = array_merge($data, [
             'show_author'    => true,
             'query'          => $query,
@@ -79,7 +75,6 @@ class SiteController extends Controller
     public function newBooksAction($page = 1, Request $request)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $isPageIndexed  = $page === 1;
 
         $queryParams = new QueryParams();
         $queryParams
@@ -89,11 +84,7 @@ class SiteController extends Controller
             ->setStart($queryParams->getOffset())
         ;
 
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
+        $data = $this->prepareViewData($request, $queryParams);
         $data = array_merge($data, [
             'show_author'    => true,
             'pagination_url' => $this->generateUrl('new_books') . '/page/',
@@ -104,7 +95,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setNewBooksSeoData($isPageIndexed);
+        $seoManager->setNewBooksSeoData($page);
 
         return $this->render('@App/Site/list_page.html.twig', $data);
     }
@@ -118,7 +109,6 @@ class SiteController extends Controller
     public function popularBooksAction($page = 1, Request $request)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $isPageIndexed  = $page === 1;
 
         $queryParams = new QueryParams();
         $queryParams
@@ -128,11 +118,7 @@ class SiteController extends Controller
             ->setStart($queryParams->getOffset())
         ;
 
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
+        $data = $this->prepareViewData($request, $queryParams);
         $data = array_merge($data, [
             'show_author'    => true,
             'pagination_url' => $this->generateUrl('popular_books') . '/page/',
@@ -143,7 +129,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setPopularBooksSeoData($isPageIndexed);
+        $seoManager->setPopularBooksSeoData($page);
 
         return $this->render('@App/Site/list_page.html.twig', $data);
     }
@@ -158,7 +144,6 @@ class SiteController extends Controller
     public function showGenreAction(Request $request, $id, $page)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $isPageIndexed  = $page === 1;
         $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
@@ -173,11 +158,7 @@ class SiteController extends Controller
         $genreRepo = $this->getDoctrine()->getRepository('AppBundle:Genre');
         $genre     = $genreRepo->find($id);
 
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
+        $data = $this->prepareViewData($request, $queryParams);
         $data = array_merge($data, [
             'show_author'    => true,
             'genre'          => $genre,
@@ -190,7 +171,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setGenreSeoData($genre, $isPageIndexed);
+        $seoManager->setGenreSeoData($genre, $page);
 
         return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($genre)
@@ -207,7 +188,6 @@ class SiteController extends Controller
     public function showAuthorAction(Request $request, $id, $page)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $isPageIndexed  = $page === 1;
         $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
@@ -222,11 +202,7 @@ class SiteController extends Controller
         $authorRepo = $this->getDoctrine()->getRepository('AppBundle:Author');
         $author     = $authorRepo->find($id);
 
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
+        $data = $this->prepareViewData($request, $queryParams);
         $data = array_merge($data, [
             'show_genre'     => true,
             'author'         => $author,
@@ -239,7 +215,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setAuthorSeoData($author, $isPageIndexed);
+        $seoManager->setAuthorSeoData($author, $page);
 
         return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($author)
@@ -256,7 +232,6 @@ class SiteController extends Controller
     public function showSequenceAction(Request $request, $id, $page)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $isPageIndexed  = $page === 1;
         $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
@@ -271,11 +246,7 @@ class SiteController extends Controller
         $sequenceRepo = $this->getDoctrine()->getRepository('AppBundle:Sequence');
         $sequence     = $sequenceRepo->find($id);
 
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
+        $data = $this->prepareViewData($request, $queryParams);
         $data = array_merge($data, [
             'show_author'    => true,
             'sequence'       => $sequence,
@@ -288,7 +259,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setSequenceSeoData($sequence, $isPageIndexed);
+        $seoManager->setSequenceSeoData($sequence, $page);
 
         return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($sequence)
@@ -305,7 +276,6 @@ class SiteController extends Controller
     public function showTagAction(Request $request, $id, $page)
     {
         $defaultPerPage = $this->getParameter('default_per_page');
-        $isPageIndexed  = $page === 1;
         $sortOrder      = $request->get('sort', QueryParams::SORT_NO);
 
         $queryParams = new QueryParams();
@@ -320,11 +290,7 @@ class SiteController extends Controller
         $tagRepo = $this->getDoctrine()->getRepository('AppBundle:Tag');
         $tag     = $tagRepo->find($id);
 
-        $data = $this->prepareViewData($request, $queryParams, [
-            'page'     => $page,
-            'per_page' => $defaultPerPage,
-        ]);
-
+        $data = $this->prepareViewData($request, $queryParams);
         $data = array_merge($data, [
             'show_author'    => true,
             'tag'            => $tag,
@@ -337,7 +303,7 @@ class SiteController extends Controller
         }
 
         $seoManager = $this->get('seo_manager');
-        $seoManager->setTagSeoData($tag, $isPageIndexed);
+        $seoManager->setTagSeoData($tag, $page);
 
         return $this->render('@App/Site/list_page.html.twig', array_merge($data, [
             'breadcrumbs' => $seoManager->buildBreadcrumbs($tag)
@@ -347,23 +313,21 @@ class SiteController extends Controller
     /**
      * @param Request     $request
      * @param QueryParams $queryParams
-     * @param array       $params
      *
      * @return JsonResponse|array
      */
-    protected function prepareViewData($request, $queryParams, $params)
+    protected function prepareViewData($request, $queryParams)
     {
         $defaultView = $this->getParameter('default_page_view');
         $cookieName  = $this->getParameter('cookie.page_view_name');
         $cookieView  = $request->cookies->get($cookieName, $defaultView);
         $view        = $request->get('view', $cookieView);
-        $perPage     = $params['per_page'];
-        $page        = $params['page'];
+        $page        = $request->get('page', 1);
 
         $queryService = $this->get('query_service');
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();
-        $pagination   = new Pagination($page, $perPage);
+        $pagination   = new Pagination($page, $queryParams->getSize());
 
         return [
             'books'       => $books,

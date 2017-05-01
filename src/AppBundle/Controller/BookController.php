@@ -17,31 +17,37 @@ class BookController extends Controller
      */
     public function addBookRatingAction(Request $request)
     {
-        $em         = $this->getDoctrine()->getManager();
-        $rating     = $request->request->get('rating');
-        $bookId     = $request->request->get('book_id');
-        $bookRepo   = $this->getDoctrine()->getRepository('AppBundle:Book');
-        $ratingRepo = $this->getDoctrine()->getRepository('AppBundle:BookRating');
-        $user       = $this->getUser();
-        $book       = $bookRepo->find($bookId);
-        $bookRating = $ratingRepo->findOneBy(['user' => $user, 'book' => $book]);
-        if ($bookRating) {
-            $bookRating->setRating($rating);
-        } else {
-            $bookRating = new BookRating();
-            $bookRating
-                ->setBook($book)
-                ->setUser($user)
-                ->setRating($rating)
-            ;
-            $em->persist($bookRating);
+        $response = ['status' => false];
+        if ($user = $this->getUser()) {
+            $em         = $this->getDoctrine()->getManager();
+            $rating     = $request->request->get('rating');
+            $bookId     = $request->request->get('book_id');
+            $bookRepo   = $this->getDoctrine()->getRepository('AppBundle:Book');
+            $ratingRepo = $this->getDoctrine()->getRepository('AppBundle:BookRating');
+            $book       = $bookRepo->find($bookId);
+            $bookRating = $ratingRepo->findOneBy(['user' => $user, 'book' => $book]);
+            if ($bookRating) {
+                $bookRating->setRating($rating);
+            } else {
+                $bookRating = new BookRating();
+                $bookRating
+                    ->setBook($book)
+                    ->setUser($user)
+                    ->setRating($rating);
+                $em->persist($bookRating);
+            }
+            $em->flush();
+
+            $bookPageService = $this->get('book_page_service');
+            $ratingData      = $bookPageService->getBookRatingData($bookId);
+            $response        = [
+                'rating' => $ratingData['rating'],
+                'total'  => $ratingData['total'],
+                'status' => true
+            ];
         }
-        $em->flush();
 
-        $bookPageService = $this->get('book_page_service');
-        $ratingData      = $bookPageService->getBookRatingData($bookId);
-
-        return new JsonResponse(['rating' => $ratingData['rating'], 'total' => $ratingData['total']]);
+        return new JsonResponse($response);
     }
 
     /**
@@ -51,25 +57,24 @@ class BookController extends Controller
      */
     public function addBookReviewAction(Request $request)
     {
-        $reviewText = $request->request->get('review');
-        $response   = ['status' => false];
+        $response = ['status' => false];
+        if ($user = $this->getUser()) {
+            $reviewText = $request->request->get('review');
+            if (strlen($reviewText) >= $this->getParameter('review_minimum_char')) {
+                $em         = $this->getDoctrine()->getManager();
+                $bookId     = $request->request->get('book_id');
+                $bookRepo   = $this->getDoctrine()->getRepository('AppBundle:Book');
+                $book       = $bookRepo->find($bookId);
+                $bookReview = new BookReview();
+                $bookReview
+                    ->setBook($book)
+                    ->setUser($user)
+                    ->setText($reviewText);
+                $em->persist($bookReview);
+                $em->flush();
 
-        if (strlen($reviewText) >= $this->getParameter('review_minimum_char')) {
-            $em         = $this->getDoctrine()->getManager();
-            $bookId     = $request->request->get('book_id');
-            $bookRepo   = $this->getDoctrine()->getRepository('AppBundle:Book');
-            $user       = $this->getUser();
-            $book       = $bookRepo->find($bookId);
-            $bookReview = new BookReview();
-            $bookReview
-                ->setBook($book)
-                ->setUser($user)
-                ->setText($reviewText)
-            ;
-            $em->persist($bookReview);
-            $em->flush();
-
-            $response = ['status' => true];
+                $response = ['status' => true];
+            }
         }
 
         return new JsonResponse($response);
