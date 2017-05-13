@@ -8,6 +8,8 @@ namespace AppBundle\Service;
 use AppBundle\Entity\BookReview;
 use AppBundle\Model\QueryParams;
 use Doctrine\ORM\EntityManager;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 class BookPageService
 {
@@ -25,13 +27,20 @@ class BookPageService
     protected $em;
 
     /**
+     * @var integer
+     */
+    protected $perPage;
+
+    /**
      * @param QueryService  $queryService
      * @param EntityManager $em
+     * @param integer $perPage
      */
-    public function __construct(QueryService $queryService, EntityManager $em)
+    public function __construct(QueryService $queryService, EntityManager $em, $perPage)
     {
         $this->queryService = $queryService;
         $this->em           = $em;
+        $this->perPage      = $perPage;
     }
 
     /**
@@ -173,11 +182,14 @@ class BookPageService
 
     /**
      * @param int $userId
+     * @param int $page
+     * @param int $perPage
      *
-     * @return array
+     * @return Pagerfanta
      */
-    public function getUserReviews($userId)
+    public function getUserReviews($userId, $page, $perPage = null)
     {
+        $perPage = $perPage ?? $this->perPage;
         $qb = $this->em->createQueryBuilder();
         $qb
             ->select('book, reviews.text, reviews.status, reviews.updatedOn, authors')
@@ -187,20 +199,28 @@ class BookPageService
             ->leftJoin('book.authors', 'authors')
             ->andWhere($qb->expr()->eq('user_reviews.id', ':user_id'))
             ->setParameter('user_id', $userId)
+            ->orderBy('reviews.updatedOn', 'DESC')
+            ->setMaxResults($perPage)
         ;
 
-        $result = $qb->getQuery()->getResult();
+        $adapter   = new DoctrineORMAdapter($qb);
+        $paginator = new Pagerfanta($adapter);
+        $paginator->setMaxPerPage($perPage);
+        $paginator->setCurrentPage($page);
 
-        return $result;
+        return $paginator;
     }
 
     /**
      * @param int $userId
+     * @param int $page
+     * @param int $perPage
      *
-     * @return array
+     * @return Pagerfanta
      */
-    public function getUserRatings($userId)
+    public function getUserRatings($userId, $page, $perPage = null)
     {
+        $perPage = $perPage ?? $this->perPage;
         $qb = $this->em->createQueryBuilder();
         $qb
             ->select('book, ratings.rating, ratings.updatedOn, authors')
@@ -210,10 +230,15 @@ class BookPageService
             ->leftJoin('book.authors', 'authors')
             ->andWhere($qb->expr()->eq('user_ratings.id', ':user_id'))
             ->setParameter('user_id', $userId)
+            ->orderBy('ratings.updatedOn', 'DESC')
+            ->setMaxResults($perPage)
         ;
 
-        $result = $qb->getQuery()->getResult();
+        $adapter   = new DoctrineORMAdapter($qb);
+        $paginator = new Pagerfanta($adapter);
+        $paginator->setMaxPerPage($perPage);
+        $paginator->setCurrentPage($page);
 
-        return $result;
+        return $paginator;
     }
 }

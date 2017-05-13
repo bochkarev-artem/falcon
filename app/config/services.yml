@@ -14,6 +14,7 @@ services:
         arguments:
           - "@query_service"
           - "@doctrine.orm.default_entity_manager"
+          - "%default_per_page%"
 
     home_page_service:
         class: AppBundle\Service\HomePageService
@@ -125,3 +126,11 @@ services:
         arguments:
             - '@fos_user.user_manager'
             - { facebook: facebookId, google: googleId, yandex: yandexId, vkontakte: vkontakteId }
+
+    pagerfanta.pagination_view:
+            class: AppBundle\Model\Pagerfanta\PaginationView
+            public: false
+            arguments:
+              - '@translator.default'
+            tags:
+                - { name: 'pagerfanta.view', alias: 'bookary_pagination' }

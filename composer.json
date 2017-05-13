@@ -50,7 +50,8 @@
         "knpuniversity/oauth2-client-bundle": "^1.9",
         "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^2.0",
-        "hwi/oauth-bundle": "^0.5.3"
+        "hwi/oauth-bundle": "^0.5.3",
+        "white-october/pagerfanta-bundle": "^1.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0"

@@ -102,11 +102,7 @@ user_profile_reviews_with_page:
     defaults: { _controller: AppBundle:User:reviews, page: 1 }
 
 user_profile_ratings:
-    path: /user-profile/ratings/
-    defaults: { _controller: AppBundle:User:ratings }
-
-user_profile_ratings_with_page:
-    path: /user-profile/ratings/page/{page}
+    path: /user-profile/ratings/{page}
     defaults: { _controller: AppBundle:User:ratings, page: 1 }
 
 facebook_login_check:

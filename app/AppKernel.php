@@ -35,6 +35,7 @@ class AppKernel extends Kernel
             new Presta\SitemapBundle\PrestaSitemapBundle(),
             new Lexik\Bundle\TranslationBundle\LexikTranslationBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
