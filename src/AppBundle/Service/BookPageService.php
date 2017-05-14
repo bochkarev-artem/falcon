@@ -192,18 +192,18 @@ class BookPageService
         $perPage = $perPage ?? $this->perPage;
         $qb = $this->em->createQueryBuilder();
         $qb
-            ->select('book, reviews.text, reviews.status, reviews.updatedOn, authors')
-            ->from('AppBundle:Book', 'book', 'book.id')
-            ->leftJoin('book.reviews', 'reviews')
-            ->leftJoin('reviews.user', 'user_reviews')
+            ->select('book, reviews, authors')
+            ->from('AppBundle:BookReview', 'reviews')
+            ->leftJoin('reviews.book', 'book')
+            ->leftJoin('reviews.user', 'user')
             ->leftJoin('book.authors', 'authors')
-            ->andWhere($qb->expr()->eq('user_reviews.id', ':user_id'))
+            ->andWhere($qb->expr()->eq('user.id', ':user_id'))
             ->setParameter('user_id', $userId)
             ->orderBy('reviews.updatedOn', 'DESC')
             ->setMaxResults($perPage)
         ;
 
-        $adapter   = new DoctrineORMAdapter($qb);
+        $adapter   = new DoctrineORMAdapter($qb, false);
         $paginator = new Pagerfanta($adapter);
         $paginator->setMaxPerPage($perPage);
         $paginator->setCurrentPage($page);
@@ -223,22 +223,72 @@ class BookPageService
         $perPage = $perPage ?? $this->perPage;
         $qb = $this->em->createQueryBuilder();
         $qb
-            ->select('book, ratings.rating, ratings.updatedOn, authors')
-            ->from('AppBundle:Book', 'book', 'book.id')
-            ->leftJoin('book.ratings', 'ratings')
-            ->leftJoin('ratings.user', 'user_ratings')
+            ->select('book, ratings, authors')
+            ->from('AppBundle:BookRating', 'ratings')
+            ->leftJoin('ratings.book', 'book')
+            ->leftJoin('ratings.user', 'user')
             ->leftJoin('book.authors', 'authors')
-            ->andWhere($qb->expr()->eq('user_ratings.id', ':user_id'))
+            ->andWhere($qb->expr()->eq('user.id', ':user_id'))
             ->setParameter('user_id', $userId)
             ->orderBy('ratings.updatedOn', 'DESC')
             ->setMaxResults($perPage)
         ;
 
-        $adapter   = new DoctrineORMAdapter($qb);
+        $adapter   = new DoctrineORMAdapter($qb, false);
         $paginator = new Pagerfanta($adapter);
         $paginator->setMaxPerPage($perPage);
         $paginator->setCurrentPage($page);
 
         return $paginator;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return int
+     */
+    public function getUserReviewsStatistic($userId)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('COUNT(reviews)')
+            ->from('AppBundle:BookReview', 'reviews')
+            ->leftJoin('reviews.user', 'user')
+            ->andWhere($qb->expr()->eq('user.id', ':user_id'))
+            ->andWhere($qb->expr()->gte('reviews.createdOn', ':date'))
+            ->andWhere($qb->expr()->eq('reviews.status', ':status'))
+            ->setParameter('user_id', $userId)
+            ->setParameter('date', strtotime('+1 week'))
+            ->setParameter('status', BookReview::STATUS_APPROVED)
+        ;
+
+        $result = $qb->getQuery()->getSingleScalarResult();
+
+        return $result;
+    }
+
+    /**
+     * @param int $maxUsers
+     *
+     * @return array
+     */
+    public function getReviewsStatistic($maxUsers = 20)
+    {
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('u as user, COUNT(reviews) as reviews_count')
+            ->from('AppBundle:User', 'u')
+            ->leftJoin('u.reviews', 'reviews')
+            ->andWhere($qb->expr()->gte('reviews.createdOn', ':date'))
+            ->andWhere($qb->expr()->eq('reviews.status', ':status'))
+            ->setParameter('date', strtotime('+1 week'))
+            ->setParameter('status', BookReview::STATUS_APPROVED)
+            ->groupBy('u.id')
+            ->setMaxResults($maxUsers)
+        ;
+
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
     }
 }

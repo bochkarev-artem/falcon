@@ -64,11 +64,25 @@ class SeoManager
     public function setUserProfileRatingsSeoData()
     {
         $seoData = new SeoData();
-        $seoData->setTitle($this->translator->trans('front.user_profile.title'));
+        $seoData->setTitle($this->translator->trans('front.user_profile_ratings.title'));
         $this->setBasicSeoData($seoData);
     }
 
     public function setUserProfileReviewsSeoData()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.user_profile_reviews.title'));
+        $this->setBasicSeoData($seoData);
+    }
+
+    public function setUserProfileStatsSeoData()
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.user_profile_stats.title'));
+        $this->setBasicSeoData($seoData);
+    }
+
+    public function setUserProfileSeoData()
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.user_profile.title'));

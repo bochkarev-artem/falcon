@@ -69,8 +69,6 @@ class BookAdmin extends AbstractAdmin
             ->add('cityPublished')
             ->add('yearPublished')
             ->add('isbn')
-            ->add('rating')
-            ->add('reviewCount')
             ->add('sequenceNumber')
         ;
     }
@@ -199,7 +197,6 @@ class BookAdmin extends AbstractAdmin
             ->add('documentId')
             ->add('title')
             ->add('slug')
-            ->add('rating')
         ;
     }
 
@@ -217,7 +214,6 @@ class BookAdmin extends AbstractAdmin
             ->add('authors')
             ->add('genres')
             ->add('tags')
-            ->add('rating')
             ->add('updatedOn')
             ->add('createdOn')
             ->add('_action', 'actions', [
@@ -256,8 +252,6 @@ class BookAdmin extends AbstractAdmin
             ->add('cityPublished')
             ->add('yearPublished')
             ->add('isbn')
-            ->add('rating')
-            ->add('reviewCount')
             ->add('sequenceNumber')
             ->add('updatedOn')
             ->add('createdOn')

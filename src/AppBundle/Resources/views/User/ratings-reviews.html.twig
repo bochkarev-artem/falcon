@@ -1,0 +1,80 @@
+{% extends "@App/layout.html.twig" %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/app/js/jquery.star-rating-svg.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/profile.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/star-rating-svg.css') }}" />
+{% endblock %}
+
+{% block body %}
+<div class="kf_content_wrap">
+    <div class="grid-4">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="commenting-wrap-1 cutomer-reviews">
+                    {% if view == 'ratings' %}
+                        <h3>{{ 'front.book.rating'|trans }}</h3>
+                    {% endif %}
+                    {% if view == 'reviews' %}
+                        <h3>{{ 'front.book.reviews'|trans }}</h3>
+                    {% endif %}
+                    <ul>
+                        {% for bookData in books %}
+                            {% set book = bookData.book %}
+                            <li>
+                                <div class="commenting-dec">
+                                    {% if book.coverPath is defined %}
+                                        <figure>
+                                            <a href="/{{ book.path }}">
+                                                <img src="{{ book.coverPath|imagine_filter('book_list') }}" alt="{{ book.title }}"/>
+                                            </a>
+                                        </figure>
+                                    {% endif %}
+                                    <div class="text">
+                                        <div class="commenting-hd">
+                                            <div class="cutomer-rating">
+                                            {% if view == 'ratings' %}
+                                                <p>{{ bookData.updatedOn|date("d M Y g:ia") }}</p>
+                                            {% endif %}
+                                            {% if view == 'reviews' %}
+                                                <p>{{ bookData.updatedOn|date("d M Y g:ia") }}</p>
+                                            {% endif %}
+                                            </div>
+                                        </div>
+                                        <p>
+                                            {% if book.authors|length > 0 %}
+                                                {% set author = book.authors|first %}
+                                                <div class="h5"><a href="/{{ author.path }}">{{ author.shortName }}</a></div>
+                                            {% endif %}
+                                            <div class="h4"><a href="/{{ book.path }}">{{ book.title|truncate(40) }}</a></div>
+                                            <br>
+                                            {% if view == 'ratings' %}
+                                                <div class="book-rating" data-rating="{{ bookData.rating }}"></div>
+                                            {% endif %}
+                                            {% if view == 'reviews' %}
+                                                <div>{{ bookData.text }}</div>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if books.haveToPaginate %}
+                    <div class="kf-pagination">
+                        {{ pagerfanta(books, 'bookary_pagination', {
+                            'routeName': 'user_profile_ratings',
+                            'routeParams': {'page': books.currentPage},
+                            'omitFirstPage': true
+                        }) }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

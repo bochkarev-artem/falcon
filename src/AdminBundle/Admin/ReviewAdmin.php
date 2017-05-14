@@ -22,11 +22,11 @@ class ReviewAdmin extends AbstractAdmin
         $formMapper
             ->add('book', 'sonata_type_model_autocomplete', [
                 'property' => 'title',
-                'required' => true,
+                'required' => false,
             ])
             ->add('user', 'sonata_type_model_autocomplete', [
                 'property' => 'username',
-                'required' => true,
+                'required' => false,
             ])
             ->add('text', null, [
                 'attr' => ['rows' => '7'],

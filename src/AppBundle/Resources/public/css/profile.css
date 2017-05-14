@@ -1,0 +1,28 @@
+.profile-menu {
+    float: left;
+    width: 100%;
+    background: #fafafa;
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+
+.profile {
+    margin-bottom: 150px;
+}
+
+table.profile-stats td,  table.profile-stats th{
+    border: none;
+    border-bottom: 1px solid !important;
+}
+
+th:first-child, td:first-child {
+    width: 15%;
+}
+
+th:nth-child(2), td:nth-child(2) {
+    width: 70%;
+}

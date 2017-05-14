@@ -1,0 +1,69 @@
+{% extends "@App/layout.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/profile.css') }}" />
+{% endblock %}
+
+{% block body %}
+    <div class="kf_content_wrap">
+        <div class="grid-4">
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="profile">
+                        <h3>{{ 'front.profile.statistics_week'|trans }}</h3>
+                        <table class="profile-stats">
+                            <thead>
+                                <tr>
+                                    <td>{{ 'front.profile.number'|trans }}</td>
+                                    <td>{{ 'front.profile.name'|trans }}</td>
+                                    <td>{{ 'front.profile.count'|trans }}</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% set userInTop20 = false %}
+                            {% for row in review_stats %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>
+                                        {% if app.user.id == row['user'].id %}
+                                        {% set userInTop20 = true %}
+                                        <span class="red">
+                                        {% endif %}
+                                            {{ row['user'].fullName }}
+                                        {% if app.user.id == row['user'].id %}
+                                                {{ 'front.profile.you'|trans }}
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="blue">{{ row['reviews_count'] }}</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            {% if not userInTop20 %}
+                                <tr>
+                                    <td>...</td>
+                                    <td>...</td>
+                                    <td>...</td>
+                                </tr>
+                                <tr>
+                                    <td>...</td>
+                                    <td>
+                                        <span class="red">
+                                            {{ app.user.fullName }} {{ 'front.profile.you'|trans }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="blue">{{ user_review_count }}</span>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

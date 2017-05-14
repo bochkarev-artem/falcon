@@ -105,6 +105,14 @@ user_profile_ratings:
     path: /user-profile/ratings/{page}
     defaults: { _controller: AppBundle:User:ratings, page: 1 }
 
+user_profile_statistics:
+    path: /user-profile/statistics
+    defaults: { _controller: AppBundle:User:stats }
+
+user_profile:
+    path: /user-profile
+    defaults: { _controller: AppBundle:User:profile }
+
 facebook_login_check:
     path: /login/check-facebook
 

@@ -7,6 +7,12 @@ front:
         breadcrumb_title: Главная
     user_profile:
         title:        "Личный кабинет - Bookary.ru"
+    user_profile_ratings:
+        title:        "Мои рейтинги - Bookary.ru"
+    user_profile_reviews:
+        title:        "Мои рецензии - Bookary.ru"
+    user_profile_stats:
+        title:        "Моя статистика - Bookary.ru"
     book_page:
         title:        "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
         description:  "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
@@ -62,7 +68,6 @@ front:
     open_menu:          Открыть меню
     sign_in:            Вход
     sign_out:           Выход
-    profile:            Кабинет
     social_sign_in:     Войти через социальные сети
     related_books:      Похожие книги
     author_related:     Книги автора
@@ -79,9 +84,20 @@ front:
     send:               Отправить
     review:             'рецензия|рецензии|рецензий'
     book:
+        profile:    Личный кабинет
         rating:     Рейтинг
         annotation: Описание
         reviews:    Рецензии
+    profile:
+        title:      Кабинет
+        my_ratings: Мои рейтинги
+        my_reviews: Мои рецензии
+        statistics: Статистика
+        statistics_week: Статистика за неделю
+        number:     Место
+        name:       Имя пользователя
+        count:      Число рецензий
+        you:        (Вы)
     pagination:
         next:       Дальше
         previous:   Назад
