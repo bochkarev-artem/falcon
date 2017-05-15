@@ -258,7 +258,7 @@ class BookPageService
             ->andWhere($qb->expr()->gte('reviews.createdOn', ':date'))
             ->andWhere($qb->expr()->eq('reviews.status', ':status'))
             ->setParameter('user_id', $userId)
-            ->setParameter('date', strtotime('+1 week'))
+            ->setParameter('date', strtotime('-7 days'))
             ->setParameter('status', BookReview::STATUS_APPROVED)
         ;
 
@@ -281,7 +281,7 @@ class BookPageService
             ->leftJoin('u.reviews', 'reviews')
             ->andWhere($qb->expr()->gte('reviews.createdOn', ':date'))
             ->andWhere($qb->expr()->eq('reviews.status', ':status'))
-            ->setParameter('date', strtotime('+1 week'))
+            ->setParameter('date', strtotime('-7 days'))
             ->setParameter('status', BookReview::STATUS_APPROVED)
             ->groupBy('u.id')
             ->setMaxResults($maxUsers)
