@@ -84,7 +84,7 @@ class SiteController extends Controller
             ->setStart($queryParams->getOffset())
         ;
 
-        $data = $this->prepareViewData($request, $queryParams);
+        $data = $this->prepareViewData($request, $queryParams, $defaultPerPage * 20);
         $data = array_merge($data, [
             'show_author'    => true,
             'pagination_url' => $this->generateUrl('new_books') . '/page/',
@@ -116,9 +116,9 @@ class SiteController extends Controller
             ->setPage($page)
             ->setSize($defaultPerPage)
             ->setStart($queryParams->getOffset())
-        ;
+            ;
 
-        $data = $this->prepareViewData($request, $queryParams);
+        $data = $this->prepareViewData($request, $queryParams, $defaultPerPage * 20);
         $data = array_merge($data, [
             'show_author'    => true,
             'pagination_url' => $this->generateUrl('popular_books') . '/page/',
@@ -311,12 +311,13 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request     $request
-     * @param QueryParams $queryParams
+     * @param Request      $request
+     * @param QueryParams  $queryParams
+     * @param integer|null $limit
      *
      * @return JsonResponse|array
      */
-    protected function prepareViewData($request, $queryParams)
+    protected function prepareViewData($request, $queryParams, $limit = null)
     {
         $defaultView = $this->getParameter('default_page_view');
         $cookieName  = $this->getParameter('cookie.page_view_name');
@@ -328,12 +329,13 @@ class SiteController extends Controller
         $queryResult  = $queryService->query($queryParams);
         $books        = $queryResult->getResults();
         $pagination   = new Pagination($page, $queryParams->getSize());
+        $limit        = $limit ?? $queryResult->getTotalHits();
 
         return [
             'books'       => $books,
             'view'        => $view,
             'current_url' => $request->getPathInfo(),
-            'pagination'  => $pagination->paginate($queryResult->getTotalHits()),
+            'pagination'  => $pagination->paginate($limit),
         ];
     }
 
