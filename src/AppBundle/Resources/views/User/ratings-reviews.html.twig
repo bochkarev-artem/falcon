@@ -64,16 +64,8 @@
                         {% endfor %}
                     </ul>
                 </div>
-                {% if books.haveToPaginate %}
-                    <div class="kf-pagination">
-                        {{ pagerfanta(books, 'bookary_pagination', {
-                            'routeName': 'user_profile_ratings',
-                            'routeParams': {'page': books.currentPage},
-                            'omitFirstPage': true
-                        }) }}
-                    </div>
-                {% endif %}
             </div>
+            {% include '@App/Elements/pagination.html.twig' %}
         </div>
     </div>
 </div>

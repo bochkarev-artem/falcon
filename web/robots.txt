@@ -1,6 +1,5 @@
 User-agent: Yandex
 Crawl-delay: 10
-Disallow: */page/*
 
 User-agent: *
 Allow: /

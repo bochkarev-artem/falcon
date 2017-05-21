@@ -63,7 +63,7 @@ class LitresService
     /**
      * @var int $batchSize
      */
-    private $batchSize = 100;
+    private $batchSize = 10;
 
     /**
      * @var int $bookExistedCount

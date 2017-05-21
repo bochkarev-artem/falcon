@@ -25,11 +25,6 @@ class QueryParams
     /**
      * @var int
      */
-    private $start;
-
-    /**
-     * @var int
-     */
     private $page;
 
     /**
@@ -82,19 +77,10 @@ class QueryParams
      */
     public function __construct()
     {
-        $this->size        = 20;
         $this->page        = 1;
         $this->start       = 0;
         $this->sort        = self::SORT_NO;
         $this->searchQuery = null;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOffset()
-    {
-        return ($this->page - 1) * $this->size;
     }
 
     /**
@@ -273,26 +259,6 @@ class QueryParams
     public function setSize($size)
     {
         $this->size = $size;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStart()
-    {
-        return $this->start;
-    }
-
-    /**
-     * @param int $start
-     *
-     * @return QueryParams
-     */
-    public function setStart($start)
-    {
-        $this->start = $start;
 
         return $this;
     }

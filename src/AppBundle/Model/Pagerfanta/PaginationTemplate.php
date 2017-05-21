@@ -184,7 +184,7 @@ class PaginationTemplate extends Template
         $aClass = $aClass ? sprintf(' class="%s"', $this->option('css_active_class')) : sprintf(' class="%s"', $this->option('css_link_class'));
         $rel    = $rel ? sprintf(' rel="%s"', $rel) : '';
 
-        return sprintf('<li><a href="%s"%s%s>%s</a></li>', $href, $aClass, $rel, $text);
+        return sprintf('<li><a data-page="%s" href="%s"%s%s>%s</a></li>', $text, $href, $aClass, $rel, $text);
     }
 
     /**

@@ -35,14 +35,14 @@ class RouteProvider implements RouteProviderInterface
     public function getRouteCollectionForRequest(Request $request)
     {
         $url  = ltrim(rawurldecode($request->getPathInfo()), '/');
-        $page = preg_replace('/.+\/page\/([2-9]+[0-9]*)/', '$1', $url);
+        $page = preg_replace('/.+\/([1-9]+[0-9]*)/', '$1', $url);
         if ($page === $url) {
             $pageUrl = '';
             $page    = 1;
         } else {
-            $pageUrl = '/page/' . $page;
+            $pageUrl = '/' . $page;
         }
-        $searchUrl = rtrim(preg_replace('#^(.*?)(\/page\/\d+)(?:\.html)?$#iu', '$1', $url), '/');
+        $searchUrl = rtrim(preg_replace('#^(.*?)(\/\d+)(?:\.html)?$#iu', '$1', $url), '/');
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
         $pathQuery->setTerm('path', rawurldecode($searchUrl));

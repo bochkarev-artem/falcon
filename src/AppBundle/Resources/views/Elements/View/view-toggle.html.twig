@@ -25,18 +25,19 @@
         <div class="col-md-4">
             <div class="tab-dec">
                 <ul class="nav nav-tabs" role="tablist">
+                    {% set currentUrl = app.request.pathInfo %}
                     <li role="presentation"{% if view == 'list'%} class="active"{% endif %}>
-                        <a class="pageview" data-view="list" href="{{ current_url }}">
+                        <a class="pageview" data-view="list" href="{{ currentUrl }}">
                             <i class="fa fa-th-list"></i>
                         </a>
                     </li>
                     <li role="presentation"{% if view == 'column'%} class="active"{% endif %}>
-                        <a class="pageview" data-view="column" href="{{ current_url }}">
+                        <a class="pageview" data-view="column" href="{{ currentUrl }}">
                             <i class="fa fa-th-large"></i>
                         </a>
                     </li>
                     <li role="presentation"{% if view == 'grid'%} class="active"{% endif %}>
-                        <a class="pageview" data-view="grid" href="{{ current_url }}">
+                        <a class="pageview" data-view="grid" href="{{ currentUrl }}">
                             <i class="fa fa-th"></i>
                         </a>
                     </li>

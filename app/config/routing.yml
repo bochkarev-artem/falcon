@@ -48,32 +48,16 @@ site_index:
         sitemap: true
 
 search:
-    path: /search
-    defaults: { _controller: AppBundle:Site:search }
-
-search_with_page:
-    path: /search/page/{page}
-    defaults: { _controller: AppBundle:Site:search }
+    path: /search/{page}
+    defaults: { _controller: AppBundle:Site:search, page: 1 }
 
 new_books:
-    path: /new-books
-    defaults: { _controller: AppBundle:Site:newBooks }
-    options:
-        sitemap: true
+    path: /new-books/{page}
+    defaults: { _controller: AppBundle:Site:newBooks, page: 1 }
 
 popular_books:
-    path: /popular-books
-    defaults: { _controller: AppBundle:Site:popularBooks }
-    options:
-        sitemap: true
-
-popular_books_with_page:
-    path: /popular-books/page/{page}
-    defaults: { _controller: AppBundle:Site:popularBooks }
-
-new_books_with_page:
-    path: /new-books/page/{page}
-    defaults: { _controller: AppBundle:Site:newBooks }
+    path: /popular-books/{page}
+    defaults: { _controller: AppBundle:Site:popularBooks, page: 1 }
 
 tags:
     path: /tags
@@ -94,11 +78,7 @@ add_book_review:
     defaults: { _controller: AppBundle:Book:addBookReview }
 
 user_profile_reviews:
-    path: /user-profile/reviews/
-    defaults: { _controller: AppBundle:User:reviews }
-
-user_profile_reviews_with_page:
-    path: /user-profile/reviews/page/{page}
+    path: /user-profile/reviews/{page}
     defaults: { _controller: AppBundle:User:reviews, page: 1 }
 
 user_profile_ratings:
@@ -139,3 +119,7 @@ yandex_login:
 
 front_logout:
     path: /logout
+
+custom_route:
+    path: /{prefix}/{slug}/{page}
+    defaults: { _controller: AppBundle:Site:generateRoute, page: 1 }

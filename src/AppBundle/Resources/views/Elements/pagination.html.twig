@@ -1,40 +1,13 @@
-{% if pagination.total_pages > 1 %}
-    <input type="hidden" name="page" id="page" value="{{ pagination.current }}">
+{% if books.haveToPaginate %}
+    <input type="hidden" name="page" id="page" value="{{ books.currentPage }}">
     <div class="col-md-12">
         <div class="kf-pagination">
-            <ul class="pagination">
-                <li>
-                {% if pagination.current != 1 %}
-                    <a href="{{ pagination_url ~ pagination.prev }}" rel="prev" data-page="{{ pagination.prev }}" class="pagination-link" aria-label="{{ 'front.pagination.previous'|trans }}">
-                        <span aria-hidden="true">
-                            <i class="fa fa-angle-left"></i>
-                        </span>
-                        <small class="page-label">
-                            {{ 'front.pagination.previous'|trans }}
-                        </small>
-                    </a>
-                {% endif %}
-                </li>
-
-                {%- for page in pagination.pages -%}
-                    <li>
-                        <a class="pagination-link{% if page == pagination.current %} active{% endif %}" href="{{ pagination_url ~ page }}" data-page="{{ page }}">{{ page }}</a>
-                    </li>
-                {%- endfor -%}
-
-                <li>
-                {% if pagination.current != pagination.last %}
-                    <a href="{{ pagination_url ~ pagination.next }}" rel="next" data-page="{{ pagination.next }}" class="pagination-link" aria-label="{{ 'front.pagination.next'|trans }}">
-                        <span aria-hidden="true">
-                            <i class="fa fa-angle-right"></i>
-                        </span>
-                        <small class="page-label">
-                            {{ 'front.pagination.next'|trans }}
-                        </small>
-                    </a>
-                {% endif %}
-                </li>
-            </ul>
+            {% set routeParams = route_params ?? [] %}
+            {{ pagerfanta(books, 'bookary_pagination', {
+                'routeName': route_name,
+                'routeParams': {'page': books.currentPage}|merge(routeParams),
+                'omitFirstPage': true
+            }) }}
         </div>
     </div>
 {% endif %}

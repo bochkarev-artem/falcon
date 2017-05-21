@@ -6,6 +6,7 @@
 namespace AppBundle\Service;
 
 use AppBundle\Model\QueryParams;
+use Pagerfanta\Pagerfanta;
 
 class HomePageService
 {
@@ -27,7 +28,7 @@ class HomePageService
     }
 
     /**
-     * @return array
+     * @return Pagerfanta
      */
     public function getFeaturedBooks()
     {
@@ -37,14 +38,13 @@ class HomePageService
             ->setSize(self::FEATURED_HOME_COUNT)
         ;
 
-        $queryResult = $this->queryService->query($queryParams);
-        $books       = $queryResult->getResults();
+        $books = $this->queryService->find($queryParams);
 
         return $books;
     }
 
     /**
-     * @return array
+     * @return Pagerfanta
      */
     public function getNewArrivalsBooks()
     {
@@ -54,14 +54,13 @@ class HomePageService
             ->setSize(self::NEW_ARRIVALS_HOME_COUNT)
         ;
 
-        $queryResult = $this->queryService->query($queryParams);
-        $books       = $queryResult->getResults();
+        $books = $this->queryService->find($queryParams);
 
         return $books;
     }
 
     /**
-     * @return array
+     * @return Pagerfanta
      */
     public function getPopularBooks()
     {
@@ -71,8 +70,7 @@ class HomePageService
             ->setSize(self::POPULAR_HOME_COUNT)
         ;
 
-        $queryResult = $this->queryService->query($queryParams);
-        $books       = $queryResult->getResults();
+        $books = $this->queryService->find($queryParams);
 
         return $books;
     }

@@ -5,10 +5,11 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Model\Pagerfanta\ElasticaAdapter;
 use AppBundle\Model\QueryParams;
-use AppBundle\Model\QueryResult;
 use Elastica\Query;
 use Elastica\Type;
+use Pagerfanta\Pagerfanta;
 
 class QueryService
 {
@@ -35,9 +36,9 @@ class QueryService
     /**
      * @param QueryParams $queryParams
      *
-     * @return QueryResult
+     * @return Query
      */
-    public function query(QueryParams $queryParams)
+    protected function buildQuery(QueryParams $queryParams)
     {
         $query     = new Query();
         $boolQuery = new Query\BoolQuery();
@@ -49,23 +50,24 @@ class QueryService
 
         $this->applySorting($query, $queryParams);
 
-        $perPage = $queryParams->getSize() ?? $this->perPage;
-        $query->setFrom($queryParams->getStart());
-        $query->setSize($perPage);
-
-        return $this->getResult($query);
+        return $query;
     }
 
     /**
-     * @param Query $query
+     * @param QueryParams $queryParams
      *
-     * @return QueryResult
+     * @return Pagerfanta
      */
-    private function getResult(Query $query)
+    public function find(QueryParams $queryParams)
     {
-        $result = new QueryResult($this->repository->search($query));
+        $perPage   = $queryParams->getSize() ?? $this->perPage;
+        $query     = $this->buildQuery($queryParams);
+        $adapter   = new ElasticaAdapter($this->repository, $query);
+        $paginator = new Pagerfanta($adapter);
+        $paginator->setCurrentPage($queryParams->getPage());
+        $paginator->setMaxPerPage($perPage);
 
-        return $result;
+        return $paginator;
     }
 
     /**
@@ -108,13 +110,12 @@ class QueryService
         $query = new Query\MultiMatch();
 
         return $query
-                ->setQuery($queryString)
-                ->setFields($fields)
-                ->setTieBreaker(0.3)
-                ->setOperator('and')
-                ->setParam('fuzziness', '1')
-                ->setParam('lenient', true)
-        ;
+            ->setQuery($queryString)
+            ->setFields($fields)
+            ->setTieBreaker(0.3)
+            ->setOperator('and')
+            ->setParam('fuzziness', '1')
+            ->setParam('lenient', true);
     }
 
     /**
@@ -182,8 +183,7 @@ class QueryService
         $bookId    = $queryParams->getFilterExcludeBooks();
         $queryTerm = is_array($bookId) ?
             new Query\Terms('book_id', $bookId) :
-            new Query\Term(['book_id' => $bookId])
-        ;
+            new Query\Term(['book_id' => $bookId]);
 
         $query->addMustNot($queryTerm);
     }
@@ -197,8 +197,7 @@ class QueryService
         $authorIds = $queryParams->getFilterExcludeAuthors();
         $queryTerm = is_array($authorIds) ?
             new Query\Terms('authors.author_id', $authorIds) :
-            new Query\Term(['authors.author_id' => $authorIds])
-        ;
+            new Query\Term(['authors.author_id' => $authorIds]);
 
         $nestedQuery = new Query\Nested();
         $nestedQuery->setPath('authors');
@@ -216,8 +215,7 @@ class QueryService
         $bookId    = $queryParams->getFilterId();
         $queryTerm = is_array($bookId) ?
             new Query\Terms('book_id', $bookId) :
-            new Query\Term(['book_id' => $bookId])
-        ;
+            new Query\Term(['book_id' => $bookId]);
 
         $query->addMust($queryTerm);
     }
@@ -239,8 +237,7 @@ class QueryService
         $genreIds  = $queryParams->getFilterGenres();
         $queryTerm = is_array($genreIds) ?
             new Query\Terms('genres.genre_id', $genreIds) :
-            new Query\Term(['genres.genre_id' => $genreIds])
-        ;
+            new Query\Term(['genres.genre_id' => $genreIds]);
 
         $nestedQuery = new Query\Nested();
         $nestedQuery->setPath('genres');
@@ -258,8 +255,7 @@ class QueryService
         $authorIds = $queryParams->getFilterAuthors();
         $queryTerm = is_array($authorIds) ?
             new Query\Terms('authors.author_id', $authorIds) :
-            new Query\Term(['authors.author_id' => $authorIds])
-        ;
+            new Query\Term(['authors.author_id' => $authorIds]);
 
         $nestedQuery = new Query\Nested();
         $nestedQuery->setPath('authors');
@@ -277,8 +273,7 @@ class QueryService
         $tagIds    = $queryParams->getFilterTags();
         $queryTerm = is_array($tagIds) ?
             new Query\Terms('tags.tag_id', $tagIds) :
-            new Query\Term(['tags.tag_id' => $tagIds])
-        ;
+            new Query\Term(['tags.tag_id' => $tagIds]);
 
         $nestedQuery = new Query\Nested();
         $nestedQuery->setPath('tags');
@@ -296,8 +291,7 @@ class QueryService
         $sequenceIds = $queryParams->getFilterSequences();
         $queryTerm   = is_array($sequenceIds) ?
             new Query\Terms('sequence.sequence_id', $sequenceIds) :
-            new Query\Term(['sequence.sequence_id' => $sequenceIds])
-        ;
+            new Query\Term(['sequence.sequence_id' => $sequenceIds]);
 
         $nestedQuery = new Query\Nested();
         $nestedQuery->setPath('sequence');

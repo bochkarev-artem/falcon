@@ -73,8 +73,7 @@ class BookPageService
                 ->setSort(QueryParams::SORT_RATING_DESC)
             ;
 
-            $queryResult = $this->queryService->query($queryParams);
-            $books       = $queryResult->getResults();
+            $books = $this->queryService->find($queryParams);
         }
 
         return $books;
@@ -104,8 +103,7 @@ class BookPageService
                 ->setFilterExcludeBooks($bookId)
             ;
 
-            $queryResult = $this->queryService->query($queryParams);
-            $books       = $queryResult->getResults();
+            $books = $this->queryService->find($queryParams);
         }
 
         return $books;

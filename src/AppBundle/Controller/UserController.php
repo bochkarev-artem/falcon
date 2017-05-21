@@ -17,7 +17,8 @@ class UserController extends Controller
         if (!$user = $this->getUser()) {
             return new RedirectResponse('/');
         }
-        $seoManager  = $this->get('seo_manager');
+
+        $seoManager = $this->get('seo_manager');
         $seoManager->setUserProfileSeoData();
 
         return $this->render('@App/User/profile.html.twig');
@@ -38,10 +39,13 @@ class UserController extends Controller
         $seoManager  = $this->get('seo_manager');
         $seoManager->setUserProfileStatsSeoData();
 
-        return $this->render('@App/User/stats.html.twig', [
-            'user_review_count' => $userReviewCount,
-            'review_stats'      => $reviewStats
-        ]);
+        return $this->render(
+            '@App/User/stats.html.twig',
+            [
+                'user_review_count' => $userReviewCount,
+                'review_stats'      => $reviewStats
+            ]
+        );
     }
 
     /**
@@ -61,10 +65,14 @@ class UserController extends Controller
         $seoManager  = $this->get('seo_manager');
         $seoManager->setUserProfileRatingsSeoData();
 
-        return $this->render('@App/User/ratings-reviews.html.twig', [
-            'view'  => 'ratings',
-            'books' => $paginator,
-        ]);
+        return $this->render(
+            '@App/User/ratings-reviews.html.twig',
+            [
+                'view'       => 'ratings',
+                'route_name' => 'user_profile_ratings',
+                'books'      => $paginator,
+            ]
+        );
     }
 
     /**
@@ -84,9 +92,13 @@ class UserController extends Controller
         $seoManager  = $this->get('seo_manager');
         $seoManager->setUserProfileReviewsSeoData();
 
-        return $this->render('@App/User/ratings-reviews.html.twig', [
-            'view'  => 'reviews',
-            'books' => $paginator,
-        ]);
+        return $this->render(
+            '@App/User/ratings-reviews.html.twig',
+            [
+                'view'       => 'reviews',
+                'route_name' => 'user_profile_reviews',
+                'books'      => $paginator,
+            ]
+        );
     }
 }
