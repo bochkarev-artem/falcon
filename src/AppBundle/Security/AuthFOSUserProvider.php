@@ -104,7 +104,7 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
             $user->$providerSetter($userEmail);
             $this->userManager->updateUser($user);
         } else {
-            $this->createUser($response);
+            $user = $this->createUser($response);
         }
 
         return $user;
