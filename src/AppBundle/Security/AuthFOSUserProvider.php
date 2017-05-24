@@ -60,13 +60,12 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
     {
         $user          = new User();
         $userEmail     = $response->getEmail();
-        $property      = $this->getProperty($response);
         $userFirstName = $response->getFirstName();
         $userLastName  = $response->getLastName();
         $responseArray = $response->getResponse();
         $userGender    = $responseArray['gender'] ?? '';
         $userPicture   = $response->getProfilePicture();
-        $user->setUsername($response->getRealName());
+        $user->setUsername($userEmail);
         $user->setFirstName($userFirstName);
         $user->setLastName($userLastName);
         $user->setGender($userGender);
@@ -75,6 +74,7 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
         $user->setPassword('');
         $user->setEnabled(true);
 
+        $property       = $this->getProperty($response);
         $providerSetter = 'set' . ucfirst($property);
         $user->$providerSetter($userEmail);
 
