@@ -432,6 +432,8 @@ class LitresService
             if ($skipped >= $this->bookExistedCount) {
                 break;
             }
+
+            sleep(5);
         }
 
         $numberProcessed = $i * $this->perPage - $skipped;

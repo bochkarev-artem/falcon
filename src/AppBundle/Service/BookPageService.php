@@ -46,7 +46,7 @@ class BookPageService
     /**
      * @param array $book
      *
-     * @return array
+     * @return Pagerfanta
      */
     public function getSliderFeaturedBooks(array $book)
     {
@@ -82,7 +82,7 @@ class BookPageService
     /**
      * @param array $book
      *
-     * @return array
+     * @return Pagerfanta
      */
     public function getAsideFeaturedBooks(array $book)
     {

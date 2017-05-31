@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "40f749b8834ab2ff757c01a914c54a4e",
-    "content-hash": "1dc757531e9e57a710698a1eb3d0e7c8",
+    "hash": "9db1df34f7de44c311026f2101b4c1c1",
+    "content-hash": "597185ddf25fd960ac8291dc29d03420",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1289,7 +1289,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/55f5bff889acc69babbbe249a79a0a4f2943c1d0",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSElasticaBundle/zipball/8bf5b58ffcbfb5cd8cfc8c40031392388699a2b0",
                 "reference": "55f5bff889acc69babbbe249a79a0a4f2943c1d0",
                 "shasum": ""
             },
@@ -1371,16 +1371,16 @@
         },
         {
             "name": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "e0c1f70dedd43a37e5fcf3bfde95cf9765616f04"
+                "reference": "2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/e0c1f70dedd43a37e5fcf3bfde95cf9765616f04",
-                "reference": "e0c1f70dedd43a37e5fcf3bfde95cf9765616f04",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a",
+                "reference": "2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a",
                 "shasum": ""
             },
             "require": {
@@ -1444,7 +1444,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2017-05-12 10:55:18"
+            "time": "2017-03-29 13:21:34"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -5890,7 +5890,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20,
         "friendsofsymfony/elastica-bundle": 20,
         "symfony-cmf/routing-bundle": 20,
         "lexik/translation-bundle": 20
