@@ -144,9 +144,15 @@ hwi_oauth:
             client_secret:   "%yandex_client_secret%"
             options:
                 csrf:        true
+            paths:
+                profilepicture: ['https://avatars.mds.yandex.net/get-yapic/%/islands-75', default_avatar_id]
+                firstname:      first_name
+                lastname:       last_name
         vkontakte:
             type:            vkontakte
             client_id:       "%vk_client_id%"
             client_secret:   "%vk_client_secret%"
             options:
                 csrf:        true
+            paths:
+                profilepicture: 'response.0.photo_medium'

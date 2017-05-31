@@ -5,7 +5,6 @@ use AppBundle\Entity\User;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseFOSUBProvider;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
-use Symfony\Component\Security\Core\User\UserInterface;
 use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
 
 class AuthFOSUserProvider extends BaseFOSUBProvider
@@ -21,22 +20,6 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      * @var PropertyAccessor
      */
     protected $accessor;
-
-    /**
-     * {@inheritDoc}
-     */
-    public function connect(UserInterface $user, UserResponseInterface $response)
-    {
-        $property = $this->getProperty($response);
-        $username = $response->getUsername();
-        $existingUser = $this->userManager->findUserBy([$property => $username]);
-
-        if (null !== $existingUser) {
-            $this->userManager->updateUser($existingUser);
-        }
-
-        $this->userManager->updateUser($user);
-    }
 
     /**
      * {@inheritdoc}
@@ -58,25 +41,24 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      */
     protected function createUser(UserResponseInterface $response)
     {
-        $user          = new User();
-        $userEmail     = $response->getEmail();
-        $userFirstName = $response->getFirstName();
-        $userLastName  = $response->getLastName();
-        $responseArray = $response->getResponse();
-        $userGender    = $responseArray['gender'] ?? '';
-        $userPicture   = $response->getProfilePicture();
-        $user->setUsername($userEmail);
-        $user->setFirstName($userFirstName);
-        $user->setLastName($userLastName);
-        $user->setGender($userGender);
-        $user->setPicture($userPicture);
-        $user->setEmail($userEmail);
+        $user        = new User();
+        $id          = $response->getEmail() ?? $response->getResponse()['id'];
+        $firstName   = $response->getFirstName();
+        $lastName    = $response->getLastName();
+        $pictureData = $response->getPath('profilepicture');
+        $picture     = $response->getProfilePicture();
+        $picture     = is_array($pictureData) ? preg_replace('/%/', $picture, $pictureData[0]) : $picture;
+        $user->setUsername($id);
+        $user->setFirstName($firstName);
+        $user->setLastName($lastName);
+        $user->setPicture($picture);
+        $user->setEmail($id);
         $user->setPassword('');
         $user->setEnabled(true);
 
         $property       = $this->getProperty($response);
         $providerSetter = 'set' . ucfirst($property);
-        $user->$providerSetter($userEmail);
+        $user->$providerSetter($id);
 
         $this->userManager->updateUser($user);
 
@@ -90,18 +72,18 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      */
     protected function prepareUser(UserResponseInterface $response)
     {
-        $property  = $this->getProperty($response);
-        $userEmail = $response->getEmail();
+        $property = $this->getProperty($response);
+        $id       = $response->getEmail() ?? $response->getResponse()['id'];
 
-        if ($user = $this->userManager->findUserBy([$property => $userEmail])) {
+        if ($user = $this->userManager->findUserBy([$property => $id])) {
             return $user;
         }
 
-        $user = $this->userManager->findUserByEmail($userEmail);
+        $user = $this->userManager->findUserByEmail($id);
 
         if ($user) {
             $providerSetter = 'set' . ucfirst($property);
-            $user->$providerSetter($userEmail);
+            $user->$providerSetter($id);
             $this->userManager->updateUser($user);
         } else {
             $user = $this->createUser($response);

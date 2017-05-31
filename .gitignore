@@ -19,3 +19,4 @@
 .idea/
 web/compiled/
 web/sitemap.*
+.web-server-pid
