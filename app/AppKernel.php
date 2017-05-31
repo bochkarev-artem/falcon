@@ -33,7 +33,6 @@ class AppKernel extends Kernel
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Presta\SitemapBundle\PrestaSitemapBundle(),
-            new Lexik\Bundle\TranslationBundle\LexikTranslationBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         ];
@@ -43,6 +42,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle;
         }
 
         return $bundles;

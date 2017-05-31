@@ -112,10 +112,6 @@ fos_user:
         address:        admin@bookary.ru
         sender_name:    Bookary.ru
 
-lexik_translation:
-    fallback_locale: ["%locale%"]
-    managed_locales: ["%locale%"]
-
 hwi_oauth:
     connect:
         account_connector:   oauth_aware_user_provider
