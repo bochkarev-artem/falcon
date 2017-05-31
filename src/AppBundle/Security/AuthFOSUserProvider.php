@@ -69,11 +69,16 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      * @param UserResponseInterface $response
      *
      * @return FOSUserInterface|User
+     * @throws \Exception
      */
     protected function prepareUser(UserResponseInterface $response)
     {
         $property = $this->getProperty($response);
         $id       = $response->getEmail() ?? $response->getResponse()['id'];
+
+        if (!$id) {
+            throw new \Exception('Not allowed auth service');
+        }
 
         if ($user = $this->userManager->findUserBy([$property => $id])) {
             return $user;
