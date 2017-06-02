@@ -303,7 +303,7 @@ class LitresService
      * @throws \ErrorException
      * @return bool
      */
-    public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
+    public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/') // TODO refactor
     {
         $skipped = 0;
         $step    = 0;

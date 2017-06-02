@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Service\BookPageService;
+use AppBundle\Service\SeoManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,33 +12,35 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends Controller
 {
     /**
+     * @param SeoManager $seoManager
+     *
      * @return Response
      */
-    public function profileAction()
+    public function profileAction(SeoManager $seoManager)
     {
         if (!$user = $this->getUser()) {
             return new RedirectResponse('/');
         }
 
-        $seoManager = $this->get('seo_manager');
         $seoManager->setUserProfileSeoData();
 
         return $this->render('@App/User/profile.html.twig');
     }
 
     /**
+     * @param BookPageService $pageService
+     * @param SeoManager      $seoManager
+     *
      * @return Response
      */
-    public function statsAction()
+    public function statsAction(BookPageService $pageService, SeoManager $seoManager)
     {
         if (!$user = $this->getUser()) {
             return new RedirectResponse('/');
         }
 
-        $pageService = $this->get('book_page_service');
         $userReviewCount = $pageService->getUserReviewsStatistic($user->getId());
         $reviewStats = $pageService->getReviewsStatistic(20);
-        $seoManager  = $this->get('seo_manager');
         $seoManager->setUserProfileStatsSeoData();
 
         return $this->render(
@@ -49,20 +53,20 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request         $request
+     * @param BookPageService $pageService
+     * @param SeoManager      $seoManager
      *
      * @return Response
      */
-    public function ratingsAction(Request $request)
+    public function ratingsAction(Request $request, BookPageService $pageService, SeoManager $seoManager)
     {
         if (!$user = $this->getUser()) {
             return new RedirectResponse('/');
         }
 
-        $page        = $request->get('page', 1);
-        $pageService = $this->get('book_page_service');
-        $paginator   = $pageService->getUserRatings($user->getId(), $page, 10);
-        $seoManager  = $this->get('seo_manager');
+        $page      = $request->get('page', 1);
+        $paginator = $pageService->getUserRatings($user->getId(), $page, 10);
         $seoManager->setUserProfileRatingsSeoData();
 
         return $this->render(
@@ -76,20 +80,20 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request         $request
+     * @param BookPageService $pageService
+     * @param SeoManager      $seoManager
      *
      * @return Response
      */
-    public function reviewsAction(Request $request)
+    public function reviewsAction(Request $request, BookPageService $pageService, SeoManager $seoManager)
     {
         if (!$user = $this->getUser()) {
             return new RedirectResponse('/');
         }
 
-        $page        = $request->get('page', 1);
-        $pageService = $this->get('book_page_service');
-        $paginator   = $pageService->getUserReviews($user->getId(), $page, 10);
-        $seoManager  = $this->get('seo_manager');
+        $page      = $request->get('page', 1);
+        $paginator = $pageService->getUserReviews($user->getId(), $page, 10);
         $seoManager->setUserProfileReviewsSeoData();
 
         return $this->render(

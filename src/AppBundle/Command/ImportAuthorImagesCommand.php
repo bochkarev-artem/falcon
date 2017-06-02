@@ -52,7 +52,7 @@ class ImportAuthorImagesCommand extends ContainerAwareCommand
         $result    = $qb->getQuery()->iterate();
         $batchSize = 100;
         $i         = 0;
-        $imageUploadService = $container->get('image_upload_service');
+        $imageUploadService = $container->get('AppBundle\Service\ImageUploadService');
         foreach ($result as $row) {
             /** @var Author $author */
             $author = $row[0];

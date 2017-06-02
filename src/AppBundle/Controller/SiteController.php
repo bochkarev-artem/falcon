@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Model\QueryParams;
+use AppBundle\Service\HomePageService;
+use AppBundle\Service\SeoManager;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -14,12 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 class SiteController extends Controller
 {
     /**
+     * @param HomePageService $homePageService
+     * @param SeoManager      $seoManager
+     *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(HomePageService $homePageService, SeoManager $seoManager)
     {
-        $homePageService = $this->get('home_page_service');
-        $seoManager      = $this->get('seo_manager');
         $seoManager->setHomeSeoData();
 
         return $this->render(
@@ -34,12 +37,13 @@ class SiteController extends Controller
     }
 
     /**
-     * @param integer $page
-     * @param Request $request
+     * @param integer    $page
+     * @param Request    $request
+     * @param SeoManager $seoManager
      *
-     * @return Response|JsonResponse
+     * @return JsonResponse|Response
      */
-    public function searchAction($page, Request $request)
+    public function searchAction($page, Request $request, SeoManager $seoManager)
     {
         $query       = $request->get('query');
         $queryParams = new QueryParams();
@@ -59,19 +63,19 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('seo_manager');
         $seoManager->setSearchSeoData();
 
         return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
-     * @param integer $page
-     * @param Request $request
+     * @param integer    $page
+     * @param Request    $request
+     * @param SeoManager $seoManager
      *
-     * @return Response|JsonResponse
+     * @return JsonResponse|Response
      */
-    public function newBooksAction($page, Request $request)
+    public function newBooksAction($page, Request $request, SeoManager $seoManager)
     {
         $queryParams = new QueryParams();
         $queryParams
@@ -88,19 +92,19 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('seo_manager');
         $seoManager->setNewBooksSeoData($page);
 
         return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
-     * @param integer $page
-     * @param Request $request
+     * @param integer    $page
+     * @param Request    $request
+     * @param SeoManager $seoManager
      *
-     * @return Response|JsonResponse
+     * @return JsonResponse|Response
      */
-    public function popularBooksAction($page, Request $request)
+    public function popularBooksAction($page, Request $request, SeoManager $seoManager)
     {
         $queryParams = new QueryParams();
         $queryParams
@@ -117,7 +121,6 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('seo_manager');
         $seoManager->setPopularBooksSeoData($page);
 
         return $this->render('@App/Site/list_page.html.twig', $data);
@@ -158,7 +161,7 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('seo_manager');
+        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setGenreSeoData($genre, $page);
 
         return $this->render(
@@ -207,7 +210,7 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('seo_manager');
+        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setAuthorSeoData($author, $page);
 
         return $this->render(
@@ -259,7 +262,7 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('seo_manager');
+        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setSequenceSeoData($sequence, $page);
 
         return $this->render(
@@ -267,7 +270,6 @@ class SiteController extends Controller
             array_merge(
                 $data,
                 [
-
                     'breadcrumbs' => $seoManager->buildBreadcrumbs($sequence)
                 ]
             )
@@ -309,7 +311,7 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('seo_manager');
+        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setTagSeoData($tag, $page);
 
         return $this->render(
@@ -323,8 +325,8 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request      $request
-     * @param QueryParams  $queryParams
+     * @param Request     $request
+     * @param QueryParams $queryParams
      *
      * @return JsonResponse|array
      */
@@ -335,7 +337,7 @@ class SiteController extends Controller
         $cookieView  = $request->cookies->get($cookieName, $defaultView);
 
         return [
-            'books' => $this->get('query_service')->find($queryParams),
+            'books' => $this->get('AppBundle\Service\QueryService')->find($queryParams),
             'view'  => $request->get('view', $cookieView),
         ];
     }
@@ -383,17 +385,16 @@ class SiteController extends Controller
             ->setFilterId($id)
             ->setSize(1);
 
-        $queryService      = $this->get('query_service');
-        $bookPageService   = $this->get('book_page_service');
-        $litresBookManager = $this->get('litres_book_manager');
+        $queryService      = $this->get('AppBundle\Service\QueryService');
+        $bookPageService   = $this->get('AppBundle\Service\BookPageService');
+        $litresBookManager = $this->get('AppBundle\Service\LitresBookManager');
+        $seoManager        = $this->get('AppBundle\Service\SeoManager');
 
         if (!$books = $queryService->find($queryParams)) {
             throw $this->createNotFoundException();
         }
 
         $book = $books->getIterator()->current()->getSource();
-
-        $seoManager = $this->get('seo_manager');
         $seoManager->setBookSeoData($book);
 
         if ($user = $this->getUser()) {
@@ -418,9 +419,11 @@ class SiteController extends Controller
     }
 
     /**
+     * @param SeoManager $seoManager
+     *
      * @return Response
      */
-    public function tagsAction()
+    public function tagsAction(SeoManager $seoManager)
     {
         $em   = $this->getDoctrine()->getManager();
         /** @var QueryBuilder $qb */
@@ -435,7 +438,6 @@ class SiteController extends Controller
             ->getQuery()
             ->getResult();
 
-        $seoManager = $this->get('seo_manager');
         $seoManager->setTagsSeoData();
 
         return $this->render(
@@ -447,11 +449,12 @@ class SiteController extends Controller
     }
 
     /**
+     * @param SeoManager $seoManager
+     *
      * @return Response
      */
-    public function searchPageAction()
+    public function searchPageAction(SeoManager $seoManager)
     {
-        $seoManager = $this->get('seo_manager');
         $seoManager->setSearchSeoData();
 
         return $this->render('@App/Site/search.html.twig');

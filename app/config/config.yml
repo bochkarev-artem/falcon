@@ -114,7 +114,7 @@ fos_user:
 
 hwi_oauth:
     connect:
-        account_connector:   oauth_aware_user_provider
+        account_connector:   AppBundle\Security\AuthFOSUserProvider
     firewall_names:          [social]
     fosub:
         username_iterations: 30

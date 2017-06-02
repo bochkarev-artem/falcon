@@ -6,16 +6,16 @@
             {% for book in books %}
                 <div class="list-style-dec list-style-dec2">
                     <div class="blog-thumb">
-                        {% if book.cover_path is defined %}
-                            <figure>
-                                <a href="/{{ book.path }}">
-                                    <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="{{ book.title }}">
-                                </a>
-                            </figure>
-                            <div class="blog-thumb-dec">
-                                <a href="/{{ book.path }}"><i class="fa fa-book"></i></a>
-                            </div>
-                        {% endif %}
+                        <figure>
+                            <a href="/{{ book.path }}">
+                                <img src="{{ book.cover_path is defined and book.cover_path
+                                ? book.cover_path|imagine_filter('book_list')
+                                : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ book.title }}" />
+                            </a>
+                        </figure>
+                        <div class="blog-thumb-dec">
+                            <a href="/{{ book.path }}"><i class="fa fa-book"></i></a>
+                        </div>
                     </div>
                     <div class="text">
                         <div class="blog1-hd">

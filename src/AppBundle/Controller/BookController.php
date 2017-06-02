@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\BookRating;
 use AppBundle\Entity\BookReview;
+use AppBundle\Service\BookPageService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,11 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 class BookController extends Controller
 {
     /**
-     * @param Request $request
+     * @param Request         $request
+     * @param BookPageService $bookPageService
      *
      * @return JsonResponse
      */
-    public function addBookRatingAction(Request $request)
+    public function addBookRatingAction(Request $request, BookPageService $bookPageService)
     {
         $response = ['status' => false];
         if ($user = $this->getUser()) {
@@ -38,9 +40,8 @@ class BookController extends Controller
             }
             $em->flush();
 
-            $bookPageService = $this->get('book_page_service');
-            $ratingData      = $bookPageService->getBookRatingData($bookId);
-            $response        = [
+            $ratingData = $bookPageService->getBookRatingData($bookId);
+            $response   = [
                 'rating' => $ratingData['rating'],
                 'total'  => $ratingData['total'],
                 'status' => true

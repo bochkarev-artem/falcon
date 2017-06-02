@@ -35,7 +35,7 @@ security:
                 use_forward:       false
 
                 oauth_user_provider:
-                    service: oauth_aware_user_provider
+                    service: AppBundle\Security\AuthFOSUserProvider
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER

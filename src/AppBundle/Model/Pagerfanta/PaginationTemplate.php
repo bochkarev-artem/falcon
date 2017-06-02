@@ -14,7 +14,7 @@ class PaginationTemplate extends Template
      */
     protected $translator;
 
-    public function __construct($translator)
+    public function __construct(Translator $translator)
     {
         $this->translator = $translator;
 

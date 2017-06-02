@@ -6,13 +6,13 @@
             {% for book in books %}
                 <div class="col-md-2 col-sm-6">
                     <div class="book-tab-dec">
-                        {% if book.cover_path is defined %}
-                            <figure>
-                                <a href="/{{ book.path }}">
-                                    <img src="{{ book.cover_path|imagine_filter('book_list') }}" alt="{{ book.title }}"/>
-                                </a>
-                            </figure>
-                        {% endif %}
+                        <figure>
+                            <a href="/{{ book.path }}">
+                                <img src="{{ book.cover_path is defined and book.cover_path
+                                ? book.cover_path|imagine_filter('book_list')
+                                : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ book.title }}" />
+                            </a>
+                        </figure>
                         <div class="text">
                             {% if show_genre is defined and show_genre and book.genres|length > 0 %}
                                 {% set genre = book.genres|first %}

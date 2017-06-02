@@ -39,7 +39,7 @@ class ImportLitresDataCommand extends ContainerAwareCommand
         $type      = $input->getArgument('type');
         $type      = $type ?: 'books';
         $debug     = $input->getArgument('debug');
-        $litres    = $this->getContainer()->get('litres_service');
+        $litres    = $this->getContainer()->get('AppBundle\Service\LitresService');
         $result    = $litres->getData($type, $debug);
         $endTime   = time();
         $totalTime = $endTime - $startTime;

@@ -1,65 +1,53 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
-parameters:
-
 services:
-    litres_service:
-        class: AppBundle\Service\LitresService
+    _defaults:
+         autowire: true
+         autoconfigure: true
+         public: false
+
+    AppBundle\:
+         resource: '../../src/AppBundle/*'
+         exclude: '../../src/AppBundle/{Entity,Repository,Model}'
+
+    AppBundle\Controller\:
+         resource: '../../src/AppBundle/Controller'
+         public: true
+         tags: ['controller.service_arguments']
+
+    AppBundle\Service\LitresService:
         arguments:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
+        public: true
 
-    book_page_service:
-        class: AppBundle\Service\BookPageService
+    AppBundle\Service\BookPageService:
         arguments:
-          - "@query_service"
+          - '@AppBundle\Service\QueryService'
           - "@doctrine.orm.default_entity_manager"
           - "%default_per_page%"
 
-    home_page_service:
-        class: AppBundle\Service\HomePageService
-        arguments:
-          - "@query_service"
-
-    image_upload_service:
-        class: AppBundle\Service\ImageUploadService
+    AppBundle\Service\ImageUploadService:
         arguments:
           - "@oneup_flysystem.s3_upload_filesystem"
           - "@vich_uploader.templating.helper.uploader_helper"
           - "%book_directory%"
           - "%author_directory%"
+        public: true
 
-    twig.menu:
-        class: AppBundle\Twig\MenuExtension
-        public: false
-        arguments:
-            - "@menu_builder"
-        tags:
-            - { name: twig.extension }
-
-    menu_builder:
-        class: AppBundle\Service\MenuBuilder
+    AppBundle\Service\MenuBuilder:
         arguments:
             - "@doctrine.orm.default_entity_manager"
             - "@twig"
             - "%kernel.cache_dir%"
-            - "@query_service"
+            - '@AppBundle\Service\QueryService'
         lazy: true
 
-    seo_manager:
-        class: AppBundle\Service\SeoManager
-        arguments:
-            - "@sonata.seo.page"
-            - "@translator.default"
-
-    litres_book_manager:
-        class: AppBundle\Service\LitresBookManager
+    AppBundle\Service\LitresBookManager:
         arguments:
             - "@translator.default"
             - "%litres_partner_id%"
+        public: true
 
-    sitemap_listener:
-        class: AppBundle\Service\SitemapListener
+    AppBundle\Service\SitemapListener:
         arguments:
             - "@doctrine.orm.default_entity_manager"
             - "%base_url%"
@@ -67,8 +55,7 @@ services:
         tags:
             - { name: "presta.sitemap.listener", priority: 100 }
 
-    search_provider.route:
-        class: AppBundle\Provider\RouteProvider
+    AppBundle\Provider\RouteProvider:
         arguments:
             - "@fos_elastica.index.routes.route"
             - "@doctrine.orm.default_entity_manager"
@@ -76,61 +63,51 @@ services:
         tags:
             - { name: fos_elastica.provider, index: routes, type: route }
 
-    search_provider.book:
-        class: AppBundle\Provider\BookProvider
+    AppBundle\Provider\BookProvider:
         arguments:
             - "@fos_elastica.index.books.book"
             - "@doctrine.orm.default_entity_manager"
-            - "@book_page_service"
+            - '@AppBundle\Service\BookPageService'
             - 100
         tags:
             - { name: fos_elastica.provider, index: books, type: book }
 
-    routing.dynamic_router:
-        class: AppBundle\Routing\DynamicRouter
+    AppBundle\Routing\DynamicRouter:
         arguments:
             - "@router.request_context"
-            - "@routing.request_matcher"
+            - '@AppBundle\Routing\RequestMatcher'
             - "@cmf_routing.generator"
             - ""
             - "@?event_dispatcher"
             - "@cmf_routing.route_provider"
             - "@fos_elastica.index.routes.route"
 
-    routing.request_matcher:
-        class: AppBundle\Routing\RequestMatcher
+    AppBundle\Routing\RequestMatcher:
         arguments:
-            - "@routing.route_provider"
+            - '@AppBundle\Routing\RouteProvider'
         calls:
             - [ setContext, ["@router.request_context"] ]
             - [ setFinalMatcher, ["@cmf_routing.final_matcher"] ]
 
-    routing.route_provider:
-        class: AppBundle\Routing\RouteProvider
+    AppBundle\Routing\RouteProvider:
         arguments:
             - "@fos_elastica.index.routes.route"
 
-    query_service:
-        class: AppBundle\Service\QueryService
+    AppBundle\Service\QueryService:
         arguments:
             - "@fos_elastica.index.books.book"
             - "%default_per_page%"
 
-    author_listener:
-        class: AdminBundle\EventListener\AuthorListener
+    AdminBundle\EventListener\AuthorListener:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
 
-    oauth_aware_user_provider:
-        class: AppBundle\Security\AuthFOSUserProvider
+    AppBundle\Security\AuthFOSUserProvider:
         arguments:
-            - '@fos_user.user_manager'
-            - { facebook: facebookId, google: googleId, yandex: yandexId, vkontakte: vkontakteId }
+            $properties: { facebook: facebookId, google: googleId, yandex: yandexId, vkontakte: vkontakteId }
 
-    pagerfanta.pagination_view:
-            class: AppBundle\Model\Pagerfanta\PaginationView
-            public: false
-            arguments:
-              - '@translator.default'
-            tags:
-                - { name: 'pagerfanta.view', alias: 'bookary_pagination' }
+    AppBundle\Model\Pagerfanta\PaginationView:
+        arguments:
+          - '@translator.default'
+        tags:
+            - { name: 'pagerfanta.view', alias: 'bookary_pagination' }
