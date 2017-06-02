@@ -63,6 +63,7 @@ services:
             - 100
         tags:
             - { name: fos_elastica.provider, index: routes, type: route }
+        public: true
 
     AppBundle\Provider\BookProvider:
         arguments:
@@ -72,6 +73,7 @@ services:
             - 100
         tags:
             - { name: fos_elastica.provider, index: books, type: book }
+        public: true
 
     AppBundle\Routing\DynamicRouter:
         arguments:
