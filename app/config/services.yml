@@ -54,6 +54,7 @@ services:
             - "%base_scheme%"
         tags:
             - { name: "presta.sitemap.listener", priority: 100 }
+        public: true
 
     AppBundle\Provider\RouteProvider:
         arguments:
