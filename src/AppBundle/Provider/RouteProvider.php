@@ -5,11 +5,7 @@
 
 namespace AppBundle\Provider;
 
-use AppBundle\Entity\Author;
-use AppBundle\Entity\Book;
-use AppBundle\Entity\Genre;
-use AppBundle\Entity\Sequence;
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Internal\Hydration\IterableResult;
 use Doctrine\ORM\Query\Expr;
@@ -92,7 +88,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param Book|Author|Genre|Tag|Sequence $object
+     * @param PageInterface $object
      *
      * @return array|bool
      */
@@ -108,7 +104,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param Book|Author|Genre|Tag|Sequence $object
+     * @param PageInterface $object
      *
      * @return array
      */

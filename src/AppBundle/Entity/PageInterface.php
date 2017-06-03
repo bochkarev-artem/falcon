@@ -5,12 +5,13 @@
 
 namespace AppBundle\Entity;
 
-/**
- * Interface PageInterface
- * @package AppBundle\Entity
- */
 interface PageInterface
 {
+    /**
+     * @return int
+     */
+    public function getId();
+
     /**
      * @return string
      */
