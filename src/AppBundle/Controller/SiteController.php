@@ -405,8 +405,8 @@ class SiteController extends Controller
             '@App/Site/book.html.twig',
             [
                 'book'                  => $book,
-                'aside_featured_books'  => $bookPageService->getAsideFeaturedBooks($book),
-                'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book),
+                'aside_featured_books'  => $bookPageService->getAsideFeaturedBooks($book)->getCurrentPageResults(),
+                'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book)->getCurrentPageResults(),
                 'book_rating_data'      => $bookPageService->getBookRatingData($id),
                 'user_book_rating'      => $userRating ?? null,
                 'reviews'               => $bookPageService->getBookReviews($id),
