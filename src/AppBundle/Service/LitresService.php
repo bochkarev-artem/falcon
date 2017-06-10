@@ -76,6 +76,11 @@ class LitresService
     private $debug;
 
     /**
+     * @var integer $timeSleep
+     */
+    private $timeSleep;
+
+    /**
      * @param EntityManager $em
      * @param Logger        $logger
      */
@@ -91,14 +96,16 @@ class LitresService
     }
 
     /**
-     * @param string $param
-     * @param string $debug
+     * @param string  $param
+     * @param string  $debug
+     * @param integer $timeSleep
      *
      * @return bool
      */
-    public function getData($param, $debug)
+    public function getData($param, $debug, $timeSleep)
     {
-        $this->debug = $debug == 'y' ? true : false;
+        $this->debug     = $debug == 'y' ? true : false;
+        $this->timeSleep = $timeSleep;
 
         switch ($param) {
             case 'books':
@@ -220,6 +227,7 @@ class LitresService
 
         $this->em->persist($author);
         $this->em->flush();
+        sleep($this->timeSleep);
 
         return $author;
     }
@@ -433,7 +441,7 @@ class LitresService
                 break;
             }
 
-            sleep(5);
+            sleep($this->timeSleep);
         }
 
         $numberProcessed = $i * $this->perPage - $skipped;

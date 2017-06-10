@@ -26,6 +26,7 @@ class ImportLitresDataCommand extends ContainerAwareCommand
             ->setDescription('Update Litres Data.')
             ->addArgument('type', InputArgument::OPTIONAL, 'Type of entity to process. Allowed: "books", "genres"')
             ->addArgument('debug', InputArgument::OPTIONAL, 'Debug flag. Allowed: "y", "n"', 'y')
+            ->addArgument('timesleep', InputArgument::OPTIONAL, 'Time between getting books list/authors in seconds', 15)
         ;
     }
 
@@ -39,8 +40,9 @@ class ImportLitresDataCommand extends ContainerAwareCommand
         $type      = $input->getArgument('type');
         $type      = $type ?: 'books';
         $debug     = $input->getArgument('debug');
+        $timeSleep = $input->getArgument('timesleep');
         $litres    = $this->getContainer()->get('AppBundle\Service\LitresService');
-        $result    = $litres->getData($type, $debug);
+        $result    = $litres->getData($type, $debug, $timeSleep);
         $endTime   = time();
         $totalTime = $endTime - $startTime;
         if ($result) {
