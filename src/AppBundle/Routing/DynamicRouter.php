@@ -103,7 +103,7 @@ class DynamicRouter extends BaseDynamicRouter
      */
     private function getPath($parameters)
     {
-        $searchUrl = preg_replace('#^(.*?)(\/\d+)(?:\.html)?$#iu', '$1', $parameters['_path']);
+        $searchUrl = preg_replace('#^(.*?)(\/\d+)?$#iu', '$1', $parameters['_path']);
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
         $pathQuery->setTerm('path', rawurldecode($searchUrl));
