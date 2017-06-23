@@ -2,6 +2,11 @@
     background: none !important;
 }
 
-.ads__catalog_side {
+.ads__catalog_top {
     margin-bottom: 20px;
+}
+
+.ads__section_top {
+    padding-bottom: 0 !important;
+    padding-top: 10px !important;
 }

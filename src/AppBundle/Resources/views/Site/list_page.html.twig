@@ -20,14 +20,14 @@
                         <aside class="col-md-3">
                             {{ side_menu()|raw }}
                             {% if ad_side %}
-                                <div class="ads__catalog_side">
+                                <div>
                                     {{ ad_side.code|raw }}
                                 </div>
                             {% endif %}
                         </aside>
                         <div class="col-md-9">
                             {% if ad_top %}
-                                <div>
+                                <div class="ads__catalog_top">
                                     {{ ad_top.code|raw }}
                                 </div>
                             {% endif %}
