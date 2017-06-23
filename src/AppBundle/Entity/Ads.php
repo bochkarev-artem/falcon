@@ -91,7 +91,7 @@ class Ads
     /**
      * @return int
      */
-    public function getPosition(): ?int
+    public function getPosition()
     {
         return $this->position;
     }
@@ -111,7 +111,7 @@ class Ads
     /**
      * @return string
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -131,7 +131,7 @@ class Ads
     /**
      * @return string
      */
-    public function getCode(): ?string
+    public function getCode()
     {
         return $this->code;
     }
@@ -151,7 +151,7 @@ class Ads
     /**
      * @return int
      */
-    public function getPriority(): ?int
+    public function getPriority()
     {
         return $this->priority;
     }
@@ -171,7 +171,7 @@ class Ads
     /**
      * @return bool
      */
-    public function isActive(): ?bool
+    public function isActive()
     {
         return $this->active;
     }
