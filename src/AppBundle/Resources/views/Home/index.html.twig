@@ -34,8 +34,10 @@
         </div>
     </section>
     {% if ad_main %}
-        <div class="ads__main">
-            {{ ad_main.code|raw }}
+        <div class="section">
+            <div class="container">
+                {{ ad_main.code|raw }}
+            </div>
         </div>
     {% endif %}
     <section>
