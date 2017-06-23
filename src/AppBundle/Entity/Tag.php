@@ -60,6 +60,11 @@ class Tag implements PageInterface
      */
     private $books;
 
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
+
     /**
      * @return int
      */

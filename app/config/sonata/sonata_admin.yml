@@ -4,6 +4,7 @@ sonata_admin:
     dashboard:
         groups:
             catalog:
+                keep_open: true
                 items:
                     - admin.author
                     - admin.book
@@ -11,6 +12,7 @@ sonata_admin:
                     - admin.tag
                     - admin.sequence
                     - admin.review
+                    - admin.ads
                     - admin.user
     templates:
         layout:                         AdminBundle::Sonata/standard_layout.html.twig

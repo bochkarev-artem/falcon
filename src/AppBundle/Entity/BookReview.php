@@ -107,7 +107,7 @@ class BookReview
     /**
      * @return integer
      */
-    public function isStatus()
+    public function getStatus()
     {
         return $this->status;
     }

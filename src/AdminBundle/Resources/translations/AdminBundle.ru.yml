@@ -6,9 +6,16 @@ label:
     sequence: Циклы
     user:     Пользователи
     review:   Рецензии
+    ads:      Реклама
 
 choice:
     review_status:
         pending:  На модерации
         approved: Подтверждено
         rejected: Отклонено
+    ads_position:
+        index:        Главная
+        book_side:    Книга (сбоку)
+        book_bottom:  Книга (внизу)
+        catalog_side: Каталог (сбоку)
+        catalog_top:  Каталог (сверху)

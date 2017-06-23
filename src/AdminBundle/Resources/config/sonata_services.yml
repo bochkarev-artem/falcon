@@ -75,3 +75,14 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, ['AdminBundle']]
+
+    admin.ads:
+        class: AdminBundle\Admin\AdsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: "label.ads" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Ads
+            - ~
+        calls:
+            - [ setTranslationDomain, ['AdminBundle']]

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Ads;
 use AppBundle\Model\QueryParams;
 use AppBundle\Service\HomePageService;
 use AppBundle\Service\SeoManager;
@@ -32,6 +33,7 @@ class SiteController extends Controller
                 'featured_books'      => $homePageService->getFeaturedBooks(),
                 'new_arrivals_books'  => $homePageService->getNewArrivalsBooks(),
                 'popular_books'       => $homePageService->getPopularBooks(),
+                'ad_main'             => $seoManager->getAdByPosition(Ads::POSITION_INDEX)
             ]
         );
     }
@@ -65,7 +67,16 @@ class SiteController extends Controller
 
         $seoManager->setSearchSeoData();
 
-        return $this->render('@App/Site/list_page.html.twig', $data);
+        return $this->render(
+            '@App/Site/list_page.html.twig',
+            array_merge(
+                $data,
+                [
+                    'ad_side' => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_SIDE),
+                    'ad_top'  => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_TOP),
+                ]
+            )
+        );
     }
 
     /**
@@ -94,7 +105,16 @@ class SiteController extends Controller
 
         $seoManager->setNewBooksSeoData($page);
 
-        return $this->render('@App/Site/list_page.html.twig', $data);
+        return $this->render(
+            '@App/Site/list_page.html.twig',
+            array_merge(
+                $data,
+                [
+                    'ad_side' => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_SIDE),
+                    'ad_top'  => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_TOP),
+                ]
+            )
+        );
     }
 
     /**
@@ -123,7 +143,16 @@ class SiteController extends Controller
 
         $seoManager->setPopularBooksSeoData($page);
 
-        return $this->render('@App/Site/list_page.html.twig', $data);
+        return $this->render(
+            '@App/Site/list_page.html.twig',
+            array_merge(
+                $data,
+                [
+                    'ad_side' => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_SIDE),
+                    'ad_top'  => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_TOP),
+                ]
+            )
+        );
     }
 
     /**
@@ -169,8 +198,9 @@ class SiteController extends Controller
             array_merge(
                 $data,
                 [
-                    'breadcrumbs' => $seoManager->buildBreadcrumbs($genre)
-                ]
+                    'breadcrumbs' => $seoManager->buildBreadcrumbs($genre),
+                    'ad_side'     => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_SIDE),
+                    'ad_top'      => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_TOP),                ]
             )
         );
     }
@@ -218,7 +248,9 @@ class SiteController extends Controller
             array_merge(
                 $data,
                 [
-                    'breadcrumbs' => $seoManager->buildBreadcrumbs($author)
+                    'breadcrumbs' => $seoManager->buildBreadcrumbs($author),
+                    'ad_side'     => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_SIDE),
+                    'ad_top'      => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_TOP),
                 ]
             )
         );
@@ -270,7 +302,9 @@ class SiteController extends Controller
             array_merge(
                 $data,
                 [
-                    'breadcrumbs' => $seoManager->buildBreadcrumbs($sequence)
+                    'breadcrumbs' => $seoManager->buildBreadcrumbs($sequence),
+                    'ad_side'     => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_SIDE),
+                    'ad_top'      => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_TOP),
                 ]
             )
         );
@@ -318,7 +352,9 @@ class SiteController extends Controller
             '@App/Site/list_page.html.twig',
             array_merge(
                 $data, [
-                    'breadcrumbs' => $seoManager->buildBreadcrumbs($tag)
+                    'breadcrumbs' => $seoManager->buildBreadcrumbs($tag),
+                    'ad_side'     => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_SIDE),
+                    'ad_top'      => $seoManager->getAdByPosition(Ads::POSITION_CATALOG_TOP),
                 ]
             )
         );
@@ -414,6 +450,8 @@ class SiteController extends Controller
                 'download_links'        => $litresBookManager->getDownloadLinks($book),
                 'read_link'             => $litresBookManager->getReadOnlineLink($book),
                 'show_genres_in_menu'   => true,
+                'ad_side'               => $seoManager->getAdByPosition(Ads::POSITION_BOOK_SIDE),
+                'ad_bottom'             => $seoManager->getAdByPosition(Ads::POSITION_BOOK_BOTTOM),
             ]
         );
     }

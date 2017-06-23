@@ -159,6 +159,11 @@
                     </div>
                     <aside class="col-md-3">
                         {% include "@App/Elements/featured_books_aside.html.twig" %}
+                        {% if ad_side %}
+                            <div class="ads__side">
+                                {{ ad_side.code|raw }}
+                            </div>
+                        {% endif %}
                     </aside>
                 </div>
                 <div class="book-tabs2">
@@ -243,6 +248,11 @@
                 </div>
             </div>
         </div>
+        {% if ad_bottom %}
+            <div class="ads__bottom">
+                {{ ad_bottom.code|raw }}
+            </div>
+        {% endif %}
         {% include "@App/Elements/featured_books_slider.html.twig" %}
     </div>
 </div>

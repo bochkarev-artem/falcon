@@ -19,8 +19,18 @@
                     <div class="row">
                         <aside class="col-md-3">
                             {{ side_menu()|raw }}
+                            {% if ad_side %}
+                                <div class="ads__side">
+                                    {{ ad_side.code|raw }}
+                                </div>
+                            {% endif %}
                         </aside>
                         <div class="col-md-9">
+                            {% if ad_top %}
+                                <div class="ads__top">
+                                    {{ ad_top.code|raw }}
+                                </div>
+                            {% endif %}
                             <div class="main-content">
                                 {% if view == 'column' %}
                                     {% include '@App/Elements/View/column.html.twig' %}

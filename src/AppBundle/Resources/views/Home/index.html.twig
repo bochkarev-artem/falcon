@@ -33,6 +33,11 @@
             <div class="shade"></div>
         </div>
     </section>
+    {% if ad_main %}
+        <div class="ads__main">
+            {{ ad_main.code|raw }}
+        </div>
+    {% endif %}
     <section>
         <div class="container">
             <div class="tabs-wrap1">

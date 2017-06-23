@@ -1,0 +1,154 @@
+/*
+=================================================
+				UP FROM 1200PX
+=================================================
+*/
+@media (min-width: 1200px) {
+    .ads__main {
+        width:100%;
+        height:400px;
+    }
+
+    .ads__bottom {
+        width:100%;
+        height:600px;
+    }
+
+    .ads__side {
+        width:100%;
+        height:800px;
+    }
+
+    .ads__top {
+        width:100%;
+        height:400px;
+    }
+}
+/*
+=================================================
+			FROM 992PX TO 1199PX
+=================================================
+*/
+@media (min-width: 992px) and (max-width: 1199px) {
+    .ads__main {
+        width:100%;
+        height:400px;
+    }
+
+    .ads__bottom {
+        width:100%;
+        height:600px;
+    }
+
+    .ads__side {
+        width:100%;
+        height:800px;
+    }
+
+    .ads__top {
+        width:100%;
+        height:400px;
+    }
+}
+/*
+=================================================
+			FROM 768PX TO 979PX
+=================================================
+*/
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .ads__main {
+        width:100%;
+        height:400px;
+    }
+
+    .ads__bottom {
+        width:100%;
+        height:600px;
+    }
+
+    .ads__side {
+        width:100%;
+        height:800px;
+    }
+
+    .ads__top {
+        width:100%;
+        height:400px;
+    }
+}
+/*
+=================================================
+			FROM 0PX TO 767PX
+=================================================
+*/
+@media (max-width: 767px) {
+    .ads__main {
+        width:100%;
+        height:300px;
+    }
+
+    .ads__bottom {
+        width:100%;
+        height:300px;
+    }
+
+    .ads__side {
+        width:100%;
+        height:300px;
+    }
+
+    .ads__top {
+        width:100%;
+        height:300px;
+    }
+}
+/*
+=================================================
+			FROM 0PX TO 480PX
+=================================================
+*/
+@media (max-width: 480px) {
+    .ads__main {
+        width:100%;
+        height:200px;
+    }
+
+    .ads__bottom {
+        width:100%;
+        height:200px;
+    }
+
+    .ads__side {
+        width:100%;
+        height:200px;
+    }
+
+    .ads__top {
+        width:100%;
+        height:200px;
+    }
+}
+
+@media (max-width: 320px){
+    .ads__main {
+        width:100%;
+        height:200px;
+    }
+
+    .ads__bottom {
+        width:100%;
+        height:200px;
+    }
+
+    .ads__side {
+        width:100%;
+        height:200px;
+    }
+
+    .ads__top {
+        width:100%;
+        height:200px;
+    }
+}
+
