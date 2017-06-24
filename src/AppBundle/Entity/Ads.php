@@ -17,7 +17,7 @@ class Ads
     use TimestampableTrait;
 
     const POSITION_INDEX        = 1;
-    const POSITION_BOOK_SIDE    = 2;
+    const POSITION_BOOK_TOP     = 2;
     const POSITION_BOOK_BOTTOM  = 3;
     const POSITION_CATALOG_SIDE = 4;
     const POSITION_CATALOG_TOP  = 5;

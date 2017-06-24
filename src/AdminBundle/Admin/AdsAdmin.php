@@ -98,7 +98,7 @@ class AdsAdmin extends AbstractAdmin
     {
         return [
             'choice.ads_position.index'        => Ads::POSITION_INDEX,
-            'choice.ads_position.book_side'    => Ads::POSITION_BOOK_SIDE,
+            'choice.ads_position.book_top'     => Ads::POSITION_BOOK_TOP,
             'choice.ads_position.book_bottom'  => Ads::POSITION_BOOK_BOTTOM,
             'choice.ads_position.catalog_side' => Ads::POSITION_CATALOG_SIDE,
             'choice.ads_position.catalog_top'  => Ads::POSITION_CATALOG_TOP,

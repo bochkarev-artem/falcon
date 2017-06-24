@@ -159,13 +159,15 @@
                     </div>
                     <aside class="col-md-3">
                         {% include "@App/Elements/featured_books_aside.html.twig" %}
-                        {% if ad_side %}
-                            <div class="widget widget-featured ads__side">
-                                {{ ad_side.code|raw }}
-                            </div>
-                        {% endif %}
                     </aside>
                 </div>
+                {% if ad_top %}
+                    <div class="section ads__section_top">
+                        <div class="container">
+                            {{ ad_top.code|raw }}
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="book-tabs2">
                     <ul class="nav nav-tabs books-tab" role="tablist">
                         <li role="presentation" class="active">
