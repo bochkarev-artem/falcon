@@ -25,6 +25,7 @@ class AdsAdmin extends AbstractAdmin
             ->add('code', null, [
                 'attr' => ['rows' => '7'],
             ])
+            ->add('priority')
             ->add('position', 'choice', [
                 'choices'            => $this->getPositionChoices(),
                 'translation_domain' => 'AdminBundle',

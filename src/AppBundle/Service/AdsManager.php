@@ -31,7 +31,8 @@ class AdsManager
             ->andWhere($qb->expr()->eq('ads.active', ':active'))
             ->setParameter('position', $position)
             ->setParameter('active', true)
-            ->orderBy('ads.priority', Criteria::ASC);
+            ->orderBy('ads.priority', Criteria::ASC)
+            ->setMaxResults(1);
 
         return $qb->getQuery()->getOneOrNullResult();
     }
