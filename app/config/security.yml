@@ -22,6 +22,7 @@ security:
                 login_path: /connect/
                 check_path: /login/login_check
             logout:
+                success_handler: AppBundle\Security\AuthenticationHandler
                 path:   /logout
                 target: /
             oauth:
@@ -33,7 +34,7 @@ security:
                 login_path:        /
                 failure_path:      /
                 use_forward:       false
-
+                success_handler: AppBundle\Security\AuthenticationHandler
                 oauth_user_provider:
                     service: AppBundle\Security\AuthFOSUserProvider
 

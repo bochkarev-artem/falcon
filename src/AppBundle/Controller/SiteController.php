@@ -4,7 +4,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ads;
 use AppBundle\Model\QueryParams;
+use AppBundle\Service\BookPageService;
 use AppBundle\Service\HomePageService;
+use AppBundle\Service\LitresBookManager;
+use AppBundle\Service\QueryService;
 use AppBundle\Service\SeoManager;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -156,13 +159,14 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param integer $id
-     * @param integer $page
+     * @param Request    $request
+     * @param integer    $id
+     * @param integer    $page
+     * @param SeoManager $seoManager
      *
      * @return Response|JsonResponse
      */
-    public function showGenreAction(Request $request, $id, $page)
+    public function showGenreAction(Request $request, $id, $page, SeoManager $seoManager)
     {
         $sortOrder   = $request->get('sort', QueryParams::SORT_NO);
         $queryParams = new QueryParams();
@@ -190,7 +194,6 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setGenreSeoData($genre, $page);
 
         return $this->render(
@@ -206,13 +209,14 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param integer $id
-     * @param integer $page
+     * @param Request    $request
+     * @param integer    $id
+     * @param integer    $page
+     * @param SeoManager $seoManager
      *
      * @return Response|JsonResponse
      */
-    public function showAuthorAction(Request $request, $id, $page)
+    public function showAuthorAction(Request $request, $id, $page, SeoManager $seoManager)
     {
         $sortOrder   = $request->get('sort', QueryParams::SORT_NO);
         $queryParams = new QueryParams();
@@ -240,7 +244,6 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setAuthorSeoData($author, $page);
 
         return $this->render(
@@ -257,13 +260,14 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param integer $id
-     * @param integer $page
+     * @param Request    $request
+     * @param integer    $id
+     * @param integer    $page
+     * @param SeoManager $seoManager
      *
      * @return Response|JsonResponse
      */
-    public function showSequenceAction(Request $request, $id, $page)
+    public function showSequenceAction(Request $request, $id, $page, SeoManager $seoManager)
     {
         $sortOrder   = $request->get('sort', QueryParams::SORT_NO);
         $queryParams = new QueryParams();
@@ -294,7 +298,6 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setSequenceSeoData($sequence, $page);
 
         return $this->render(
@@ -311,13 +314,14 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param integer $id
-     * @param integer $page
+     * @param Request    $request
+     * @param integer    $id
+     * @param integer    $page
+     * @param SeoManager $seoManager
      *
      * @return Response|JsonResponse
      */
-    public function showTagAction(Request $request, $id, $page)
+    public function showTagAction(Request $request, $id, $page, SeoManager $seoManager)
     {
         $sortOrder   = $request->get('sort', QueryParams::SORT_NO);
         $queryParams = new QueryParams();
@@ -345,7 +349,6 @@ class SiteController extends Controller
             return $this->prepareJsonResponse($data);
         }
 
-        $seoManager = $this->get('AppBundle\Service\SeoManager');
         $seoManager->setTagSeoData($tag, $page);
 
         return $this->render(
@@ -411,20 +414,24 @@ class SiteController extends Controller
 
     /**
      * @param integer $id
+     * @param QueryService $queryService
+     * @param BookPageService $bookPageService
+     * @param LitresBookManager $litresBookManager
+     * @param SeoManager $seoManager
      *
      * @return Response
      */
-    public function showBookAction($id)
-    {
+    public function showBookAction(
+        int $id,
+        QueryService $queryService,
+        BookPageService $bookPageService,
+        LitresBookManager $litresBookManager,
+        SeoManager $seoManager
+    ) {
         $queryParams = new QueryParams();
         $queryParams
             ->setFilterId($id)
             ->setSize(1);
-
-        $queryService      = $this->get('AppBundle\Service\QueryService');
-        $bookPageService   = $this->get('AppBundle\Service\BookPageService');
-        $litresBookManager = $this->get('AppBundle\Service\LitresBookManager');
-        $seoManager        = $this->get('AppBundle\Service\SeoManager');
 
         if (!$books = $queryService->find($queryParams)) {
             throw $this->createNotFoundException();

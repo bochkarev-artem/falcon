@@ -1,38 +1,38 @@
 front:
-    404_error:       Данной страницы не существует!
+    404_error:          Данной страницы не существует!
     index_page:
-        title:         "Электронная библиотека Bookary - читать книги онлайн или скачать бесплатно и без регистрации в fb2, epub"
-        description:   "Электронная библиотека Bookary позволяет читателю без труда найти любую книгу и с легкостью скачать в одном из популярных форматов: fb2, epub, rtf, pdf. Также вы можете читать книги онлайн. И никакой регистрации для этого не требуется."
+        title:          "Электронная библиотека Bookary - читать книги онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "Электронная библиотека Bookary позволяет читателю без труда найти любую книгу и с легкостью скачать в одном из популярных форматов: fb2, epub, rtf, pdf. Также вы можете читать книги онлайн. И никакой регистрации для этого не требуется."
         keywords:      "книги, электронная библиотека, скачать книги бесплато, читать книги онлан, скачать книги без регистрации"
         breadcrumb_title: Главная
     user_profile:
-        title:        "Личный кабинет - Bookary.ru"
+        title:          "Личный кабинет - Bookary.ru"
     user_profile_ratings:
-        title:        "Мои рейтинги - Bookary.ru"
+        title:          "Мои рейтинги - Bookary.ru"
     user_profile_reviews:
-        title:        "Мои рецензии - Bookary.ru"
+        title:          "Мои рецензии - Bookary.ru"
     user_profile_stats:
-        title:        "Моя статистика - Bookary.ru"
+        title:          "Моя статистика - Bookary.ru"
     book_page:
-        title:        "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
-        description:  "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
-        keywords:     "книга, %book_title%, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+        title:          "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %book_title%, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
     tag_page:
-        title:        "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
-        description:  "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
-        keywords:     "книга, %tag_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+        title:          "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %tag_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
     genre_page:
-        title:        "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
-        description:  "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
-        keywords:     "книга, %genre_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+        title:          "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %genre_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
     author_page:
-        title:        "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
-        description:  "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
-        keywords:     "книга, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+        title:          "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
     sequence_page:
-        title:        "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
-        description:  "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
-        keywords:     "книга, %sequence_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+        title:          "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %sequence_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
     tags_page:
         title:          Все теги - электронная библиотека Bookary
         description:    Все теги - электронная библиотека Bookary
@@ -68,7 +68,7 @@ front:
     open_menu:          Открыть меню
     sign_in:            Вход
     sign_out:           Выход
-    social_sign_in:     Войти через социальные сети
+    social_sign_in:     "Войдите через одну из социальных сетей, чтобы воспользоваться всеми возможностями сайта:"
     related_books:      Похожие книги
     author_related:     Книги автора
     featured_menu_book: Интересное
@@ -84,24 +84,25 @@ front:
     send:               Отправить
     review:             'рецензия|рецензии|рецензий'
     book:
-        profile:    Личный кабинет
-        rating:     Рейтинг
-        annotation: Описание
-        reviews:    Рецензии
+        profile:         Личный кабинет
+        rating:          Рейтинг
+        annotation:      Описание
+        reviews:         Рецензии
     profile:
-        title:      Кабинет
-        my_ratings: Мои рейтинги
-        my_reviews: Мои рецензии
-        statistics: Статистика
+        title:           Кабинет
+        my_ratings:      Мои рейтинги
+        my_reviews:      Мои рецензии
+        statistics:      Статистика
         statistics_week: Статистика за неделю
-        number:     Место
-        name:       Имя пользователя
-        count:      Число рецензий
-        you:        (Вы)
+        number:          Место
+        name:            Имя пользователя
+        count:           Число рецензий
+        you:             (Вы)
     pagination:
-        next:       Дальше
-        previous:   Назад
+        next:            Дальше
+        previous:        Назад
     download:                         Скачать
+    please_login_to_download:         '<a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">%text%</a>'
     litres_download_url:              "https://www.litres.ru/gettrial/?art=%litres_hub_id%&format=%format%&lfrom=%partner_id%"
     litres_book_url:                  "https://www.litres.ru/pages/biblio_book/?art=%litres_hub_id%&lfrom=%partner_id%"
     litres_read_book_url:             "https://www.litres.ru/static/or4/view/or.html?baseurl=/static/trials/%litres_6_digit_id%/%litres_8_digit_id%.&uuid=%litres_document_id%&art=%litres_hub_id%&trials=1&lfrom=%partner_id%"

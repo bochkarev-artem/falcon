@@ -7,13 +7,13 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Ads;
 use AppBundle\Entity\Author;
-use AppBundle\Entity\PageInterface;
 use AppBundle\Entity\Genre;
+use AppBundle\Entity\PageInterface;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
 use AppBundle\Model\SeoData;
 use Sonata\SeoBundle\Seo\SeoPage;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SeoManager
 {
@@ -23,7 +23,7 @@ class SeoManager
     protected $seoPage;
 
     /**
-     * @var Translator
+     * @var TranslatorInterface
      */
     protected $translator;
 
@@ -34,10 +34,10 @@ class SeoManager
 
     /**
      * @param SeoPage    $seoPage
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      * @param AdsManager $adsManager
      */
-    public function __construct(SeoPage $seoPage, Translator $translator, AdsManager $adsManager)
+    public function __construct(SeoPage $seoPage, TranslatorInterface $translator, AdsManager $adsManager)
     {
         $this->seoPage    = $seoPage;
         $this->translator = $translator;

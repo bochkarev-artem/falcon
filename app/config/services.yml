@@ -24,6 +24,7 @@ services:
           - '@AppBundle\Service\QueryService'
           - "@doctrine.orm.default_entity_manager"
           - "%default_per_page%"
+        public: true
 
     AppBundle\Service\ImageUploadService:
         arguments:
@@ -100,6 +101,7 @@ services:
         arguments:
             - "@fos_elastica.index.books.book"
             - "%default_per_page%"
+        public: true
 
     AdminBundle\EventListener\AuthorListener:
         tags:

@@ -13,7 +13,7 @@
         var bookRating      = {{ book_rating_data['rating'] }};
         var bookRatingTotal = {{ book_rating_data['total'] }};
         var bookId          = {{ book.book_id }};
-        {% if app.user.id is defined %}
+        {% if app.user %}
             var bookRatingPath = "{{ path('add_book_rating') }}";
             var bookReviewPath = "{{ path('add_book_review') }}";
             var bookReviewMsg  = "{{ 'front.book_review_added'|trans }}";
@@ -69,7 +69,7 @@
                                             <div itemscope itemtype="http://schema.org/Book">
                                                 <div class="book-review"
                                                      itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                                                    <div class="book-rating{% if app.user.id is not defined %} disabled{% endif %}"></div>
+                                                    <div class="book-rating{% if not app.user %} disabled{% endif %}"></div>
                                                     <div class="rating-value" itemprop="ratingValue">{{ book_rating_data['rating'] ? book_rating_data['rating'] : '' }}</div>
                                                     <div class="book-rating-votes-total">
                                                         <span class="rating-total-value" itemprop="ratingCount">
@@ -141,7 +141,11 @@
                                                 <ul class="book-tags">
                                                     <li><span>{{ 'front.download'|trans }}:</span></li>
                                                     {%- for link in download_links -%}
-                                                        <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
+                                                        {% if app.user %}
+                                                            <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
+                                                        {% else %}
+                                                            <li>{{ 'front.please_login_to_download'|trans({'%text%': link['text']})|raw }}</li>
+                                                        {% endif %}
                                                     {%- endfor -%}
                                                 </ul>
                                             {% endif %}
