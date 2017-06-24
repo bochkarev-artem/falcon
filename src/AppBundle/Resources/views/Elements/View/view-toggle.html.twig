@@ -9,15 +9,17 @@
         <div class="col-md-5">
             {% if sort_order is defined %}
                 <div class="selectric-dec">
-                    <span>{{ 'front.sort.sorting'|trans }}</span>
-                    <select>
-                        {% for value, select_option in select_options %}
-                            <option value="{{ value }}"
-                                    {% if sort_order is defined and sort_order == value %} selected{% endif %}>
-                                {{ select_option }}
-                            </option>
-                        {% endfor %}
-                    </select>
+                    <div class="selectric-block">
+                        <span>{{ 'front.sort.sorting'|trans }}</span>
+                        <select>
+                            {% for value, select_option in select_options %}
+                                <option value="{{ value }}"
+                                        {% if sort_order is defined and sort_order == value %} selected{% endif %}>
+                                    {{ select_option }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             {% endif %}
         </div>

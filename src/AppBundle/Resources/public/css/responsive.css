@@ -284,7 +284,7 @@
 	.widget-categories {
 		display: none;
 	}
-	.nav-tabs {
+	.nav-tabs, .selectric-block {
 		display: none !important;
 	}
 	.navigation-wrap{
