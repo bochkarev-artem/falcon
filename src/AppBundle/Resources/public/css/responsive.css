@@ -287,6 +287,10 @@
 	.nav-tabs, .selectric-block {
 		display: none !important;
 	}
+    .selectric-dec {
+		min-height: 80px;
+		border: none;
+	}
 	.navigation-wrap{
 		display: none;
 	}
