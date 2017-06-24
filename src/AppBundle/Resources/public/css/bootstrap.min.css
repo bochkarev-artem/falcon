@@ -4015,7 +4015,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 	content: "/\00a0"
 }
 .breadcrumb>.active {
-	color: #777
+	color: #fea422
 }
 .pagination {
 	display: inline-block;

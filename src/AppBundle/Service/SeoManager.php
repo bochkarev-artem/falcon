@@ -262,7 +262,7 @@ class SeoManager
      *
      * @return array
      */
-    public function buildBreadcrumbs($entity)
+    public function buildBreadcrumbs($entity) // TODO maybe refactor this to adhere Liskov and Open-Closed principles
     {
         $breadcrumbs[] = [
             'url'  => '/',
@@ -271,7 +271,12 @@ class SeoManager
 
         if ($entity instanceof Sequence) {
             $name = $entity->getName();
-        } elseif ($entity instanceof Genre || $entity instanceof Tag) {
+        } elseif ($entity instanceof Genre) {
+            $name = $entity->getTitle();
+            $breadcrumbs[] = [
+                'name' => $entity->getParent()->getTitle(),
+            ];
+        } elseif ($entity instanceof Tag) {
             $name = $entity->getTitle();
         } elseif ($entity instanceof Author) {
             $name = $entity->getShortName();
