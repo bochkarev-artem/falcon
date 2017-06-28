@@ -20,6 +20,9 @@
     .adsbygoogle-top {
         display: none !important;
     }
+    .adsbygoogle-side {
+        clear:both;
+    }
 }
 /*
 =================================================
