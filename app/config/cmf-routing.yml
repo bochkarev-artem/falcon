@@ -2,7 +2,7 @@ cmf_routing:
     chain:
         routers_by_id:
             AppBundle\Routing\DynamicRouter: 200
-            router.default:         100
+            router.default:                  100
     dynamic:
         enabled: true
         route_provider_service_id: AppBundle\Routing\RouteProvider

@@ -458,6 +458,7 @@ class SiteController extends Controller
                 'read_link'             => $litresBookManager->getReadOnlineLink($book),
                 'show_genres_in_menu'   => true,
                 'ad_top'                => $seoManager->getAdByPosition(Ads::POSITION_BOOK_TOP),
+                'ad_mobile'             => $seoManager->getAdByPosition(Ads::POSITION_BOOK_MOBILE),
                 'ad_bottom'             => $seoManager->getAdByPosition(Ads::POSITION_BOOK_BOTTOM),
             ]
         );

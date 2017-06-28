@@ -17,5 +17,6 @@ choice:
         index:        Главная
         book_top:     Книга (сверху)
         book_bottom:  Книга (внизу)
+        book_mobile:  Книга (мобильный)
         catalog_side: Каталог (сбоку)
         catalog_top:  Каталог (сверху)

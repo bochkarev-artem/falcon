@@ -10,3 +10,24 @@
     padding-bottom: 0 !important;
     padding-top: 10px !important;
 }
+
+/*
+=================================================
+			FROM 0PX TO 990PX
+=================================================
+*/
+@media (max-width: 991px) {
+    .adsbygoogle-top {
+        display: none !important;
+    }
+}
+/*
+=================================================
+			FROM 991PX AND MORE
+=================================================
+*/
+@media (min-width: 991px) {
+    .adsbygoogle-side {
+        display: none !important;
+    }
+}

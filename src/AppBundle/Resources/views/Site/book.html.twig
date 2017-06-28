@@ -62,6 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="ya-share2 float-right" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus" data-counter=""></div>
                                 <div class="col-md-5">
                                     <div class="book-text">
                                         <div class="book-heading book-padding">
@@ -86,7 +87,7 @@
                                                 <li>{{ reviews|length ~ ' ' ~ 'front.review'|transchoice(reviews|length) }}</li>
                                             </ul>
                                         </div>
-                                        <div class="book-tags-wrap book-padding">
+                                        <div class="book-tags-wrap">
                                             <ul class="book-tags">
                                                 <li><span>{{ 'front.author'|trans }}:</span></li>
                                                 <li>
@@ -153,14 +154,17 @@
                                             <div class="book-tags">
                                                 <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
                                             </div>
-
-                                            <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus" data-counter=""></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% if ad_mobile %}
+                        <div class="col-md-3">
+                            {{ ad_mobile.code|raw }}
+                        </div>
+                    {% endif %}
                     <aside class="col-md-3">
                         {% include "@App/Elements/featured_books_aside.html.twig" %}
                     </aside>

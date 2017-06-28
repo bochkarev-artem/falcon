@@ -47,11 +47,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        # http://symfony.com/doc/current/bundles/FOSUserBundle/command_line_tools.html
     encoders:
         FOS\UserBundle\Model\UserInterface:
             algorithm: bcrypt

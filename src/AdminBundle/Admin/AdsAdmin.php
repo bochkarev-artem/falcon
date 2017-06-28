@@ -102,6 +102,7 @@ class AdsAdmin extends AbstractAdmin
             'choice.ads_position.book_bottom'  => Ads::POSITION_BOOK_BOTTOM,
             'choice.ads_position.catalog_side' => Ads::POSITION_CATALOG_SIDE,
             'choice.ads_position.catalog_top'  => Ads::POSITION_CATALOG_TOP,
+            'choice.ads_position.book_mobile'  => Ads::POSITION_BOOK_MOBILE,
         ];
     }
 
