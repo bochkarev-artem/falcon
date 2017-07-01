@@ -1,9 +1,0 @@
-{% extends 'SonataAdminBundle:CRUD:base_list_field.html.twig' %}
-
-{% block field %}
-    {% if field_description.options.widget is defined %}
-        {{ block(field_description.options.widget) }}
-    {% else %}
-        {{ value }}
-    {% endif %}
-{% endblock %}

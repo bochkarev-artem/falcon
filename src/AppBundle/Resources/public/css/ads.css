@@ -2,6 +2,10 @@
     background: none !important;
 }
 
+.no-padding {
+    padding: 0 !important;
+}
+
 .ads__catalog_top {
     margin-bottom: 20px;
 }
