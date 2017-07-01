@@ -141,10 +141,10 @@ class MenuBuilder
                 ->select('b, g')
                 ->from('AppBundle:Book', 'b')
                 ->leftJoin('b.genres', 'g')
+                ->leftJoin('b.ratings', 'rating')
                 ->andWhere($qb->expr()->eq('b.featuredMenu', ':featured_menu'))
+                ->addOrderBy('rating.rating', 'DESC')
                 ->setParameter('featured_menu', true)
-//                ->addOrderBy('b.rating', 'DESC') // TODO
-//                ->addOrderBy('b.reviewCount', 'DESC')
             ;
 
             $books = $qb->getQuery()->getResult();
