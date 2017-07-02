@@ -63,7 +63,9 @@ class BookAdmin extends AbstractAdmin
             ->add('hasTrial')
             ->add('featuredHome')
             ->add('featuredMenu')
-            ->add('annotation')
+            ->add('annotation', null, [
+                'attr' => ['rows' => '7'],
+            ])
             ->add('lang')
             ->add('publisher')
             ->add('cityPublished')

@@ -30,7 +30,6 @@ class ReviewAdmin extends AbstractAdmin
             ])
             ->add('text', null, [
                 'attr' => ['rows' => '7'],
-
             ])
             ->add('status', 'choice', [
                 'choices'            => $this->getReviewStatusChoices(),
