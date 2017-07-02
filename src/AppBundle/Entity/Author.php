@@ -9,12 +9,9 @@ use AppBundle\Model\Timestampable\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use League\Flysystem\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity
- * @Vich\Uploadable
  * @ORM\Table(
  *     name="author",
  *     uniqueConstraints={
@@ -119,20 +116,6 @@ class Author implements PageInterface
      * @ORM\Column(name="photo_path", type="string", nullable=true)
      */
     private $photoPath;
-
-    /**
-     * @var string $photoName
-     *
-     * @ORM\Column(name="photo_name", type="string", nullable=true)
-     */
-    private $photoName;
-
-    /**
-     * @Vich\UploadableField(mapping="author_image", fileNameProperty="photoName")
-     *
-     * @var File
-     */
-    private $photoFile;
 
     /**
      * @var string $description
@@ -424,26 +407,6 @@ class Author implements PageInterface
     }
 
     /**
-     * @return File
-     */
-    public function getPhotoFile()
-    {
-        return $this->photoFile;
-    }
-
-    /**
-     * @param File $photoFile
-     *
-     * @return Author
-     */
-    public function setPhotoFile($photoFile)
-    {
-        $this->photoFile = $photoFile;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getPhotoPath()
@@ -459,26 +422,6 @@ class Author implements PageInterface
     public function setPhotoPath($photoPath)
     {
         $this->photoPath = $photoPath;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPhotoName()
-    {
-        return $this->photoName;
-    }
-
-    /**
-     * @param string $photoName
-     *
-     * @return Author
-     */
-    public function setPhotoName($photoName)
-    {
-        $this->photoName = $photoName;
 
         return $this;
     }

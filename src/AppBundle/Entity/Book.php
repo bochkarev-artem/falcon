@@ -9,14 +9,11 @@ use AppBundle\Model\Timestampable\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use League\Flysystem\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * AppBundle\Entity\Book
  *
  * @ORM\Entity
- * @Vich\Uploadable
  * @ORM\Table(name="book")
  */
 class Book implements PageInterface
@@ -52,20 +49,6 @@ class Book implements PageInterface
      * @ORM\Column(name="cover", type="string", nullable=true)
      */
     private $cover;
-
-    /**
-     * @var string $coverName
-     *
-     * @ORM\Column(name="cover_name", type="string", length=255, nullable=true)
-     */
-    private $coverName;
-
-    /**
-     * @Vich\UploadableField(mapping="book_image", fileNameProperty="coverName")
-     *
-     * @var File
-     */
-    private $coverFile;
 
     /**
      * @var string $coverPath
@@ -682,46 +665,6 @@ class Book implements PageInterface
     public function setCoverPath($coverPath)
     {
         $this->coverPath = $coverPath;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCoverName()
-    {
-        return $this->coverName;
-    }
-
-    /**
-     * @param string $coverName
-     *
-     * @return Book
-     */
-    public function setCoverName($coverName)
-    {
-        $this->coverName = $coverName;
-
-        return $this;
-    }
-
-    /**
-     * @return File
-     */
-    public function getCoverFile()
-    {
-        return $this->coverFile;
-    }
-
-    /**
-     * @param File $coverFile
-     *
-     * @return Book
-     */
-    public function setCoverFile($coverFile)
-    {
-        $this->coverFile = $coverFile;
 
         return $this;
     }

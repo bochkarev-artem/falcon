@@ -64,9 +64,7 @@ class ImageUploadService
             return false;
         }
 
-        $fileName = basename($coverUrl);
-        $path     = "$this->bookMapping/" . basename($fileName);
-
+        $path = "$this->bookMapping/" . basename($coverUrl);
         if (!$this->s3Filesystem->has($path)) {
             $fileContent = @file_get_contents($coverUrl);
             if (false === $fileContent) {
@@ -76,7 +74,6 @@ class ImageUploadService
             echo ">>> $bookId book updated with photo\n";
 
             $this->s3Filesystem->write($path, $fileContent);
-            $book->setCoverName($fileName);
             $book->setCoverPath($path);
         }
 
@@ -94,9 +91,7 @@ class ImageUploadService
             return false;
         }
 
-        $fileName = basename($photoUrl);
-        $path     = "$this->authorMapping/" . $fileName;
-
+        $path = "$this->authorMapping/" . basename($photoUrl);
         if (!$this->s3Filesystem->has($path)) {
             $fileContent = @file_get_contents($photoUrl);
             if (false === $fileContent) {
@@ -106,7 +101,6 @@ class ImageUploadService
             echo ">>> $authorId author updated with photo\n";
 
             $this->s3Filesystem->write($path, $fileContent);
-            $author->setPhotoName($fileName);
             $author->setPhotoPath($path);
         }
 
