@@ -210,6 +210,7 @@ class BookAdmin extends AbstractAdmin
             ->add('litresHubId')
             ->add('documentId')
             ->add('title')
+            ->add('featuredHome', null, ['editable' => true])
             ->add('path')
             ->add('authors')
             ->add('genres')
