@@ -18,6 +18,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Lo
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         $referer = $request->headers->get('referer');
+        $referer = $referer ?? $request->getPathInfo();
 
         return new RedirectResponse($referer);
     }
@@ -30,6 +31,7 @@ class AuthenticationHandler implements AuthenticationSuccessHandlerInterface, Lo
     public function onLogoutSuccess(Request $request)
     {
         $referer = $request->headers->get('referer');
+        $referer = $referer ?? $request->getPathInfo();
 
         return new RedirectResponse($referer);
     }
