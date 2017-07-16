@@ -58,17 +58,17 @@ class LitresService
     /**
      * @var int $perPage
      */
-    private $perPage = 125;
+    private $perPage = 100;
 
     /**
      * @var int $batchSize
      */
-    private $batchSize = 10;
+    private $batchSize = 100;
 
     /**
      * @var int $bookExistedCount
      */
-    private $bookExistedCount = 500;
+    private $bookExistedCount = 1000;
 
     /**
      * @var bool $debug
@@ -76,9 +76,14 @@ class LitresService
     private $debug;
 
     /**
-     * @var integer $timeSleep
+     * @var integer $skipped
      */
-    private $timeSleep;
+    private $skipped;
+
+    /**
+     * @var integer $step
+     */
+    private $step;
 
     /**
      * @param EntityManager $em
@@ -98,14 +103,12 @@ class LitresService
     /**
      * @param string  $param
      * @param string  $debug
-     * @param integer $timeSleep
      *
      * @return bool
      */
-    public function getData($param, $debug, $timeSleep)
+    public function getData($param, $debug)
     {
-        $this->debug     = $debug == 'y' ? true : false;
-        $this->timeSleep = $timeSleep;
+        $this->debug = $debug == 'y' ? true : false;
 
         switch ($param) {
             case 'books':
@@ -142,7 +145,7 @@ class LitresService
                 $title = $this->mbUcfirstOnly($node['title']);
                 if (!is_null($id)) {
                     /** @var Genre $genre */
-                    if ($genre = $this->genreRepo->findOneByToken($token)) {
+                    if ($genre = $this->genreRepo->findOneBy(['token' => $token])) {
                         if (!$genre->getTitle()) {
                             $genre->setTitle($title);
                         }
@@ -177,62 +180,6 @@ class LitresService
     }
 
     /**
-     * @param string $documentId
-     * @param string $endpoint
-     *
-     * @throws \ErrorException
-     * @return Author|boolean
-     */
-    public function getAuthorData($documentId, $endpoint = 'http://robot.litres.ru/pages/catalit_persons/')
-    {
-        $description = '';
-        $endpoint    = $endpoint . '?person=' . $documentId;
-        $xml         = $this->getXml($endpoint);
-        $author      = new Author();
-        $subject     = $xml->{'subject'};
-
-        if (!$xml->{'subject'}) {
-            return false;
-        }
-
-        $litresId = (integer) $subject['hub_id'];
-        if (!$litresId) { // no author
-            return false;
-        }
-
-        $fName = (string) $subject->{'first-name'};
-        $mName = (string) $subject->{'middle-name'};
-        $lName = (string) $subject->{'last-name'};
-
-        if (!($fName || $mName || $lName)) { // no real name
-            return false;
-        }
-
-        if ($subject->{'text_descr_html'}->hidden) {
-            $description = strip_tags($subject->{'text_descr_html'}->hidden->asXML(), '<p><br>');
-        }
-
-        $author
-            ->setDocumentId((string) $subject['id'])
-            ->setLitresHubId($litresId)
-            ->setLevel((integer) $subject->{'level'})
-            ->setArtsCount((integer) $subject->{'arts-count'})
-            ->setFirstName($fName)
-            ->setMiddleName($mName)
-            ->setLastName($lName)
-            ->setDescription($description)
-            ->setPhoto((string) $subject->{'photo'})
-            ->setReviewCount((integer) $subject->{'recenses-count'})
-        ;
-
-        $this->em->persist($author);
-        $this->em->flush();
-        sleep($this->timeSleep);
-
-        return $author;
-    }
-
-    /**
      * @param \SimpleXMLElement $sequence
      *
      * @return Sequence|null
@@ -241,7 +188,7 @@ class LitresService
     {
         $sequenceId   = (integer) $sequence['id'];
         $sequenceName = (string) $sequence['name'];
-        $sequence     = $this->sequenceRepo->findOneByLitresId($sequenceId);
+        $sequence     = $this->sequenceRepo->findOneBy(['litresId' => $sequenceId]);
 
         if (!$sequence && $sequenceId) {
             $sequence = new Sequence();
@@ -256,16 +203,33 @@ class LitresService
     }
 
     /**
-     * Let`s not create Author from Book data
      * @param string $authorId
+     * @param \SimpleXMLElement $subject
      *
      * @return Author|false
      */
-    public function getAuthor($authorId)
+    public function getAuthor($authorId, $subject)
     {
-        $author = $this->authorRepo->findOneByDocumentId($authorId);
+        $author = $this->authorRepo->findOneBy(['documentId' => $authorId]);
         if (!$author) {
-            $author = $this->getAuthorData($authorId);
+            $fName = (string) $subject->{'first-name'};
+            $mName = (string) $subject->{'middle-name'};
+            $lName = (string) $subject->{'last-name'};
+
+            if (!($fName || $mName || $lName)) { // no real name
+                return false;
+            }
+
+            $author = new Author;
+            $author
+                ->setDocumentId((string) $authorId)
+                ->setFirstName($fName)
+                ->setMiddleName($mName)
+                ->setLastName($lName)
+            ;
+
+            $this->em->persist($author);
+            $this->em->flush();
         }
 
         return $author;
@@ -278,7 +242,7 @@ class LitresService
      */
     public function getGenre($genreToken)
     {
-        $genre = $this->genreRepo->findOneByToken($genreToken);
+        $genre = $this->genreRepo->findOneBy(['token' => $genreToken]);
 
         return $genre;
     }
@@ -292,7 +256,7 @@ class LitresService
     {
         $tagId    = $tag['id'];
         $tagTitle = $this->mbUcfirst($tag['tag_title']);
-        $tag      = $this->tagRepo->findOneByLitresId($tagId);
+        $tag      = $this->tagRepo->findOneBy(['litresId' => $tagId]);
         if (!$tag && $tagId) {
             $tag = new Tag();
             $tag->setLitresId($tagId);
@@ -311,152 +275,155 @@ class LitresService
      * @throws \ErrorException
      * @return bool
      */
-    public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/') // TODO refactor
+    public function getBooksData($endpoint = 'http://robot.litres.ru/pages/catalit_browser/')
     {
-        $skipped = 0;
-        $step    = 0;
-        for ($i = 0; $i < 830; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $start = $i * $this->perPage + 1;
             $xml   = $this->getXml($endpoint . "?limit=$start,$this->perPage");
-            foreach ($xml->{'fb2-book'} as $data) {
-                $step++;
-                $hubId = (string)$data['hub_id'];
-                if ($book = $this->bookRepo->findOneByLitresHubId($hubId)) {
-                    /** @var Book $book */
-                    if ($this->debug) {
-                        echo ">>> " . $book->getId() . " book id already exists ($step)\n";
-                    }
-                    $skipped++;
+            $this->iterateBooks($xml->{'fb2-book'});
 
-                    continue;
-                }
-
-                $annotation = '';
-                $book = new Book;
-                $titleInfo = $data->{'text_description'}->hidden->{'title-info'};
-                $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
-                $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
-
-                foreach ($titleInfo->author as $author) {
-                    $authorId = $author->id;
-                    $author = $this->getAuthor($authorId);
-                    if ($author) {
-                        $book->addAuthor($author);
-                    } else {
-                        if ($this->logger && $this->debug) {
-                            $this->logger->log(
-                                LogLevel::CRITICAL,
-                                sprintf('Author %s not found', $authorId)
-                            );
-                        }
-
-                        $skipped++;
-                        continue 2;
-                    }
-                }
-
-                $genres = [];
-                foreach ($titleInfo->genre as $token) {
-                    $token = (string)$token;
-                    $genres[$token] = $token; // To exclude duplicated
-                }
-
-                foreach ($genres as $token) {
-                    $genre = $this->getGenre($token);
-                    if ($genre) {
-                        $book->addGenre($genre);
-                    } else {
-                        if ($this->logger && $this->debug) {
-                            $this->logger->log(
-                                LogLevel::CRITICAL,
-                                sprintf('Genre %s not found', $genre)
-                            );
-                        }
-
-                        $skipped++;
-                        continue 2;
-                    }
-                }
-
-                foreach ($data->{'art_tags'}->tag as $tag) {
-                    $tag = $this->getTag($tag);
-                    if ($tag) {
-                        $book->addTag($tag);
-                    }
-                }
-
-                if ($data->{'sequences'}) {
-                    foreach ($data->{'sequences'}->sequence as $sequence) {
-                        $sequenceNumber = (integer)$sequence['number'];
-                        $sequence = $this->getSequence($sequence);
-                        if ($sequence) {
-                            $book->setSequence($sequence);
-                            $book->setSequenceNumber($sequenceNumber);
-                            break;
-                        }
-                    }
-                }
-
-                if ($titleInfo->annotation) {
-                    $annotation = strip_tags($titleInfo->annotation->asXML(), '<p><br>');
-                }
-
-                /** @var Author $mainAuthor */
-                $mainAuthor = $book->getAuthors()->first();
-
-                $book
-                    ->setLitresHubId($hubId)
-                    ->setCover((string)$data['cover'])
-                    ->setPrice((string)$data['base_price'])
-                    ->setHasTrial((string)$data['has_trial'])
-                    ->setTitle(substr((string)$titleInfo->{'book-title'}, 0, 254))
-                    ->setAnnotation($annotation)
-                    ->setLang((string)$titleInfo->lang)
-                    ->setDocumentId((string)$documentInfo->id)
-                    ->setPublisher((string)$publishInfo->publisher)
-                    ->setYearPublished((string)$publishInfo->year)
-                    ->setCityPublished((string)$publishInfo->city)
-                    ->setIsbn((string)$publishInfo->isbn)
-                    ->setMainAuthorSlug($mainAuthor->getSlug())
-                ;
-
-                $date = (string)$titleInfo->date['value'];
-                if ($date && $date != '0000-00-00') {
-                    $date = new \DateTime($date);
-                    $book->setDate($date);
-                }
-
-                $this->em->persist($book);
-                if ($this->debug) {
-                    echo ">>> book persisted ($step)\n";
-                }
-
-                if ($step % $this->batchSize === 0) {
-                    $this->em->flush();
-                    $this->em->clear();
-                }
-            }
-
-            if ($skipped >= $this->bookExistedCount) {
+            if ($this->skipped >= $this->bookExistedCount) {
                 break;
             }
-
-            sleep($this->timeSleep);
         }
 
-        $numberProcessed = $i * $this->perPage - $skipped;
+        $numberProcessed = $i * $this->perPage - $this->skipped;
         if ($this->logger && $this->debug) {
             $this->logger->log(
                 LogLevel::INFO,
                 sprintf('%s books flushed', $numberProcessed)
             );
         }
-        echo ">>> $numberProcessed books flushed, $skipped skipped\n";
+        echo ">>> $numberProcessed books flushed, $this->skipped skipped\n";
 
         $this->em->flush();
         $this->em->clear();
 
         return true;
+    }
+    /**
+     * @param \SimpleXMLElement[] $books
+     */
+    public function iterateBooks($books)
+    {
+        foreach ($books as $data) {
+            $this->step++;
+            $hubId = (string)$data['hub_id'];
+            if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
+                /** @var Book $book */
+                if ($this->debug) {
+                    echo ">>> " . $book->getId() . " book id already exists ($this->step)\n";
+                }
+                $this->skipped++;
+
+                continue;
+            }
+
+            $annotation = '';
+            $book = new Book;
+            $titleInfo = $data->{'text_description'}->hidden->{'title-info'};
+            $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
+            $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
+
+            foreach ($titleInfo->author as $author) {
+                $authorId = $author->id;
+                $author = $this->getAuthor($authorId, $author);
+                if ($author) {
+                    $book->addAuthor($author);
+                } else {
+                    if ($this->logger && $this->debug) {
+                        $this->logger->log(
+                            LogLevel::CRITICAL,
+                            sprintf('Author %s not found', $authorId)
+                        );
+                    }
+
+                    $this->skipped++;
+                    continue 2;
+                }
+            }
+
+            $genres = [];
+            foreach ($titleInfo->genre as $token) {
+                $token = (string)$token;
+                $genres[$token] = $token; // To exclude duplicated
+            }
+
+            foreach ($genres as $token) {
+                $genre = $this->getGenre($token);
+                if ($genre) {
+                    $book->addGenre($genre);
+                } else {
+                    if ($this->logger && $this->debug) {
+                        $this->logger->log(
+                            LogLevel::CRITICAL,
+                            sprintf('Genre %s not found', $genre)
+                        );
+                    }
+
+                    $this->skipped++;
+                    continue 2;
+                }
+            }
+
+            foreach ($data->{'art_tags'}->tag as $tag) {
+                $tag = $this->getTag($tag);
+                if ($tag) {
+                    $book->addTag($tag);
+                }
+            }
+
+            if ($data->{'sequences'}) {
+                foreach ($data->{'sequences'}->sequence as $sequence) {
+                    $sequenceNumber = (integer)$sequence['number'];
+                    $sequence = $this->getSequence($sequence);
+                    if ($sequence) {
+                        $book->setSequence($sequence);
+                        $book->setSequenceNumber($sequenceNumber);
+                        break;
+                    }
+                }
+            }
+
+            if ($titleInfo->annotation) {
+                $annotation = strip_tags($titleInfo->annotation->asXML(), '<p><br>');
+            }
+
+            /** @var Author $mainAuthor */
+            $mainAuthor = $book->getAuthors()->first();
+
+            $book
+                ->setLitresHubId($hubId)
+                ->setCover((string)$data['cover'])
+                ->setPrice((string)$data['base_price'])
+                ->setHasTrial((string)$data['has_trial'])
+                ->setTitle(substr((string)$titleInfo->{'book-title'}, 0, 254))
+                ->setAnnotation($annotation)
+                ->setLang((string)$titleInfo->lang)
+                ->setDocumentId((string)$documentInfo->id)
+                ->setPublisher((string)$publishInfo->publisher)
+                ->setYearPublished((string)$publishInfo->year)
+                ->setCityPublished((string)$publishInfo->city)
+                ->setIsbn((string)$publishInfo->isbn)
+                ->setMainAuthorSlug($mainAuthor->getSlug())
+            ;
+
+            $date = (string)$titleInfo->date['value'];
+            if ($date && $date != '0000-00-00') {
+                $date = new \DateTime($date);
+                $book->setDate($date);
+            }
+
+            $this->em->persist($book);
+            if ($this->debug) {
+                echo ">>> book persisted ($this->step)\n";
+            }
+
+            if ($this->step % $this->batchSize === 0) {
+                $this->em->flush();
+                $this->em->clear();
+            }
+        }
     }
 
     /**

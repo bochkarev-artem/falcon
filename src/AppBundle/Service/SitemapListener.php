@@ -30,6 +30,11 @@ class SitemapListener implements SitemapListenerInterface
     protected $bookOffset = 0;
 
     /**
+     * @var integer
+     */
+    protected $authorOffset = 0;
+
+    /**
      * @param EntityManager $em
      * @param string        $baseUrl
      * @param string        $baseScheme
@@ -54,6 +59,12 @@ class SitemapListener implements SitemapListenerInterface
             'books2'  => 'Book',
             'books3'  => 'Book',
             'books4'  => 'Book',
+            'books5'  => 'Book',
+            'books6'  => 'Book',
+            'books7'  => 'Book',
+            'books8'  => 'Book',
+            'books9'  => 'Book',
+            'books10'  => 'Book',
         ];
 
         foreach ($queryBuilders as $section => $entityName) {
