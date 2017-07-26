@@ -23,6 +23,7 @@ services:
         arguments:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
+          - "%kernel.root_dir%"
         public: true
 
     AppBundle\Service\BookPageService:
