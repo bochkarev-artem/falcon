@@ -19,6 +19,12 @@ services:
           - "@logger"
         public: true
 
+    AppBundle\Service\LitresFileService:
+        arguments:
+          - "@doctrine.orm.default_entity_manager"
+          - "@logger"
+        public: true
+
     AppBundle\Service\BookPageService:
         arguments:
           - '@AppBundle\Service\QueryService'
