@@ -30,17 +30,7 @@ class MenuBuilder
     /**
      * @var string
      */
-    protected $cacheMainFile;
-
-    /**
-     * @var string
-     */
-    protected $cacheSideFile;
-
-    /**
-     * @var string
-     */
-    protected $cacheMobileFile;
+    protected $cacheFile;
 
     /**
      * @var QueryService
@@ -48,63 +38,66 @@ class MenuBuilder
     protected $queryService;
 
     /**
+     * @var LocaleService
+     */
+    protected $localeService;
+
+    /**
+     * @var string
+     */
+    protected $locale;
+
+    /**
      * @param EntityManager     $em
      * @param \Twig_Environment $twig
      * @param string            $cacheDir
      * @param QueryService      $queryService
+     * @param LocaleService     $localeService
      */
-    public function __construct(EntityManager $em, \Twig_Environment $twig, $cacheDir, QueryService $queryService)
-    {
-        $this->em              = $em;
-        $this->twig            = $twig;
-        $this->queryService    = $queryService;
-        $cacheDir              = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
-        $this->cacheDir        = $cacheDir . '/menuCache';
-        $this->cacheMainFile   = $this->cacheDir . '/mainMenu.html';
-        $this->cacheSideFile   = $this->cacheDir . '/sideMenu.html';
-        $this->cacheMobileFile = $this->cacheDir . '/mobileMenu.html';
+    public function __construct(
+        EntityManager $em,
+        \Twig_Environment $twig,
+        $cacheDir,
+        QueryService $queryService,
+        LocaleService $localeService
+    ) {
+        $this->em            = $em;
+        $this->twig          = $twig;
+        $this->queryService  = $queryService;
+        $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
+        $this->cacheDir      = $cacheDir . '/menuCache';
+        $this->cacheFile     = $this->cacheDir . '/%sMenu.%s.html';
+        $this->localeService = $localeService;
+        $this->locale        = $localeService->getLocale();
     }
 
     /**
+     * @param string $type
+     *
      * @return string
      */
-    public function getMainMenu()
+    public function getMenu($type)
     {
-        $cache = new ConfigCache($this->cacheMainFile, false);
+        $fileName = $this->getCacheFileName($type);
+        $cache = new ConfigCache($fileName, false);
 
         if (!$cache->isFresh()) {
-            $this->updateCache($cache, 'main');
+            $this->updateCache($cache, $type);
         }
 
         return file_get_contents($cache->getPath());
     }
 
     /**
+     * @param $type
+     *
      * @return string
      */
-    public function getMobileMenu()
+    protected function getCacheFileName($type)
     {
-        $cache = new ConfigCache($this->cacheMobileFile, false);
+        $fileName = sprintf($this->cacheFile, $type, $this->locale);
 
-        if (!$cache->isFresh()) {
-            $this->updateCache($cache, 'mobile');
-        }
-
-        return file_get_contents($cache->getPath());
-    }
-
-    /**
-     * @return string
-     */
-    public function getSideMenu()
-    {
-        $cache = new ConfigCache($this->cacheSideFile, false);
-
-        if (!$cache->isFresh()) {
-            $this->updateCache($cache, 'side');
-        }
-
-        return file_get_contents($cache->getPath());
+        return $fileName;
     }
 
     /**
@@ -143,8 +136,10 @@ class MenuBuilder
                 ->leftJoin('b.genres', 'g')
                 ->leftJoin('b.ratings', 'rating')
                 ->andWhere($qb->expr()->eq('b.featuredMenu', ':featured_menu'))
+                ->andWhere($qb->expr()->eq('b.lang', ':locale'))
                 ->addOrderBy('rating.rating', 'DESC')
                 ->setParameter('featured_menu', true)
+                ->setParameter('locale', $this->locale)
             ;
 
             $books = $qb->getQuery()->getResult();
@@ -222,7 +217,7 @@ class MenuBuilder
 
         $categoryRepo = $this->em->getRepository('AppBundle:Genre');
         $qb           = $categoryRepo->createQueryBuilder('g');
-        $qb->addOrderBy('g.title');
+        $qb->addOrderBy('g.title' . ucfirst($this->locale));
 
         $categories = $qb->getQuery()->getResult() ?: [];
 

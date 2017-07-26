@@ -5,6 +5,7 @@
 
 namespace AppBundle\Routing;
 
+use AppBundle\Service\LocaleService;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Term;
 use Elastica\Type;
@@ -27,6 +28,16 @@ class DynamicRouter extends BaseDynamicRouter
     private $repository;
 
     /**
+     * @var RequestContext
+     */
+    protected $context;
+
+    /**
+     * @var LocaleService
+     */
+    private $localeService;
+
+    /**
      * @param RequestContext                              $context
      * @param RequestMatcherInterface|UrlMatcherInterface $matcher
      * @param UrlGeneratorInterface                       $generator
@@ -34,6 +45,7 @@ class DynamicRouter extends BaseDynamicRouter
      * @param EventDispatcherInterface|null               $eventDispatcher
      * @param RouteProviderInterface                      $provider
      * @param Type                                        $repository
+     * @param LocaleService $localeService
      */
     public function __construct(
         RequestContext $context,
@@ -42,7 +54,8 @@ class DynamicRouter extends BaseDynamicRouter
         $uriFilterRegexp = '',
         EventDispatcherInterface $eventDispatcher = null,
         RouteProviderInterface $provider = null,
-        Type $repository
+        Type $repository,
+        LocaleService $localeService
     ) {
         parent::__construct(
             $context,
@@ -53,8 +66,9 @@ class DynamicRouter extends BaseDynamicRouter
             $provider
         );
 
-        $this->context    = $context;
-        $this->repository = $repository;
+        $this->context       = $context;
+        $this->repository    = $repository;
+        $this->localeService = $localeService;
 
         $this->generator->setContext($context);
     }
@@ -106,7 +120,8 @@ class DynamicRouter extends BaseDynamicRouter
         $searchUrl = preg_replace('#^(.*?)(\/\d+)?$#iu', '$1', $parameters['_path']);
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
-        $pathQuery->setTerm('path', rawurldecode($searchUrl));
+        $pathName = 'path_' . $this->localeService->getLocale();
+        $pathQuery->setTerm($pathName, rawurldecode($searchUrl));
         $boolQuery->addMust($pathQuery);
 
         $results = $this->repository->search($boolQuery)->getResults();

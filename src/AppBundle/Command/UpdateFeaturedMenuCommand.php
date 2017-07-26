@@ -6,6 +6,8 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Book;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -44,18 +46,14 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
         ;
         $qb->getQuery()->execute();
 
-        $qb = $em->createQueryBuilder();
-        $qb
-            ->select('b, g')
-            ->from('AppBundle:Book', 'b')
-            ->leftJoin('b.genres', 'g')
-            ->leftJoin('b.ratings', 'rating')
-            ->andWhere($qb->expr()->gt('rating.rating', 0))
-            ->addOrderBy('rating.rating', 'DESC')
-            ->groupBy('g.id')
-        ;
+        $qb = $this->buildQuery($em, 'ru');
+        $booksRu = $qb->getQuery()->getResult();
 
-        $books = $qb->getQuery()->getResult();
+        $qb = $this->buildQuery($em, 'en');
+        $booksEn = $qb->getQuery()->getResult();
+
+        $books = array_merge($booksEn, $booksRu);
+
         /** @var Book $book */
         foreach ($books as $book) {
             $book->setFeaturedMenu(true);
@@ -67,5 +65,30 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
         $endTime   = time();
         $totalTime = $endTime - $startTime;
         $output->writeln("<info>Update featured menu finished. Total time: $totalTime seconds</info>");
+    }
+
+    /**
+     * @param EntityManagerInterface $em
+     * @param string $locale
+     *
+     * @return QueryBuilder
+     */
+    protected function buildQuery($em, $locale)
+    {
+        $qb = $em->createQueryBuilder();
+
+        return $qb
+            ->select('b, g')
+            ->from('AppBundle:Book', 'b')
+            ->leftJoin('b.genres', 'g')
+            ->leftJoin('b.ratings', 'rating')
+            ->andWhere($qb->expr()->eq('b.lang', ':locale'))
+            ->andWhere($qb->expr()->gt('rating.rating', 0))
+            ->setParameter('locale', $locale)
+            ->addOrderBy('rating.rating', 'DESC')
+            ->addGroupBy('g.id')
+            ->addGroupBy('b.id')
+            ->addGroupBy('rating.id')
+        ;
     }
 }

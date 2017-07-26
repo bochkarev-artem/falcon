@@ -39,7 +39,7 @@ class MenuExtension extends \Twig_Extension
      */
     public function getMainMenu()
     {
-        return $this->menuBuilder->getMainMenu();
+        return $this->menuBuilder->getMenu('main');
     }
 
     /**
@@ -47,7 +47,7 @@ class MenuExtension extends \Twig_Extension
      */
     public function getMobileMenu()
     {
-        return $this->menuBuilder->getMobileMenu();
+        return $this->menuBuilder->getMenu('mobile');
     }
 
     /**
@@ -55,7 +55,7 @@ class MenuExtension extends \Twig_Extension
      */
     public function getSideMenu()
     {
-        return $this->menuBuilder->getSideMenu();
+        return $this->menuBuilder->getMenu('side');
     }
 
     /**

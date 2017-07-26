@@ -9,7 +9,8 @@ fos_elastica:
             types:
                 route:
                     properties:
-                        path: { type: string, index: not_analyzed }
+                        path_ru: { type: string, index: not_analyzed }
+                        path_en: { type: string, index: not_analyzed }
         books:
             index_name: books
             client:     default
@@ -26,6 +27,10 @@ fos_elastica:
                                 type: custom
                                 tokenizer: standard
                                 filter: [lowercase, russian_stop, russian_stemmer]
+                            english:
+                                type: custom
+                                tokenizer: standard
+                                filter: [lowercase, english_stop, english_stemmer]
                         filter:
                             russian_stop:
                                   type: stop
@@ -33,6 +38,12 @@ fos_elastica:
                             russian_stemmer:
                                   type: stemmer
                                   language: russian
+                            english_stop:
+                                  type: stop
+                                  stopwords: _english_
+                            english_stemmer:
+                                  type: stemmer
+                                  language: english
             types:
                 book:
                     properties:
@@ -75,11 +86,14 @@ fos_elastica:
                         genres:
                             type: "nested"
                             properties:
-                                genre_id:     { type: integer }
-                                title:        { type: string, analyzer: russian, copy_to: genre_title }
-                                description:  { type: string }
-                                litres_id:    { type: integer }
-                                path:         { type: string, index: not_analyzed }
+                                genre_id:       { type: integer }
+                                title_ru:       { type: string, analyzer: russian, copy_to: genre_title_ru }
+                                title_en:       { type: string, analyzer: english, copy_to: genre_title_en }
+                                description_ru: { type: string }
+                                description_en: { type: string }
+                                litres_id:      { type: integer }
+                                path_ru:        { type: string, index: not_analyzed }
+                                path_en:        { type: string, index: not_analyzed }
                         tags:
                             type: "nested"
                             properties:

@@ -2,6 +2,10 @@ imports:
     - { resource: config.yml }
     - { resource: liip/imagine.yml }
 
+parameters:
+    base_url_ru: bookary.ru
+    base_url_en: bookary.eu
+
 #framework:
 #    validation:
 #        cache: validator.mapping.cache.doctrine.apc

@@ -147,11 +147,14 @@ class BookProvider implements ProviderInterface
         /** @var Genre $genre */
         foreach ($book->getGenres() as $genre) {
             $genreData = [
-                'genre_id'    => $genre->getId(),
-                'title'       => $genre->getTitle(),
-                'description' => $genre->getDescription(),
-                'litres_id'   => $genre->getLitresId(),
-                'path'        => $genre->getPath(),
+                'genre_id'       => $genre->getId(),
+                'title_en'       => $genre->getTitleEn(),
+                'title_ru'       => $genre->getTitleRu(),
+                'description_en' => $genre->getDescriptionEn(),
+                'description_ru' => $genre->getDescriptionRu(),
+                'litres_id'      => $genre->getLitresId(),
+                'path_en'        => $genre->getPathEn(),
+                'path_ru'        => $genre->getPathRu(),
             ];
             $genresData[] = $genreData;
         }
@@ -352,7 +355,11 @@ class BookProvider implements ProviderInterface
             $idQb = clone $queryBuilder;
             $res  = $idQb
                 ->select($aliases[0] . '.id')
-                ->add('from', new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'), false)
+                ->add(
+                    'from',
+                    new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'),
+                    false
+                )
                 ->getQuery()
                 ->getResult()
             ;

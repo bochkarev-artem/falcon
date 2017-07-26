@@ -5,6 +5,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\LocalePageInterface;
 use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
@@ -20,11 +21,6 @@ class SitemapListener implements SitemapListenerInterface
     protected $em;
 
     /**
-     * @var string
-     */
-    protected $siteUrl;
-
-    /**
      * @var integer
      */
     protected $bookOffset = 0;
@@ -35,14 +31,18 @@ class SitemapListener implements SitemapListenerInterface
     protected $authorOffset = 0;
 
     /**
-     * @param EntityManager $em
-     * @param string        $baseUrl
-     * @param string        $baseScheme
+     * @var LocaleService
      */
-    public function __construct(EntityManager $em, $baseUrl, $baseScheme)
+    protected $localeService;
+
+    /**
+     * @param EntityManager $em
+     * @param LocaleService $localeService
+     */
+    public function __construct(EntityManager $em, LocaleService $localeService)
     {
-        $this->em      = $em;
-        $this->siteUrl = $baseScheme . '://' . $baseUrl . '/';
+        $this->em            = $em;
+        $this->localeService = $localeService;
     }
 
     /**
@@ -64,17 +64,26 @@ class SitemapListener implements SitemapListenerInterface
             'books7'  => 'Book',
             'books8'  => 'Book',
             'books9'  => 'Book',
-            'books10'  => 'Book',
+            'books10' => 'Book',
         ];
 
+        $host = $this->localeService->getHost();
+        if (!$host) {
+            return;
+        }
         foreach ($queryBuilders as $section => $entityName) {
             if (is_null($event->getSection()) || $event->getSection() == $section) {
                 $query = $this->getQuery($entityName);
                 foreach ($query->iterate() as $row) {
-                    /** @var PageInterface $entity */
+                    /** @var PageInterface|LocalePageInterface $entity */
                     $entity = array_shift($row);
                     if ($entity instanceof PageInterface) {
-                        $event->getUrlContainer()->addUrl(new UrlConcrete($this->siteUrl . $entity->getPath()), $section);
+                        $event
+                            ->getUrlContainer()
+                            ->addUrl(new UrlConcrete($host . $entity->getPath()), $section);
+                    } elseif ($entity instanceof LocalePageInterface) {
+                        $path = $this->localeService->getLocaleField($entity, 'path');
+                        $event->getUrlContainer()->addUrl(new UrlConcrete($host . $path), $section);
                     }
                 }
                 $query = null;

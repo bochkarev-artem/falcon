@@ -5,6 +5,7 @@
 
 namespace AppBundle\Routing;
 
+use AppBundle\Service\LocaleService;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Term;
 use Elastica\Type;
@@ -22,11 +23,18 @@ class RouteProvider implements RouteProviderInterface
     private $repository;
 
     /**
-     * @param Type $repository
+     * @var LocaleService
      */
-    public function __construct(Type $repository)
+    private $localeService;
+
+    /**
+     * @param Type $repository
+     * @param LocaleService $localeService
+     */
+    public function __construct(Type $repository, LocaleService $localeService)
     {
         $this->repository = $repository;
+        $this->localeService = $localeService;
     }
 
     /**
@@ -45,7 +53,8 @@ class RouteProvider implements RouteProviderInterface
         $searchUrl = rtrim(preg_replace('#^(.*?)(\/\d+)?$#iu', '$1', $url), '/');
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
-        $pathQuery->setTerm('path', rawurldecode($searchUrl));
+        $pathName = 'path_' . $this->localeService->getLocale();
+        $pathQuery->setTerm($pathName, rawurldecode($searchUrl));
         $boolQuery->addMust($pathQuery);
 
         $results = $this->repository->search($boolQuery)->getResults();
@@ -75,6 +84,7 @@ class RouteProvider implements RouteProviderInterface
             $internalParams = [
                 '_path'   => $url,
                 '_params' => array_keys($routeData['params']['defaults']),
+                '_locale' => $this->localeService->getLocale(),
             ];
 
             $collection->add(

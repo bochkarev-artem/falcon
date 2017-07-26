@@ -6,15 +6,15 @@
         <div class="side_accordian">
             {% for parentGenre in parentGenres %}
                 <div class="accordion">
-                    <span>{{ parentGenre.title }}</span>
+                    <span>{{ locale_field(parentGenre, 'title') }}</span>
                 </div>
 
                 <div class="accordion-content">
                     <ul class="side-meta">
                         {% set childGenres = genres[parentGenre.id] %}
                         {%- for childGenre in childGenres -%}
-                            {% set genreUrl = childGenre.pathPrefix ~ '/' ~ childGenre.slug %}
-                            <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
+                            {% set genreUrl = childGenre.pathPrefix ~ '/' ~ locale_field(childGenre, 'slug') %}
+                            <li><a href="/{{ genreUrl }}">{{ locale_field(childGenre, 'title') }}</a></li>
                         {%- endfor -%}
                     </ul>
                 </div>

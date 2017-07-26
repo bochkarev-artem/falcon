@@ -7,6 +7,7 @@ use AppBundle\Model\QueryParams;
 use AppBundle\Service\BookPageService;
 use AppBundle\Service\HomePageService;
 use AppBundle\Service\LitresBookManager;
+use AppBundle\Service\LocaleService;
 use AppBundle\Service\QueryService;
 use AppBundle\Service\SeoManager;
 use Doctrine\ORM\QueryBuilder;
@@ -159,14 +160,15 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request    $request
-     * @param integer    $id
-     * @param integer    $page
-     * @param SeoManager $seoManager
+     * @param Request       $request
+     * @param integer       $id
+     * @param integer       $page
+     * @param SeoManager    $seoManager
+     * @param LocaleService $localeService
      *
      * @return Response|JsonResponse
      */
-    public function showGenreAction(Request $request, $id, $page, SeoManager $seoManager)
+    public function showGenreAction(Request $request, $id, $page, SeoManager $seoManager, LocaleService $localeService)
     {
         $sortOrder   = $request->get('sort', QueryParams::SORT_NO);
         $queryParams = new QueryParams();
@@ -185,7 +187,7 @@ class SiteController extends Controller
             'route_name'   => 'custom_route',
             'sort_order'   => $sortOrder,
             'route_params' => [
-                'slug'   => $genre->getSlug(),
+                'slug'   => $localeService->getLocaleField($genre, 'slug', $request->getLocale()),
                 'prefix' => $genre->getPathPrefix()
             ],
         ]);

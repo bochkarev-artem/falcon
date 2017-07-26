@@ -86,10 +86,16 @@ class LitresService
     private $step;
 
     /**
+     * @var array $locales
+     */
+    private $locales;
+
+    /**
      * @param EntityManager $em
      * @param Logger        $logger
+     * @param array         $locales
      */
-    public function __construct(EntityManager $em, Logger $logger)
+    public function __construct(EntityManager $em, Logger $logger, $locales)
     {
         $this->em           = $em;
         $this->logger       = $logger;
@@ -98,6 +104,7 @@ class LitresService
         $this->tagRepo      = $this->em->getRepository('AppBundle:Tag');
         $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
         $this->bookRepo     = $this->em->getRepository('AppBundle:Book');
+        $this->locales      = $locales;
     }
 
     /**
@@ -135,7 +142,7 @@ class LitresService
         foreach ($xml->genre as $genreNode) {
             $parentGenre = new Genre();
             $parentTitle = $this->mbUcfirstOnly($genreNode['title']);
-            $parentGenre->setTitle($parentTitle);
+            $parentGenre->setTitleRu($parentTitle);
             $parentGenre->setLitresId(0);
             $this->em->persist($parentGenre);
             $this->em->flush();
@@ -146,8 +153,8 @@ class LitresService
                 if (!is_null($id)) {
                     /** @var Genre $genre */
                     if ($genre = $this->genreRepo->findOneBy(['token' => $token])) {
-                        if (!$genre->getTitle()) {
-                            $genre->setTitle($title);
+                        if (!$genre->getTitleRu()) {
+                            $genre->setTitleRu($title);
                         }
 
                         if (!$genre->getLitresId()) {
@@ -157,7 +164,7 @@ class LitresService
                         $genre = new Genre();
                         $genre
                             ->setLitresId($id)
-                            ->setTitle($title)
+                            ->setTitleRu($title)
                             ->setToken($token)
                             ->setParent($parentGenre)
                         ;
@@ -322,6 +329,11 @@ class LitresService
             $annotation = '';
             $book = new Book;
             $titleInfo = $data->{'text_description'}->hidden->{'title-info'};
+            $lang = (string)$titleInfo->lang;
+            if (!in_array($lang, $this->locales)) {
+                $this->skipped++;
+                continue;
+            }
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
 
@@ -399,7 +411,7 @@ class LitresService
                 ->setHasTrial((string)$data['has_trial'])
                 ->setTitle(substr((string)$titleInfo->{'book-title'}, 0, 254))
                 ->setAnnotation($annotation)
-                ->setLang((string)$titleInfo->lang)
+                ->setLang($lang)
                 ->setDocumentId((string)$documentInfo->id)
                 ->setPublisher((string)$publishInfo->publisher)
                 ->setYearPublished((string)$publishInfo->year)

@@ -2,6 +2,10 @@ imports:
     - { resource: config.yml }
     - { resource: liip/imagine-dev.yml }
 
+parameters:
+    base_url_ru: bookary.dev
+    base_url_en: bookary-en.dev
+
 framework:
     router:
         resource: "%kernel.root_dir%/config/routing_dev.yml"

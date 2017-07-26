@@ -24,13 +24,20 @@ class QueryService
     private $perPage;
 
     /**
+     * @var LocaleService
+     */
+    private $localeService;
+
+    /**
      * @param Type    $repository
      * @param integer $perPage
+     * @param LocaleService $localeService
      */
-    public function __construct(Type $repository, $perPage)
+    public function __construct(Type $repository, $perPage, LocaleService $localeService)
     {
-        $this->repository = $repository;
-        $this->perPage    = $perPage;
+        $this->repository    = $repository;
+        $this->perPage       = $perPage;
+        $this->localeService = $localeService;
     }
 
     /**
@@ -155,6 +162,8 @@ class QueryService
         if ($queryParams->isFilterFeaturedHome()) {
             $this->applyFeaturedHomeFilter($boolQuery);
         }
+
+        $this->applyLocaleFilter($boolQuery);
     }
 
     /**
@@ -226,6 +235,14 @@ class QueryService
     private function applyFeaturedHomeFilter(Query\BoolQuery $query)
     {
         $query->addMust(new Query\Term(['featured_home' => true]));
+    }
+
+    /**
+     * @param Query\BoolQuery $query
+     */
+    private function applyLocaleFilter(Query\BoolQuery $query)
+    {
+        $query->addMust(new Query\Term(['lang' => $this->localeService->getLocale()]));
     }
 
     /**

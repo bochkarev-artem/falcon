@@ -1,7 +1,6 @@
 parameters:
     s3_base_url:      "https://s3-eu-west-1.amazonaws.com/bookary-images"
     book_directory:   "book"
-    author_directory: "author"
 
 vich_uploader:
     db_driver: orm
@@ -10,7 +9,4 @@ vich_uploader:
     mappings:
         book_image:
             uri_prefix:         "%book_directory%"
-            upload_destination: "s3_upload"
-        author_image:
-            uri_prefix:         "%author_directory%"
             upload_destination: "s3_upload"

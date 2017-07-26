@@ -1,0 +1,128 @@
+front:
+    404_error:          This page doesnt exist
+    index_page:
+        title:          "Электронная библиотека Bookary - читать книги онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "Электронная библиотека Bookary позволяет читателю без труда найти любую книгу и с легкостью скачать в одном из популярных форматов: fb2, epub, rtf, pdf. Также вы можете читать книги онлайн. И никакой регистрации для этого не требуется."
+        keywords:      "книги, электронная библиотека, скачать книги бесплато, читать книги онлан, скачать книги без регистрации"
+        breadcrumb_title: Home
+    user_profile:
+        title:          "Personal page - Bookary.eu"
+    user_profile_ratings:
+        title:          "My ratings - Bookary.eu"
+    user_profile_reviews:
+        title:          "My reviews - Bookary.eu"
+    user_profile_stats:
+        title:          "My statistics - Bookary.eu"
+    book_page:
+        title:          "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "Книга %book_title% - %author_name% читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %book_title%, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+    tag_page:
+        title:          "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%tag_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %tag_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+    genre_page:
+        title:          "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%genre_title% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %genre_title%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+    author_page:
+        title:          "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%author_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %author_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+    sequence_page:
+        title:          "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub"
+        description:    "%sequence_name% - электронные книги читать онлайн или скачать бесплатно и без регистрации в fb2, epub, rtf, pdf."
+        keywords:       "книга, %sequence_name%, читать онлайн, скачать бесплатно и без регистрации, fb2, epub, rtf, pdf"
+    tags_page:
+        title:          Все теги - электронная библиотека Bookary
+        description:    Все теги - электронная библиотека Bookary
+        keywords:       tags
+    search_page:
+        title:          Поиск - электронная библиотека Bookary
+        description:    Поиск - электронная библиотека Bookary
+        keywords:       search
+    new_books_page:
+        title:          Новые книги, новинки литературы скачать бесплатно - электронная библиотека Bookary
+        description:    Новые книги, новинки литературы скачать бесплатно - электронная библиотека Bookary
+        keywords:       новые книги, новинки, литература, скачать бесплатно
+    popular_books_page:
+        title:          Популярные книги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
+        description:    Популярные книги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
+        keywords:       популярные книги, бестселлеры, bestsellers, скачать бесплатно
+    main:               Home
+    search:             Search
+    year:               Year
+    new:                New
+    no_results:         No books
+    featured_books:     Popular
+    new_arrivals:       New arrival
+    popular_books:      Bestsellers
+    to_book:            Read book
+    genres:             Genres
+    sequence:           Series
+    number_in_sequence: " (%number%th book)"
+    tags:               Tags
+    email:              Email
+    new_books:          New books
+    popular:            Popular
+    open_menu:          Open menu
+    sign_in:            Login
+    sign_out:           Logout
+    social_sign_in:     "Войдите через одну из социальных сетей, чтобы воспользоваться всеми возможностями сайта:"
+    related_books:      Similar books
+    author_related:     "Author's books"
+    featured_menu_book: Interesting
+    read:               Read
+    read_book:          Read online
+    author:             Author
+    user_rating:        Your rating
+    book_review_added:  Ваша рецензия была отправлена и появится на сайте после модерации
+    vote:               'vote|votes|votes'
+    post_review_text:   Оставить рецензию на книгу
+    please_login:       'Пожалуйста <a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">войдите</a> чтобы написать резензию.'
+    minimum_chars:      "Длина отзыва должна быть больше %chars% символов"
+    send:               Send
+    review:             'рецензия|рецензии|рецензий'
+    book:
+        profile:         Personal page
+        rating:          Rating
+        annotation:      Description
+        reviews:         Reviews
+    profile:
+        title:           Personal page
+        my_ratings:      My ratings
+        my_reviews:      My reviews
+        statistics:      Statistics
+        statistics_week: Week statistics
+        number:          Place
+        name:            Username
+        count:           Reviews number
+        you:             (You)
+    pagination:
+        next:            Next
+        previous:        Previous
+    download:                         Download
+    please_login_to_download:         '<a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">%text%</a>'
+    litres_download_url:              "https://www.litres.ru/gettrial/?art=%litres_hub_id%&format=%format%&lfrom=%partner_id%"
+    litres_book_url:                  "https://www.litres.ru/pages/biblio_book/?art=%litres_hub_id%&lfrom=%partner_id%"
+    litres_read_book_url:             "https://www.litres.ru/static/or4/view/or.html?baseurl=/static/trials/%litres_6_digit_id%/%litres_8_digit_id%.&uuid=%litres_document_id%&art=%litres_hub_id%&trials=1&lfrom=%partner_id%"
+    litres_download_link_text_fb2:    fb2
+    litres_download_link_text_rtf:    rtf
+    litres_download_link_text_a4.pdf: pdf
+    litres_download_link_text_epub:   epub
+    book_published:                   "Книга издана в %year% году, %publisher%, %city%. ISBN: %isbn%"
+    footer:
+        title:        Library Bookary
+        description:  "В нашей электронной библиотеке вы найдете множество книг в популярные форматах. Книги можно скачать бесплатно или читать онлайн. Некоторые книги могут иметь ознакомительный отрывок."
+        contacts:     Contacts
+        email:        admin@bookary.ru
+        social_links: Social lings
+        politics:     Privacy policy
+        vk_url:       https://vk.com/bookary
+        twitter_url:  https://twitter.com/audio_knigki
+        site_name:    Bookary
+    sort:
+        sorting:      "Sort:"
+        no_sort:      No sorting
+        popular:      Bestsellers
+        new_arrivals: New

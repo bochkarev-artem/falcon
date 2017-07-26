@@ -8,6 +8,7 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Ads;
 use AppBundle\Entity\Author;
 use AppBundle\Entity\Genre;
+use AppBundle\Entity\LocalePageInterface;
 use AppBundle\Entity\PageInterface;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
@@ -33,15 +34,26 @@ class SeoManager
     protected $adsManager;
 
     /**
-     * @param SeoPage    $seoPage
+     * @var LocaleService
+     */
+    protected $localeService;
+
+    /**
+     * @param SeoPage $seoPage
      * @param TranslatorInterface $translator
      * @param AdsManager $adsManager
+     * @param LocaleService $localeService
      */
-    public function __construct(SeoPage $seoPage, TranslatorInterface $translator, AdsManager $adsManager)
-    {
-        $this->seoPage    = $seoPage;
-        $this->translator = $translator;
-        $this->adsManager = $adsManager;
+    public function __construct(
+        SeoPage $seoPage,
+        TranslatorInterface $translator,
+        AdsManager $adsManager,
+        LocaleService $localeService
+    ) {
+        $this->seoPage       = $seoPage;
+        $this->translator    = $translator;
+        $this->adsManager    = $adsManager;
+        $this->localeService = $localeService;
     }
 
     /**
@@ -155,13 +167,13 @@ class SeoManager
     {
         $seoData = new SeoData();
         $seoData->setTitle($this->translator->trans('front.genre_page.title', [
-            '%genre_title%' => $genre->getTitle(),
+            '%genre_title%' => $this->localeService->getLocaleField($genre, 'title'),
         ]));
         $seoData->setMetaDescription($this->translator->trans('front.genre_page.description', [
-            '%genre_title%' => $genre->getTitle(),
+            '%genre_title%' => $this->localeService->getLocaleField($genre, 'title'),
         ]));
         $seoData->setMetaKeywords($this->translator->trans('front.genre_page.keywords', [
-            '%genre_title%' => $genre->getTitle(),
+            '%genre_title%' => $this->localeService->getLocaleField($genre, 'title'),
         ]));
         $doIndex = $page === 1;
         $seoData->setIndexPage($doIndex);
@@ -258,7 +270,7 @@ class SeoManager
     }
 
     /**
-     * @param PageInterface|array $entity
+     * @param PageInterface|LocalePageInterface|array $entity
      *
      * @return array
      */
@@ -272,9 +284,9 @@ class SeoManager
         if ($entity instanceof Sequence) {
             $name = $entity->getName();
         } elseif ($entity instanceof Genre) {
-            $name = $entity->getTitle();
+            $name = $this->localeService->getLocaleField($entity, 'title');
             $breadcrumbs[] = [
-                'name' => $entity->getParent()->getTitle(),
+                'name' => $this->localeService->getLocaleField($entity->getParent(), 'title'),
             ];
         } elseif ($entity instanceof Tag) {
             $name = $entity->getTitle();

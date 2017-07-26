@@ -65,11 +65,17 @@ class LitresFileService
     private $xmlFile;
 
     /**
+     * @var array $locales
+     */
+    private $locales;
+
+    /**
      * @param EntityManager $em
      * @param Logger        $logger
      * @param string        $rootDir
+     * @param array         $locales
      */
-    public function __construct(EntityManager $em, Logger $logger, $rootDir)
+    public function __construct(EntityManager $em, Logger $logger, $rootDir, $locales)
     {
         $this->em           = $em;
         $this->logger       = $logger;
@@ -78,6 +84,7 @@ class LitresFileService
         $this->genreRepo    = $this->em->getRepository('AppBundle:Genre');
         $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
         $this->bookRepo     = $this->em->getRepository('AppBundle:Book');
+        $this->locales      = $locales;
     }
 
     /**
@@ -213,6 +220,14 @@ class LitresFileService
                 continue;
             }
             $titleInfo = $hidden->{'title-info'};
+            $lang = (string)$titleInfo->lang;
+            if (!in_array($lang, $this->locales)) {
+                $skipped++;
+                $this->goToNextNode($xmlReader);
+
+                continue;
+            }
+
             $documentInfo = $hidden->{'document-info'};
             $publishInfo = $hidden->{'publish-info'};
 
@@ -292,7 +307,7 @@ class LitresFileService
                 ->setPrice((string)$data['price'])
                 ->setTitle(mb_convert_encoding($title, 'utf-8'))
                 ->setAnnotation($annotation)
-                ->setLang((string)$titleInfo->lang)
+                ->setLang($lang)
                 ->setDocumentId((string)$documentInfo->id)
                 ->setPublisher((string)$publishInfo->publisher)
                 ->setYearPublished((string)$publishInfo->year)

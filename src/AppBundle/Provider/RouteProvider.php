@@ -5,6 +5,7 @@
 
 namespace AppBundle\Provider;
 
+use AppBundle\Entity\LocalePageInterface;
 use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Internal\Hydration\IterableResult;
@@ -88,7 +89,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param PageInterface $object
+     * @param PageInterface|LocalePageInterface $object
      *
      * @return array|bool
      */
@@ -104,7 +105,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param PageInterface $object
+     * @param PageInterface|LocalePageInterface $object
      *
      * @return array
      */
@@ -130,7 +131,12 @@ class RouteProvider implements ProviderInterface
 
         $routeData['params']['defaults']['_controller'] = "AppBundle:Site:show$className";
 
-        $routeData['path'] = $object->getPath();
+        if ($object instanceof PageInterface) {
+            $routeData['path_ru'] = $object->getPath();
+        } elseif ($object instanceof LocalePageInterface) {
+            $routeData['path_en'] = $object->getPathEn();
+            $routeData['path_ru'] = $object->getPathRu();
+        }
         $routes[$routeId]  = $routeData;
 
         return $routes;
@@ -236,7 +242,11 @@ class RouteProvider implements ProviderInterface
             $idQb = clone $queryBuilder;
             $res  = $idQb
                 ->select($aliases[0] . '.id')
-                ->add('from', new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'), false)
+                ->add(
+                    'from',
+                    new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'),
+                    false
+                )
                 ->getQuery()
                 ->getResult()
             ;

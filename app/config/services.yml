@@ -17,6 +17,7 @@ services:
         arguments:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
+          - "%locales%"
         public: true
 
     AppBundle\Service\LitresFileService:
@@ -24,6 +25,7 @@ services:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
           - "%kernel.root_dir%"
+          - "%locales%"
         public: true
 
     AppBundle\Service\BookPageService:
@@ -37,7 +39,6 @@ services:
           - "@oneup_flysystem.s3_upload_filesystem"
           - "@vich_uploader.templating.helper.uploader_helper"
           - "%book_directory%"
-          - "%author_directory%"
         public: true
 
     AppBundle\Service\MenuBuilder:
@@ -46,6 +47,7 @@ services:
             - "@twig"
             - "%kernel.cache_dir%"
             - '@AppBundle\Service\QueryService'
+            - '@AppBundle\Service\LocaleService'
         lazy: true
 
     AppBundle\Service\LitresBookManager:
@@ -56,8 +58,7 @@ services:
     AppBundle\Service\SitemapListener:
         arguments:
             - "@doctrine.orm.default_entity_manager"
-            - "%base_url%"
-            - "%base_scheme%"
+            - '@AppBundle\Service\LocaleService'
         tags:
             - { name: "presta.sitemap.listener", priority: 100 }
         public: true
@@ -90,6 +91,7 @@ services:
             - "@?event_dispatcher"
             - "@cmf_routing.route_provider"
             - "@fos_elastica.index.routes.route"
+            - '@AppBundle\Service\LocaleService'
 
     AppBundle\Routing\RequestMatcher:
         arguments:
@@ -101,6 +103,7 @@ services:
     AppBundle\Routing\RouteProvider:
         arguments:
             - "@fos_elastica.index.routes.route"
+            - '@AppBundle\Service\LocaleService'
 
     AppBundle\Service\QueryService:
         arguments:
@@ -120,3 +123,10 @@ services:
           - '@translator.default'
         tags:
             - { name: 'pagerfanta.view', alias: 'bookary_pagination' }
+
+    AppBundle\Service\LocaleService:
+        arguments:
+            - "@request_stack"
+            - "%hosts%"
+            - "%locales%"
+            - "%default_locale%"

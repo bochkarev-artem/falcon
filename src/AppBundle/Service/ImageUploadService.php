@@ -26,11 +26,6 @@ class ImageUploadService
     private $bookMapping;
 
     /**
-     * @var string
-     */
-    private $authorMapping;
-
-    /**
      * @var UploaderHelper
      */
     private $uploaderHelper;
@@ -39,18 +34,15 @@ class ImageUploadService
      * @param Filesystem     $filesystem
      * @param UploaderHelper $uploaderHelper
      * @param string         $bookMapping
-     * @param string         $authorMapping
      */
     public function __construct(
         Filesystem $filesystem,
         UploaderHelper $uploaderHelper,
-        $bookMapping,
-        $authorMapping
+        $bookMapping
     ) {
         $this->s3Filesystem   = $filesystem;
         $this->uploaderHelper = $uploaderHelper;
         $this->bookMapping    = $bookMapping;
-        $this->authorMapping  = $authorMapping;
     }
 
     /**
@@ -75,33 +67,6 @@ class ImageUploadService
 
             $this->s3Filesystem->write($path, $fileContent);
             $book->setCoverPath($path);
-        }
-
-        return true;
-    }
-
-    /**
-     * @param Author $author
-     *
-     * @return boolean
-     */
-    public function updateAuthorPhoto(Author $author)
-    {
-        if (!$photoUrl = $author->getPhoto()) {
-            return false;
-        }
-
-        $path = "$this->authorMapping/" . basename($photoUrl);
-        if (!$this->s3Filesystem->has($path)) {
-            $fileContent = @file_get_contents($photoUrl);
-            if (false === $fileContent) {
-                return false;
-            }
-            $authorId = $author->getId();
-            echo ">>> $authorId author updated with photo\n";
-
-            $this->s3Filesystem->write($path, $fileContent);
-            $author->setPhotoPath($path);
         }
 
         return true;
