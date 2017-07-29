@@ -33,13 +33,6 @@ class Author implements PageInterface
     private $id;
 
     /**
-     * @var integer $litresHubId
-     *
-     * @ORM\Column(name="litres_hub_id", type="integer", nullable=true)
-     */
-    private $litresHubId;
-
-    /**
      * @var string $documentId
      *
      * @ORM\Column(name="document_id", type="string")
@@ -83,48 +76,6 @@ class Author implements PageInterface
     private $slug;
 
     /**
-     * @var integer $level
-     *
-     * @ORM\Column(name="level", type="integer", nullable=true)
-     */
-    private $level;
-
-    /**
-     * @var integer $reviewCount
-     *
-     * @ORM\Column(name="review_count", type="integer", nullable=true)
-     */
-    private $reviewCount;
-
-    /**
-     * @var integer $artsCount
-     *
-     * @ORM\Column(name="arts_count", type="integer", nullable=true)
-     */
-    private $artsCount;
-
-    /**
-     * @var string $photo
-     *
-     * @ORM\Column(name="photo", type="string", nullable=true)
-     */
-    private $photo;
-
-    /**
-     * @var string $photoPath
-     *
-     * @ORM\Column(name="photo_path", type="string", nullable=true)
-     */
-    private $photoPath;
-
-    /**
-     * @var string $description
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
      * Initialize fields
      */
     public function __construct()
@@ -138,26 +89,6 @@ class Author implements PageInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLitresHubId()
-    {
-        return $this->litresHubId;
-    }
-
-    /**
-     * @param int $litresHubId
-     *
-     * @return Author
-     */
-    public function setLitresHubId($litresHubId)
-    {
-        $this->litresHubId = $litresHubId;
-
-        return $this;
     }
 
     /**
@@ -241,106 +172,6 @@ class Author implements PageInterface
     }
 
     /**
-     * @return int
-     */
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
-    /**
-     * @param int $level
-     *
-     * @return Author
-     */
-    public function setLevel($level)
-    {
-        $this->level = $level;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getReviewCount()
-    {
-        return $this->reviewCount;
-    }
-
-    /**
-     * @param int $reviewCount
-     *
-     * @return Author
-     */
-    public function setReviewCount($reviewCount)
-    {
-        $this->reviewCount = $reviewCount;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getArtsCount()
-    {
-        return $this->artsCount;
-    }
-
-    /**
-     * @param int $artsCount
-     *
-     * @return Author
-     */
-    public function setArtsCount($artsCount)
-    {
-        $this->artsCount = $artsCount;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-
-    /**
-     * @param string $photo
-     *
-     * @return Author
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     *
-     * @return Author
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getFullName()
@@ -402,26 +233,6 @@ class Author implements PageInterface
         if ($this->books->contains($book)) {
             $book->removeAuthor($this);
         };
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPhotoPath()
-    {
-        return $this->photoPath;
-    }
-
-    /**
-     * @param string $photoPath
-     *
-     * @return Author
-     */
-    public function setPhotoPath($photoPath)
-    {
-        $this->photoPath = $photoPath;
 
         return $this;
     }

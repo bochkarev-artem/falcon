@@ -22,7 +22,7 @@ monolog:
             type: slack
             token: 'xoxb-218905045585-dqQpUf6TqYRfVeOE6ss2FMjD'
             channel: '#dev'
-            level: error
+            level: critical
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

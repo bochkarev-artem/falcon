@@ -182,12 +182,6 @@ class BookProvider implements ProviderInterface
                 'middle_name'   => $author->getMiddleName(),
                 'full_name'     => $author->getFullName(),
                 'short_name'    => $author->getShortName(),
-                'level'         => $author->getLevel(),
-                'description'   => $author->getDescription(),
-                'review_count'  => $author->getReviewCount(),
-                'arts_count'    => $author->getArtsCount(),
-                'photo_path'    => $author->getPhotoPath(),
-                'litres_hub_id' => $author->getLitresHubId(),
                 'document_id'   => $author->getDocumentId(),
                 'path'          => $author->getPath(),
             ];

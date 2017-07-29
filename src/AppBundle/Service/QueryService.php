@@ -104,6 +104,9 @@ class QueryService
      */
     private function getSearchQuery(QueryParams $queryParams)
     {
+        $locale = $this->localeService->getLocale();
+        $genreLocale = "genre_title_$locale.exact";
+
         $queryString = $queryParams->getSearchQuery();
 
         $fields = [
@@ -111,7 +114,7 @@ class QueryService
             'author_name.exact^6',
             'sequence_title.exact',
             'tag_title.exact^2',
-            'genre_title.exact',
+            $genreLocale,
         ];
 
         $query = new Query\MultiMatch();
