@@ -20,6 +20,11 @@ parameters:
 
 monolog:
     handlers:
+        slackbot:
+            type: slack
+            token: 'xoxb-218905045585-dqQpUf6TqYRfVeOE6ss2FMjD'
+            channel: '#prod'
+            level: error
         main:
             type:         fingers_crossed
             action_level: critical

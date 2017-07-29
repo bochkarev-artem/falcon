@@ -52,7 +52,7 @@ class LitresFileService
     /**
      * @var int $batchSize
      */
-    private $batchSize = 50;
+    private $batchSize = 100;
 
     /**
      * @var bool $debug
@@ -189,7 +189,7 @@ class LitresFileService
         while ($xmlReader->name === 'art') {
             if ($first) {
                 $first = false;
-                for ($i = 0; $i < 353800; $i++) {
+                for ($i = 0; $i < 354000; $i++) {
                     $this->goToNextNode($xmlReader);
                 }
             }
@@ -202,13 +202,8 @@ class LitresFileService
             }
             $hubId = (string)$data['int_id'];
             if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
-                /** @var Book $book */
-                if ($this->debug) {
-                    echo ">>> " . $book->getId() . " book id already exists ($step)\n";
-                }
                 $skipped++;
                 $this->goToNextNode($xmlReader);
-
                 continue;
             }
 
@@ -221,11 +216,18 @@ class LitresFileService
             }
             $titleInfo = $hidden->{'title-info'};
             $lang = (string)$titleInfo->lang;
-            if (!in_array($lang, $this->locales)) {
+            if (strlen($lang) != 0 && !in_array($lang, $this->locales)) {
                 $skipped++;
                 $this->goToNextNode($xmlReader);
-
                 continue;
+            }
+            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
+            if (strlen($lang) == 0) {
+                if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
+                    $lang = 'ru';
+                } else {
+                    $lang = 'en';
+                }
             }
 
             $documentInfo = $hidden->{'document-info'};
@@ -299,7 +301,6 @@ class LitresFileService
                 continue;
             }
             $cover = $this->getCover((string)$data['file_id']);
-            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
 
             $book
                 ->setLitresHubId($hubId)
@@ -323,13 +324,12 @@ class LitresFileService
             }
 
             $this->em->persist($book);
-            if ($this->debug) {
-                echo ">>> book persisted ($step)\n";
-            }
-
             if ($step % $this->batchSize === 0) {
                 $this->em->flush();
                 $this->em->clear();
+                if ($this->debug) {
+                    echo ">>> books processed ($step), skipped ($skipped)\n";
+                }
             }
 
             $this->goToNextNode($xmlReader);

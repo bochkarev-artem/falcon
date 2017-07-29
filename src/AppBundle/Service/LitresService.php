@@ -317,12 +317,7 @@ class LitresService
             $this->step++;
             $hubId = (string)$data['hub_id'];
             if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
-                /** @var Book $book */
-                if ($this->debug) {
-                    echo ">>> " . $book->getId() . " book id already exists ($this->step)\n";
-                }
                 $this->skipped++;
-
                 continue;
             }
 
@@ -330,10 +325,19 @@ class LitresService
             $book = new Book;
             $titleInfo = $data->{'text_description'}->hidden->{'title-info'};
             $lang = (string)$titleInfo->lang;
-            if (!in_array($lang, $this->locales)) {
+            if (strlen($lang) != 0 && !in_array($lang, $this->locales)) {
                 $this->skipped++;
                 continue;
             }
+            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
+            if (strlen($lang) == 0) {
+                if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
+                    $lang = 'ru';
+                } else {
+                    $lang = 'en';
+                }
+            }
+
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
 
@@ -409,7 +413,7 @@ class LitresService
                 ->setCover((string)$data['cover'])
                 ->setPrice((string)$data['base_price'])
                 ->setHasTrial((string)$data['has_trial'])
-                ->setTitle(substr((string)$titleInfo->{'book-title'}, 0, 254))
+                ->setTitle($title)
                 ->setAnnotation($annotation)
                 ->setLang($lang)
                 ->setDocumentId((string)$documentInfo->id)
@@ -427,13 +431,12 @@ class LitresService
             }
 
             $this->em->persist($book);
-            if ($this->debug) {
-                echo ">>> book persisted ($this->step)\n";
-            }
-
             if ($this->step % $this->batchSize === 0) {
                 $this->em->flush();
                 $this->em->clear();
+                if ($this->debug) {
+                    echo ">>> books processed ($this->step), skipped ($this->skipped)\n";
+                }
             }
         }
     }

@@ -60,7 +60,6 @@ class Sequence implements PageInterface
      */
     private $slug;
 
-
     /**
      * Initialize fields
      */
