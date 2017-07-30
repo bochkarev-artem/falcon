@@ -23,7 +23,7 @@
                         {% if featured_book.cover_path is defined %}
                             <div>
                                 <a href="/{{ featured_book.path }}">
-                                    <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ featured_book.title }}">
+                                    <img src="{{ featured_book.cover_path|imagine_filter('book_list') }}" alt="{{ locale_field(featured_book, 'title') }}">
                                 </a>
                             </div>
                         {% endif %}
@@ -57,18 +57,18 @@
                                             <div class="item">
                                                 <div class="book-tab-dec">
                                                     <a href="/{{ new_arrivals_book.path }}">
-                                                        <img class="owl-lazy" data-src="{{ new_arrivals_book.cover_path|imagine_filter('book_list') }}" alt="{{ new_arrivals_book.title }}"/>
+                                                        <img class="owl-lazy" data-src="{{ new_arrivals_book.cover_path|imagine_filter('book_list') }}" alt="{{ locale_field(new_arrivals_book, 'title') }}"/>
                                                     </a>
                                                     <div class="text">
                                                         {% if new_arrivals_book.authors %}
                                                             {% set author = new_arrivals_book.authors|first %}
                                                             <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                                                         {% endif %}
-                                                        <div class="h5"><a href="/{{ new_arrivals_book.path }}">{{ new_arrivals_book.title }}</a></div>
+                                                        <div class="h5"><a href="/{{ new_arrivals_book.path }}">{{ locale_field(new_arrivals_book, 'title') }}</a></div>
                                                     </div>
                                                 </div>
-                                            {% endif %}
-                                        </div>
+                                            </div>
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
@@ -83,14 +83,14 @@
                                             <div class="item">
                                                 <div class="book-tab-dec">
                                                     <a href="/{{ popular_book.path }}">
-                                                        <img class="owl-lazy" data-src="{{ popular_book.cover_path|imagine_filter('book_list') }}" alt="{{ popular_book.title }}"/>
+                                                        <img class="owl-lazy" data-src="{{ popular_book.cover_path|imagine_filter('book_list') }}" alt="{{ locale_field(popular_book, 'title') }}"/>
                                                     </a>
                                                     <div class="text">
                                                         {% if popular_book.authors %}
                                                             {% set author = popular_book.authors|first %}
                                                             <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                                                         {% endif %}
-                                                        <div class="h5"><a href="/{{ popular_book.path }}">{{ popular_book.title }}</a></div>
+                                                        <div class="h5"><a href="/{{ popular_book.path }}">{{ locale_field(popular_book, 'title') }}</a></div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -9,7 +9,7 @@
         <div class="error-wrap">
             <form id="search" action="{{ path('search') }}">
                 <div class="input-dec2">
-                    <input type="text" name="query" id="search-query" autofocus
+                    <input name="query" id="search-query" autofocus
                            placeholder="{{ 'front.search'|trans }}" value="{{ query|default('') }}">
                     <button><i class="fa fa-search"></i></button>
                 </div>

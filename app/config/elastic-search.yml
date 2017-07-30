@@ -136,7 +136,7 @@ fos_elastica:
                             fields:
                                 exact:
                                     type: string
-                                    analyzer: renglish_exact
+                                    analyzer: english_exact
                         sequence_title_ru:
                             type: string
                             analyzer: russian

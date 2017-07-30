@@ -23,7 +23,7 @@
     {
         "@context": "http://schema.org/",
         "@type": "Book",
-        "name": "{{ book.title }}",
+        "name": "{{ locale_field(book, 'title') }}",
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "{{ book_rating_data['rating'] }}",
@@ -56,7 +56,7 @@
                                                 <li>
                                                     <img src="{{ book.cover_path is defined and book.cover_path
                                                     ? book.cover_path|imagine_filter('book_full')
-                                                    : asset('compiled/images/no-cover.jpg') }}" alt="{{ book.title }}" />
+                                                    : asset('compiled/images/no-cover.jpg') }}" alt="{{ locale_field(book, 'title') }}" />
                                                 </li>
                                             </ul>
                                         </div>
@@ -66,7 +66,7 @@
                                 <div class="col-md-5">
                                     <div class="book-text">
                                         <div class="book-heading book-padding">
-                                            <h3>{{ book.title }}</h3>
+                                            <h3>{{ locale_field(book, 'title') }}</h3>
                                             <div itemscope itemtype="http://schema.org/Book">
                                                 <div class="book-review"
                                                      itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
@@ -92,7 +92,7 @@
                                                 <li><span>{{ 'front.author'|trans }}:</span></li>
                                                 <li>
                                                     {% for author in book.authors %}
-                                                        <a href="/{{ author.path }}">{{ author.full_name }}</a>
+                                                        <a href="/{{ author.path }}">{{ locale_field(author, 'full_name') }}</a>
                                                     {% endfor %}
                                                 </li>
                                             </ul>
@@ -111,7 +111,7 @@
                                                     <li><span>{{ 'front.genres'|trans }}:</span></li>
                                                     <li>
                                                         {% for genre in book.genres %}
-                                                            <a href="/{{ genre.path }}">{{ genre.title }}</a>
+                                                            <a href="/{{ locale_field(genre, 'path') }}">{{ locale_field(genre, 'title') }}</a>
                                                         {% endfor %}
                                                     </li>
                                                 </ul>
@@ -121,7 +121,7 @@
                                                     <li><span>{{ 'front.sequence'|trans }}:</span></li>
                                                     <li>
                                                         <a href="/{{ book.sequence.path }}">
-                                                            {{- book.sequence.name -}}
+                                                            {{- locale_field(book.sequence, 'name') -}}
                                                             {%- if book.sequence_number -%}
                                                                 {{ 'front.number_in_sequence'|trans({
                                                                     '%number%': book.sequence_number

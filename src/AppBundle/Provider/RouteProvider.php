@@ -133,6 +133,7 @@ class RouteProvider implements ProviderInterface
 
         if ($object instanceof PageInterface) {
             $routeData['path_ru'] = $object->getPath();
+            $routeData['path_en'] = $object->getPath();
         } elseif ($object instanceof LocalePageInterface) {
             $routeData['path_en'] = $object->getPathEn();
             $routeData['path_ru'] = $object->getPathRu();

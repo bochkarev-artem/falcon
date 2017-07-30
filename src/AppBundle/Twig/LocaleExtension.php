@@ -41,8 +41,6 @@ class LocaleExtension extends \Twig_Extension
      */
     public function getLocaleField($object, $propertyPath, $locale = null)
     {
-        $locale = $locale ?? $this->localeService->getLocale();
-
         return $this->localeService->getLocaleField($object, $propertyPath, $locale);
     }
 

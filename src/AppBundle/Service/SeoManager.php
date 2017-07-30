@@ -166,14 +166,15 @@ class SeoManager
     public function setGenreSeoData(Genre $genre, $page)
     {
         $seoData = new SeoData();
+        $title = $this->localeService->getLocaleField($genre, 'title');
         $seoData->setTitle($this->translator->trans('front.genre_page.title', [
-            '%genre_title%' => $this->localeService->getLocaleField($genre, 'title'),
+            '%genre_title%' => $title,
         ]));
         $seoData->setMetaDescription($this->translator->trans('front.genre_page.description', [
-            '%genre_title%' => $this->localeService->getLocaleField($genre, 'title'),
+            '%genre_title%' => $title,
         ]));
         $seoData->setMetaKeywords($this->translator->trans('front.genre_page.keywords', [
-            '%genre_title%' => $this->localeService->getLocaleField($genre, 'title'),
+            '%genre_title%' => $title,
         ]));
         $doIndex = $page === 1;
         $seoData->setIndexPage($doIndex);
@@ -210,17 +211,19 @@ class SeoManager
     {
         $seoData = new SeoData();
         $author  = $book['authors'][0];
+        $title   = $this->localeService->getLocaleField($book, 'title');
+        $authorName = $this->localeService->getLocaleField($author, 'full_name');
         $seoData->setTitle($this->translator->trans('front.book_page.title', [
-            '%book_title%'  => $book['title'],
-            '%author_name%' => $author['full_name']
+            '%book_title%'  => $title,
+            '%author_name%' => $authorName,
         ]));
         $seoData->setMetaDescription($this->translator->trans('front.book_page.description', [
-            '%book_title%'  => $book['title'],
-            '%author_name%' => $author['full_name']
+            '%book_title%'  => $title,
+            '%author_name%' => $authorName,
         ]));
         $seoData->setMetaKeywords($this->translator->trans('front.book_page.keywords', [
-            '%book_title%'  => $book['title'],
-            '%author_name%' => $author['full_name']
+            '%book_title%'  => $title,
+            '%author_name%' => $authorName,
         ]));
         $this->setBasicSeoData($seoData);
     }
@@ -293,18 +296,20 @@ class SeoManager
         } elseif ($entity instanceof Author) {
             $name = $entity->getShortName();
         } else {
-            $name = $entity['title'];
+            $name = $this->localeService->getLocaleField($entity, 'title');
             if ($genre = array_shift($entity['genres'])) {
+                $genreTitle = $this->localeService->getLocaleField($genre, 'title');
+                $genrePath  = $this->localeService->getLocaleField($genre, 'path');
                 $breadcrumbs[] = [
-                    'url'  => '/' . $genre['path'],
-                    'name' => $genre['title']
+                    'url'  => '/' . $genrePath,
+                    'name' => $genreTitle,
                 ];
             }
 
             if ($author = array_shift($entity['authors'])) {
                 $breadcrumbs[] = [
                     'url'  => '/' . $author['path'],
-                    'name' => $author['short_name']
+                    'name' => $author['short_name'],
                 ];
             }
         }

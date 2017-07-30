@@ -5,6 +5,7 @@
 
 namespace AppBundle\Service;
 
+use Elastica\Result;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -88,7 +89,10 @@ class LocaleService
     {
         $value = '';
         $locale = $locale ?? $this->getLocale();
-        $propertyPath .= ucfirst($locale);
+        if ($object instanceof Result) {
+            $object = $object->getSource();
+        }
+        $propertyPath = is_array($object) ? '['.$propertyPath.'_'.$locale.']' : $propertyPath.ucfirst($locale);
         if ($this->propertyAccessor->isReadable($object, $propertyPath)) {
             $value = $this->propertyAccessor->getValue($object, $propertyPath);
         }
@@ -104,7 +108,7 @@ class LocaleService
      */
     public function setLocaleField($object, $propertyPath, $locale, $value)
     {
-        $propertyPath .= ucfirst($locale);
+        $propertyPath = is_array($object) ? '['.$propertyPath.'_'.$locale.']' : $propertyPath.ucfirst($locale);
         if ($this->propertyAccessor->isWritable($object, $propertyPath)) {
             $this->propertyAccessor->setValue($object, $propertyPath, $value);
         }

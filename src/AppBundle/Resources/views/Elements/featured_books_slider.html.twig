@@ -10,14 +10,14 @@
                         <div class="item">
                             <div class="book-tab-dec">
                                 <a href="/{{ slider_featured_book.path }}">
-                                    <img class="owl-lazy" data-src="{{ slider_featured_book.cover_path is defined and slider_featured_book.cover_path ? slider_featured_book.cover_path|imagine_filter('book_list') : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ slider_featured_book.title }}"/>
+                                    <img class="owl-lazy" data-src="{{ slider_featured_book.cover_path is defined and slider_featured_book.cover_path ? slider_featured_book.cover_path|imagine_filter('book_list') : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ locale_field(slider_featured_book, 'title') }}"/>
                                 </a>
                                 <div class="text">
                                     {% if slider_featured_book.genres is defined and slider_featured_book.genres %}
                                         {% set genre = slider_featured_book.genres|first %}
-                                        <small>{{ genre.title }}</small>
+                                        <small>{{ locale_field(genre, 'title') }}</small>
                                     {% endif %}
-                                    <div class="h5"><a href="/{{ slider_featured_book.path }}">{{ slider_featured_book.title }}</a></div>
+                                    <div class="h5"><a href="/{{ slider_featured_book.path }}">{{ locale_field(slider_featured_book, 'title') }}</a></div>
                                 </div>
                             </div>
                         </div>
