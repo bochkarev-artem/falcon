@@ -52,6 +52,7 @@ class LocaleService
         $this->requestStack     = $requestStack;
         $this->hosts            = $hosts;
         $this->locales          = $locales;
+        $this->defaultLocale    = $defaultLocale;
         $this->propertyAccessor = new PropertyAccessor();
     }
 
@@ -63,6 +64,7 @@ class LocaleService
         $request = $this->requestStack->getMasterRequest();
         $host = $request ? $request->getHost() : false;
         $this->locale = $host ? array_search($host, $this->hosts) : $this->getDefaultLocale();
+        $this->locale = $this->locale ?: $this->getDefaultLocale();
 
         return $this->locale;
     }
