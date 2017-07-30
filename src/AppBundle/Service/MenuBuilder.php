@@ -43,11 +43,6 @@ class MenuBuilder
     protected $localeService;
 
     /**
-     * @var string
-     */
-    protected $locale;
-
-    /**
      * @param EntityManager     $em
      * @param \Twig_Environment $twig
      * @param string            $cacheDir
@@ -68,7 +63,6 @@ class MenuBuilder
         $this->cacheDir      = $cacheDir . '/menuCache';
         $this->cacheFile     = $this->cacheDir . '/%sMenu.%s.html';
         $this->localeService = $localeService;
-        $this->locale        = $localeService->getLocale();
     }
 
     /**
@@ -95,7 +89,7 @@ class MenuBuilder
      */
     protected function getCacheFileName($type)
     {
-        $fileName = sprintf($this->cacheFile, $type, $this->locale);
+        $fileName = sprintf($this->cacheFile, $type, $this->localeService->getLocale());
 
         return $fileName;
     }
@@ -139,7 +133,7 @@ class MenuBuilder
                 ->andWhere($qb->expr()->eq('b.lang', ':locale'))
                 ->addOrderBy('rating.rating', 'DESC')
                 ->setParameter('featured_menu', true)
-                ->setParameter('locale', $this->locale)
+                ->setParameter('locale', $this->localeService->getLocale())
             ;
 
             $books = $qb->getQuery()->getResult();
@@ -217,7 +211,7 @@ class MenuBuilder
 
         $categoryRepo = $this->em->getRepository('AppBundle:Genre');
         $qb           = $categoryRepo->createQueryBuilder('g');
-        $qb->addOrderBy('g.title' . ucfirst($this->locale));
+        $qb->addOrderBy('g.title' . ucfirst($this->localeService->getLocale()));
 
         $categories = $qb->getQuery()->getResult() ?: [];
 

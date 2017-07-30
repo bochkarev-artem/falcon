@@ -130,3 +130,8 @@ services:
             - "%hosts%"
             - "%locales%"
             - "%default_locale%"
+#
+#    monolog.processor.web:
+#        class: Monolog\Processor\WebProcessor
+#        tags:
+#            - { name: monolog.processor, handler: slackbot }
