@@ -105,14 +105,17 @@ class QueryService
     private function getSearchQuery(QueryParams $queryParams)
     {
         $locale = $this->localeService->getLocale();
+        $bookLocale = "book_title_$locale.exact^3";
+        $authorLocale = "author_name_$locale.exact^6";
+        $sequenceLocale = "sequence_title_$locale.exact";
         $genreLocale = "genre_title_$locale.exact";
 
         $queryString = $queryParams->getSearchQuery();
 
         $fields = [
-            'book_title.exact^3',
-            'author_name.exact^6',
-            'sequence_title.exact',
+            $bookLocale,
+            $authorLocale,
+            $sequenceLocale,
             'tag_title.exact^2',
             $genreLocale,
         ];

@@ -102,15 +102,14 @@ class BookProvider implements ProviderInterface
     private function collectData(Book $book)
     {
         $ratingData = $this->bookPageService->getBookRatingData($book->getId());
+        $lang       = $book->getLang();
         $bookData   = [
             'book_id'         => $book->getId(),
-            'title'           => $book->getTitle(),
             'annotation'      => $book->getAnnotation(),
             'cover_path'      => $book->getCoverPath(),
             'price'           => $book->getPrice(),
             'has_trial'       => $book->isHasTrial(),
             'featured_home'   => $book->isFeaturedHome(),
-            'lang'            => $book->getLang(),
             'sequence_number' => $book->getSequenceNumber(),
             'litres_hub_id'   => $book->getLitresHubId(),
             'document_id'     => $book->getDocumentId(),
@@ -118,10 +117,13 @@ class BookProvider implements ProviderInterface
             'city_published'  => $book->getCityPublished(),
             'year_published'  => $book->getYearPublished(),
             'isbn'            => $book->getIsbn(),
+            'lang'            => $lang,
             'rating'          => $ratingData['rating'],
             'review_count'    => $book->getReviews()->count(),
             'path'            => $book->getPath(),
         ];
+
+        $bookData['title_' . $lang] = $book->getTitle();
 
         if ($book->getDate()) {
             $bookData['date'] = $book->getDate()->format('Y-m-d');
@@ -180,11 +182,11 @@ class BookProvider implements ProviderInterface
                 'first_name'    => $author->getFirstName(),
                 'last_name'     => $author->getLastName(),
                 'middle_name'   => $author->getMiddleName(),
-                'full_name'     => $author->getFullName(),
                 'short_name'    => $author->getShortName(),
                 'document_id'   => $author->getDocumentId(),
                 'path'          => $author->getPath(),
             ];
+            $authorData['full_name_' . $book->getLang()] = $author->getFullName();
             $authorsData[] = $authorData;
         }
 
@@ -232,10 +234,10 @@ class BookProvider implements ProviderInterface
         if ($sequence) {
             $sequenceData = [
                 'sequence_id' => $sequence->getId(),
-                'name'        => $sequence->getName(),
                 'litres_id'   => $sequence->getLitresId(),
                 'path'        => $sequence->getPath(),
             ];
+            $sequenceData['name_' . $book->getLang()] = $sequence->getName();
         }
 
         $bookData['sequence'] = $sequenceData;
