@@ -210,7 +210,7 @@ class SeoManager
     public function setBookSeoData(array $book)
     {
         $seoData = new SeoData();
-        $author  = $book['authors'][0];
+        $author  = $book['authors'] ?? $book['authors'][0];
         $title   = $this->localeService->getLocaleField($book, 'title');
         $authorName = $this->localeService->getLocaleField($author, 'full_name');
         $seoData->setTitle($this->translator->trans('front.book_page.title', [

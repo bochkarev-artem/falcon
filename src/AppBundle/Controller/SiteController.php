@@ -446,12 +446,15 @@ class SiteController extends Controller
             $userRating = $bookPageService->getUserBookRating($user->getId(), $id);
         }
 
+        $asideFeaturedBooks = $bookPageService->getAsideFeaturedBooks($book);
+        $sliderFeaturedBooks = $bookPageService->getSliderFeaturedBooks($book);
+
         return $this->render(
             '@App/Site/book.html.twig',
             [
                 'book'                  => $book,
-                'aside_featured_books'  => $bookPageService->getAsideFeaturedBooks($book)->getCurrentPageResults(),
-                'slider_featured_books' => $bookPageService->getSliderFeaturedBooks($book)->getCurrentPageResults(),
+                'aside_featured_books'  => $asideFeaturedBooks ?? $asideFeaturedBooks->getCurrentPageResults(),
+                'slider_featured_books' => $sliderFeaturedBooks ?? $sliderFeaturedBooks->getCurrentPageResults(),
                 'book_rating_data'      => $bookPageService->getBookRatingData($id),
                 'user_book_rating'      => $userRating ?? null,
                 'reviews'               => $bookPageService->getBookReviews($id),
