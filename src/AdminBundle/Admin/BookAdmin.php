@@ -82,6 +82,9 @@ class BookAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
+            ->add('title')
+            ->add('slug')
+            ->add('lang')
             ->add('authors', 'doctrine_orm_callback', [
                     'callback' => function($queryBuilder, $alias, $field, $value) {
                         /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
@@ -197,8 +200,6 @@ class BookAdmin extends AbstractAdmin
             )
             ->add('litresHubId')
             ->add('documentId')
-            ->add('title')
-            ->add('slug')
         ;
     }
 
@@ -212,6 +213,7 @@ class BookAdmin extends AbstractAdmin
             ->add('litresHubId')
             ->add('documentId')
             ->add('title')
+            ->add('lang')
             ->add('featuredHome', null, ['editable' => true])
             ->add('path')
             ->add('authors')
