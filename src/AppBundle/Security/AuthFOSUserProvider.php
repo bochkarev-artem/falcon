@@ -38,11 +38,21 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      * @param UserResponseInterface $response
      *
      * @return User
+     * @throws \Exception
      */
     protected function createUser(UserResponseInterface $response)
     {
-        $user        = new User();
-        $id          = $response->getEmail() ?? $response->getResponse()['id'];
+        $user           = new User();
+        $email          = $response->getEmail();
+        $responseId     = isset($response->getResponse()['id']) ? $response->getResponse()['id'] : false;
+        $id             = $email ?? $responseId;
+        $property       = $this->getProperty($response);
+        $providerSetter = 'set' . ucfirst($property);
+
+        if (!$id) {
+            throw new \Exception(sprintf("id is not set for %s and email %s", $property, $email), 500);
+        }
+
         $firstName   = $response->getFirstName();
         $lastName    = $response->getLastName();
         $pictureData = $response->getPath('profilepicture');
@@ -55,9 +65,6 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
         $user->setEmail($id);
         $user->setPassword('');
         $user->setEnabled(true);
-
-        $property       = $this->getProperty($response);
-        $providerSetter = 'set' . ucfirst($property);
         $user->$providerSetter($id);
 
         $this->userManager->updateUser($user);
