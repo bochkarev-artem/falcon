@@ -421,7 +421,6 @@ class SiteController extends Controller
      * @param BookPageService $bookPageService
      * @param LitresBookManager $litresBookManager
      * @param SeoManager $seoManager
-     * @param Logger $logger
      *
      * @return Response
      */
@@ -430,8 +429,7 @@ class SiteController extends Controller
         QueryService $queryService,
         BookPageService $bookPageService,
         LitresBookManager $litresBookManager,
-        SeoManager $seoManager,
-        Logger $logger
+        SeoManager $seoManager
     ) {
         $queryParams = new QueryParams();
         $queryParams
@@ -443,8 +441,7 @@ class SiteController extends Controller
         }
 
         if (!$books->getIterator()->current()) {
-            $logger->critical(sprintf('book id %s not found', $id));
-            throw $this->createNotFoundException();
+            throw $this->createNotFoundException(sprintf('book id %s not found', $id));
         }
 
         $book = $books->getIterator()->current()->getSource();
