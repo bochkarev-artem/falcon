@@ -11,6 +11,7 @@ use AppBundle\Service\LocaleService;
 use AppBundle\Service\QueryService;
 use AppBundle\Service\SeoManager;
 use Doctrine\ORM\QueryBuilder;
+use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -420,6 +421,7 @@ class SiteController extends Controller
      * @param BookPageService $bookPageService
      * @param LitresBookManager $litresBookManager
      * @param SeoManager $seoManager
+     * @param Logger $logger
      *
      * @return Response
      */
@@ -428,7 +430,8 @@ class SiteController extends Controller
         QueryService $queryService,
         BookPageService $bookPageService,
         LitresBookManager $litresBookManager,
-        SeoManager $seoManager
+        SeoManager $seoManager,
+        Logger $logger
     ) {
         $queryParams = new QueryParams();
         $queryParams
@@ -436,6 +439,11 @@ class SiteController extends Controller
             ->setSize(1);
 
         if (!$books = $queryService->find($queryParams)) {
+            throw $this->createNotFoundException();
+        }
+
+        if (!$books->getIterator()->current()) {
+            $logger->critical(sprintf('book id %s not found', $id));
             throw $this->createNotFoundException();
         }
 
