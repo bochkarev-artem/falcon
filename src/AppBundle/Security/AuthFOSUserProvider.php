@@ -80,11 +80,13 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      */
     protected function prepareUser(UserResponseInterface $response)
     {
-        $property = $this->getProperty($response);
-        $id       = $response->getEmail() ?? $response->getResponse()['id'];
+        $property   = $this->getProperty($response);
+        $email      = $response->getEmail();
+        $responseId = isset($response->getResponse()['id']) ? $response->getResponse()['id'] : false;
+        $id         = $email ?? $responseId;
 
         if (!$id) {
-            throw new \Exception('Not allowed auth service');
+            throw new \Exception(sprintf("id is not set for %s and email %s", $property, $email), 500);
         }
 
         if ($user = $this->userManager->findUserBy([$property => $id])) {

@@ -26,7 +26,6 @@ monolog:
             token: '%slack_token%'
             channel: '#dev'
             level: error
-            formatter: monolog.formatter.session_request
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

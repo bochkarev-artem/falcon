@@ -25,7 +25,6 @@ monolog:
             token: '%slack_token%'
             channel: '#prod'
             level: critical
-            formatter: monolog.formatter.session_request
         main:
             type:         fingers_crossed
             action_level: critical

@@ -436,11 +436,12 @@ class SiteController extends Controller
             ->setFilterId($id)
             ->setSize(1);
 
-        if (!$books = $queryService->find($queryParams)) {
+        $books = $queryService->find($queryParams);
+        if (!$bookData = $books->getIterator()->current()) {
             throw $this->createNotFoundException();
         }
 
-        $book = $books->getIterator()->current()->getSource();
+        $book = $bookData->getSource();
         $seoManager->setBookSeoData($book);
 
         if ($user = $this->getUser()) {
