@@ -51,10 +51,10 @@ class SitemapListener implements SitemapListenerInterface
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $queryBuilders = [
+//            'authors' => 'Author',
+//            'series'  => 'Sequence',
+//            'tags'    => 'Tag',
             'genres'  => 'Genre',
-            'authors' => 'Author',
-            'series'  => 'Sequence',
-            'tags'    => 'Tag',
             'books'   => 'Book',
             'books2'  => 'Book',
             'books3'  => 'Book',
@@ -67,37 +67,34 @@ class SitemapListener implements SitemapListenerInterface
             'books10' => 'Book',
         ];
 
-        $host = $this->localeService->getHost();
-        if (!$host) {
-            return;
-        }
+        $locale = $event->getSection();
+        $host = $this->localeService->getHosts()[$locale] . '/';
         foreach ($queryBuilders as $section => $entityName) {
-            if (is_null($event->getSection()) || $event->getSection() == $section) {
-                $query = $this->getQuery($entityName);
-                foreach ($query->iterate() as $row) {
-                    /** @var PageInterface|LocalePageInterface $entity */
-                    $entity = array_shift($row);
-                    if ($entity instanceof PageInterface) {
-                        $event
-                            ->getUrlContainer()
-                            ->addUrl(new UrlConcrete($host . $entity->getPath()), $section);
-                    } elseif ($entity instanceof LocalePageInterface) {
-                        $path = $this->localeService->getLocaleField($entity, 'path');
-                        $event->getUrlContainer()->addUrl(new UrlConcrete($host . $path), $section);
-                    }
+            $query = $this->getQuery($entityName, $locale);
+            foreach ($query->iterate() as $row) {
+                /** @var PageInterface|LocalePageInterface $entity */
+                $entity = array_shift($row);
+                if ($entity instanceof PageInterface) {
+                    $event
+                        ->getUrlContainer()
+                        ->addUrl(new UrlConcrete($host . $entity->getPath()), $locale . '/' . $section);
+                } elseif ($entity instanceof LocalePageInterface) {
+                    $path = $this->localeService->getLocaleField($entity, 'path');
+                    $event->getUrlContainer()->addUrl(new UrlConcrete($host . $path), $locale . '/' . $section);
                 }
-                $query = null;
-                $this->em->clear();
             }
+            $query = null;
+            $this->em->clear();
         }
     }
 
     /**
      * @param string $entityName
+     * @param string $locale
      *
      * @return Query
      */
-    protected function getQuery($entityName)
+    protected function getQuery($entityName, $locale)
     {
         $qb = $this->em->createQueryBuilder();
         $qb
@@ -110,7 +107,11 @@ class SitemapListener implements SitemapListenerInterface
         }
 
         if ('Book' == $entityName) {
-            $qb->setMaxResults(30000);
+            $qb
+                ->setMaxResults(30000)
+                ->andWhere($qb->expr()->eq('e.lang', ':lang'))
+                ->setParameter('lang', $locale)
+            ;
 
             if ($this->bookOffset) {
                 $qb->setFirstResult($this->bookOffset + 1);

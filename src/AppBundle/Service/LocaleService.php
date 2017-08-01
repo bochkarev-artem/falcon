@@ -70,14 +70,11 @@ class LocaleService
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getHost()
+    public function getHosts()
     {
-        $request = $this->requestStack->getMasterRequest();
-        $host = $request ? $request->getHost() : false;
-
-        return $host;
+        return $this->hosts;
     }
 
     /**
