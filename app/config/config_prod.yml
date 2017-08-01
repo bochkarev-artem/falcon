@@ -22,9 +22,9 @@ monolog:
     handlers:
         slackbot:
             type: slack
-            token: 'xoxb-218905045585-dqQpUf6TqYRfVeOE6ss2FMjD'
+            token: '%slack_token%'
             channel: '#prod'
-            level: error
+            level: critical
         main:
             type:         fingers_crossed
             action_level: critical
@@ -32,6 +32,6 @@ monolog:
         nested:
             type:  stream
             path: 'php://stderr'
-            level: debug
+            level: critical
         console:
             type:  console
