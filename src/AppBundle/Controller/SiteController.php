@@ -440,10 +440,6 @@ class SiteController extends Controller
             throw $this->createNotFoundException();
         }
 
-        if (!$books->getIterator()->current()) {
-            throw $this->createNotFoundException(sprintf('book id %s not found', $id));
-        }
-
         $book = $books->getIterator()->current()->getSource();
         $seoManager->setBookSeoData($book);
 
