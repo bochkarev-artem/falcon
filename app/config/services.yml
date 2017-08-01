@@ -130,8 +130,12 @@ services:
             - "%hosts%"
             - "%locales%"
             - "%default_locale%"
-#
-#    monolog.processor.web:
-#        class: Monolog\Processor\WebProcessor
-#        tags:
-#            - { name: monolog.processor, handler: slackbot }
+
+    monolog.formatter.session_request:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] [%%url%%] [%%ip%%] [%%referrer%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
+
+    Monolog\Processor\WebProcessor:
+        tags:
+            - { name: monolog.processor, handler: slackbot }
