@@ -121,6 +121,11 @@ class LitresFileService
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
+            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $sequenceName)) {
+                $sequence->setLang('ru');
+            } else {
+                $sequence->setLang('en');
+            }
 
             $this->em->persist($sequence);
             $this->em->flush();
@@ -154,6 +159,12 @@ class LitresFileService
                 ->setMiddleName($mName)
                 ->setLastName($lName)
             ;
+
+            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $fName . $lName)) {
+                $author->setLang('ru');
+            } else {
+                $author->setLang('en');
+            }
 
             $this->em->persist($author);
             $this->em->flush();
@@ -221,17 +232,9 @@ class LitresFileService
                 $this->goToNextNode($xmlReader);
                 continue;
             }
-            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
-            if (strlen($lang) == 0) {
-                if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
-                    $lang = 'ru';
-                } else {
-                    $lang = 'en';
-                }
-            }
-
             $documentInfo = $hidden->{'document-info'};
             $publishInfo = $hidden->{'publish-info'};
+            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
 
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
@@ -301,6 +304,12 @@ class LitresFileService
                 continue;
             }
             $cover = $this->getCover((string)$data['file_id']);
+
+            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru') {
+                $book->setLang('ru');
+            } else {
+                $book->setLang('en');
+            }
 
             $book
                 ->setLitresHubId($hubId)

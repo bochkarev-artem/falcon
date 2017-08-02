@@ -201,6 +201,11 @@ class LitresService
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
+            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $sequenceName)) {
+                $sequence->setLang('ru');
+            } else {
+                $sequence->setLang('en');
+            }
 
             $this->em->persist($sequence);
             $this->em->flush();
@@ -234,6 +239,12 @@ class LitresService
                 ->setMiddleName($mName)
                 ->setLastName($lName)
             ;
+
+            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $fName . $lName)) {
+                $author->setLang('ru');
+            } else {
+                $author->setLang('en');
+            }
 
             $this->em->persist($author);
             $this->em->flush();
@@ -329,17 +340,9 @@ class LitresService
                 $this->skipped++;
                 continue;
             }
-            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
-            if (strlen($lang) == 0) {
-                if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
-                    $lang = 'ru';
-                } else {
-                    $lang = 'en';
-                }
-            }
-
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
+            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
 
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
@@ -407,6 +410,11 @@ class LitresService
 
             /** @var Author $mainAuthor */
             $mainAuthor = $book->getAuthors()->first();
+            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru') {
+                $book->setLang('ru');
+            } else {
+                $book->setLang('en');
+            }
 
             $book
                 ->setLitresHubId($hubId)

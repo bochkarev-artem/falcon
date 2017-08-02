@@ -8,7 +8,9 @@
                             <li><a href="{{ path('vkontakte_login') }}"><i class="fa fa-vk"></i></a></li>
                             <li><a href="{{ path('facebook_login') }}"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="{{ path('google_login') }}"><i class="fa fa-google"></i></a></li>
-                            <li><a href="{{ path('yandex_login') }}"><i class="fa fa-yahoo"></i></a></li>
+                            {% if app.request.locale == 'ru' %}
+                                <li><a href="{{ path('yandex_login') }}"><i class="fa fa-yahoo"></i></a></li>
+                            {% endif %}
                         </ul>
                 </div>
             </div>

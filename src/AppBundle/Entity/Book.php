@@ -88,7 +88,7 @@ class Book implements PageInterface
     /**
      * @var Genre[]|ArrayCollection $genres
      *
-     * @ORM\ManyToMany(targetEntity="Genre", fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="Genre", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_genre",
      *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}

@@ -96,7 +96,7 @@
                                                     {% endfor %}
                                                 </li>
                                             </ul>
-                                            {% if book.tags|length > 0 %}
+                                            {% if book.tags and app.request.locale == 'ru' %}
                                                 <ul class="book-tags">
                                                     <li><span>{{ 'front.tags'|trans }}:</span></li>
                                                     <li>
@@ -106,7 +106,7 @@
                                                     </li>
                                                 </ul>
                                             {% endif %}
-                                            {% if book.genres|length > 0 %}
+                                            {% if book.genres %}
                                                 <ul class="book-tags">
                                                     <li><span>{{ 'front.genres'|trans }}:</span></li>
                                                     <li>
@@ -138,7 +138,7 @@
                                                 </ul>
                                             {% endif %}
 
-                                            {% if download_links|length > 0 %}
+                                            {% if download_links %}
                                                 <ul class="book-tags">
                                                     <li><span>{{ 'front.download'|trans }}:</span></li>
                                                     {%- for link in download_links -%}

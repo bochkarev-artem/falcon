@@ -42,8 +42,11 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      */
     protected function createUser(UserResponseInterface $response)
     {
-        $user           = new User();
-        $email          = $response->getEmail();
+        $user  = new User();
+        $email = $response->getEmail();
+        if (!$email) {
+            $email = $response->getUsername() ?? $response->getPath('screenname');
+        }
         $responseId     = isset($response->getResponse()['id']) ? $response->getResponse()['id'] : false;
         $id             = $email ?? $responseId;
         $property       = $this->getProperty($response);
@@ -80,8 +83,11 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      */
     protected function prepareUser(UserResponseInterface $response)
     {
-        $property   = $this->getProperty($response);
-        $email      = $response->getEmail();
+        $property = $this->getProperty($response);
+        $email    = $response->getEmail();
+        if (!$email) {
+            $email = $response->getUsername() ?? $response->getPath('screenname');
+        }
         $responseId = isset($response->getResponse()['id']) ? $response->getResponse()['id'] : false;
         $id         = $email ?? $responseId;
 

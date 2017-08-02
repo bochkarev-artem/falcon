@@ -1,13 +1,19 @@
 <ul class="dl-submenu">
 {% for parentGenre in parentGenres %}
-    <li class="menu-item kode-parent-menu"><a href="#">{{ locale_field(parentGenre, 'title') }}</a>
-        <ul class="dl-submenu">
-            {% set childGenres = genres[parentGenre.id] %}
-            {%- for childGenre in childGenres -%}
-                {% set genreUrl = childGenre.pathPrefix ~ '/' ~ locale_field(childGenre, 'slug') %}
-                <li><a href="/{{ genreUrl }}">{{ locale_field(childGenre, 'title') }}</a></li>
-            {%- endfor -%}
-        </ul>
-    </li>
+    {% if genres[parentGenre.id] is defined %}
+        {% set childGenres = genres[parentGenre.id] %}
+    {% else %}
+        {% set childGenres = [] %}
+    {% endif %}
+    {% if childGenres %}
+        <li class="menu-item kode-parent-menu"><a href="#">{{ locale_field(parentGenre, 'title') }}</a>
+            <ul class="dl-submenu">
+                {%- for childGenre in childGenres -%}
+                    {% set genreUrl = childGenre.pathPrefix ~ '/' ~ locale_field(childGenre, 'slug') %}
+                    <li><a href="/{{ genreUrl }}">{{ locale_field(childGenre, 'title') }}</a></li>
+                {%- endfor -%}
+            </ul>
+        </li>
+    {% endif %}
 {% endfor %}
 </ul>

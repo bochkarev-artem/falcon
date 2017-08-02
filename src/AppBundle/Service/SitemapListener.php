@@ -51,9 +51,8 @@ class SitemapListener implements SitemapListenerInterface
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $queryBuilders = [
-//            'authors' => 'Author',
-//            'series'  => 'Sequence',
-//            'tags'    => 'Tag',
+            'authors' => 'Author',
+            'series'  => 'Sequence',
             'genres'  => 'Genre',
             'books'   => 'Book',
             'books2'  => 'Book',
@@ -68,7 +67,10 @@ class SitemapListener implements SitemapListenerInterface
         ];
 
         $locale = $event->getSection();
-        $host = $this->localeService->getHosts()[$locale] . '/';
+        if ('ru' == $locale) {
+            $queryBuilders['tags'] = 'Tag';
+        }
+        $host = 'http://' . $this->localeService->getHosts()[$locale] . '/';
         foreach ($queryBuilders as $section => $entityName) {
             $query = $this->getQuery($entityName, $locale);
             foreach ($query->iterate() as $row) {
@@ -106,12 +108,15 @@ class SitemapListener implements SitemapListenerInterface
             $qb->andWhere($qb->expr()->isNotNull('e.parent'));
         }
 
-        if ('Book' == $entityName) {
+        if ('Book' == $entityName || 'Author' == $entityName || 'Sequence' == $entityName) {
             $qb
-                ->setMaxResults(30000)
                 ->andWhere($qb->expr()->eq('e.lang', ':lang'))
                 ->setParameter('lang', $locale)
             ;
+        }
+
+        if ('Book' == $entityName) {
+            $qb->setMaxResults(30000);
 
             if ($this->bookOffset) {
                 $qb->setFirstResult($this->bookOffset + 1);

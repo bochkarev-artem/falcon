@@ -207,13 +207,33 @@ class MenuBuilder
      */
     protected function getAllGenres()
     {
+        $locale = $this->localeService->getLocale();
         $this->em->clear('AppBundle\Entity\Genre');
-
-        $categoryRepo = $this->em->getRepository('AppBundle:Genre');
-        $qb           = $categoryRepo->createQueryBuilder('g');
-        $qb->addOrderBy('g.title' . ucfirst($this->localeService->getLocale()));
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('g')
+            ->from("AppBundle:Genre", 'g', 'g.id')
+            ->leftJoin('g.books', 'b')
+            ->andWhere($qb->expr()->eq('b.lang', ':locale'))
+            ->setParameter('locale', $locale)
+            ->groupBy('g.id')
+            ->having($qb->expr()->gt('COUNT(b)', 0))
+            ->addOrderBy('g.title' . ucfirst($locale));
 
         $categories = $qb->getQuery()->getResult() ?: [];
+
+        $qb = $this->em->createQueryBuilder();
+        $qb
+            ->select('g')
+            ->from("AppBundle:Genre", 'g')
+            ->where($qb->expr()->isNull('g.parent'))
+            ->addOrderBy('g.title' . ucfirst($locale));
+
+        $parentCategories = $qb->getQuery()->getResult() ?: [];
+
+        foreach ($parentCategories as $parentCategory) {
+            $categories[] = $parentCategory;
+        }
 
         return $categories;
     }

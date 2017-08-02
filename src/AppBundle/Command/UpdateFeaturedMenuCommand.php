@@ -89,6 +89,7 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
             ->addGroupBy('g.id')
             ->addGroupBy('b.id')
             ->addGroupBy('rating.id')
+            ->setMaxResults(250)
         ;
     }
 }

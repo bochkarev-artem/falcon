@@ -157,3 +157,4 @@ hwi_oauth:
                 csrf:        true
             paths:
                 profilepicture: 'response.0.photo_medium'
+                screenname:     'response.0.screen_name'

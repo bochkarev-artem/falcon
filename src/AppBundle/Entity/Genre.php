@@ -105,6 +105,13 @@ class Genre implements LocalePageInterface
     private $slugRu;
 
     /**
+     * @var ArrayCollection $books
+     *
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="genres", fetch="EXTRA_LAZY")
+     */
+    private $books;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -119,6 +126,14 @@ class Genre implements LocalePageInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBooks()
+    {
+        return $this->books;
     }
 
     /**
