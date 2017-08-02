@@ -51,19 +51,26 @@ class SitemapListener implements SitemapListenerInterface
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $queryBuilders = [
-            'authors' => 'Author',
-            'series'  => 'Sequence',
-            'genres'  => 'Genre',
-            'books'   => 'Book',
-            'books2'  => 'Book',
-            'books3'  => 'Book',
-            'books4'  => 'Book',
-            'books5'  => 'Book',
-            'books6'  => 'Book',
-            'books7'  => 'Book',
-            'books8'  => 'Book',
-            'books9'  => 'Book',
-            'books10' => 'Book',
+            'authors'  => 'Author',
+            'authors2' => 'Author',
+            'authors3' => 'Author',
+            'authors4' => 'Author',
+            'authors5' => 'Author',
+            'authors6' => 'Author',
+            'authors7' => 'Author',
+            'authors8' => 'Author',
+            'series'   => 'Sequence',
+            'genres'   => 'Genre',
+            'books'    => 'Book',
+            'books2'   => 'Book',
+            'books3'   => 'Book',
+            'books4'   => 'Book',
+            'books5'   => 'Book',
+            'books6'   => 'Book',
+            'books7'   => 'Book',
+            'books8'   => 'Book',
+            'books9'   => 'Book',
+            'books10'  => 'Book',
         ];
 
         $locale = $event->getSection();
@@ -123,6 +130,16 @@ class SitemapListener implements SitemapListenerInterface
             }
 
             $this->bookOffset += 30000;
+        }
+
+        if ('Author' == $entityName) {
+            $qb->setMaxResults(30000);
+
+            if ($this->authorOffset) {
+                $qb->setFirstResult($this->authorOffset + 1);
+            }
+
+            $this->authorOffset += 30000;
         }
 
         return $qb->getQuery();
