@@ -235,6 +235,7 @@ class LitresFileService
             $documentInfo = $hidden->{'document-info'};
             $publishInfo = $hidden->{'publish-info'};
 
+            $author = null;
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
                 $author = $this->getAuthor($authorId, $author);
@@ -253,6 +254,10 @@ class LitresFileService
 
                     continue 2;
                 }
+            }
+
+            if ($author === null) {
+                continue;
             }
 
             $genres = [];

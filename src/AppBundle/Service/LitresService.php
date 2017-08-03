@@ -343,6 +343,7 @@ class LitresService
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
 
+            $author = null;
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
                 $author = $this->getAuthor($authorId, $author);
@@ -359,6 +360,10 @@ class LitresService
                     $this->skipped++;
                     continue 2;
                 }
+            }
+
+            if ($author === null) {
+                continue;
             }
 
             $genres = [];
