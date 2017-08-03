@@ -416,7 +416,8 @@ class LitresService
                 $bookLocale = 'en';
             }
 
-            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru' || $bookLocale == 'ru') {
+            $sequence = $book->getSequence();
+            if ($sequence && $sequence->getLang() == 'ru' || $mainAuthor->getLang() == 'ru' || $bookLocale == 'ru') {
                 $book->setLang('ru');
             } else {
                 $book->setLang('en');
@@ -445,6 +446,9 @@ class LitresService
             }
 
             $this->em->persist($book);
+            if ($this->debug) {
+                echo ">>> book persisted ($this->step)\n";
+            }
             if ($this->step % $this->batchSize === 0) {
                 $this->em->flush();
                 $this->em->clear();

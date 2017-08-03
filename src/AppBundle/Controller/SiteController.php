@@ -11,7 +11,6 @@ use AppBundle\Service\LocaleService;
 use AppBundle\Service\QueryService;
 use AppBundle\Service\SeoManager;
 use Doctrine\ORM\QueryBuilder;
-use Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,6 +28,7 @@ class SiteController extends Controller
      */
     public function indexAction(HomePageService $homePageService, SeoManager $seoManager)
     {
+        // TODO cache index page
         $seoManager->setHomeSeoData();
 
         return $this->render(

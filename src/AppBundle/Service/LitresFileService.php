@@ -311,7 +311,8 @@ class LitresFileService
                 $bookLocale = 'en';
             }
 
-            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru' || $bookLocale == 'ru') {
+            $sequence = $book->getSequence();
+            if ($sequence && $sequence->getLang() == 'ru' || $mainAuthor->getLang() == 'ru' || $bookLocale == 'ru') {
                 $book->setLang('ru');
             } else {
                 $book->setLang('en');
