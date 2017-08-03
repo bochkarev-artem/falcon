@@ -342,7 +342,6 @@ class LitresService
             }
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
             $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
-            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
 
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
@@ -410,7 +409,14 @@ class LitresService
 
             /** @var Author $mainAuthor */
             $mainAuthor = $book->getAuthors()->first();
-            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru') {
+            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
+            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
+                $bookLocale = 'ru';
+            } else {
+                $bookLocale = 'en';
+            }
+
+            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru' || $bookLocale == 'ru') {
                 $book->setLang('ru');
             } else {
                 $book->setLang('en');

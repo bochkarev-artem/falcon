@@ -234,7 +234,6 @@ class LitresFileService
             }
             $documentInfo = $hidden->{'document-info'};
             $publishInfo = $hidden->{'publish-info'};
-            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
 
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
@@ -303,9 +302,16 @@ class LitresFileService
                 $this->goToNextNode($xmlReader);
                 continue;
             }
-            $cover = $this->getCover((string)$data['file_id']);
 
-            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru') {
+            $cover = $this->getCover((string)$data['file_id']);
+            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
+            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
+                $bookLocale = 'ru';
+            } else {
+                $bookLocale = 'en';
+            }
+
+            if ($book->getSequence()->getLang() == 'ru' || $mainAuthor->getLang() == 'ru' || $bookLocale == 'ru') {
                 $book->setLang('ru');
             } else {
                 $book->setLang('en');

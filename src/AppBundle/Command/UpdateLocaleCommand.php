@@ -5,9 +5,7 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
-use AppBundle\Entity\Sequence;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -40,83 +38,19 @@ class UpdateLocaleCommand extends ContainerAwareCommand
         $output->writeln("<info>Update started</info>");
         $container = $this->getContainer();
         $em        = $container->get('doctrine.orm.entity_manager');
-        $batchSize = 300;
+        $batchSize = 150;
 
-        $qb = $this->buildAuthorQuery($em);
-        $authors = $qb->getQuery()->iterate();
+        $qb = $this->buildQuery($em);
+        $books = $qb->getQuery()->iterate();
 
-        $i = 0;
-        /** @var Author $author */
-        foreach ($authors as $row) {
-            $author = $row[0];
-            $name = $author->getShortName();
-            $this->setLang($author, $name);
-            $i++;
-            if ($i % $batchSize == 0) {
-                echo $i . "\n";
-                $em->flush();
-                $em->clear();
-            }
-        }
-        $em->flush();
-        $em->clear();
-
-        $qb = $this->buildSequenceQuery($em);
-        $sequences = $qb->getQuery()->iterate();
-
-        $i = 0;
-        /** @var Sequence $sequence */
-        foreach ($sequences as $row) {
-            $sequence = $row[0];
-            $name = $sequence->getName();
-            $this->setLang($sequence, $name);
-            $i++;
-            if ($i % $batchSize == 0) {
-                echo $i . "\n";
-                $em->flush();
-                $em->clear();
-            }
-        }
-        $em->flush();
-        $em->clear();
-
-        $qb = $this->buildAuthorQuery($em);
-        $authors = $qb->getQuery()->iterate();
-
-        $batchSize = 100;
         $i = 0;
         $count = 0;
-        /** @var Author $author */
-        foreach ($authors as $row) {
-            $author = $row[0];
+        /** @var Book $book */
+        foreach ($books as $row) {
+            $book = $row[0];
             /** @var Book $book */
-            foreach ($author->getBooks() as $book) {
-                if ($this->setBookLang($book, $author->getLang())) {
-                    $count++;
-                }
-            }
-            $i++;
-            if ($i % $batchSize == 0) {
-                echo $i . "\n";
-                $em->flush();
-                $em->clear();
-            }
-        }
-        $em->flush();
-        $em->clear();
-
-        $qb = $this->buildSequenceQuery($em);
-        $sequences = $qb->getQuery()->iterate();
-
-        $i = 0;
-        /** @var Sequence $sequence */
-        foreach ($sequences as $row) {
-            $sequence = $row[0];
-            /** @var Book $book */
-            foreach ($sequence->getBooks() as $book) {
-                if ($this->setBookLang($book, $sequence->getLang())) {
-                    $count++;
-                }
+            if ($this->setBookLang($book)) {
+                $count++;
             }
             $i++;
             if ($i % $batchSize == 0) {
@@ -138,58 +72,30 @@ class UpdateLocaleCommand extends ContainerAwareCommand
      *
      * @return QueryBuilder
      */
-    protected function buildAuthorQuery($em)
+    protected function buildQuery($em)
     {
         $qb = $em->createQueryBuilder();
 
         return $qb
             ->select('a')
-            ->from('AppBundle:Author', 'a')
-        ;
-    }
-
-    /**
-     * @param EntityManagerInterface $em
-     *
-     * @return QueryBuilder
-     */
-    protected function buildSequenceQuery($em)
-    {
-        $qb = $em->createQueryBuilder();
-
-        return $qb
-            ->select('a')
-            ->from('AppBundle:Sequence', 'a')
+            ->from('AppBundle:Book', 'a')
+            ->where($qb->expr()->eq('a.lang', ':locale'))
+            ->setParameter('locale', 'en')
         ;
     }
 
     /**
      * @param Book $book
-     * @param string $lang
      *
      * @return bool
      */
-    protected function setBookLang($book, $lang)
+    protected function setBookLang($book)
     {
-        if ($book->getLang() != $lang) {
-            $book->setLang($lang);
-
+        if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $book)) {
+            $book->setLang('ru');
             return true;
         }
 
         return false;
-    }
-
-    /**
-     * @param Sequence|Author $entity
-     * @param string $name
-     */
-    protected function setLang($entity, $name)
-    {
-        if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $name)) {
-            $entity->setLang('ru');
-        } else {
-            $entity->setLang('en');
-        }
     }
 }
