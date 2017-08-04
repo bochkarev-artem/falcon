@@ -167,6 +167,7 @@
   background: #313131;
   padding: 6px 20px 7px;
   font-family: 'Open Sans', sans-serif;
+  cursor: pointer;
 }
 .btn-2{
   display: inline-block;
