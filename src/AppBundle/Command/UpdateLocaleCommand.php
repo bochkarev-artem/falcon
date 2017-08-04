@@ -5,7 +5,9 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
+use AppBundle\Entity\Sequence;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -48,12 +50,51 @@ class UpdateLocaleCommand extends ContainerAwareCommand
         /** @var Book $book */
         foreach ($books as $row) {
             $book = $row[0];
-            /** @var Book $book */
-            if ($this->setBookLang($book)) {
+            if ($book->getAuthors()->isEmpty()) {
+                $em->remove($book);
                 $count++;
             }
-            $i++;
-            if ($i % $batchSize == 0) {
+            if (++$i % $batchSize == 0) {
+                echo $i . "\n";
+                $em->flush();
+                $em->clear();
+            }
+        }
+        $em->flush();
+        $em->clear();
+
+        $qb = $this->buildAuthorQuery($em);
+        $authors = $qb->getQuery()->iterate();
+
+        $i = 0;
+        foreach ($authors as $row) {
+            $author = $row[0];
+            /** @var Author $author */
+            if ($author->getBooks()->isEmpty()) {
+                $em->remove($author);
+                $count++;
+            }
+            if (++$i % $batchSize == 0) {
+                echo $i . "\n";
+                $em->flush();
+                $em->clear();
+            }
+        }
+        $em->flush();
+        $em->clear();
+
+        $qb = $this->buildSequenceQuery($em);
+        $sequences = $qb->getQuery()->iterate();
+
+        $i = 0;
+        foreach ($sequences as $row) {
+            $sequence = $row[0];
+            /** @var Sequence $sequence */
+            if ($sequence->getBooks()->isEmpty()) {
+                $em->remove($sequence);
+                $count++;
+            }
+            if (++$i % $batchSize == 0) {
                 echo $i . "\n";
                 $em->flush();
                 $em->clear();
@@ -64,7 +105,7 @@ class UpdateLocaleCommand extends ContainerAwareCommand
 
         $endTime   = time();
         $totalTime = $endTime - $startTime;
-        $output->writeln("<info>Update finished, mismatch $count. Total time: $totalTime seconds</info>");
+        $output->writeln("<info>Update finished, deleted $count. Total time: $totalTime seconds</info>");
     }
 
     /**
@@ -79,23 +120,36 @@ class UpdateLocaleCommand extends ContainerAwareCommand
         return $qb
             ->select('a')
             ->from('AppBundle:Book', 'a')
-            ->where($qb->expr()->eq('a.lang', ':locale'))
-            ->setParameter('locale', 'en')
         ;
     }
 
     /**
-     * @param Book $book
+     * @param EntityManagerInterface $em
      *
-     * @return bool
+     * @return QueryBuilder
      */
-    protected function setBookLang($book)
+    protected function buildAuthorQuery($em)
     {
-        if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $book)) {
-            $book->setLang('ru');
-            return true;
-        }
+        $qb = $em->createQueryBuilder();
 
-        return false;
+        return $qb
+            ->select('a')
+            ->from('AppBundle:Author', 'a')
+        ;
+    }
+
+    /**
+     * @param EntityManagerInterface $em
+     *
+     * @return QueryBuilder
+     */
+    protected function buildSequenceQuery($em)
+    {
+        $qb = $em->createQueryBuilder();
+
+        return $qb
+            ->select('a')
+            ->from('AppBundle:Sequence', 'a')
+        ;
     }
 }
