@@ -22,6 +22,7 @@ class SequenceAdmin extends AbstractAdmin
             ->add('litresId')
             ->add('name', null, ['required' => true])
             ->add('slug')
+            ->add('lang')
         ;
     }
 
@@ -35,6 +36,7 @@ class SequenceAdmin extends AbstractAdmin
             ->add('litresId')
             ->add('name')
             ->add('slug')
+            ->add('lang')
         ;
     }
 
@@ -48,6 +50,7 @@ class SequenceAdmin extends AbstractAdmin
             ->add('litresId')
             ->add('name')
             ->add('slug')
+            ->add('lang')
             ->add('_action', 'actions', [
                 'actions' => [
                     'show'   => [],

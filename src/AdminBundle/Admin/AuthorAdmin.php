@@ -19,22 +19,17 @@ class AuthorAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('litresHubId')
             ->add('documentId')
             ->add('firstName')
             ->add('lastName')
             ->add('middleName')
+            ->add('lang')
             ->add('books', 'sonata_type_model_autocomplete', [
                 'property' => 'title',
                 'required' => false,
                 'multiple' => true,
             ])
             ->add('slug')
-            ->add('level')
-            ->add('reviewCount')
-            ->add('artsCount')
-            ->add('photo')
-            ->add('photoPath')
             ->add('description')
         ;
     }
@@ -46,12 +41,11 @@ class AuthorAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('id')
-            ->add('litresHubId')
             ->add('documentId')
-            ->add('artsCount')
             ->add('firstName')
             ->add('lastName')
             ->add('slug')
+            ->add('lang')
         ;
     }
 
@@ -62,11 +56,10 @@ class AuthorAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('id')
-            ->add('litresHubId')
             ->add('documentId')
             ->add('fullName')
             ->add('slug')
-            ->add('artsCount')
+            ->add('lang')
             ->add('updatedOn')
             ->add('createdOn')
             ->add('_action', 'actions', [
