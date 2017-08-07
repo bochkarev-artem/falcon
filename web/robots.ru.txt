@@ -1,0 +1,7 @@
+User-agent: Yandex
+Crawl-delay: 10
+
+User-agent: *
+Allow: /
+
+Host: bookary.ru
