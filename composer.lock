@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "20a4dbd22f603a1fc660b3c64c809433",
+    "content-hash": "97e0a87f39e3217a1c5d63a9e888376a",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -3356,16 +3356,16 @@
         },
         {
             "name": "presta/sitemap-bundle",
-            "version": "v1.5.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prestaconcept/PrestaSitemapBundle.git",
-                "reference": "33f26ab0be02515e5ee3b634e3dc08442541884e"
+                "reference": "489cdf6604524f5ef02f6c7d24a276c7018b0cb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prestaconcept/PrestaSitemapBundle/zipball/33f26ab0be02515e5ee3b634e3dc08442541884e",
-                "reference": "33f26ab0be02515e5ee3b634e3dc08442541884e",
+                "url": "https://api.github.com/repos/prestaconcept/PrestaSitemapBundle/zipball/489cdf6604524f5ef02f6c7d24a276c7018b0cb8",
+                "reference": "489cdf6604524f5ef02f6c7d24a276c7018b0cb8",
                 "shasum": ""
             },
             "require": {
@@ -3373,6 +3373,7 @@
                 "symfony/symfony": "~2.2|~3.0"
             },
             "require-dev": {
+                "phpunit/phpunit": "4.*",
                 "symfony/phpunit-bridge": "~2.7|~3.0"
             },
             "suggest": {
@@ -3413,7 +3414,7 @@
                 "prestaconcept",
                 "xml"
             ],
-            "time": "2016-06-15T07:35:16+00:00"
+            "time": "2017-08-07 08:53:26"
         },
         {
             "name": "psr/cache",
@@ -5987,7 +5988,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/elastica-bundle": 20,
-        "symfony-cmf/routing-bundle": 20
+        "symfony-cmf/routing-bundle": 20,
+        "presta/sitemap-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

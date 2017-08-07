@@ -45,7 +45,7 @@
         "friendsofsymfony/elastica-bundle": "dev-master",
         "symfony-cmf/routing-bundle": "dev-master",
         "liip/imagine-bundle": "^1.6",
-        "presta/sitemap-bundle": "^1.5",
+        "presta/sitemap-bundle": "dev-master",
         "knpuniversity/oauth2-client-bundle": "^1.9",
         "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^2.0",

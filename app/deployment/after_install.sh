@@ -13,5 +13,5 @@ unlink images
 ln -s ../../falcon-images/images images
 cd /home/ubuntu/falcon/
 chmod +x /home/ubuntu/falcon/app/jobs/update_books.sh
-php bin/console presta:sitemaps:dump web/sitemap.en/ --section=en --gzip --env=prod --no-debug
-php bin/console presta:sitemaps:dump web/sitemap.ru/ --section=ru --gzip --env=prod --no-debug
+php bin/console presta:sitemaps:dump web/sitemap.en/ --section=en --base-url=http://bookary.eu/ --gzip --env=prod --no-debug
+php bin/console presta:sitemaps:dump web/sitemap.ru/ --section=ru --base-url=http://bookary.ru/ --gzip --env=prod --no-debug
