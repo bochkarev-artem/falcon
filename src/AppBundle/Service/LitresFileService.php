@@ -200,7 +200,7 @@ class LitresFileService
         while ($xmlReader->name === 'art') {
             if ($first) {
                 $first = false;
-                for ($i = 0; $i < 354000; $i++) {
+                for ($i = 0; $i < 355500; $i++) {
                     $this->goToNextNode($xmlReader);
                 }
             }
@@ -208,12 +208,14 @@ class LitresFileService
             $node = $xmlReader->readOuterXML();
             $data = $this->getXml($node);
             if (!$data) {
+                echo "skip $step no book data\n";
                 $this->goToNextNode($xmlReader);
                 continue;
             }
             $hubId = (string)$data['int_id'];
             if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
                 $skipped++;
+                echo "skip $step book existed\n";
                 $this->goToNextNode($xmlReader);
                 continue;
             }
@@ -222,6 +224,8 @@ class LitresFileService
             $book = new Book;
             $hidden = $data->{'text_description'}->hidden;
             if (!$hidden) {
+                $skipped++;
+                echo "skip $step no desc\n";
                 $this->goToNextNode($xmlReader);
                 continue;
             }
@@ -229,6 +233,7 @@ class LitresFileService
             $lang = (string)$titleInfo->lang;
             if (strlen($lang) != 0 && !in_array($lang, $this->locales)) {
                 $skipped++;
+                echo "skip $step wrong lang $lang\n";
                 $this->goToNextNode($xmlReader);
                 continue;
             }
@@ -250,6 +255,7 @@ class LitresFileService
                     }
 
                     $skipped++;
+                    echo "skip $step no author\n";
                     $this->goToNextNode($xmlReader);
 
                     continue 2;
@@ -257,6 +263,9 @@ class LitresFileService
             }
 
             if ($author === null) {
+                $skipped++;
+                echo "skip $step no author\n";
+                $this->goToNextNode($xmlReader);
                 continue;
             }
 
@@ -279,6 +288,7 @@ class LitresFileService
                     }
 
                     $skipped++;
+                    echo "skip $step no genre\n";
                     $this->goToNextNode($xmlReader);
 
                     continue 2;
@@ -304,6 +314,7 @@ class LitresFileService
             /** @var Author $mainAuthor */
             $mainAuthor = $book->getAuthors()->first();
             if (!($mainAuthor instanceof Author)) {
+                echo "skip $step no author\n";
                 $this->goToNextNode($xmlReader);
                 continue;
             }
@@ -345,6 +356,9 @@ class LitresFileService
             }
 
             $this->em->persist($book);
+            if ($this->debug) {
+                echo ">>> book persisted ($step)\n";
+            }
             if ($step % $this->batchSize === 0) {
                 $this->em->flush();
                 $this->em->clear();
