@@ -6,6 +6,9 @@ fos_elastica:
             index_name: routes
             client:     default
             use_alias:  true
+            settings:
+                number_of_shards:   2
+                number_of_replicas: 0
             types:
                 route:
                     properties:
@@ -16,6 +19,8 @@ fos_elastica:
             client:     default
             use_alias:  true
             settings:
+                number_of_shards:   2
+                number_of_replicas: 0
                 index:
                     analysis:
                         analyzer:

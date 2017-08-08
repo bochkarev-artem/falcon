@@ -117,6 +117,7 @@ class Genre implements LocalePageInterface
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->books    = new ArrayCollection();
         $this->parent   = null;
     }
 
@@ -134,6 +135,18 @@ class Genre implements LocalePageInterface
     public function getBooks()
     {
         return $this->books;
+    }
+
+    /**
+     * @param ArrayCollection $books
+     *
+     * @return Genre
+     */
+    public function setBooks($books)
+    {
+        $this->books = $books;
+
+        return $this;
     }
 
     /**
