@@ -1,5 +1,6 @@
 front:
     404_error:          This page doesnt exist
+    500_error:          Site is under technical maintenance, please come back in 10 minutes
     index_page:
         title:          "Bookary e-library - read books online or download in fb2, epub"
         description:    "Bookary e-library - a place to find and read (or download) books in one of the following formats: fb2, epub, rtf, pdf. No registration required."
