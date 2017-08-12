@@ -83,6 +83,8 @@ front:
     minimum_chars:      "Minimum length of review is %chars% characters"
     send:               Send
     review:             'review|reviews|reviews'
+    lang_ru:            Russian
+    lang_en:            English
     book:
         profile:         Personal page
         rating:          Rating

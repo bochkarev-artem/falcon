@@ -232,6 +232,10 @@ class LitresService
                 return false;
             }
 
+            if (strlen($fName) > 250 || strlen($lName) > 250) {
+                return false;
+            }
+
             $author = new Author;
             $author
                 ->setDocumentId((string) $authorId)
@@ -438,11 +442,15 @@ class LitresService
                 ->setLang($lang)
                 ->setDocumentId((string)$documentInfo->id)
                 ->setPublisher((string)$publishInfo->publisher)
-                ->setYearPublished((string)$publishInfo->year)
                 ->setCityPublished((string)$publishInfo->city)
                 ->setIsbn((string)$publishInfo->isbn)
                 ->setMainAuthorSlug($mainAuthor->getSlug())
             ;
+
+            $yearPublished = (string)$publishInfo->year;
+            if (strlen($yearPublished) < 5) {
+                $book->setYearPublished($yearPublished);
+            }
 
             $date = (string)$titleInfo->date['value'];
             if ($date && $date != '0000-00-00') {

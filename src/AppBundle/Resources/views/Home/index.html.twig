@@ -33,13 +33,7 @@
             <div class="shade"></div>
         </div>
     </section>
-    {% if ad_main %}
-        <div class="section ads__section_top">
-            <div class="container">
-                {{ ad_main.code|raw }}
-            </div>
-        </div>
-    {% endif %}
+    {{ ad_by_position(constant('AppBundle\\Entity\\Ads::POSITION_INDEX'))|raw }}
     <section>
         <div class="container">
             <div class="tabs-wrap1">

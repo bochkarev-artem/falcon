@@ -1,0 +1,22 @@
+label:
+    author:   Author
+    genre:    Genre
+    book:     Book
+    tag:      Tag
+    sequence: Series
+    user:     User
+    review:   Review
+    ads:      Ads
+
+choice:
+    review_status:
+        pending:  Pending
+        approved: Approved
+        rejected: Rejected
+    ads_position:
+        index:        Main
+        book_top:     Book (top)
+        book_bottom:  Book (bottom)
+        book_mobile:  Book (mobile)
+        catalog_side: Catalog (side)
+        catalog_top:  Catalog (top)

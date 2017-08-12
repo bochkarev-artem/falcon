@@ -18,11 +18,11 @@ web_profiler:
 
 monolog:
     handlers:
-        slackbot:
-            type: slack
-            token: '%slack_token%'
-            channel: '#dev'
-            level: critical
+#        slackbot:
+#            type: slack
+#            token: '%slack_token%'
+#            channel: '#dev'
+#            level: critical
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"

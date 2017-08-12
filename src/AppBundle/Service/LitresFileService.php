@@ -152,6 +152,10 @@ class LitresFileService
                 return false;
             }
 
+            if (strlen($fName) > 250 || strlen($lName) > 250) {
+                return false;
+            }
+
             $author = new Author;
             $author
                 ->setDocumentId((string) $authorId)
@@ -200,7 +204,7 @@ class LitresFileService
         while ($xmlReader->name === 'art') {
             if ($first) {
                 $first = false;
-                for ($i = 0; $i < 357000; $i++) {
+                for ($i = 0; $i < 511000; $i++) {
                     $this->goToNextNode($xmlReader);
                 }
             }
@@ -215,7 +219,6 @@ class LitresFileService
             $hubId = (string)$data['int_id'];
             if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
                 $skipped++;
-                echo "skip $step book existed\n";
                 $this->goToNextNode($xmlReader);
                 continue;
             }
@@ -249,7 +252,7 @@ class LitresFileService
                 } else {
                     if ($this->logger && $this->debug) {
                         $this->logger->log(
-                            LogLevel::CRITICAL,
+                            LogLevel::DEBUG,
                             sprintf('Author %s doesnt have name', $authorId)
                         );
                     }
@@ -282,7 +285,7 @@ class LitresFileService
                 } else {
                     if ($this->logger && $this->debug) {
                         $this->logger->log(
-                            LogLevel::CRITICAL,
+                            LogLevel::DEBUG,
                             sprintf('Genre %s not found', $genre)
                         );
                     }
@@ -343,12 +346,15 @@ class LitresFileService
                 ->setLang($lang)
                 ->setDocumentId((string)$documentInfo->id)
                 ->setPublisher((string)$publishInfo->publisher)
-                ->setYearPublished((string)$publishInfo->year)
                 ->setCityPublished((string)$publishInfo->city)
                 ->setIsbn((string)$publishInfo->isbn)
                 ->setMainAuthorSlug($mainAuthor->getSlug())
             ;
 
+            $yearPublished = (string)$publishInfo->year;
+            if (strlen($yearPublished) < 5) {
+                $book->setYearPublished($yearPublished);
+            }
             $date = (string)$titleInfo->date['value'];
             if ($date && $date != '0000-00-00') {
                 $date = new \DateTime($date);
@@ -356,9 +362,6 @@ class LitresFileService
             }
 
             $this->em->persist($book);
-            if ($this->debug) {
-                echo ">>> book persisted ($step)\n";
-            }
             if ($step % $this->batchSize === 0) {
                 $this->em->flush();
                 $this->em->clear();

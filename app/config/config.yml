@@ -62,6 +62,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         review_minimum_char: "%review_minimum_char%"
+        hosts: "%hosts%"
 
 assetic:
     debug:          '%kernel.debug%'

@@ -83,6 +83,8 @@ front:
     minimum_chars:      "Длина отзыва должна быть больше %chars% символов"
     send:               Отправить
     review:             'рецензия|рецензии|рецензий'
+    lang_ru:            Русский
+    lang_en:            Английский
     book:
         profile:         Личный кабинет
         rating:          Рейтинг

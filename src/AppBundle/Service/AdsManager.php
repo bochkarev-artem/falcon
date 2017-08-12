@@ -5,15 +5,42 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Ads;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Config\ConfigCache;
 
 class AdsManager
 {
     /**
-     * @param EntityManagerInterface $em
+     * @var EntityManagerInterface
      */
-    public function __construct(EntityManagerInterface $em)
+    protected $em;
+
+    /**
+     * @var string
+     */
+    protected $cacheDir;
+
+    /**
+     * @var string
+     */
+    protected $cacheFile;
+
+    /**
+     * @var LocaleService
+     */
+    protected $localeService;
+
+    /**
+     * @param EntityManagerInterface $em
+     * @param LocaleService          $localeService
+     * @param string                 $cacheDir
+     */
+    public function __construct(EntityManagerInterface $em, LocaleService $localeService, $cacheDir)
     {
         $this->em = $em;
+        $cacheDir = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
+        $this->cacheDir = $cacheDir . '/adsCache';
+        $this->cacheFile = $this->cacheDir . '/%s_ads.%s.html';
+        $this->localeService = $localeService;
     }
 
     /**
@@ -21,7 +48,7 @@ class AdsManager
      *
      * @return Ads|null
      */
-    public function findOneByPosition($position)
+    protected function findOneByPosition($position)
     {
         $qb = $this->em->createQueryBuilder();
         $qb
@@ -35,5 +62,59 @@ class AdsManager
             ->setMaxResults(1);
 
         return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * @param integer $position
+     *
+     * @return string
+     */
+    public function getAdByPosition($position)
+    {
+        $fileName = $this->getCacheFileName($position);
+        $cache = new ConfigCache($fileName, false);
+
+        if (!$cache->isFresh()) {
+            $this->updateCache($cache, $position);
+        }
+
+        return file_get_contents($cache->getPath());
+    }
+
+    /**
+     * @param integer $position
+     *
+     * @return string
+     */
+    protected function getCacheFileName($position)
+    {
+        $fileName = sprintf($this->cacheFile, $position, $this->localeService->getLocale());
+
+        return $fileName;
+    }
+
+    /**
+     * Creates cache folder if it doesn't exist
+     */
+    protected function checkCacheFolder()
+    {
+        if (!is_dir($this->cacheDir)) {
+            mkdir($this->cacheDir, 0777, true);
+        }
+    }
+
+    /**
+     * @param ConfigCache $cache
+     * @param integer     $position
+     *
+     * @throws \RuntimeException
+     */
+    protected function updateCache(ConfigCache $cache, $position)
+    {
+        $ad = $this->findOneByPosition($position);
+        $content = $ad ? $ad->getCode() : '';
+
+        $this->checkCacheFolder();
+        $cache->write($content);
     }
 }

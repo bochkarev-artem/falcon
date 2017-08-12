@@ -130,3 +130,9 @@ services:
             - "%hosts%"
             - "%locales%"
             - "%default_locale%"
+
+    AppBundle\Service\AdsManager:
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - '@AppBundle\Service\LocaleService'
+            - "%kernel.cache_dir%"

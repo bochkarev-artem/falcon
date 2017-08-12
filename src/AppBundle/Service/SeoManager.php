@@ -5,7 +5,6 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Ads;
 use AppBundle\Entity\Author;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\LocalePageInterface;
@@ -29,11 +28,6 @@ class SeoManager
     protected $translator;
 
     /**
-     * @var AdsManager
-     */
-    protected $adsManager;
-
-    /**
      * @var LocaleService
      */
     protected $localeService;
@@ -41,18 +35,15 @@ class SeoManager
     /**
      * @param SeoPage $seoPage
      * @param TranslatorInterface $translator
-     * @param AdsManager $adsManager
      * @param LocaleService $localeService
      */
     public function __construct(
         SeoPage $seoPage,
         TranslatorInterface $translator,
-        AdsManager $adsManager,
         LocaleService $localeService
     ) {
         $this->seoPage       = $seoPage;
         $this->translator    = $translator;
-        $this->adsManager    = $adsManager;
         $this->localeService = $localeService;
     }
 
@@ -319,14 +310,5 @@ class SeoManager
         ];
 
         return $breadcrumbs;
-    }
-
-    /**
-     * @param $position
-     *
-     * @return Ads|null
-     */
-    public function getAdByPosition($position) {
-        return $this->adsManager->findOneByPosition($position);
     }
 }

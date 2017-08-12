@@ -21,6 +21,29 @@
 <header class="header-1">
         <div class="top-bar">
             <div class="container">
+                {% if app.request.locale == 'ru' %}
+                    <div class="pull-left">
+                        <ul>
+                            <li>
+                                <div class="dropdown lang-wrap">
+                                    <button id="dLabel" type="button" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-globe"></i>
+                                        {{ 'front.lang_ru'|trans }}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                                        <li>
+                                            <a href="{{ '//' ~ hosts['en'] }}">
+                                                <img src="{{ asset('bundles/app/images/lang_en.jpg') }}" alt="">
+                                                {{ 'front.lang_en'|trans }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
                 <div class="pull-right">
                     <div class="user-wrap">
                         <div class="user-dec">
