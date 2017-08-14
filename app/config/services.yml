@@ -48,6 +48,9 @@ services:
             - "%kernel.cache_dir%"
             - '@AppBundle\Service\QueryService'
             - '@AppBundle\Service\LocaleService'
+            - '@fos_elastica.index.books'
+        tags:
+            - { name: kernel.event_listener, event: menu_cache_reset, method: resetCache }
         lazy: true
 
     AppBundle\Service\LitresBookManager:
@@ -77,6 +80,7 @@ services:
             - "@fos_elastica.index.books.book"
             - "@doctrine.orm.default_entity_manager"
             - '@AppBundle\Service\BookPageService'
+            - '@uecode_qpush.books_index'
             - 100
         tags:
             - { name: fos_elastica.provider, index: books, type: book }
@@ -136,3 +140,12 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - '@AppBundle\Service\LocaleService'
             - "%kernel.cache_dir%"
+
+    AppBundle\Service\BookConsumer:
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+            - '@AppBundle\Provider\BookProvider'
+            - '@AppBundle\Provider\RouteProvider'
+            - '@event_dispatcher'
+        tags:
+            - { name: uecode_qpush.event_listener, event: books_index.message_received, method: onMessageReceived }

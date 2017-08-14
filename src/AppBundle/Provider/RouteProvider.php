@@ -13,6 +13,8 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\QueryException;
 use Doctrine\ORM\QueryBuilder;
 use Elastica\Document;
+use Elastica\Query\BoolQuery;
+use Elastica\Query\Term;
 use Elastica\Type;
 use FOS\ElasticaBundle\Provider\ProviderInterface;
 
@@ -283,5 +285,35 @@ class RouteProvider implements ProviderInterface
         $qb->select('COUNT(' . $aliases[0] . '.id)');
 
         return (integer) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param int $bookId
+     */
+    public function updateBook($bookId)
+    {
+        if (!$bookId) {
+            return;
+        }
+
+        $qb   = $this->createQueryBuilder('Book');
+        $book = $qb
+            ->andWhere($qb->expr()->eq('b.book_id', ':book_id'))
+            ->setParameter('book_id', $bookId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if ($book) {
+            $documents = $this->prepareDocuments($book);
+            if ($documents) {
+                $this->routeType->addDocuments($documents);
+            }
+        } else {
+            $bookDeleteQuery = new BoolQuery();
+            $bookDeleteQuery->addMust(new Term(['book' => $bookId]));
+
+            $this->routeType->deleteByQuery($bookDeleteQuery);
+        }
     }
 }

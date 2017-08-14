@@ -8,7 +8,10 @@ namespace AppBundle\Service;
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Genre;
 use Doctrine\ORM\EntityManager;
+use Elastica\Index;
 use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 class MenuBuilder
 {
@@ -43,18 +46,25 @@ class MenuBuilder
     protected $localeService;
 
     /**
+     * @var Index
+     */
+    protected $bookIndex;
+
+    /**
      * @param EntityManager     $em
      * @param \Twig_Environment $twig
      * @param string            $cacheDir
      * @param QueryService      $queryService
      * @param LocaleService     $localeService
+     * @param Index             $bookIndex
      */
     public function __construct(
         EntityManager $em,
         \Twig_Environment $twig,
         $cacheDir,
         QueryService $queryService,
-        LocaleService $localeService
+        LocaleService $localeService,
+        Index $bookIndex
     ) {
         $this->em            = $em;
         $this->twig          = $twig;
@@ -63,6 +73,7 @@ class MenuBuilder
         $this->cacheDir      = $cacheDir . '/menuCache';
         $this->cacheFile     = $this->cacheDir . '/%sMenu.%s.html';
         $this->localeService = $localeService;
+        $this->bookIndex     = $bookIndex;
     }
 
     /**
@@ -236,5 +247,28 @@ class MenuBuilder
         }
 
         return $categories;
+    }
+
+    /**
+     * Resets menu cache
+     */
+    public function resetCache()
+    {
+        // ensure that elastica index is updated before resetting cache
+        sleep(1);
+        $this->bookIndex->refresh();
+
+        $this->checkCacheFolder();
+
+        $finder = new Finder();
+        $finder->files()->in($this->cacheDir);
+
+        /* @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $fullPath = $file->getRealPath();
+            if (\file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
     }
 }

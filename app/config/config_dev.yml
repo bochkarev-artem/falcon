@@ -42,3 +42,16 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+uecode_qpush:
+    providers:
+        aws:
+            driver: aws
+            key:    "%amazon.key%"
+            secret: "%amazon.secret%"
+            region: "%amazon.region%"
+    queues:
+        books_index:
+            provider: aws
+            options:
+                push_notifications: false

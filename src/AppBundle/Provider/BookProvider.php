@@ -19,6 +19,7 @@ use Elastica\Document;
 use Elastica\Exception\NotFoundException;
 use Elastica\Type;
 use FOS\ElasticaBundle\Provider\ProviderInterface;
+use Uecode\Bundle\QPushBundle\Provider\AwsProvider;
 
 class BookProvider implements ProviderInterface
 {
@@ -43,17 +44,29 @@ class BookProvider implements ProviderInterface
     private $bookPageService;
 
     /**
+     * @var AwsProvider
+     */
+    private $awsProvider;
+
+    /**
      * @param Type            $bookType
      * @param EntityManager   $em
      * @param BookPageService $bookPageService
+     * @param AwsProvider     $awsProvider
      * @param integer         $batchSize
      */
-    public function __construct(Type $bookType, EntityManager $em, BookPageService $bookPageService, $batchSize)
-    {
+    public function __construct(
+        Type $bookType,
+        EntityManager $em,
+        BookPageService $bookPageService,
+        AwsProvider $awsProvider,
+        $batchSize
+    ) {
         $this->bookType        = $bookType;
         $this->em              = $em;
         $this->bookPageService = $bookPageService;
         $this->batchSize       = $batchSize;
+        $this->awsProvider     = $awsProvider;
     }
 
     /**
@@ -391,5 +404,53 @@ class BookProvider implements ProviderInterface
         $qb->select('COUNT(' . $aliases[0] . '.id)');
 
         return (integer) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param int $bookId
+     */
+    public function updateBook($bookId)
+    {
+        $qb   = $this->createQueryBuilder();
+        $book = $qb
+            ->andWhere($qb->expr()->eq('b.book_id', ':book_id'))
+            ->setParameter('book_id', $bookId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!$book) {
+            try {
+                $this->bookType->deleteById($bookId);
+            } catch (NotFoundException $e) {}
+
+            return;
+        }
+
+        $document = $this->prepareDocument($book);
+        if (!$document) {
+            return;
+        }
+
+        $this->bookType->addDocument($document);
+    }
+
+    public function updateAllBooks()
+    {
+        $iterableResult = $this->createQueryBuilder()
+            ->select('DISTINCT b.book_id as bookId')
+            ->getQuery()
+            ->iterate()
+        ;
+
+        foreach ($iterableResult as $row) {
+            $book = array_shift($row);
+            $message = [
+                'command' => 'updateBook',
+                'bookId'  => $book['bookId'],
+            ];
+
+            $this->awsProvider->publish($message);
+        }
     }
 }
