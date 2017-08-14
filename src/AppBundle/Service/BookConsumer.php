@@ -58,57 +58,54 @@ class BookConsumer
     {
         $message = $event->getMessage();
         $body = $message->getBody();
-        if (!isset($data['command'])) {
-            return;
-        }
-
         $this->em->clear();
 
-        try {
-            switch ($body['command']) {
-                case 'updateBook':
-                    if (!isset($data['productId'])) {
+        if (isset($body['command'])) {
+            try {
+                switch ($body['command']) {
+                    case 'updateBook':
+                        if (!isset($data['productId'])) {
+                            break;
+                        }
+                        $this->bookProvider->updateBook($body['productId']);
+                        $this->routeProvider->updateBook($body['productId']);
                         break;
-                    }
-                    $this->bookProvider->updateBook($body['productId']);
-                    $this->routeProvider->updateBook($body['productId']);
-                    break;
 
-                case 'updateAllBooks':
-                    $this->bookProvider->updateAllBooks();
-                    break;
-//
-//                case 'updateAuthor':
-//                    $this->bookProvider->updateBrand($body['brandId']);
-//                    $this->routeProvider->updateBrand($body['brandId']);
-//                    break;
-//
-//                case 'updateGenre':
-//                    $this->bookProvider->updateCategory($body['categoryId']);
-//                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
-//                    break;
-//
-//                case 'updateTag':
-//                    $this->bookProvider->updateCategory($body['categoryId']);
-//                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
-//                    break;
-//
-//                case 'updateSequence':
-//                    $this->bookProvider->updateCategory($body['categoryId']);
-//                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
-//                    break;
+                    case 'updateAllBooks':
+                        $this->bookProvider->updateAllBooks();
+                        break;
+    //
+    //                case 'updateAuthor':
+    //                    $this->bookProvider->updateBrand($body['brandId']);
+    //                    $this->routeProvider->updateBrand($body['brandId']);
+    //                    break;
+    //
+    //                case 'updateGenre':
+    //                    $this->bookProvider->updateCategory($body['categoryId']);
+    //                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
+    //                    break;
+    //
+    //                case 'updateTag':
+    //                    $this->bookProvider->updateCategory($body['categoryId']);
+    //                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
+    //                    break;
+    //
+    //                case 'updateSequence':
+    //                    $this->bookProvider->updateCategory($body['categoryId']);
+    //                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
+    //                    break;
 
-                default:
-                    //nothing
-            }
-        } catch (DBALException $e) {
-            $msg = $e->getMessage();
-            $isTimeoutException = strpos($msg, '2006') !== false || strpos($msg, '2013') !== false;
+                    default:
+                }
+            } catch (DBALException $e) {
+                $msg = $e->getMessage();
+                $isTimeoutException = strpos($msg, '2006') !== false || strpos($msg, '2013') !== false;
 
-            if ($isTimeoutException) {
-                exit;
-            } else {
-                throw $e;
+                if ($isTimeoutException) {
+                    exit;
+                } else {
+                    throw $e;
+                }
             }
         }
 

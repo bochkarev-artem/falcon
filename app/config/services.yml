@@ -50,7 +50,7 @@ services:
             - '@AppBundle\Service\LocaleService'
             - '@fos_elastica.index.books'
         tags:
-            - { name: kernel.event_listener, event: menu_cache_reset, method: resetCache }
+            - { name: kernel.event_listener, event: reset_menu_cache, method: resetCache }
         lazy: true
 
     AppBundle\Service\LitresBookManager:
