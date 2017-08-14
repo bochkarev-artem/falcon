@@ -69,7 +69,6 @@ class MenuBuilder
         $this->em            = $em;
         $this->twig          = $twig;
         $this->queryService  = $queryService;
-        $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
         $this->cacheDir      = $cacheDir . '/menuCache';
         $this->cacheFile     = $this->cacheDir . '/%sMenu.%s.html';
         $this->localeService = $localeService;
