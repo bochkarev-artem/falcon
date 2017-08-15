@@ -64,9 +64,6 @@ class BookConsumer
             try {
                 switch ($body['command']) {
                     case 'updateBook':
-                        if (!isset($data['productId'])) {
-                            break;
-                        }
                         $this->bookProvider->updateBook($body['productId']);
                         $this->routeProvider->updateBook($body['productId']);
                         break;
@@ -74,38 +71,31 @@ class BookConsumer
                     case 'updateAllBooks':
                         $this->bookProvider->updateAllBooks();
                         break;
-    //
-    //                case 'updateAuthor':
-    //                    $this->bookProvider->updateBrand($body['brandId']);
-    //                    $this->routeProvider->updateBrand($body['brandId']);
-    //                    break;
-    //
-    //                case 'updateGenre':
-    //                    $this->bookProvider->updateCategory($body['categoryId']);
-    //                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
-    //                    break;
-    //
-    //                case 'updateTag':
-    //                    $this->bookProvider->updateCategory($body['categoryId']);
-    //                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
-    //                    break;
-    //
-    //                case 'updateSequence':
-    //                    $this->bookProvider->updateCategory($body['categoryId']);
-    //                    $this->routeProvider->updateCategory($body['categoryId'], $body['recursive']);
-    //                    break;
+
+                    case 'updateAuthor':
+                        $this->bookProvider->updateAuthor($body['authorId']);
+                        $this->routeProvider->updateAuthor($body['authorId']);
+                        break;
+
+                    case 'updateGenre':
+                        $this->bookProvider->updateGenre($body['genreId']);
+                        $this->routeProvider->updateGenre($body['genreId']);
+                        break;
+
+                    case 'updateTag':
+                        $this->bookProvider->updateTag($body['tagId']);
+                        $this->routeProvider->updateTag($body['tagId']);
+                        break;
+
+                    case 'updateSequence':
+                        $this->bookProvider->updateSequence($body['sequenceId']);
+                        $this->routeProvider->updateSequence($body['sequenceId']);
+                        break;
 
                     default:
                 }
             } catch (DBALException $e) {
-                $msg = $e->getMessage();
-                $isTimeoutException = strpos($msg, '2006') !== false || strpos($msg, '2013') !== false;
-
-                if ($isTimeoutException) {
-                    exit;
-                } else {
-                    throw $e;
-                }
+                throw $e; // TODO handle exception
             }
         }
 

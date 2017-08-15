@@ -19,7 +19,6 @@ use Elastica\Document;
 use Elastica\Exception\NotFoundException;
 use Elastica\Type;
 use FOS\ElasticaBundle\Provider\ProviderInterface;
-use Uecode\Bundle\QPushBundle\Provider\AwsProvider;
 
 class BookProvider implements ProviderInterface
 {
@@ -44,29 +43,21 @@ class BookProvider implements ProviderInterface
     private $bookPageService;
 
     /**
-     * @var AwsProvider
-     */
-    private $awsProvider;
-
-    /**
      * @param Type            $bookType
      * @param EntityManager   $em
      * @param BookPageService $bookPageService
-     * @param AwsProvider     $awsProvider
      * @param integer         $batchSize
      */
     public function __construct(
         Type $bookType,
         EntityManager $em,
         BookPageService $bookPageService,
-        AwsProvider $awsProvider,
         $batchSize
     ) {
         $this->bookType        = $bookType;
         $this->em              = $em;
         $this->bookPageService = $bookPageService;
         $this->batchSize       = $batchSize;
-        $this->awsProvider     = $awsProvider;
     }
 
     /**
@@ -437,20 +428,80 @@ class BookProvider implements ProviderInterface
 
     public function updateAllBooks()
     {
-        $iterableResult = $this->createQueryBuilder()
-            ->select('DISTINCT b.book_id as bookId')
-            ->getQuery()
-            ->iterate()
+        $this->updateDocumentsByQuery($this->createQueryBuilder());
+        $this->em->clear();
+    }
+
+    /**
+     * @param int $authorId
+     *
+     * @return bool
+     */
+    public function updateAuthor($authorId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.authors', 'authors')
+            ->andWhere($qb->expr()->eq('authors.id', ':id'))
+            ->setParameter('id', $authorId)
         ;
 
-        foreach ($iterableResult as $row) {
-            $book = array_shift($row);
-            $message = [
-                'command' => 'updateBook',
-                'bookId'  => $book['bookId'],
-            ];
+        $this->updateDocumentsByQuery($qb);
 
-            $this->awsProvider->publish($message);
-        }
+        return true;
+    }
+    /**
+     * @param int $sequenceId
+     *
+     * @return bool
+     */
+    public function updateSequence($sequenceId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.sequence', 'sequence')
+            ->andWhere($qb->expr()->eq('sequence.id', ':id'))
+            ->setParameter('id', $sequenceId)
+        ;
+
+        $this->updateDocumentsByQuery($qb);
+
+        return true;
+    }
+    /**
+     * @param int $genreId
+     *
+     * @return bool
+     */
+    public function updateGenre($genreId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.genres', 'genres')
+            ->andWhere($qb->expr()->eq('genres.id', ':id'))
+            ->setParameter('id', $genreId)
+        ;
+
+        $this->updateDocumentsByQuery($qb);
+
+        return true;
+    }
+    /**
+     * @param int $tagId
+     *
+     * @return bool
+     */
+    public function updateTag($tagId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.brand', 'tags')
+            ->andWhere($qb->expr()->eq('tags.id', ':id'))
+            ->setParameter('id', $tagId)
+        ;
+
+        $this->updateDocumentsByQuery($qb);
+
+        return true;
     }
 }
