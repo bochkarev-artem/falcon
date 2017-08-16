@@ -172,5 +172,6 @@ uecode_qpush:
             provider: aws
             options:
                 push_notifications: true
+                message_expiration: 1440
                 subscribers:
                     - { endpoint: "%base_scheme%://%base_url_ru%", protocol: http }
