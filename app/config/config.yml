@@ -171,6 +171,6 @@ uecode_qpush:
         books_index:
             provider: aws
             options:
-                push_notifications: "%push_notifications%"
+                push_notifications: true
                 subscribers:
                     - { endpoint: "%base_scheme%://%base_url_ru%", protocol: http }

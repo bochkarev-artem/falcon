@@ -115,7 +115,7 @@ services:
 
     AdminBundle\EventListener\AuthorListener:
         tags:
-            - { name: doctrine.event_listener, event: onFlush }
+            - { name: doctrine.event_listener, event: onFlush, method: onFlush }
 
     AppBundle\Security\AuthFOSUserProvider:
         arguments:
@@ -152,6 +152,7 @@ services:
     AppBundle\EventListener\BookIndexListener:
         arguments:
             - '@uecode_qpush.books_index'
+            - '%message_queue_on%'
         tags:
             - { name: doctrine.event_listener, event: onFlush, method: onFlush }
             - { name: doctrine.event_listener, event: postPersist, method: postPersist }

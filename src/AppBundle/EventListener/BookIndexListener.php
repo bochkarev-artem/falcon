@@ -53,11 +53,18 @@ class BookIndexListener
     protected $resetMenuCache = false;
 
     /**
-     * @param AwsProvider $awsProducer
+     * @var boolean
      */
-    public function __construct(AwsProvider $awsProducer)
+    protected $isMessageQueueOn;
+
+    /**
+     * @param AwsProvider $awsProducer
+     * @param boolean     $messageQueueOn
+     */
+    public function __construct(AwsProvider $awsProducer, $messageQueueOn)
     {
         $this->awsProducer = $awsProducer;
+        $this->isMessageQueueOn = $messageQueueOn;
     }
 
     /**
@@ -65,11 +72,13 @@ class BookIndexListener
      */
     public function onFlush(Event\OnFlushEventArgs $eventArgs)
     {
-        $em        = $eventArgs->getEntityManager();
-        $this->uow = $em->getUnitOfWork();
+        if ($this->isMessageQueueOn) {
+            $em        = $eventArgs->getEntityManager();
+            $this->uow = $em->getUnitOfWork();
 
-        $this->processEntityChanges($this->uow->getScheduledEntityUpdates(), true);
-        $this->processEntityChanges($this->uow->getScheduledEntityDeletions());
+            $this->processEntityChanges($this->uow->getScheduledEntityUpdates(), true);
+            $this->processEntityChanges($this->uow->getScheduledEntityDeletions());
+        }
     }
 
     /**
@@ -77,8 +86,20 @@ class BookIndexListener
      */
     public function postPersist(Event\LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $this->processEntityChanges([$entity]);
+        if ($this->isMessageQueueOn) {
+            $entity = $args->getEntity();
+            $this->processEntityChanges([$entity]);
+        }
+    }
+
+    /**
+     * @param Event\PostFlushEventArgs $eventArgs
+     */
+    public function postFlush(Event\PostFlushEventArgs $eventArgs)
+    {
+        if ($this->isMessageQueueOn) {
+            $this->processIndexUpdateQueue();
+        }
     }
 
     /**
@@ -151,14 +172,6 @@ class BookIndexListener
         ) {
             $this->resetMenuCache |= $changeSet['title'][0] != $changeSet['title'][1];
         }
-    }
-
-    /**
-     * @param Event\PostFlushEventArgs $eventArgs
-     */
-    public function postFlush(Event\PostFlushEventArgs $eventArgs)
-    {
-        $this->processIndexUpdateQueue();
     }
 
     /**

@@ -30,7 +30,6 @@ class AuthorAdmin extends AbstractAdmin
                 'multiple' => true,
             ])
             ->add('slug')
-            ->add('description')
         ;
     }
 
@@ -85,12 +84,7 @@ class AuthorAdmin extends AbstractAdmin
             ->add('lastName')
             ->add('middleName')
             ->add('slug')
-            ->add('level')
-            ->add('reviewCount')
-            ->add('artsCount')
-            ->add('photo')
-            ->add('photoPath')
-            ->add('description')
+            ->add('lang')
             ->add('updatedOn')
             ->add('createdOn')
         ;
