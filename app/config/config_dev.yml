@@ -5,6 +5,7 @@ imports:
 parameters:
     base_url_ru: bookary.dev
     base_url_en: bookary-en.dev
+    push_notifications: false
 
 framework:
     router:
@@ -42,16 +43,3 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
-
-uecode_qpush:
-    providers:
-        aws:
-            driver: aws
-            key:    "%amazon.key%"
-            secret: "%amazon.secret%"
-            region: "%amazon.region%"
-    queues:
-        books_index_dev:
-            provider: aws
-            options:
-                push_notifications: false

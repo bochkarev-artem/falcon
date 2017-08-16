@@ -145,11 +145,12 @@ class BookIndexListener
             return;
         }
 
-        if (!isset($changeSet['title'])) {
-            return;
+        if (
+            isset($changeSet['title']) && isset($changeSet['featuredMenu']) &&
+            $changeSet['featuredMenu'][1] != $changeSet['featuredMenu'][0]
+        ) {
+            $this->resetMenuCache |= $changeSet['title'][0] != $changeSet['title'][1];
         }
-
-        $this->resetMenuCache |= $changeSet['title'][0] != $changeSet['title'][1];
     }
 
     /**

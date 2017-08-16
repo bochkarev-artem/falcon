@@ -4,6 +4,7 @@ imports:
 parameters:
     base_url_ru: bookary.dev
     base_url_en: bookary-en.dev
+    push_notifications: false
 
 framework:
     test: ~
