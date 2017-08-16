@@ -298,7 +298,7 @@ class RouteProvider implements ProviderInterface
 
         $qb   = $this->createQueryBuilder('Book');
         $book = $qb
-            ->andWhere($qb->expr()->eq('b.book_id', ':book_id'))
+            ->andWhere($qb->expr()->eq('o.id', ':book_id'))
             ->setParameter('book_id', $bookId)
             ->getQuery()
             ->getOneOrNullResult()
@@ -328,7 +328,7 @@ class RouteProvider implements ProviderInterface
 
         $qb     = $this->createQueryBuilder('Author');
         $author = $qb
-            ->where($qb->expr()->eq('author.id', ':author_id'))
+            ->where($qb->expr()->eq('o.id', ':author_id'))
             ->setParameter('author_id', $authorId)
             ->getQuery()
             ->getOneOrNullResult()
@@ -358,7 +358,7 @@ class RouteProvider implements ProviderInterface
 
         $qb     = $this->createQueryBuilder('Tag');
         $tag = $qb
-            ->where($qb->expr()->eq('tag.id', ':tag_id'))
+            ->where($qb->expr()->eq('o.id', ':tag_id'))
             ->setParameter('tag_id', $tagId)
             ->getQuery()
             ->getOneOrNullResult()
@@ -388,7 +388,7 @@ class RouteProvider implements ProviderInterface
 
         $qb     = $this->createQueryBuilder('Sequence');
         $sequence = $qb
-            ->where($qb->expr()->eq('sequence.id', ':sequence_id'))
+            ->where($qb->expr()->eq('o.id', ':sequence_id'))
             ->setParameter('sequence_id', $sequenceId)
             ->getQuery()
             ->getOneOrNullResult()
@@ -418,7 +418,7 @@ class RouteProvider implements ProviderInterface
 
         $qb     = $this->createQueryBuilder('Genre');
         $genre = $qb
-            ->where($qb->expr()->eq('genre.id', ':genre_id'))
+            ->where($qb->expr()->eq('o.id', ':genre_id'))
             ->setParameter('genre_id', $genreId)
             ->getQuery()
             ->getOneOrNullResult()
