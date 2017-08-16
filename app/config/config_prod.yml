@@ -35,3 +35,18 @@ monolog:
             level: critical
         console:
             type:  console
+
+uecode_qpush:
+    providers:
+        aws:
+            driver: aws
+            key:    "%amazon.key%"
+            secret: "%amazon.secret%"
+            region: "%amazon.region%"
+    queues:
+        books_index:
+            provider: aws
+            options:
+                push_notifications: true
+                subscribers:
+                    - { endpoint: "%base_scheme%://%base_url_ru%", protocol: http }

@@ -404,7 +404,7 @@ class BookProvider implements ProviderInterface
     {
         $qb   = $this->createQueryBuilder();
         $book = $qb
-            ->andWhere($qb->expr()->eq('b.book_id', ':book_id'))
+            ->andWhere($qb->expr()->eq('b.id', ':book_id'))
             ->setParameter('book_id', $bookId)
             ->getQuery()
             ->getOneOrNullResult()

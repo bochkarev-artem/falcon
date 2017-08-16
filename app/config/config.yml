@@ -159,17 +159,3 @@ hwi_oauth:
             paths:
                 profilepicture: 'response.0.photo_medium'
                 screenname:     'response.0.screen_name'
-uecode_qpush:
-    providers:
-        aws:
-            driver: aws
-            key:    "%amazon.key%"
-            secret: "%amazon.secret%"
-            region: "%amazon.region%"
-    queues:
-        books_index:
-            provider: aws
-            options:
-                push_notifications: true
-                subscribers:
-                    - { endpoint: "%base_url_ru%", protocol: http }

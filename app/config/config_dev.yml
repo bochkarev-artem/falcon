@@ -51,7 +51,7 @@ uecode_qpush:
             secret: "%amazon.secret%"
             region: "%amazon.region%"
     queues:
-        books_index:
+        books_index_dev:
             provider: aws
             options:
                 push_notifications: false

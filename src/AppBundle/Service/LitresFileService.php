@@ -204,7 +204,7 @@ class LitresFileService
         while ($xmlReader->name === 'art') {
             if ($first) {
                 $first = false;
-                for ($i = 0; $i < 625800; $i++) {
+                for ($i = 0; $i < 641500; $i++) {
                     $this->goToNextNode($xmlReader);
                 }
             }
