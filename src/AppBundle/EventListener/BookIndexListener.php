@@ -139,7 +139,7 @@ class BookIndexListener
         }
 
         $changeSet = $this->uow->getEntityChangeSet($book);
-        if ($changeSet['featuredMenu'][1] == true) {
+        if (isset($changeSet['featuredMenu']) && $changeSet['featuredMenu'][1] == true) {
             $this->resetMenuCache = true;
 
             return;

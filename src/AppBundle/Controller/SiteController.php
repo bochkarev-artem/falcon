@@ -69,7 +69,7 @@ class SiteController extends Controller
 
         $seoManager->setSearchSeoData();
 
-        return $this->render('@App/Site/list_page.html.twig');
+        return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
@@ -98,7 +98,7 @@ class SiteController extends Controller
 
         $seoManager->setNewBooksSeoData($page);
 
-        return $this->render('@App/Site/list_page.html.twig');
+        return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
@@ -127,7 +127,7 @@ class SiteController extends Controller
 
         $seoManager->setPopularBooksSeoData($page);
 
-        return $this->render('@App/Site/list_page.html.twig');
+        return $this->render('@App/Site/list_page.html.twig', $data);
     }
 
     /**
