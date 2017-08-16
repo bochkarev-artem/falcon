@@ -64,8 +64,8 @@ class BookConsumer
             try {
                 switch ($body['command']) {
                     case 'updateBook':
-                        $this->bookProvider->updateBook($body['productId']);
-                        $this->routeProvider->updateBook($body['productId']);
+                        $this->bookProvider->updateBook($body['bookId']);
+                        $this->routeProvider->updateBook($body['bookId']);
                         break;
 
                     case 'updateAllBooks':
