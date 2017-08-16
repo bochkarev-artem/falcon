@@ -95,7 +95,7 @@ class BookProvider implements ProviderInterface
             return false;
         }
 
-        return new Document($book->getId(), $bookData, 'book', 'books');
+        return new Document($book->getId(), $bookData, 'book');
     }
 
     /**

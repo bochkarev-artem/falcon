@@ -311,7 +311,7 @@ class RouteProvider implements ProviderInterface
             }
         } else {
             $bookDeleteQuery = new BoolQuery();
-            $bookDeleteQuery->addMust(new Term(['book_id' => $bookId]));
+            $bookDeleteQuery->addMust(new Term(['book' => $bookId]));
 
             $this->routeType->deleteByQuery($bookDeleteQuery);
         }
@@ -336,7 +336,7 @@ class RouteProvider implements ProviderInterface
 
         if (!$author) {
             $authorDeleteQuery = new BoolQuery();
-            $authorDeleteQuery->addMust(new Term(['authors.author_id' => $authorId]));
+            $authorDeleteQuery->addMust(new Term(['author' => $authorId]));
 
             $this->routeType->deleteByQuery($authorDeleteQuery);
             return;
@@ -366,7 +366,7 @@ class RouteProvider implements ProviderInterface
 
         if (!$tag) {
             $tagDeleteQuery = new BoolQuery();
-            $tagDeleteQuery->addMust(new Term(['tags.tag_id' => $tagId]));
+            $tagDeleteQuery->addMust(new Term(['tag' => $tagId]));
 
             $this->routeType->deleteByQuery($tagDeleteQuery);
             return;
@@ -396,7 +396,7 @@ class RouteProvider implements ProviderInterface
 
         if (!$sequence) {
             $sequenceDeleteQuery = new BoolQuery();
-            $sequenceDeleteQuery->addMust(new Term(['sequence.sequence_id' => $sequenceId]));
+            $sequenceDeleteQuery->addMust(new Term(['series' => $sequenceId]));
 
             $this->routeType->deleteByQuery($sequenceDeleteQuery);
             return;
@@ -426,7 +426,7 @@ class RouteProvider implements ProviderInterface
 
         if (!$genre) {
             $genreDeleteQuery = new BoolQuery();
-            $genreDeleteQuery->addMust(new Term(['genres.genre_id' => $genreId]));
+            $genreDeleteQuery->addMust(new Term(['genre' => $genreId]));
 
             $this->routeType->deleteByQuery($genreDeleteQuery);
             return;

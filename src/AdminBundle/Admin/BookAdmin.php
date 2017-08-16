@@ -51,7 +51,7 @@ class BookAdmin extends AbstractAdmin
                 'multiple' => true,
             ])
             ->add('genres', 'sonata_type_model_autocomplete', [
-                'property' => 'title',
+                'property' => 'titleRu',
                 'required' => false,
                 'multiple' => true,
             ])

@@ -354,7 +354,7 @@ class Genre implements LocalePageInterface
      */
     public function __toString()
     {
-        return (string) $this->getTitleEn();
+        return (string) $this->getTitleRu();
     }
 
     /**

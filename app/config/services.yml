@@ -147,12 +147,12 @@ services:
             - '@AppBundle\Provider\RouteProvider'
             - '@event_dispatcher'
         tags:
-            - { name: uecode_qpush.event_listener, event: books_index.message_received, method: onMessageReceived }
+            - { name: uecode_qpush.event_listener, event: books_index.message_received, method: onMessageReceived, priority: 100 }
 
     AppBundle\EventListener\BookIndexListener:
         arguments:
             - '@uecode_qpush.books_index'
         tags:
-            - { name: doctrine.event_listener, event: onFlush, priority: -1020}
-            - { name: doctrine.event_listener, event: postPersist, priority: -1020}
-            - { name: doctrine.event_listener, event: postFlush, priority: -1020}
+            - { name: doctrine.event_listener, event: onFlush, method: onFlush }
+            - { name: doctrine.event_listener, event: postPersist, method: postPersist }
+            - { name: doctrine.event_listener, event: postFlush, method: postFlush }
