@@ -22,6 +22,10 @@ class AdsAdmin extends AbstractAdmin
         $formMapper
             ->add('name')
             ->add('active')
+            ->add('lang', 'choice', [
+                'choices'            => $this->getLanguageChoices(),
+                'translation_domain' => 'AdminBundle',
+            ])
             ->add('code', null, [
                 'attr' => ['rows' => '7'],
             ])
@@ -41,6 +45,7 @@ class AdsAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('name')
+            ->add('lang')
             ->add('position')
             ->add('active')
         ;
@@ -55,6 +60,7 @@ class AdsAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('name')
             ->add('active')
+            ->add('lang')
             ->add('priority')
             ->add('position', null, [
                     'template' => 'AdminBundle:Ads:list_ads_custom.html.twig',
@@ -80,6 +86,7 @@ class AdsAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('active')
+            ->add('lang')
             ->add('position', null, [
                     'template' => 'AdminBundle:Ads:show_ads_custom.html.twig',
                     'widget'   => 'position',
@@ -89,7 +96,6 @@ class AdsAdmin extends AbstractAdmin
             ->add('createdOn')
         ;
     }
-
 
     /**
      * @return array
@@ -107,6 +113,17 @@ class AdsAdmin extends AbstractAdmin
     }
 
     /**
+     * @return array
+     */
+    protected function getLanguageChoices()
+    {
+        return [
+            'choice.ads_lang.ru' => Ads::LANGUAGE_RU,
+            'choice.ads_lang.en' => Ads::LANGUAGE_EN,
+        ];
+    }
+
+    /**
      * @param integer $value
      *
      * @return string
@@ -114,5 +131,15 @@ class AdsAdmin extends AbstractAdmin
     public function getPositionLabel($value)
     {
         return $this->trans(array_search($value, self::getPositionChoices()));
+    }
+
+    /**
+     * @param integer $value
+     *
+     * @return string
+     */
+    public function getLanguageLabel($value)
+    {
+        return $this->trans(array_search($value, self::getLanguageChoices()));
     }
 }

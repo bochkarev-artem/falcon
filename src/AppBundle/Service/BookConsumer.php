@@ -92,6 +92,10 @@ class BookConsumer
                         $this->routeProvider->updateSequence($body['sequenceId']);
                         break;
 
+                    case 'resetAdCache':
+                        $this->eventDispatcher->dispatch('reset_ads_cache');
+                        break;
+
                     default:
                 }
             } catch (DBALException $e) {

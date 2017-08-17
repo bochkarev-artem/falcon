@@ -6,6 +6,8 @@ use AppBundle\Entity\Ads;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 class AdsManager
 {
@@ -56,6 +58,8 @@ class AdsManager
             ->from('AppBundle:Ads', 'ads')
             ->andWhere($qb->expr()->eq('ads.position', ':position'))
             ->andWhere($qb->expr()->eq('ads.active', ':active'))
+            ->andWhere($qb->expr()->eq('ads.lang', ':language'))
+            ->setParameter('language', $this->localeService->getLocale())
             ->setParameter('position', $position)
             ->setParameter('active', true)
             ->orderBy('ads.priority', Criteria::ASC)
@@ -116,5 +120,21 @@ class AdsManager
 
         $this->checkCacheFolder();
         $cache->write($content);
+    }
+
+    public function resetCache()
+    {
+        $this->checkCacheFolder();
+
+        $finder = new Finder();
+        $finder->files()->in($this->cacheDir);
+
+        /* @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $fullPath = $file->getRealPath();
+            if (\file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
     }
 }

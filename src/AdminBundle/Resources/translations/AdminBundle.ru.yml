@@ -20,3 +20,6 @@ choice:
         book_mobile:  Книга (мобильный)
         catalog_side: Каталог (сбоку)
         catalog_top:  Каталог (сверху)
+    ads_lang:
+        en:           Английский
+        ru:           Русский

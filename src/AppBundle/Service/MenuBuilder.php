@@ -248,9 +248,6 @@ class MenuBuilder
         return $categories;
     }
 
-    /**
-     * Resets menu cache
-     */
     public function resetCache()
     {
         // ensure that elastica index is updated before resetting cache

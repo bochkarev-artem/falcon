@@ -139,6 +139,9 @@ services:
             - "@doctrine.orm.default_entity_manager"
             - '@AppBundle\Service\LocaleService'
             - "%kernel.cache_dir%"
+        tags:
+            - { name: kernel.event_listener, event: reset_ads_cache, method: resetCache }
+        lazy: true
 
     AppBundle\Service\BookConsumer:
         arguments:
@@ -156,4 +159,11 @@ services:
         tags:
             - { name: doctrine.event_listener, event: onFlush, method: onFlush }
             - { name: doctrine.event_listener, event: postPersist, method: postPersist }
+            - { name: doctrine.event_listener, event: postFlush, method: postFlush }
+
+    AppBundle\EventListener\AdsListener:
+        arguments:
+            - '@uecode_qpush.books_index'
+            - '%message_queue_on%'
+        tags:
             - { name: doctrine.event_listener, event: postFlush, method: postFlush }
