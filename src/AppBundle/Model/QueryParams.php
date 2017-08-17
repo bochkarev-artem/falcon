@@ -68,6 +68,11 @@ class QueryParams
     private $filterFeaturedHome;
 
     /**
+     * @var boolean
+     */
+    private $hasCover;
+
+    /**
      * @var integer
      */
     private $sort;
@@ -78,7 +83,7 @@ class QueryParams
     public function __construct()
     {
         $this->page        = 1;
-        $this->start       = 0;
+        $this->hasCover    = false;
         $this->sort        = self::SORT_NO;
         $this->searchQuery = null;
     }
@@ -309,6 +314,26 @@ class QueryParams
     public function isFilterFeaturedHome()
     {
         return $this->filterFeaturedHome;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasCover()
+    {
+        return $this->hasCover;
+    }
+
+    /**
+     * @param bool $hasCover
+     *
+     * @return QueryParams
+     */
+    public function setHasCover($hasCover)
+    {
+        $this->hasCover = $hasCover;
+
+        return $this;
     }
 
     /**

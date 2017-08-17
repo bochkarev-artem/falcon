@@ -36,6 +36,7 @@ class HomePageService
         $queryParams
             ->setFilterFeaturedHome()
             ->setSize(self::FEATURED_HOME_COUNT)
+            ->setHasCover(true)
         ;
 
         $books = $this->queryService->find($queryParams);
@@ -52,6 +53,7 @@ class HomePageService
         $queryParams
             ->setSort(QueryParams::SORT_DATE_DESC)
             ->setSize(self::NEW_ARRIVALS_HOME_COUNT)
+            ->setHasCover(true)
         ;
 
         $books = $this->queryService->find($queryParams);
@@ -68,6 +70,7 @@ class HomePageService
         $queryParams
             ->setSort(QueryParams::SORT_RATING_DESC)
             ->setSize(self::POPULAR_HOME_COUNT)
+            ->setHasCover(true)
         ;
 
         $books = $this->queryService->find($queryParams);

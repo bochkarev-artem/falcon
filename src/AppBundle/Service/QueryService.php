@@ -169,6 +169,10 @@ class QueryService
             $this->applyFeaturedHomeFilter($boolQuery);
         }
 
+        if ($queryParams->hasCover()) {
+            $this->applyHavingCover($boolQuery);
+        }
+
         $this->applyLocaleFilter($boolQuery);
     }
 
@@ -241,6 +245,14 @@ class QueryService
     private function applyFeaturedHomeFilter(Query\BoolQuery $query)
     {
         $query->addMust(new Query\Term(['featured_home' => true]));
+    }
+
+    /**
+     * @param Query\BoolQuery $query
+     */
+    private function applyHavingCover(Query\BoolQuery $query)
+    {
+        $query->addMust(new Query\Exists('cover_path'));
     }
 
     /**
