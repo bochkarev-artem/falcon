@@ -204,7 +204,7 @@ class LitresFileService
         while ($xmlReader->name === 'art') {
             if ($first) {
                 $first = false;
-                for ($i = 0; $i < 641500; $i++) {
+                for ($i = 0; $i < 716700; $i++) {
                     $this->goToNextNode($xmlReader);
                 }
             }
@@ -343,7 +343,6 @@ class LitresFileService
                 ->setPrice((string)$data['price'])
                 ->setTitle(mb_convert_encoding($title, 'utf-8'))
                 ->setAnnotation($annotation)
-                ->setLang($lang)
                 ->setDocumentId((string)$documentInfo->id)
                 ->setPublisher((string)$publishInfo->publisher)
                 ->setCityPublished((string)$publishInfo->city)

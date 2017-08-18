@@ -167,3 +167,12 @@ services:
             - '%message_queue_on%'
         tags:
             - { name: doctrine.event_listener, event: postFlush, method: postFlush }
+
+    AppBundle\EventListener\ReviewListener:
+        arguments:
+            - '@swiftmailer.mailer'
+            - '%email_from%'
+            - '%email_from_name%'
+            - '%email_to%'
+        tags:
+            - { name: doctrine.event_listener, event: postFlush, method: postFlush }

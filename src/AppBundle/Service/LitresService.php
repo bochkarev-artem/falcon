@@ -439,7 +439,6 @@ class LitresService
                 ->setHasTrial((string)$data['has_trial'])
                 ->setTitle($title)
                 ->setAnnotation($annotation)
-                ->setLang($lang)
                 ->setDocumentId((string)$documentInfo->id)
                 ->setPublisher((string)$publishInfo->publisher)
                 ->setCityPublished((string)$publishInfo->city)

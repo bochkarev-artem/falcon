@@ -99,12 +99,13 @@ stof_doctrine_extensions:
             sluggable:     true
             timestampable: true
 
-#swiftmailer:
-#    transport: "%mailer_transport%"
-#    host:      "%mailer_host%"
-#    username:  "%mailer_user%"
-#    password:  "%mailer_password%"
-#    spool:     { type: memory }
+swiftmailer:
+    transport:  "%mailer_transport%"
+    host:       "%mailer_host%"
+    port:       "%mailer_port%"
+    encryption: tls
+    username:   "%mailer_user%"
+    password:   "%mailer_password%"
 
 fos_user:
     db_driver:     orm

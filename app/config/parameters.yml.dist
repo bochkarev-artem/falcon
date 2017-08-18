@@ -9,6 +9,7 @@ parameters:
     database_password:
     mailer_transport:
     mailer_host:
+    mailer_port:
     mailer_user:
     mailer_password:
     secret:
