@@ -24,6 +24,11 @@ class AdsListener
     protected $isMessageQueueOn;
 
     /**
+     * @var string
+     */
+    protected $command = '';
+
+    /**
      * @param AwsProvider $awsProducer
      * @param boolean     $messageQueueOn
      */
@@ -34,29 +39,46 @@ class AdsListener
     }
 
     /**
-     * @param Event\PostFlushEventArgs $eventArgs
+     * @param Event\OnFlushEventArgs $eventArgs
      */
-    public function postFlush(Event\PostFlushEventArgs $eventArgs)
+    public function onFlush(Event\OnFlushEventArgs $eventArgs)
     {
         if ($this->isMessageQueueOn) {
             $em        = $eventArgs->getEntityManager();
             $this->uow = $em->getUnitOfWork();
 
-            $this->processEntityChanges($this->uow->getScheduledEntityUpdates());
-            $this->processEntityChanges($this->uow->getScheduledEntityDeletions());
+            $this->prepareCommand($this->uow->getScheduledEntityUpdates());
+            if (!$this->command) {
+                $this->prepareCommand($this->uow->getScheduledEntityDeletions());
+            }
+        }
+    }
+
+    /**
+     * @param Event\PostFlushEventArgs $eventArgs
+     */
+    public function postFlush(Event\PostFlushEventArgs $eventArgs)
+    {
+        $this->processEntityChanges();
+    }
+
+    protected function processEntityChanges()
+    {
+        if ($this->command) {
+            $this->awsProducer->publish([
+                'command' => $this->command,
+            ]);
         }
     }
 
     /**
      * @param array $entities
      */
-    protected function processEntityChanges(array $entities)
+    protected function prepareCommand(array $entities)
     {
         foreach ($entities as $entity) {
             if ($entity instanceof Ads) {
-                $this->awsProducer->publish([
-                    'command' => 'resetAdCache',
-                ]);
+                $this->command = 'resetAdCache';
                 break;
             }
         }

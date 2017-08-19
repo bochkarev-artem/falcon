@@ -166,6 +166,7 @@ services:
             - '@uecode_qpush.books_index'
             - '%message_queue_on%'
         tags:
+            - { name: doctrine.event_listener, event: onFlush, method: onFlush }
             - { name: doctrine.event_listener, event: postFlush, method: postFlush }
 
     AppBundle\EventListener\ReviewListener:
@@ -176,3 +177,4 @@ services:
             - '%email_to%'
         tags:
             - { name: doctrine.event_listener, event: onFlush, method: onFlush }
+            - { name: doctrine.event_listener, event: postFlush, method: postFlush }

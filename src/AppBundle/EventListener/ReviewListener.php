@@ -13,6 +13,11 @@ class ReviewListener
     protected $uow;
 
     /**
+     * @var BookReview[]
+     */
+    protected $reviews;
+
+    /**
      * @var string
      */
     protected $emailFrom;
@@ -21,7 +26,6 @@ class ReviewListener
      * @var string
      */
     protected $emailFromName;
-
 
     /**
      * @var string
@@ -62,22 +66,37 @@ class ReviewListener
     }
 
     /**
+     * @param Event\PostFlushEventArgs $eventArgs
+     */
+    public function postFlush(Event\PostFlushEventArgs $eventArgs)
+    {
+        $this->sendMail();
+    }
+
+    /**
      * @param array $entities
      */
     protected function processEntityChanges(array $entities)
     {
         foreach ($entities as $entity) {
             if ($entity instanceof BookReview) {
-                $body = $entity->getBook()->getTitle() . '<br><br>' . $entity->getText();
-                $message = \Swift_Message::newInstance(
-                    'New review pending moderation',
-                    $body,
-                    'text/html')
-                    ->setFrom($this->emailFrom, $this->emailFromName)
-                    ->setTo($this->emailTo)
-                ;
-                $this->mailer->send($message);
+                array_push($this->reviews, $entity);
             }
+        }
+    }
+
+    protected function sendMail()
+    {
+        foreach ($this->reviews as $review) {
+            $body = $review->getBook()->getTitle() . '<br><br>' . $review->getText();
+            $message = \Swift_Message::newInstance(
+                'New review pending moderation',
+                $body,
+                'text/html')
+                ->setFrom($this->emailFrom, $this->emailFromName)
+                ->setTo($this->emailTo)
+            ;
+            $this->mailer->send($message);
         }
     }
 }
