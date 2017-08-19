@@ -15,7 +15,7 @@ class ReviewListener
     /**
      * @var BookReview[]
      */
-    protected $reviews;
+    protected $reviews = [];
 
     /**
      * @var string
