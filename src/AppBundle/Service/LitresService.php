@@ -339,6 +339,12 @@ class LitresService
             $annotation = '';
             $book = new Book;
             $titleInfo = $data->{'text_description'}->hidden->{'title-info'};
+            $title = (string)$titleInfo->{'book-title'};
+            if (strlen($title) > 120) {
+                $this->skipped++;
+                continue;
+            }
+
             $lang = (string)$titleInfo->lang;
             if (strlen($lang) != 0 && !in_array($lang, $this->locales)) {
                 $this->skipped++;

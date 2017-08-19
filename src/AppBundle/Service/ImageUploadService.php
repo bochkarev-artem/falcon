@@ -66,10 +66,9 @@ class ImageUploadService
             echo ">>> $bookId book updated with photo\n";
 
             $this->s3Filesystem->write($path, $fileContent);
-            $book->setCoverPath($path);
-        } else {
-            $book->setCoverPath($path);
         }
+
+        $book->setCoverPath($path);
 
         return true;
     }

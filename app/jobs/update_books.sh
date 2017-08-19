@@ -3,7 +3,6 @@ cd /home/ubuntu/falcon/
 php bin/console app:update-litres-data books stream
 php bin/console app:update-book-images
 php bin/console app:update-featured-menu
-php bin/console fos:elastica:populate --env=prod --no-debug
 rm -rf ./web/sitemap.en/sitemap.xml
 php bin/console presta:sitemaps:dump web/sitemap.en/ --section=en --base-url=http://bookary.eu/ --gzip --env=prod --no-debug
 rm -rf ./web/sitemap.ru/sitemap.xml
