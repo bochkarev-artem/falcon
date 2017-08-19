@@ -12,6 +12,8 @@ parameters:
     mailer_port:
     mailer_user:
     mailer_password:
+    mailer_auth_mode:
+    mailer_encryption:
     secret:
 
     elastic_host:
@@ -32,3 +34,6 @@ parameters:
     yandex_client_secret:
 
     slack_token:
+    email_from:
+    email_from_name:
+    email_to:

@@ -52,9 +52,9 @@ class ReviewListener
     }
 
     /**
-     * @param Event\PostFlushEventArgs $eventArgs
+     * @param Event\OnFlushEventArgs $eventArgs
      */
-    public function postFlush(Event\PostFlushEventArgs $eventArgs)
+    public function onFlush(Event\OnFlushEventArgs $eventArgs)
     {
         $em        = $eventArgs->getEntityManager();
         $this->uow = $em->getUnitOfWork();
@@ -68,7 +68,7 @@ class ReviewListener
     {
         foreach ($entities as $entity) {
             if ($entity instanceof BookReview) {
-                $body = 'New review pending moderation';
+                $body = $entity->getBook()->getTitle() . '<br><br>' . $entity->getText();
                 $message = \Swift_Message::newInstance(
                     'New review pending moderation',
                     $body,

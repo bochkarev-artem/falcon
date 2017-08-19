@@ -175,4 +175,4 @@ services:
             - '%email_from_name%'
             - '%email_to%'
         tags:
-            - { name: doctrine.event_listener, event: postFlush, method: postFlush }
+            - { name: doctrine.event_listener, event: onFlush, method: onFlush }
