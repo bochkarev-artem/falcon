@@ -70,21 +70,34 @@ class LitresFileService
     private $locales;
 
     /**
-     * @param EntityManager $em
-     * @param Logger        $logger
-     * @param string        $rootDir
-     * @param array         $locales
+     * @var ImageUploadService $imageUploadService
      */
-    public function __construct(EntityManager $em, Logger $logger, $rootDir, $locales)
-    {
-        $this->em           = $em;
-        $this->logger       = $logger;
-        $this->xmlFile      = $rootDir . '/../web/detailed_data.xml';
-        $this->authorRepo   = $this->em->getRepository('AppBundle:Author');
-        $this->genreRepo    = $this->em->getRepository('AppBundle:Genre');
+    private $imageUploadService;
+
+    /**
+     * @param EntityManager      $em
+     * @param Logger             $logger
+     * @param ImageUploadService $imageUploadService
+     * @param string             $rootDir
+     * @param array              $locales
+     */
+    public function __construct
+    (
+        EntityManager $em,
+        Logger $logger,
+        ImageUploadService $imageUploadService,
+        $rootDir,
+        $locales
+    ) {
+        $this->em = $em;
+        $this->logger = $logger;
+        $this->xmlFile = $rootDir.'/../web/detailed_data.xml';
+        $this->authorRepo = $this->em->getRepository('AppBundle:Author');
+        $this->genreRepo = $this->em->getRepository('AppBundle:Genre');
         $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
-        $this->bookRepo     = $this->em->getRepository('AppBundle:Book');
-        $this->locales      = $locales;
+        $this->bookRepo = $this->em->getRepository('AppBundle:Book');
+        $this->locales = $locales;
+        $this->imageUploadService = $imageUploadService;
     }
 
     /**
@@ -347,8 +360,9 @@ class LitresFileService
                 ->setPublisher((string)$publishInfo->publisher)
                 ->setCityPublished((string)$publishInfo->city)
                 ->setIsbn((string)$publishInfo->isbn)
-                ->setMainAuthorSlug($mainAuthor->getSlug())
-            ;
+                ->setMainAuthorSlug($mainAuthor->getSlug());
+
+            $this->imageUploadService->updateBookCover($book);
 
             $yearPublished = (string)$publishInfo->year;
             if (strlen($yearPublished) < 5) {

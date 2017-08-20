@@ -91,20 +91,31 @@ class LitresService
     private $locales;
 
     /**
-     * @param EntityManager $em
-     * @param Logger        $logger
-     * @param array         $locales
+     * @var ImageUploadService $imageUploadService
      */
-    public function __construct(EntityManager $em, Logger $logger, $locales)
-    {
-        $this->em           = $em;
-        $this->logger       = $logger;
-        $this->authorRepo   = $this->em->getRepository('AppBundle:Author');
-        $this->genreRepo    = $this->em->getRepository('AppBundle:Genre');
-        $this->tagRepo      = $this->em->getRepository('AppBundle:Tag');
+    private $imageUploadService;
+
+    /**
+     * @param EntityManager      $em
+     * @param Logger             $logger
+     * @param ImageUploadService $imageUploadService
+     * @param array              $locales
+     */
+    public function __construct
+    (
+        EntityManager $em,
+        Logger $logger,
+        ImageUploadService $imageUploadService,
+        $locales
+    ) {
+        $this->em = $em;
+        $this->logger = $logger;
+        $this->authorRepo = $this->em->getRepository('AppBundle:Author');
+        $this->genreRepo = $this->em->getRepository('AppBundle:Genre');
         $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
-        $this->bookRepo     = $this->em->getRepository('AppBundle:Book');
-        $this->locales      = $locales;
+        $this->bookRepo = $this->em->getRepository('AppBundle:Book');
+        $this->locales = $locales;
+        $this->imageUploadService = $imageUploadService;
     }
 
     /**
@@ -449,8 +460,9 @@ class LitresService
                 ->setPublisher((string)$publishInfo->publisher)
                 ->setCityPublished((string)$publishInfo->city)
                 ->setIsbn((string)$publishInfo->isbn)
-                ->setMainAuthorSlug($mainAuthor->getSlug())
-            ;
+                ->setMainAuthorSlug($mainAuthor->getSlug());
+
+            $this->imageUploadService->updateBookCover($book);
 
             $yearPublished = (string)$publishInfo->year;
             if (strlen($yearPublished) < 5) {

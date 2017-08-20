@@ -17,6 +17,7 @@ services:
         arguments:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
+          - '@AppBundle\Service\ImageUploadService'
           - "%locales%"
         public: true
 
@@ -24,6 +25,7 @@ services:
         arguments:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
+          - '@AppBundle\Service\ImageUploadService'
           - "%kernel.root_dir%"
           - "%locales%"
         public: true
@@ -37,7 +39,6 @@ services:
     AppBundle\Service\ImageUploadService:
         arguments:
           - "@oneup_flysystem.s3_upload_filesystem"
-          - "@vich_uploader.templating.helper.uploader_helper"
           - "%book_directory%"
         public: true
 

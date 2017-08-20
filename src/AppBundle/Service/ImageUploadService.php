@@ -4,10 +4,8 @@
  */
 namespace AppBundle\Service;
 
-use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
 use League\Flysystem\Filesystem;
-use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * Class ImageUploadService
@@ -26,50 +24,36 @@ class ImageUploadService
     private $bookMapping;
 
     /**
-     * @var UploaderHelper
-     */
-    private $uploaderHelper;
-
-    /**
-     * @param Filesystem     $filesystem
-     * @param UploaderHelper $uploaderHelper
-     * @param string         $bookMapping
+     * @param Filesystem $filesystem
+     * @param string     $bookMapping
      */
     public function __construct(
         Filesystem $filesystem,
-        UploaderHelper $uploaderHelper,
         $bookMapping
     ) {
-        $this->s3Filesystem   = $filesystem;
-        $this->uploaderHelper = $uploaderHelper;
-        $this->bookMapping    = $bookMapping;
+        $this->s3Filesystem = $filesystem;
+        $this->bookMapping  = $bookMapping;
     }
 
     /**
      * @param Book $book
-     *
-     * @return boolean
      */
     public function updateBookCover(Book $book)
     {
         if (!$coverUrl = $book->getCover()) {
-            return false;
+            return;
         }
 
         $path = "$this->bookMapping/" . basename($coverUrl);
         if (!$this->s3Filesystem->has($path)) {
             $fileContent = @file_get_contents($coverUrl);
             if (false === $fileContent) {
-                return false;
+                return;
             }
-            $bookId = $book->getId();
-            echo ">>> $bookId book updated with photo\n";
 
             $this->s3Filesystem->write($path, $fileContent);
         }
 
         $book->setCoverPath($path);
-
-        return true;
     }
 }
