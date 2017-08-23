@@ -114,6 +114,7 @@ class LitresService
         $this->genreRepo = $this->em->getRepository('AppBundle:Genre');
         $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
         $this->bookRepo = $this->em->getRepository('AppBundle:Book');
+        $this->tagRepo = $this->em->getRepository('AppBundle:Tag');
         $this->locales = $locales;
         $this->imageUploadService = $imageUploadService;
     }
