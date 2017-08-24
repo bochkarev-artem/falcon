@@ -5,7 +5,7 @@ imports:
 parameters:
     base_url_ru: bookary.dev
     base_url_en: bookary-en.dev
-    message_queue_on: false
+    message_queue_on: true
 
 framework:
     router:

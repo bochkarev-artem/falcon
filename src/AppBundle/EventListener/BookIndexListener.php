@@ -56,9 +56,19 @@ class BookIndexListener
             $em        = $eventArgs->getEntityManager();
             $this->uow = $em->getUnitOfWork();
 
-            $this->processEntityChanges($this->uow->getScheduledEntityInsertions());
             $this->processEntityChanges($this->uow->getScheduledEntityUpdates(), true);
             $this->processEntityChanges($this->uow->getScheduledEntityDeletions());
+        }
+    }
+
+    /**
+     * @param Event\LifecycleEventArgs $args
+     */
+    public function postPersist(Event\LifecycleEventArgs $args)
+    {
+        if ($this->isMessageQueueOn) {
+            $entity = $args->getEntity();
+            $this->processEntityChanges([$entity]);
         }
     }
 
