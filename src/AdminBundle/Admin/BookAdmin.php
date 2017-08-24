@@ -85,119 +85,119 @@ class BookAdmin extends AbstractAdmin
             ->add('title')
             ->add('slug')
             ->add('lang')
-            ->add('authors', 'doctrine_orm_callback', [
-                    'callback' => function($queryBuilder, $alias, $field, $value) {
-                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
-                        if (!isset($value['value']) || !$value['value']) {
-                            return false;
-                        }
-
-                        $queryBuilder->join($alias . '.authors', 'authors');
-                        $filterExpr = $queryBuilder->expr()->orX(
-                            $queryBuilder->expr()->like('authors.firstName', ':name'),
-                            $queryBuilder->expr()->like('authors.lastName', ':name'),
-                            $queryBuilder->expr()->like('authors.middleName', ':name')
-                        );
-
-                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
-                            $filterExpr = $queryBuilder->expr()->orX(
-                                $filterExpr,
-                                $queryBuilder->expr()->eq('authors.id', ':author_id')
-                            );
-                            $queryBuilder->setParameter('author_id', trim($value['value']));
-                        }
-
-                        $queryBuilder
-                            ->andWhere($filterExpr)
-                            ->setParameter('name', '%' . $value['value'] . '%')
-                        ;
-
-                        return true;
-                    },
-                ]
-            )
-            ->add('genres', 'doctrine_orm_callback', [
-                    'callback' => function($queryBuilder, $alias, $field, $value) {
-                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
-                        if (!isset($value['value']) || !$value['value']) {
-                            return false;
-                        }
-
-                        $queryBuilder->join($alias . '.genres', 'genres');
-                        $filterExpr = $queryBuilder->expr()->like('genres.title', ':title');
-
-                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
-                            $filterExpr = $queryBuilder->expr()->orX(
-                                $filterExpr,
-                                $queryBuilder->expr()->eq('genres.id', ':genre_id')
-                            );
-                            $queryBuilder->setParameter('genre_id', trim($value['value']));
-                        }
-
-                        $queryBuilder
-                            ->andWhere($filterExpr)
-                            ->setParameter('title', '%' . $value['value'] . '%')
-                        ;
-
-                        return true;
-                    },
-                ]
-            )
-
-            ->add('tags', 'doctrine_orm_callback', [
-                    'callback' => function($queryBuilder, $alias, $field, $value) {
-                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
-                        if (!isset($value['value']) || !$value['value']) {
-                            return false;
-                        }
-
-                        $queryBuilder->join($alias . '.tags', 'tags');
-                        $filterExpr = $queryBuilder->expr()->like('tags.title', ':title');
-
-                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
-                            $filterExpr = $queryBuilder->expr()->orX(
-                                $filterExpr,
-                                $queryBuilder->expr()->eq('tags.id', ':tag_id')
-                            );
-                            $queryBuilder->setParameter('tag_id', trim($value['value']));
-                        }
-
-                        $queryBuilder
-                            ->andWhere($filterExpr)
-                            ->setParameter('title', '%' . $value['value'] . '%')
-                        ;
-
-                        return true;
-                    },
-                ]
-            )
-            ->add('sequence', 'doctrine_orm_callback', [
-                    'callback' => function($queryBuilder, $alias, $field, $value) {
-                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
-                        if (!isset($value['value']) || !$value['value']) {
-                            return false;
-                        }
-
-                        $queryBuilder->join($alias . '.sequence', 'sequence');
-                        $filterExpr = $queryBuilder->expr()->like('sequence.name', ':name');
-
-                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
-                            $filterExpr = $queryBuilder->expr()->orX(
-                                $filterExpr,
-                                $queryBuilder->expr()->eq('sequence.id', ':sequence_id')
-                            );
-                            $queryBuilder->setParameter('sequence_id', trim($value['value']));
-                        }
-
-                        $queryBuilder
-                            ->andWhere($filterExpr)
-                            ->setParameter('name', '%' . $value['value'] . '%')
-                        ;
-
-                        return true;
-                    },
-                ]
-            )
+//            ->add('authors', 'doctrine_orm_callback', [
+//                    'callback' => function($queryBuilder, $alias, $field, $value) {
+//                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
+//                        if (!isset($value['value']) || !$value['value']) {
+//                            return false;
+//                        }
+//
+//                        $queryBuilder->join($alias . '.authors', 'authors');
+//                        $filterExpr = $queryBuilder->expr()->orX(
+//                            $queryBuilder->expr()->like('authors.firstName', ':name'),
+//                            $queryBuilder->expr()->like('authors.lastName', ':name'),
+//                            $queryBuilder->expr()->like('authors.middleName', ':name')
+//                        );
+//
+//                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
+//                            $filterExpr = $queryBuilder->expr()->orX(
+//                                $filterExpr,
+//                                $queryBuilder->expr()->eq('authors.id', ':author_id')
+//                            );
+//                            $queryBuilder->setParameter('author_id', trim($value['value']));
+//                        }
+//
+//                        $queryBuilder
+//                            ->andWhere($filterExpr)
+//                            ->setParameter('name', '%' . $value['value'] . '%')
+//                        ;
+//
+//                        return true;
+//                    },
+//                ]
+//            )
+//            ->add('genres', 'doctrine_orm_callback', [
+//                    'callback' => function($queryBuilder, $alias, $field, $value) {
+//                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
+//                        if (!isset($value['value']) || !$value['value']) {
+//                            return false;
+//                        }
+//
+//                        $queryBuilder->join($alias . '.genres', 'genres');
+//                        $filterExpr = $queryBuilder->expr()->like('genres.title', ':title');
+//
+//                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
+//                            $filterExpr = $queryBuilder->expr()->orX(
+//                                $filterExpr,
+//                                $queryBuilder->expr()->eq('genres.id', ':genre_id')
+//                            );
+//                            $queryBuilder->setParameter('genre_id', trim($value['value']));
+//                        }
+//
+//                        $queryBuilder
+//                            ->andWhere($filterExpr)
+//                            ->setParameter('title', '%' . $value['value'] . '%')
+//                        ;
+//
+//                        return true;
+//                    },
+//                ]
+//            )
+//
+//            ->add('tags', 'doctrine_orm_callback', [
+//                    'callback' => function($queryBuilder, $alias, $field, $value) {
+//                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
+//                        if (!isset($value['value']) || !$value['value']) {
+//                            return false;
+//                        }
+//
+//                        $queryBuilder->join($alias . '.tags', 'tags');
+//                        $filterExpr = $queryBuilder->expr()->like('tags.title', ':title');
+//
+//                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
+//                            $filterExpr = $queryBuilder->expr()->orX(
+//                                $filterExpr,
+//                                $queryBuilder->expr()->eq('tags.id', ':tag_id')
+//                            );
+//                            $queryBuilder->setParameter('tag_id', trim($value['value']));
+//                        }
+//
+//                        $queryBuilder
+//                            ->andWhere($filterExpr)
+//                            ->setParameter('title', '%' . $value['value'] . '%')
+//                        ;
+//
+//                        return true;
+//                    },
+//                ]
+//            )
+//            ->add('sequence', 'doctrine_orm_callback', [
+//                    'callback' => function($queryBuilder, $alias, $field, $value) {
+//                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
+//                        if (!isset($value['value']) || !$value['value']) {
+//                            return false;
+//                        }
+//
+//                        $queryBuilder->join($alias . '.sequence', 'sequence');
+//                        $filterExpr = $queryBuilder->expr()->like('sequence.name', ':name');
+//
+//                        if (preg_match('/^\s*[\d]+\s*$/', $value['value'])) {
+//                            $filterExpr = $queryBuilder->expr()->orX(
+//                                $filterExpr,
+//                                $queryBuilder->expr()->eq('sequence.id', ':sequence_id')
+//                            );
+//                            $queryBuilder->setParameter('sequence_id', trim($value['value']));
+//                        }
+//
+//                        $queryBuilder
+//                            ->andWhere($filterExpr)
+//                            ->setParameter('name', '%' . $value['value'] . '%')
+//                        ;
+//
+//                        return true;
+//                    },
+//                ]
+//            )
             ->add('litresHubId')
             ->add('documentId')
         ;
@@ -216,9 +216,6 @@ class BookAdmin extends AbstractAdmin
             ->add('lang')
             ->add('featuredHome', null, ['editable' => true])
             ->add('path')
-            ->add('authors')
-            ->add('genres')
-            ->add('tags')
             ->add('updatedOn')
             ->add('createdOn')
             ->add('_action', 'actions', [
@@ -262,29 +259,29 @@ class BookAdmin extends AbstractAdmin
             ->add('createdOn')
         ;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createQuery($context = 'list')
-    {
-        /** @var QueryBuilder $query */
-        $query = parent::createQuery($context);
-
-        $rootAliases = $query->getRootAliases();
-        $rootAlias   = array_shift($rootAliases);
-
-        if ($context == 'list') {
-            $query
-                ->addSelect('a')
-                ->addSelect('g')
-                ->addSelect('t')
-                ->leftJoin($rootAlias . '.authors', 'a')
-                ->leftJoin($rootAlias . '.genres', 'g')
-                ->leftJoin($rootAlias . '.tags', 't')
-            ;
-        }
-
-        return $query;
-    }
+//
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function createQuery($context = 'list')
+//    {
+//        /** @var QueryBuilder $query */
+//        $query = parent::createQuery($context);
+//
+//        $rootAliases = $query->getRootAliases();
+//        $rootAlias   = array_shift($rootAliases);
+//
+//        if ($context == 'list') {
+//            $query
+//                ->addSelect('a')
+//                ->addSelect('g')
+//                ->addSelect('t')
+//                ->leftJoin($rootAlias . '.authors', 'a')
+//                ->leftJoin($rootAlias . '.genres', 'g')
+//                ->leftJoin($rootAlias . '.tags', 't')
+//            ;
+//        }
+//
+//        return $query;
+//    }
 }
