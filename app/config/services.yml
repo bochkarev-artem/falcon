@@ -158,9 +158,8 @@ services:
             - '@uecode_qpush.books_index'
             - '%message_queue_on%'
         tags:
-            - { name: doctrine.event_listener, event: onFlush, method: onFlush }
-            - { name: doctrine.event_listener, event: postPersist, method: postPersist }
-            - { name: doctrine.event_listener, event: postFlush, method: postFlush }
+            - { name: doctrine.event_listener, event: onFlush, method: onFlush, priority: -1020 }
+            - { name: doctrine.event_listener, event: postFlush, method: postFlush, priority: -1020 }
 
     AppBundle\EventListener\AdsListener:
         arguments:
