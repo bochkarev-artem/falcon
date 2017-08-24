@@ -28,8 +28,8 @@
                                 <div class="commenting-dec">
                                     {% if book.coverPath is defined %}
                                         <figure>
-                                            <a href="/{{ book.path }}">
-                                                <img src="{{ book.coverPath|imagine_filter('book_list') }}" alt="{{ book.title }}"/>
+                                            <a href="//{{ hosts[book.lang] ~ '/' ~ book.path }}">
+                                                <img src="//{{ hosts[book.lang] ~ '/' ~ book.coverPath|imagine_filter('book_list') }}" alt="{{ book.title }}"/>
                                             </a>
                                         </figure>
                                     {% endif %}
@@ -47,9 +47,9 @@
                                         <p>
                                             {% if book.authors|length > 0 %}
                                                 {% set author = book.authors|first %}
-                                                <div class="h5"><a href="/{{ author.path }}">{{ author.shortName }}</a></div>
+                                                <div class="h5"><a href="//{{ hosts[book.lang] ~ '/' ~ author.path }}">{{ author.shortName }}</a></div>
                                             {% endif %}
-                                            <div class="h4"><a href="/{{ book.path }}">{{ book.title|truncate(40) }}</a></div>
+                                            <div class="h4"><a href="//{{ hosts[book.lang] ~ '/' ~ book.path }}">{{ book.title|truncate(40) }}</a></div>
                                             <br>
                                             {% if view == 'ratings' %}
                                                 <div class="book-rating" data-rating="{{ bookData.rating }}"></div>
