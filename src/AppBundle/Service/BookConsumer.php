@@ -72,26 +72,6 @@ class BookConsumer
                         $this->bookProvider->updateAllBooks();
                         break;
 
-                    case 'updateAuthor':
-                        $this->bookProvider->updateAuthor($body['authorId']);
-                        $this->routeProvider->updateAuthor($body['authorId']);
-                        break;
-
-                    case 'updateGenre':
-                        $this->bookProvider->updateGenre($body['genreId']);
-                        $this->routeProvider->updateGenre($body['genreId']);
-                        break;
-
-                    case 'updateTag':
-                        $this->bookProvider->updateTag($body['tagId']);
-                        $this->routeProvider->updateTag($body['tagId']);
-                        break;
-
-                    case 'updateSequence':
-                        $this->bookProvider->updateSequence($body['sequenceId']);
-                        $this->routeProvider->updateSequence($body['sequenceId']);
-                        break;
-
                     case 'resetAdCache':
                         $this->eventDispatcher->dispatch('reset_ads_cache');
                         break;
