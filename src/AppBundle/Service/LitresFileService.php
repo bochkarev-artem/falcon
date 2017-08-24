@@ -52,7 +52,7 @@ class LitresFileService
     /**
      * @var int $batchSize
      */
-    private $batchSize = 100;
+    private $batchSize = 10;
 
     /**
      * @var bool $debug
