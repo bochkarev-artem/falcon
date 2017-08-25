@@ -68,7 +68,7 @@ class LitresService
     /**
      * @var int $bookExistedCount
      */
-    private $bookExistedCount = 1000;
+    private $bookExistedCount = 500;
 
     /**
      * @var bool $debug
@@ -335,6 +335,7 @@ class LitresService
 
         return true;
     }
+
     /**
      * @param \SimpleXMLElement[] $books
      */
