@@ -68,7 +68,7 @@ class LitresService
     /**
      * @var int $bookExistedCount
      */
-    private $bookExistedCount = 500;
+    private $bookExistedCount = 300;
 
     /**
      * @var bool $debug
@@ -342,7 +342,13 @@ class LitresService
     public function iterateBooks($books)
     {
         foreach ($books as $data) {
-            $this->step++;
+            if (++$this->step % $this->batchSize === 0) {
+                $this->em->flush();
+                $this->em->clear();
+                if ($this->debug) {
+                    echo ">>> books processed ($this->step), skipped ($this->skipped)\n";
+                }
+            }
             $hubId = (string)$data['hub_id'];
             if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
                 $this->skipped++;
@@ -480,13 +486,6 @@ class LitresService
             $this->em->persist($book);
             if ($this->debug) {
                 echo ">>> book persisted ($this->step)\n";
-            }
-            if ($this->step % $this->batchSize === 0) {
-                $this->em->flush();
-                $this->em->clear();
-                if ($this->debug) {
-                    echo ">>> books processed ($this->step), skipped ($this->skipped)\n";
-                }
             }
         }
     }
