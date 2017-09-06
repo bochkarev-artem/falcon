@@ -8,7 +8,7 @@ namespace AppBundle\Model;
 class QueryParams
 {
     const SORT_NO                = 0;
-    const SORT_DATE_DESC         = 1;
+    const SORT_ADDED_ON_DESC     = 1;
     const SORT_DATE_PUBLISH_DESC = 2;
     const SORT_RATING_DESC       = 3;
 

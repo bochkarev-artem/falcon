@@ -83,7 +83,7 @@ class SiteController extends Controller
     {
         $queryParams = new QueryParams();
         $queryParams
-            ->setSort(QueryParams::SORT_DATE_DESC)
+            ->setSort(QueryParams::SORT_ADDED_ON_DESC)
             ->setPage($page);
 
         $data = $this->prepareViewData($request, $queryParams);

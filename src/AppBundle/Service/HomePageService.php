@@ -51,7 +51,7 @@ class HomePageService
     {
         $queryParams = new QueryParams();
         $queryParams
-            ->setSort(QueryParams::SORT_DATE_DESC)
+            ->setSort(QueryParams::SORT_ADDED_ON_DESC)
             ->setSize(self::NEW_ARRIVALS_HOME_COUNT)
             ->setHasCover(true)
         ;

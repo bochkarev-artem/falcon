@@ -67,6 +67,7 @@ fos_elastica:
                         has_trial:            { type: boolean }
                         featured_home:        { type: boolean }
                         date:                 { type: date, format: "yyyy-MM-dd" }
+                        created_on:           { type: date, format: "yyyy-MM-dd" }
                         lang:                 { type: string }
                         sequence_number:      { type: integer }
                         litres_hub_id:        { type: integer }

@@ -125,6 +125,7 @@ class BookProvider implements ProviderInterface
             'rating'          => $ratingData['rating'],
             'review_count'    => $book->getReviews()->count(),
             'path'            => $book->getPath(),
+            'created_on'      => $book->getCreatedOn()->format('Y-m-d'),
         ];
 
         $bookData['title_' . $lang] = $book->getTitle();
