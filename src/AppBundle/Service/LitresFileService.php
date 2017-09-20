@@ -52,7 +52,7 @@ class LitresFileService
     /**
      * @var int $batchSize
      */
-    private $batchSize = 10;
+    private $batchSize = 5;
 
     /**
      * @var bool $debug
@@ -217,7 +217,7 @@ class LitresFileService
         while ($xmlReader->name === 'art') {
             if ($first) {
                 $first = false;
-                for ($i = 0; $i < 737900; $i++) {
+                for ($i = 0; $i < 738200; $i++) {
                     $this->goToNextNode($xmlReader);
                 }
             }
