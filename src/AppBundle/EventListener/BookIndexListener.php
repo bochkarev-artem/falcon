@@ -7,6 +7,8 @@ use AppBundle\Entity\Book;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
+use AppBundle\Provider\BookProvider;
+use AppBundle\Provider\RouteProvider;
 use Doctrine\ORM\Event;
 use Doctrine\ORM\UnitOfWork;
 use Uecode\Bundle\QPushBundle\Provider\AwsProvider;
@@ -58,14 +60,19 @@ class BookIndexListener
      */
     protected $isMessageQueueOn;
 
-    /**
-     * @param AwsProvider $awsProducer
-     * @param boolean     $messageQueueOn
-     */
-    public function __construct(AwsProvider $awsProducer, $messageQueueOn)
-    {
+    protected $bookProvider;
+    protected $routeProvider;
+
+    public function __construct(
+        AwsProvider $awsProducer,
+        BookProvider $bookProvider,
+        RouteProvider $routeProvider,
+        $messageQueueOn
+    ) {
         $this->awsProducer = $awsProducer;
         $this->isMessageQueueOn = $messageQueueOn;
+        $this->bookProvider = $bookProvider;
+        $this->routeProvider = $routeProvider;
     }
 
     /**
@@ -82,21 +89,7 @@ class BookIndexListener
         }
     }
 
-    /**
-     * @param Event\LifecycleEventArgs $args
-     */
-    public function postPersist(Event\LifecycleEventArgs $args)
-    {
-        if ($this->isMessageQueueOn) {
-            $entity = $args->getEntity();
-            $this->processEntityChanges([$entity]);
-        }
-    }
-
-    /**
-     * @param Event\PostFlushEventArgs $eventArgs
-     */
-    public function postFlush(Event\PostFlushEventArgs $eventArgs)
+    public function postFlush()
     {
         if ($this->isMessageQueueOn) {
             $this->processIndexUpdateQueue();
@@ -110,7 +103,20 @@ class BookIndexListener
     protected function processEntityChanges(array $entities, $isUpdate = false)
     {
         foreach ($entities as $entity) {
-            $this->processBook($entity, $isUpdate);
+            if ($entity instanceof Book) {
+                $changeSet = $this->uow->getEntityChangeSet($entity);
+
+                if ($isUpdate) {
+                    $this->processMenuAffectingChanges($entity, $changeSet);
+                }
+
+                if (isset($changeSet['enabled'])) {
+                    $this->bookProvider->updateBook($entity->getId());
+                    $this->routeProvider->updateBook($entity->getId());
+                } else {
+                    $this->scheduleBookIndexUpdate($entity);
+                }
+            }
 
             if ($entity instanceof Author) {
                 $this->scheduleAuthorIndexUpdate($entity);
@@ -130,25 +136,7 @@ class BookIndexListener
         }
     }
 
-    /**
-     * @param object $entity
-     * @param int    $isUpdate
-     */
-    protected function processBook($entity, $isUpdate)
-    {
-        if ($entity instanceof Book) {
-            if ($isUpdate) {
-                $this->processMenuAffectingChanges($entity);
-            }
-
-            $this->scheduleBookIndexUpdate($entity);
-        }
-    }
-
-    /**
-     * @param Book $book
-     */
-    protected function processMenuAffectingChanges(Book $book)
+    protected function processMenuAffectingChanges(Book $book, array $changeSet)
     {
         if ($this->resetMenuCache) {
             return;
@@ -160,7 +148,6 @@ class BookIndexListener
             return;
         }
 
-        $changeSet = $this->uow->getEntityChangeSet($book);
         if (isset($changeSet['featuredMenu']) && $changeSet['featuredMenu'][1] == true) {
             $this->resetMenuCache = true;
 

@@ -151,7 +151,11 @@
                                                 </ul>
                                             {% endif %}
                                         </div>
-                                        <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                        {% if app.user %}
+                                            <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                        {% else %}
+                                            {{ 'front.please_login_to_download'|trans({'%text%': link['text']})|raw }}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

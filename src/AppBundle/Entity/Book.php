@@ -65,6 +65,13 @@ class Book implements PageInterface
     private $hasTrial;
 
     /**
+     * @var boolean $enabled
+     *
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $enabled;
+
+    /**
      * @var boolean $featuredHome
      *
      * @ORM\Column(name="featured_home", type="boolean", nullable=true)
@@ -229,6 +236,7 @@ class Book implements PageInterface
         $this->reviews      = new ArrayCollection();
         $this->ratings      = new ArrayCollection();
         $this->date         = null;
+        $this->enabled      = false;
         $this->featuredHome = false;
         $this->featuredMenu = false;
     }
@@ -885,6 +893,18 @@ class Book implements PageInterface
     public function setMainAuthorSlug($mainAuthorSlug)
     {
         $this->mainAuthorSlug = $mainAuthorSlug;
+
+        return $this;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }

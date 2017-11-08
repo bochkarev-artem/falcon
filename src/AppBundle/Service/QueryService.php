@@ -173,6 +173,7 @@ class QueryService
             $this->applyHavingCover($boolQuery);
         }
 
+        $this->applyEnabledFilter($boolQuery);
         $this->applyLocaleFilter($boolQuery);
     }
 
@@ -261,6 +262,11 @@ class QueryService
     private function applyLocaleFilter(Query\BoolQuery $query)
     {
         $query->addMust(new Query\Term(['lang' => $this->localeService->getLocale()]));
+    }
+
+    private function applyEnabledFilter(Query\BoolQuery $query)
+    {
+        $query->addMust(new Query\Term(['enabled' => true]));
     }
 
     /**

@@ -156,10 +156,11 @@ services:
     AppBundle\EventListener\BookIndexListener:
         arguments:
             - '@uecode_qpush.books_index'
+            - '@AppBundle\Provider\BookProvider'
+            - '@AppBundle\Provider\RouteProvider'
             - '%message_queue_on%'
         tags:
             - { name: doctrine.event_listener, event: onFlush, method: onFlush, priority: -1020 }
-            - { name: doctrine.event_listener, event: postPersist, method: postPersist, priority: -1020 }
             - { name: doctrine.event_listener, event: postFlush, method: postFlush, priority: -1020 }
 
     AppBundle\EventListener\AdsListener:

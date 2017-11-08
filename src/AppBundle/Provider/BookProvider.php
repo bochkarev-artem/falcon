@@ -113,6 +113,7 @@ class BookProvider implements ProviderInterface
             'cover_path'      => $book->getCoverPath(),
             'price'           => $book->getPrice(),
             'has_trial'       => $book->isHasTrial(),
+            'enabled'         => $book->isEnabled(),
             'featured_home'   => $book->isFeaturedHome(),
             'sequence_number' => $book->getSequenceNumber(),
             'litres_hub_id'   => $book->getLitresHubId(),
