@@ -44,7 +44,7 @@ class ScheduleBookIndexCommand extends ContainerAwareCommand
             $book = $row[0];
             $i++;
             $book->setEnabled(true);
-            $output->writeln(sprintf("<info>Book %s reindexed</info>"), $book->getId());
+            $output->writeln(sprintf("<info>Book %s reindexed</info>", $book->getId()));
 
             if ($i % $batchSize == 0) {
                 $em->flush();
