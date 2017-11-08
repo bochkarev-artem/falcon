@@ -34,7 +34,8 @@ class ScheduleBookIndexCommand extends ContainerAwareCommand
         $qb
             ->select('b')
             ->from('AppBundle:Book', 'b')
-            ->where($qb->expr()->eq('b.enabled', false));
+            ->where($qb->expr()->eq('b.enabled', ':enabled'))
+            ->setParameter('enabled', false);
         $result    = $qb->getQuery()->iterate();
         $batchSize = 50;
         $i         = 0;
