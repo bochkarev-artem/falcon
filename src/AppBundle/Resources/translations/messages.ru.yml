@@ -106,6 +106,7 @@ front:
         previous:        Назад
     download:                         Скачать
     please_login_to_download:         '<a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">%text%</a>'
+    please_login_to_download_read:    '<a href="#" data-toggle="modal" data-target="#signin-box" class="btn-1">%text%</a>'
     litres_download_url:              "https://www.litres.ru/gettrial/?art=%litres_hub_id%&format=%format%&lfrom=%partner_id%"
     litres_book_url:                  "https://www.litres.ru/pages/biblio_book/?art=%litres_hub_id%&lfrom=%partner_id%"
     litres_read_book_url:             "https://www.litres.ru/static/or4/view/or.html?baseurl=/static/trials/%litres_6_digit_id%/%litres_8_digit_id%.&uuid=%litres_document_id%&art=%litres_hub_id%&trials=1&lfrom=%partner_id%"
