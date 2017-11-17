@@ -154,7 +154,7 @@
                                         {% if app.user %}
                                             <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
                                         {% else %}
-                                            {{ 'front.please_login_to_download'|trans({'%text%': link['text']})|raw }}
+                                            {{ 'front.please_login_to_download_read'|trans({'%text%': 'front.read_book'|trans})|raw }}
                                         {% endif %}
                                     </div>
                                 </div>

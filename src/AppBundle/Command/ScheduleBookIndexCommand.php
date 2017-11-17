@@ -34,7 +34,8 @@ class ScheduleBookIndexCommand extends ContainerAwareCommand
         $qb
             ->select('b')
             ->from('AppBundle:Book', 'b')
-            ->where($qb->expr()->eq('b.enabled', false));
+            ->where($qb->expr()->eq('b.enabled', ':enabled'))
+            ->setParameter('enabled', false);
         $result    = $qb->getQuery()->iterate();
         $batchSize = 50;
         $i         = 0;
@@ -43,7 +44,7 @@ class ScheduleBookIndexCommand extends ContainerAwareCommand
             $book = $row[0];
             $i++;
             $book->setEnabled(true);
-            $output->writeln(sprintf("<info>Book %s reindexed</info>"), $book->getId());
+            $output->writeln(sprintf("<info>Book %s reindexed</info>", $book->getId()));
 
             if ($i % $batchSize == 0) {
                 $em->flush();
