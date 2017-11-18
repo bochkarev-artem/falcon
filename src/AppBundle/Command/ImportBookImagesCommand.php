@@ -44,7 +44,7 @@ class ImportBookImagesCommand extends ContainerAwareCommand
         $qb
             ->select('b')
             ->from('AppBundle:Book', 'b')
-            ->where($qb->expr()->gt('b.enabled', ':enabled'))
+            ->where($qb->expr()->eq('b.enabled', ':enabled'))
             ->setParameter('enabled', false)
         ;
 
