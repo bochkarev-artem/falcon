@@ -50,7 +50,7 @@ class ImportBookImagesCommand extends ContainerAwareCommand
         }
 
         $result    = $qb->getQuery()->iterate();
-        $batchSize = 300;
+        $batchSize = 100;
         $i         = 0;
         $imageUploadService = $container->get('AppBundle\Service\ImageUploadService');
         foreach ($result as $row) {
