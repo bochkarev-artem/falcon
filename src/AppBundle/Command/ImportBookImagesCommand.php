@@ -6,6 +6,7 @@
 namespace AppBundle\Command;
 
 use AppBundle\Entity\Book;
+use AppBundle\Service\ImageUploadService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -43,6 +44,8 @@ class ImportBookImagesCommand extends ContainerAwareCommand
         $qb
             ->select('b')
             ->from('AppBundle:Book', 'b')
+            ->where($qb->expr()->gt('b.enabled', ':enabled'))
+            ->setParameter('enabled', false)
         ;
 
         if (!$force) {
@@ -52,7 +55,7 @@ class ImportBookImagesCommand extends ContainerAwareCommand
         $result    = $qb->getQuery()->iterate();
         $batchSize = 100;
         $i         = 0;
-        $imageUploadService = $container->get('AppBundle\Service\ImageUploadService');
+        $imageUploadService = $container->get(ImageUploadService::class);
         foreach ($result as $row) {
             /** @var Book $book */
             $book = $row[0];
