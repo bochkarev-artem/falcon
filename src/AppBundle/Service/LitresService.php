@@ -91,6 +91,11 @@ class LitresService
     private $locales;
 
     /**
+     * @var ImageUploadService $imageUploadService
+     */
+    private $imageUploadService;
+
+    /**
      * @param EntityManager      $em
      * @param Logger             $logger
      * @param ImageUploadService $imageUploadService
@@ -111,6 +116,7 @@ class LitresService
         $this->bookRepo = $this->em->getRepository('AppBundle:Book');
         $this->tagRepo = $this->em->getRepository('AppBundle:Tag');
         $this->locales = $locales;
+        $this->imageUploadService = $imageUploadService;
     }
 
     /**
@@ -463,6 +469,8 @@ class LitresService
                 ->setCityPublished((string)$publishInfo->city)
                 ->setIsbn((string)$publishInfo->isbn)
                 ->setMainAuthorSlug($mainAuthor->getSlug());
+
+            $this->imageUploadService->updateBookCover($book);
 
             $yearPublished = (string)$publishInfo->year;
             if (strlen($yearPublished) < 5) {
