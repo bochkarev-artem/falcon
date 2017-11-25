@@ -68,7 +68,7 @@ class LitresService
     /**
      * @var int $bookExistedCount
      */
-    private $bookExistedCount = 300;
+    private $bookExistedCount = 3000;
 
     /**
      * @var bool $debug
