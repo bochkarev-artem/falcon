@@ -14,7 +14,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     base_scheme:       http
-    default_locale:    en
+    default_locale:    ru
     locales:           [ru, en]
     hosts:             {ru: '%base_url_ru%', en: '%base_url_en%'}
     default_per_page:  18
