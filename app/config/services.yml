@@ -139,6 +139,7 @@ services:
         arguments:
             - "@doctrine.orm.default_entity_manager"
             - '@AppBundle\Service\LocaleService'
+            - '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
             - "%kernel.cache_dir%"
         tags:
             - { name: kernel.event_listener, event: reset_ads_cache, method: resetCache }

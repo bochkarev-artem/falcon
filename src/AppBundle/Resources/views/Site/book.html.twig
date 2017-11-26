@@ -137,25 +137,7 @@
                                                     <li><a>{{ book.date|date('Y') }}</a></li>
                                                 </ul>
                                             {% endif %}
-
-                                            {% if download_links %}
-                                                <ul class="book-tags">
-                                                    <li><span>{{ 'front.download'|trans }}:</span></li>
-                                                    {%- for link in download_links -%}
-                                                        {% if app.user %}
-                                                            <li><a href="{{ link['url'] }}">{{ link['text'] }}</a></li>
-                                                        {% else %}
-                                                            <li>{{ 'front.please_login_to_download'|trans({'%text%': link['text']})|raw }}</li>
-                                                        {% endif %}
-                                                    {%- endfor -%}
-                                                </ul>
-                                            {% endif %}
                                         </div>
-                                        {% if app.user %}
-                                            <a class="btn-1" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
-                                        {% else %}
-                                            {{ 'front.please_login_to_download_read'|trans({'%text%': 'front.read_book'|trans})|raw }}
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -190,10 +172,31 @@
                                     '%isbn%': book.isbn,
                                 }) }}</p>
                             {% endif %}
+                            <br>
+                            <div class="text-center">
+                                <h4>{{ 'front.download_book'|trans }} {{ locale_field(book, 'title') }}</h4>
+                                <br>
+                                {% if app.user %}
+                                    <a class="btn-partner" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
+                                    <br>
+                                    {% if download_links %}
+                                        <ul>
+                                            <li class="download-links">{{ 'front.download'|trans }}:</li>
+                                            {%- for link in download_links -%}
+                                                <li class="download-links"><a href="{{ link['url'] }}">{{ link['text']
+                                                        }}</a></li>
+                                            {%- endfor -%}
+                                        </ul>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="quote">{{ 'front.please_login'|trans|raw }}</span>
+                                {% endif %}
+                                {{ ad_by_position(constant('AppBundle\\Entity\\Ads::POSITION_BOOK_BOTTOM'))|raw }}
+                            </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="reviews">
                             {% if reviews %}
-                                <div class="commenting-wrap-1 cutomer-reviews">
+                                <div class="commenting-wrap-1 customer-reviews">
                                     <h3>{{ 'front.book.reviews'|trans }}</h3>
                                     <ul>
                                         {% for review in reviews %}
@@ -221,7 +224,7 @@
                             {% endif %}
 
                             {% if app.user %}
-                                <div class="contact-wrap cutomer-reviews">
+                                <div class="contact-wrap customer-reviews">
                                     <h3>{{ 'front.post_review_text'|trans }}</h3>
                                     <span class="review-flush-msg"></span>
                                     <form id="review-form">
@@ -242,14 +245,13 @@
                                     </form>
                                 </div>
                             {% else %}
-                                <span>{{ 'front.please_login'|trans|raw }}</span>
+                                <span>{{ 'front.please_login_review'|trans|raw }}</span>
                             {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{ ad_by_position(constant('AppBundle\\Entity\\Ads::POSITION_BOOK_BOTTOM'))|raw }}
         {% include "@App/Elements/featured_books_slider.html.twig" %}
     </div>
 </div>

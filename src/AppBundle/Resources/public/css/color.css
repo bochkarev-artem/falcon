@@ -102,8 +102,8 @@ p em,
 .text-filed-1 input[type="text"]:focus,
 .blog-form .input-dec3 textarea:focus,
 .blog-form .input-dec3 input[type="text"]:focus,
-.cutomer-reviews .input-dec3 input[type="text"]:focus,
-.cutomer-reviews .input-dec3 textarea:focus,
+.customer-reviews .input-dec3 input[type="text"]:focus,
+.customer-reviews .input-dec3 textarea:focus,
 .contact-wrap .input-dec3 input[type="text"]:focus,
 .contact-wrap .input-dec3 textarea:focus,
 .header-3 .nav-search .input-dec2 input[type="text"]:focus,
@@ -247,8 +247,8 @@ p em,
 .btn-3:hover,
 .blog-form .input-dec3 textarea:focus,
 .blog-form .input-dec3 input[type="text"]:focus,
-.cutomer-reviews .input-dec3 input[type="text"]:focus,
-.cutomer-reviews .input-dec3 textarea:focus,
+.customer-reviews .input-dec3 input[type="text"]:focus,
+.customer-reviews .input-dec3 textarea:focus,
 .contact-wrap .input-dec3 input[type="text"]:focus,
 .contact-wrap .input-dec3 textarea:focus
 {
@@ -449,4 +449,76 @@ p em,
 .btn-2.disabled, .btn-2:hover.disabled {
 	background-color: grey;
 	border-color: grey;
+}
+
+.btn-partner {
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgb(14, 146, 14);
+	background-origin: padding-box;
+	background-position: 0;
+	background-repeat: repeat;
+	background-size: auto auto;
+	border-bottom-color: rgb(255, 255, 255);
+	border-image-outset: 0;
+	border-image-repeat: stretch stretch;
+	border-image-slice: 100%;
+	border-image-source: none;
+	border-image-width: 1;
+	box-sizing: border-box;
+	color: rgb(255, 255, 255);
+	cursor: pointer;
+	display: inline-block;
+	font-family: Arial, Helvetica, Verdana;
+	font-feature-settings: normal;
+	font-kerning: auto;
+	font-language-override: normal;
+	font-size: 16px;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-variant-alternates: normal;
+	font-variant-caps: normal;
+	font-variant-east-asian: normal;
+	font-variant-ligatures: normal;
+	font-variant-numeric: normal;
+	font-variant-position: normal;
+	font-weight: 700;
+	height: 50px;
+	line-height: 50px;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	text-decoration-color: rgb(255, 255, 255);
+	text-decoration-style: solid;
+	transition-delay: 0s;
+	transition-duration: 0.3s;
+	transition-property: all;
+	transition-timing-function: ease;
+	white-space: nowrap;
+	width: 440px;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+}
+
+a.btn-partner {
+	color: white;
+}
+
+.quote {
+	padding: 5px;
+	background: #f9fafa;
+	border: 1px solid #dce7e7;
+	display: inline-block;
+	width: 100%;
+}
+
+.download-links {
+	display: inline;
+	margin-right: 15px;
 }

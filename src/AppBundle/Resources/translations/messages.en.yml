@@ -50,42 +50,42 @@ front:
         title:          Popular books, bestsellers download for free - Bookary
         description:    Popular books, bestsellers download for free - Bookary
         keywords:       Popular books, bestsellers
-    main:               Home
-    search:             Search
-    year:               Year
-    new:                New
-    no_results:         No books
-    featured_books:     Popular
-    new_arrivals:       New arrival
-    popular_books:      Bestsellers
-    to_book:            Read book
-    genres:             Genres
-    sequence:           Series
-    number_in_sequence: " (%number%th book)"
-    tags:               Tags
-    email:              Email
-    new_books:          New books
-    popular:            Popular
-    open_menu:          Open menu
-    sign_in:            Login
-    sign_out:           Logout
-    social_sign_in:     "Login to access full features of site:"
-    related_books:      Similar books
-    author_related:     "Author's books"
-    featured_menu_book: Interesting
-    read:               Read
-    read_book:          Read online
-    author:             Author
-    user_rating:        Your rating
-    book_review_added:  Your review was submitted and will be available after moderation
-    vote:               'vote|votes|votes'
-    post_review_text:   Leave review for a book
-    please_login:       'Please <a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">login</a> in order to write review.'
-    minimum_chars:      "Minimum length of review is %chars% characters"
-    send:               Send
-    review:             'review|reviews|reviews'
-    lang_ru:            Russian
-    lang_en:            English
+    main:                Home
+    search:              Search
+    year:                Year
+    new:                 New
+    no_results:          No books
+    featured_books:      Popular
+    new_arrivals:        New arrival
+    popular_books:       Bestsellers
+    to_book:             Read book
+    genres:              Genres
+    sequence:            Series
+    number_in_sequence:  " (%number%th book)"
+    tags:                Tags
+    email:               Email
+    new_books:           New books
+    popular:             Popular
+    open_menu:           Open menu
+    sign_in:             Login
+    sign_out:            Logout
+    social_sign_in:      "Login to access full features of site:"
+    related_books:       Similar books
+    author_related:      "Author's books"
+    featured_menu_book:  Interesting
+    read:                Read
+    read_book:           Read online
+    author:              Author
+    user_rating:         Your rating
+    book_review_added:   Your review was submitted and will be available after moderation
+    vote:                'vote|votes|votes'
+    post_review_text:    Leave review for a book
+    please_login_review: 'Please <a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">login</a> in order to write review.'
+    minimum_chars:       "Minimum length of review is %chars% characters"
+    send:                Send
+    review:              'review|reviews|reviews'
+    lang_ru:             Russian
+    lang_en:             English
     book:
         profile:         Personal page
         rating:          Rating
@@ -107,6 +107,7 @@ front:
     download:                         Download
     please_login_to_download:         '<a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">%text%</a>'
     please_login_to_download_read:    '<a href="#" data-toggle="modal" data-target="#signin-box" class="btn-1">%text%</a>'
+    please_login:                     'Please <a href="#" data-toggle="modal" data-target="#signin-box" class="login-link">login</a> in order to download book'
     litres_download_url:              "https://www.litres.ru/gettrial/?art=%litres_hub_id%&format=%format%&lfrom=%partner_id%"
     litres_book_url:                  "https://www.litres.ru/pages/biblio_book/?art=%litres_hub_id%&lfrom=%partner_id%"
     litres_read_book_url:             "https://www.litres.ru/static/or4/view/or.html?baseurl=/static/trials/%litres_6_digit_id%/%litres_8_digit_id%.&uuid=%litres_document_id%&art=%litres_hub_id%&trials=1&lfrom=%partner_id%"
@@ -115,6 +116,7 @@ front:
     litres_download_link_text_a4.pdf: pdf
     litres_download_link_text_epub:   epub
     book_published:                   "Book was published in %year%, %publisher%, %city%. ISBN: %isbn%"
+    download_book:                    "Download book"
     footer:
         title:        Library Bookary
         description:  "You can find many interesting books in popular e-formats in our library. Although book are available for free, some of them may be available only as a preview."

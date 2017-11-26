@@ -3,11 +3,13 @@
 namespace AppBundle\Service;
 
 use AppBundle\Entity\Ads;
+use AppBundle\Entity\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AdsManager
 {
@@ -32,17 +34,31 @@ class AdsManager
     protected $localeService;
 
     /**
+     * @var User|null
+     */
+    protected $user = null;
+
+    /**
      * @param EntityManagerInterface $em
      * @param LocaleService          $localeService
+     * @param TokenStorageInterface  $tokenStorage
      * @param string                 $cacheDir
      */
-    public function __construct(EntityManagerInterface $em, LocaleService $localeService, $cacheDir)
-    {
+    public function __construct(
+        EntityManagerInterface $em,
+        LocaleService $localeService,
+        TokenStorageInterface $tokenStorage,
+        $cacheDir
+    ) {
         $this->em = $em;
         $cacheDir = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
         $this->cacheDir = $cacheDir . '/adsCache';
         $this->cacheFile = $this->cacheDir . '/%s_ads.%s.html';
         $this->localeService = $localeService;
+        $token = $tokenStorage->getToken();
+        if (null !== $token && is_object($user = $token->getUser())) {
+            $this->user = $user;
+        }
     }
 
     /**
@@ -70,19 +86,26 @@ class AdsManager
 
     /**
      * @param integer $position
+     * @param boolean $showToAll
      *
      * @return string
      */
-    public function getAdByPosition($position)
+    public function getAdByPosition($position, $showToAll)
     {
-        $fileName = $this->getCacheFileName($position);
-        $cache = new ConfigCache($fileName, false);
+        if ($showToAll || $this->user) {
+            $fileName = $this->getCacheFileName($position);
+            $cache = new ConfigCache($fileName, false);
 
-        if (!$cache->isFresh()) {
-            $this->updateCache($cache, $position);
+            if (!$cache->isFresh()) {
+                $this->updateCache($cache, $position);
+            }
+
+            $ads = file_get_contents($cache->getPath());
+        } else {
+            $ads = '';
         }
 
-        return file_get_contents($cache->getPath());
+        return $ads;
     }
 
     /**

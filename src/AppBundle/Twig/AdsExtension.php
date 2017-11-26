@@ -34,12 +34,13 @@ class AdsExtension extends \Twig_Extension
 
     /**
      * @param integer $position
+     * @param boolean $showToAll
      *
      * @return mixed
      */
-    public function getAdByPosition($position)
+    public function getAdByPosition($position, $showToAll = false)
     {
-        return $this->adsManager->getAdByPosition($position);
+        return $this->adsManager->getAdByPosition($position, $showToAll);
     }
 
     /**
