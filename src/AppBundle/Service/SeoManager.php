@@ -111,7 +111,7 @@ class SeoManager
     }
 
     /**
-     * @param integer $page
+     * @param int $page
      */
     public function setNewBooksSeoData($page)
     {
@@ -126,7 +126,7 @@ class SeoManager
     }
 
     /**
-     * @param integer $page
+     * @param int $page
      */
     public function setPopularBooksSeoData($page)
     {
@@ -152,12 +152,12 @@ class SeoManager
 
     /**
      * @param Genre   $genre
-     * @param integer $page
+     * @param int $page
      */
     public function setGenreSeoData(Genre $genre, $page)
     {
         $seoData = new SeoData();
-        $title = $this->localeService->getLocaleField($genre, 'title');
+        $title   = $this->localeService->getLocaleField($genre, 'title');
         $seoData->setTitle($this->translator->trans('front.genre_page.title', [
             '%genre_title%' => $title,
         ]));
@@ -175,7 +175,7 @@ class SeoManager
 
     /**
      * @param Author $author
-     * @param integer $page
+     * @param int $page
      */
     public function setAuthorSeoData(Author $author, $page)
     {
@@ -200,9 +200,9 @@ class SeoManager
      */
     public function setBookSeoData(array $book)
     {
-        $seoData = new SeoData();
-        $author  = $book['authors'] ?? $book['authors'][0];
-        $title   = $this->localeService->getLocaleField($book, 'title');
+        $seoData    = new SeoData();
+        $author     = $book['authors'] ?? $book['authors'][0];
+        $title      = $this->localeService->getLocaleField($book, 'title');
         $authorName = $this->localeService->getLocaleField($author, 'full_name');
         $seoData->setTitle($this->translator->trans('front.book_page.title', [
             '%book_title%'  => $title,
@@ -221,7 +221,7 @@ class SeoManager
 
     /**
      * @param Tag $tag
-     * @param integer $page
+     * @param int $page
      */
     public function setTagSeoData(Tag $tag, $page)
     {
@@ -243,7 +243,7 @@ class SeoManager
 
     /**
      * @param Sequence $sequence
-     * @param integer $page
+     * @param int $page
      */
     public function setSequenceSeoData(Sequence $sequence, $page)
     {
@@ -264,7 +264,7 @@ class SeoManager
     }
 
     /**
-     * @param PageInterface|LocalePageInterface|array $entity
+     * @param array|LocalePageInterface|PageInterface $entity
      *
      * @return array
      */
@@ -272,13 +272,13 @@ class SeoManager
     {
         $breadcrumbs[] = [
             'url'  => '/',
-            'name' => $this->translator->trans('front.index_page.breadcrumb_title')
+            'name' => $this->translator->trans('front.index_page.breadcrumb_title'),
         ];
 
         if ($entity instanceof Sequence) {
             $name = $entity->getName();
         } elseif ($entity instanceof Genre) {
-            $name = $this->localeService->getLocaleField($entity, 'title');
+            $name          = $this->localeService->getLocaleField($entity, 'title');
             $breadcrumbs[] = [
                 'name' => $this->localeService->getLocaleField($entity->getParent(), 'title'),
             ];
@@ -289,8 +289,8 @@ class SeoManager
         } else {
             $name = $this->localeService->getLocaleField($entity, 'title');
             if ($genre = array_shift($entity['genres'])) {
-                $genreTitle = $this->localeService->getLocaleField($genre, 'title');
-                $genrePath  = $this->localeService->getLocaleField($genre, 'path');
+                $genreTitle    = $this->localeService->getLocaleField($genre, 'title');
+                $genrePath     = $this->localeService->getLocaleField($genre, 'path');
                 $breadcrumbs[] = [
                     'url'  => '/' . $genrePath,
                     'name' => $genreTitle,
@@ -306,7 +306,7 @@ class SeoManager
         }
 
         $breadcrumbs[] = [
-            'name' => $name
+            'name' => $name,
         ];
 
         return $breadcrumbs;

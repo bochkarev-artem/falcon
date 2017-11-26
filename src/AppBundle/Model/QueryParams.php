@@ -13,7 +13,7 @@ class QueryParams
     const SORT_RATING_DESC       = 3;
 
     /**
-     * @var int|array
+     * @var array|int
      */
     private $filterId;
 
@@ -28,32 +28,32 @@ class QueryParams
     private $page;
 
     /**
-     * @var int|array
+     * @var array|int
      */
     private $filterGenres;
 
     /**
-     * @var int|array
+     * @var array|int
      */
     private $filterTags;
 
     /**
-     * @var int|array
+     * @var array|int
      */
     private $filterAuthors;
 
     /**
-     * @var int|array
+     * @var array|int
      */
     private $filterSequences;
 
     /**
-     * @var int|array
+     * @var array|int
      */
     private $filterExcludeBooks;
 
     /**
-     * @var int|array
+     * @var array|int
      */
     private $filterExcludeAuthors;
 
@@ -63,17 +63,17 @@ class QueryParams
     private $searchQuery;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $filterFeaturedHome;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $hasCover;
 
     /**
-     * @var integer
+     * @var int
      */
     private $sort;
 
@@ -89,7 +89,7 @@ class QueryParams
     }
 
     /**
-     * @return int|array
+     * @return array|int
      */
     public function getFilterId()
     {
@@ -97,7 +97,7 @@ class QueryParams
     }
 
     /**
-     * @param int|array $filterId
+     * @param array|int $filterId
      *
      * @return QueryParams
      */
@@ -117,7 +117,7 @@ class QueryParams
     }
 
     /**
-     * @param int|array $genreId
+     * @param array|int $genreId
      *
      * @return QueryParams
      */

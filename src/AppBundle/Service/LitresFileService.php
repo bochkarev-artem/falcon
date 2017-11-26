@@ -50,27 +50,27 @@ class LitresFileService
     private $logger;
 
     /**
-     * @var int $batchSize
+     * @var int
      */
     private $batchSize = 5;
 
     /**
-     * @var bool $debug
+     * @var bool
      */
     private $debug;
 
     /**
-     * @var string $rootDir
+     * @var string
      */
     private $xmlFile;
 
     /**
-     * @var array $locales
+     * @var array
      */
     private $locales;
 
     /**
-     * @var ImageUploadService $imageUploadService
+     * @var ImageUploadService
      */
     private $imageUploadService;
 
@@ -81,22 +81,21 @@ class LitresFileService
      * @param string             $rootDir
      * @param array              $locales
      */
-    public function __construct
-    (
+    public function __construct(
         EntityManager $em,
         Logger $logger,
         ImageUploadService $imageUploadService,
         $rootDir,
         $locales
     ) {
-        $this->em = $em;
-        $this->logger = $logger;
-        $this->xmlFile = $rootDir.'/../web/detailed_data.xml';
-        $this->authorRepo = $this->em->getRepository('AppBundle:Author');
-        $this->genreRepo = $this->em->getRepository('AppBundle:Genre');
-        $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
-        $this->bookRepo = $this->em->getRepository('AppBundle:Book');
-        $this->locales = $locales;
+        $this->em                 = $em;
+        $this->logger             = $logger;
+        $this->xmlFile            = $rootDir.'/../web/detailed_data.xml';
+        $this->authorRepo         = $this->em->getRepository('AppBundle:Author');
+        $this->genreRepo          = $this->em->getRepository('AppBundle:Genre');
+        $this->sequenceRepo       = $this->em->getRepository('AppBundle:Sequence');
+        $this->bookRepo           = $this->em->getRepository('AppBundle:Book');
+        $this->locales            = $locales;
         $this->imageUploadService = $imageUploadService;
     }
 
@@ -122,19 +121,19 @@ class LitresFileService
     /**
      * @param \SimpleXMLElement $sequence
      *
-     * @return Sequence|null
+     * @return null|Sequence
      */
     public function getSequence($sequence)
     {
-        $sequenceId   = (integer) $sequence['id'];
-        $sequenceName = (string) $sequence['name'];
+        $sequenceId   = (int)$sequence['id'];
+        $sequenceName = (string)$sequence['name'];
         $sequence     = $this->sequenceRepo->findOneBy(['litresName' => $sequenceName]);
 
         if (!$sequence && $sequenceId) {
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
-            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $sequenceName)) {
+            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $sequenceName)) {
                 $sequence->setLang('ru');
             } else {
                 $sequence->setLang('en');
@@ -157,9 +156,9 @@ class LitresFileService
     {
         $author = $this->authorRepo->findOneBy(['documentId' => $authorId]);
         if (!$author) {
-            $fName = (string) $subject->{'first-name'};
-            $mName = (string) $subject->{'middle-name'};
-            $lName = (string) $subject->{'last-name'};
+            $fName = (string)$subject->{'first-name'};
+            $mName = (string)$subject->{'middle-name'};
+            $lName = (string)$subject->{'last-name'};
 
             if (!($fName || $mName || $lName)) { // no real name
                 return false;
@@ -171,13 +170,13 @@ class LitresFileService
 
             $author = new Author;
             $author
-                ->setDocumentId((string) $authorId)
+                ->setDocumentId((string)$authorId)
                 ->setFirstName($fName)
                 ->setMiddleName($mName)
                 ->setLastName($lName)
             ;
 
-            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $fName . $lName)) {
+            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $fName . $lName)) {
                 $author->setLang('ru');
             } else {
                 $author->setLang('en');
@@ -193,7 +192,7 @@ class LitresFileService
     /**
      * @param string $genreToken
      *
-     * @return Genre|null
+     * @return null|Genre
      */
     public function getGenre($genreToken)
     {
@@ -208,8 +207,8 @@ class LitresFileService
      */
     public function getBooksData()
     {
-        $skipped = 0;
-        $step    = 0;
+        $skipped   = 0;
+        $step      = 0;
         $xmlReader = new \XMLReader();
         $xmlReader->open($this->xmlFile);
         $first = true;
@@ -227,39 +226,43 @@ class LitresFileService
             if (!$data) {
                 echo "skip $step no book data\n";
                 $this->goToNextNode($xmlReader);
+
                 continue;
             }
             $hubId = (string)$data['int_id'];
             if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
                 $skipped++;
                 $this->goToNextNode($xmlReader);
+
                 continue;
             }
 
             $annotation = '';
-            $book = new Book;
-            $hidden = $data->{'text_description'}->hidden;
+            $book       = new Book;
+            $hidden     = $data->{'text_description'}->hidden;
             if (!$hidden) {
                 $skipped++;
                 echo "skip $step no desc\n";
                 $this->goToNextNode($xmlReader);
+
                 continue;
             }
             $titleInfo = $hidden->{'title-info'};
-            $lang = (string)$titleInfo->lang;
-            if (strlen($lang) != 0 && !in_array($lang, $this->locales)) {
+            $lang      = (string)$titleInfo->lang;
+            if (strlen($lang) != 0 && !in_array($lang, $this->locales, true)) {
                 $skipped++;
                 echo "skip $step wrong lang $lang\n";
                 $this->goToNextNode($xmlReader);
+
                 continue;
             }
             $documentInfo = $hidden->{'document-info'};
-            $publishInfo = $hidden->{'publish-info'};
+            $publishInfo  = $hidden->{'publish-info'};
 
             $author = null;
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
-                $author = $this->getAuthor($authorId, $author);
+                $author   = $this->getAuthor($authorId, $author);
                 if ($author) {
                     $book->addAuthor($author);
                 } else {
@@ -282,12 +285,13 @@ class LitresFileService
                 $skipped++;
                 echo "skip $step no author\n";
                 $this->goToNextNode($xmlReader);
+
                 continue;
             }
 
             $genres = [];
             foreach ($titleInfo->genre as $token) {
-                $token = (string)$token;
+                $token          = (string)$token;
                 $genres[$token] = $token; // To exclude duplicated
             }
 
@@ -313,11 +317,12 @@ class LitresFileService
 
             if ($data->{'sequence'}) {
                 foreach ($data->{'sequence'} as $sequence) {
-                    $sequenceNumber = (integer)$sequence['number'];
-                    $sequence = $this->getSequence($sequence);
+                    $sequenceNumber = (int)$sequence['number'];
+                    $sequence       = $this->getSequence($sequence);
                     if ($sequence) {
                         $book->setSequence($sequence);
                         $book->setSequenceNumber($sequenceNumber);
+
                         break;
                     }
                 }
@@ -332,12 +337,13 @@ class LitresFileService
             if (!($mainAuthor instanceof Author)) {
                 echo "skip $step no author\n";
                 $this->goToNextNode($xmlReader);
+
                 continue;
             }
 
             $cover = $this->getCover((string)$data['file_id']);
             $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
-            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
+            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $title)) {
                 $bookLocale = 'ru';
             } else {
                 $bookLocale = 'en';
@@ -393,29 +399,8 @@ class LitresFileService
     }
 
     /**
-     * @param string $fileId
-     *
-     * @return string
-     */
-    private function getCover($fileId)
-    {
-        $litres8DigitId = $this->get8DigitCode($fileId);
-        $litres6DigitId = $this->get6DigitCode($litres8DigitId);
-
-        return sprintf("http://robot.litres.ru/static/bookimages/%s/%s.bin.dir/%s.cover.jpg", $litres6DigitId, $litres8DigitId, $litres8DigitId);
-    }
-
-    /**
-     * @param \XMLReader $xmlReader
-     */
-    private function goToNextNode($xmlReader)
-    {
-        $xmlReader->next('art');
-    }
-
-    /**
      * @param string  $litresId
-     * @param integer $requireToAdd
+     * @param int $requireToAdd
      *
      * @return string
      */
@@ -450,16 +435,6 @@ class LitresFileService
     }
 
     /**
-     * @param string $xml
-     *
-     * @return \SimpleXMLElement
-     */
-    private function getXml($xml)
-    {
-        return simplexml_load_string($xml);
-    }
-
-    /**
      * @param string $string
      *
      * @return string
@@ -479,5 +454,36 @@ class LitresFileService
     protected function mbUcfirst($string)
     {
         return mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1);
+    }
+
+    /**
+     * @param string $fileId
+     *
+     * @return string
+     */
+    private function getCover($fileId)
+    {
+        $litres8DigitId = $this->get8DigitCode($fileId);
+        $litres6DigitId = $this->get6DigitCode($litres8DigitId);
+
+        return sprintf('http://robot.litres.ru/static/bookimages/%s/%s.bin.dir/%s.cover.jpg', $litres6DigitId, $litres8DigitId, $litres8DigitId);
+    }
+
+    /**
+     * @param \XMLReader $xmlReader
+     */
+    private function goToNextNode($xmlReader)
+    {
+        $xmlReader->next('art');
+    }
+
+    /**
+     * @param string $xml
+     *
+     * @return \SimpleXMLElement
+     */
+    private function getXml($xml)
+    {
+        return simplexml_load_string($xml);
     }
 }

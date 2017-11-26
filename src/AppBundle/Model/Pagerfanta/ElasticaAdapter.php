@@ -30,13 +30,13 @@ class ElasticaAdapter implements AdapterInterface
     public function __construct(SearchableInterface $searchable, Query $query)
     {
         $this->searchable = $searchable;
-        $this->query = $query;
+        $this->query      = $query;
     }
 
     /**
      * Returns the number of results.
      *
-     * @return integer The number of results.
+     * @return int The number of results.
      */
     public function getNbResults()
     {
@@ -55,7 +55,7 @@ class ElasticaAdapter implements AdapterInterface
      * Returns the Elastica ResultSet. Will return null if getSlice has not yet been
      * called.
      *
-     * @return ResultSet|null
+     * @return null|ResultSet
      */
     public function getResultSet()
     {
@@ -65,16 +65,16 @@ class ElasticaAdapter implements AdapterInterface
     /**
      * Returns an slice of the results.
      *
-     * @param integer $offset The offset.
-     * @param integer $length The length.
+     * @param int $offset The offset.
+     * @param int $length The length.
      *
      * @return array|\Traversable The slice.
      */
     public function getSlice($offset, $length)
     {
-        return $this->resultSet = $this->searchable->search($this->query, array(
+        return $this->resultSet = $this->searchable->search($this->query, [
             'from' => $offset,
-            'size' => $length
-        ));
+            'size' => $length,
+        ]);
     }
 }

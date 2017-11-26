@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Translation\Translator;
 
 class LitresBookManager
 {
-    CONST ID_LENGTH = 8;
+    const ID_LENGTH = 8;
 
     /**
      * @var string
@@ -55,7 +55,7 @@ class LitresBookManager
             $links[$i]['url'] = $this->translator->trans('front.litres_download_url', [
                 '%litres_hub_id%' => $book['litres_hub_id'],
                 '%format%'        => $format,
-                '%partner_id%'    => $this->partnerId
+                '%partner_id%'    => $this->partnerId,
             ]);
             $links[$i]['text'] = $this->translator->trans('front.litres_download_link_text_' . $format);
             $i++;
@@ -74,7 +74,7 @@ class LitresBookManager
         if (!$book['has_trial']) {
             return $this->translator->trans('front.litres_book_url', [
                 '%litres_hub_id%' => $book['litres_hub_id'],
-                '%partner_id%'    => $this->partnerId
+                '%partner_id%'    => $this->partnerId,
             ]);
         }
 
@@ -88,7 +88,7 @@ class LitresBookManager
             '%litres_8_digit_id%'  => $litres8DigitId,
             '%litres_document_id%' => $litresDocumentId,
             '%litres_hub_id%'      => $litresId,
-            '%partner_id%'         => $this->partnerId
+            '%partner_id%'         => $this->partnerId,
         ]);
     }
 
@@ -119,7 +119,7 @@ class LitresBookManager
 
     /**
      * @param string  $litresId
-     * @param integer $requireToAdd
+     * @param int $requireToAdd
      *
      * @return string
      */

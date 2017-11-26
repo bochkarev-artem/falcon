@@ -31,14 +31,14 @@ class RouteProvider implements ProviderInterface
     private $em;
 
     /**
-     * @var integer
+     * @var int
      */
     private $batchSize;
 
     /**
      * @param Type          $routeType
      * @param EntityManager $em
-     * @param integer       $batchSize
+     * @param int       $batchSize
      */
     public function __construct(Type $routeType, EntityManager $em, $batchSize)
     {
@@ -69,13 +69,214 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
+     * @param int $bookId
+     */
+    public function updateBook($bookId)
+    {
+        if (!$bookId) {
+            return;
+        }
+
+        $qb   = $this->createQueryBuilder('Book');
+        $book = $qb
+            ->andWhere($qb->expr()->eq('o.id', ':book_id'))
+            ->setParameter('book_id', $bookId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if ($book) {
+            $documents = $this->prepareDocuments($book);
+            if ($documents) {
+                $this->routeType->addDocuments($documents);
+            }
+        } else {
+            $bookDeleteQuery = new BoolQuery();
+            $bookDeleteQuery->addMust(new Term(['book' => $bookId]));
+
+            $this->routeType->deleteByQuery($bookDeleteQuery);
+        }
+    }
+
+    /**
+     * @param int $authorId
+     */
+    public function updateAuthor($authorId)
+    {
+        if (!$authorId) {
+            return;
+        }
+
+        $qb     = $this->createQueryBuilder('Author');
+        $author = $qb
+            ->where($qb->expr()->eq('author.id', ':author_id'))
+            ->setParameter('author_id', $authorId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!$author) {
+            $authorDeleteQuery = new BoolQuery();
+            $authorDeleteQuery->addMust(new Term(['authors.author_id' => $authorId]));
+
+            $this->routeType->deleteByQuery($authorDeleteQuery);
+
+            return;
+        }
+
+        $documents = $this->prepareDocuments($author);
+        if ($documents) {
+            $this->routeType->addDocuments($documents);
+        }
+    }
+
+    /**
+     * @param int $tagId
+     */
+    public function updateTag($tagId)
+    {
+        if (!$tagId) {
+            return;
+        }
+
+        $qb  = $this->createQueryBuilder('Tag');
+        $tag = $qb
+            ->where($qb->expr()->eq('tag.id', ':tag_id'))
+            ->setParameter('tag_id', $tagId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!$tag) {
+            $tagDeleteQuery = new BoolQuery();
+            $tagDeleteQuery->addMust(new Term(['tags.tag_id' => $tagId]));
+
+            $this->routeType->deleteByQuery($tagDeleteQuery);
+
+            return;
+        }
+
+        $documents = $this->prepareDocuments($tag);
+        if ($documents) {
+            $this->routeType->addDocuments($documents);
+        }
+    }
+
+    /**
+     * @param int $sequenceId
+     */
+    public function updateSequence($sequenceId)
+    {
+        if (!$sequenceId) {
+            return;
+        }
+
+        $qb       = $this->createQueryBuilder('Sequence');
+        $sequence = $qb
+            ->where($qb->expr()->eq('sequence.id', ':sequence_id'))
+            ->setParameter('sequence_id', $sequenceId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!$sequence) {
+            $sequenceDeleteQuery = new BoolQuery();
+            $sequenceDeleteQuery->addMust(new Term(['sequence.sequence_id' => $sequenceId]));
+
+            $this->routeType->deleteByQuery($sequenceDeleteQuery);
+
+            return;
+        }
+
+        $documents = $this->prepareDocuments($sequence);
+        if ($documents) {
+            $this->routeType->addDocuments($documents);
+        }
+    }
+
+    /**
+     * @param int $genreId
+     */
+    public function updateGenre($genreId)
+    {
+        if (!$genreId) {
+            return;
+        }
+
+        $qb    = $this->createQueryBuilder('Genre');
+        $genre = $qb
+            ->where($qb->expr()->eq('genre.id', ':genre_id'))
+            ->setParameter('genre_id', $genreId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!$genre) {
+            $genreDeleteQuery = new BoolQuery();
+            $genreDeleteQuery->addMust(new Term(['genres.genre_id' => $genreId]));
+
+            $this->routeType->deleteByQuery($genreDeleteQuery);
+
+            return;
+        }
+
+        $documents = $this->prepareDocuments($genre);
+        if ($documents) {
+            $this->routeType->addDocuments($documents);
+        }
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     *
+     * @return array|IterableResult
+     */
+    protected function getQueryIterator(QueryBuilder $queryBuilder)
+    {
+        try {
+            $objects = $queryBuilder->getQuery()->iterate();
+        } catch (QueryException $e) {
+            $aliases  = $queryBuilder->getRootAliases();
+            $entities = $queryBuilder->getRootEntities();
+
+            $idQb = clone $queryBuilder;
+            $res  = $idQb
+                ->select($aliases[0] . '.id')
+                ->add(
+                    'from',
+                    new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'),
+                    false
+                )
+                ->getQuery()
+                ->getResult()
+            ;
+
+            $ids = array_keys($res);
+            if (!$ids) {
+                return [];
+            }
+
+            $newQb   = $this->em->createQueryBuilder();
+            $objects = $newQb
+                ->select($aliases[0])
+                ->from($entities[0], $aliases[0], $aliases[0] . '.id')
+                ->where($queryBuilder->expr()->in($aliases[0] . '.id', $ids))
+                ->getQuery()
+                ->iterate()
+            ;
+        }
+
+        return $objects;
+    }
+
+    /**
      * @param string $entity
      *
      * @return QueryBuilder
      */
     private function createQueryBuilder($entity)
     {
-        /* @var QueryBuilder $qb */
+        // @var QueryBuilder $qb
         $qb = $this->em->createQueryBuilder();
 
         $qb = $qb
@@ -91,7 +292,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param PageInterface|LocalePageInterface $object
+     * @param LocalePageInterface|PageInterface $object
      *
      * @return array|bool
      */
@@ -107,7 +308,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param PageInterface|LocalePageInterface $object
+     * @param LocalePageInterface|PageInterface $object
      *
      * @return array
      */
@@ -124,7 +325,7 @@ class RouteProvider implements ProviderInterface
             'options'      => [],
         ];
 
-        $routes = [];
+        $routes    = [];
         $routeId   = $type . ':' . $objectId;
         $routeData = [
             'params' => $routeParams,
@@ -147,7 +348,7 @@ class RouteProvider implements ProviderInterface
 
     /**
      * @param QueryBuilder  $queryBuilder
-     * @param \Closure|null $loggerClosure
+     * @param null|\Closure $loggerClosure
      *
      * @return bool
      */
@@ -231,50 +432,6 @@ class RouteProvider implements ProviderInterface
     /**
      * @param QueryBuilder $queryBuilder
      *
-     * @return IterableResult|array
-     */
-    protected function getQueryIterator(QueryBuilder $queryBuilder)
-    {
-        try {
-            $objects = $queryBuilder->getQuery()->iterate();
-        }
-        catch (QueryException $e) {
-            $aliases  = $queryBuilder->getRootAliases();
-            $entities = $queryBuilder->getRootEntities();
-
-            $idQb = clone $queryBuilder;
-            $res  = $idQb
-                ->select($aliases[0] . '.id')
-                ->add(
-                    'from',
-                    new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'),
-                    false
-                )
-                ->getQuery()
-                ->getResult()
-            ;
-
-            $ids = array_keys($res);
-            if (!$ids) {
-                return [];
-            }
-
-            $newQb   = $this->em->createQueryBuilder();
-            $objects = $newQb
-                ->select($aliases[0])
-                ->from($entities[0], $aliases[0], $aliases[0] . '.id')
-                ->where($queryBuilder->expr()->in($aliases[0] . '.id', $ids))
-                ->getQuery()
-                ->iterate()
-            ;
-        }
-
-        return $objects;
-    }
-
-    /**
-     * @param QueryBuilder $queryBuilder
-     *
      * @return int
      */
     private function countObjects(QueryBuilder $queryBuilder)
@@ -284,160 +441,6 @@ class RouteProvider implements ProviderInterface
         $aliases = $qb->getRootAliases();
         $qb->select('COUNT(' . $aliases[0] . '.id)');
 
-        return (integer) $qb->getQuery()->getSingleScalarResult();
-    }
-
-    /**
-     * @param int $bookId
-     */
-    public function updateBook($bookId)
-    {
-        if (!$bookId) {
-            return;
-        }
-
-        $qb   = $this->createQueryBuilder('Book');
-        $book = $qb
-            ->andWhere($qb->expr()->eq('o.id', ':book_id'))
-            ->setParameter('book_id', $bookId)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        if ($book) {
-            $documents = $this->prepareDocuments($book);
-            if ($documents) {
-                $this->routeType->addDocuments($documents);
-            }
-        } else {
-            $bookDeleteQuery = new BoolQuery();
-            $bookDeleteQuery->addMust(new Term(['book' => $bookId]));
-
-            $this->routeType->deleteByQuery($bookDeleteQuery);
-        }
-    }
-
-    /**
-     * @param int $authorId
-     */
-    public function updateAuthor($authorId)
-    {
-        if (!$authorId) {
-            return;
-        }
-
-        $qb = $this->createQueryBuilder('Author');
-        $author = $qb
-            ->where($qb->expr()->eq('author.id', ':author_id'))
-            ->setParameter('author_id', $authorId)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        if (!$author) {
-            $authorDeleteQuery = new BoolQuery();
-            $authorDeleteQuery->addMust(new Term(['authors.author_id' => $authorId]));
-
-            $this->routeType->deleteByQuery($authorDeleteQuery);
-            return;
-        }
-
-        $documents = $this->prepareDocuments($author);
-        if ($documents) {
-            $this->routeType->addDocuments($documents);
-        }
-    }
-
-    /**
-     * @param int $tagId
-     */
-    public function updateTag($tagId)
-    {
-        if (!$tagId) {
-            return;
-        }
-
-        $qb = $this->createQueryBuilder('Tag');
-        $tag = $qb
-            ->where($qb->expr()->eq('tag.id', ':tag_id'))
-            ->setParameter('tag_id', $tagId)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        if (!$tag) {
-            $tagDeleteQuery = new BoolQuery();
-            $tagDeleteQuery->addMust(new Term(['tags.tag_id' => $tagId]));
-
-            $this->routeType->deleteByQuery($tagDeleteQuery);
-            return;
-        }
-
-        $documents = $this->prepareDocuments($tag);
-        if ($documents) {
-            $this->routeType->addDocuments($documents);
-        }
-    }
-
-    /**
-     * @param int $sequenceId
-     */
-    public function updateSequence($sequenceId)
-    {
-        if (!$sequenceId) {
-            return;
-        }
-
-        $qb = $this->createQueryBuilder('Sequence');
-        $sequence = $qb
-            ->where($qb->expr()->eq('sequence.id', ':sequence_id'))
-            ->setParameter('sequence_id', $sequenceId)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        if (!$sequence) {
-            $sequenceDeleteQuery = new BoolQuery();
-            $sequenceDeleteQuery->addMust(new Term(['sequence.sequence_id' => $sequenceId]));
-
-            $this->routeType->deleteByQuery($sequenceDeleteQuery);
-            return;
-        }
-
-        $documents = $this->prepareDocuments($sequence);
-        if ($documents) {
-            $this->routeType->addDocuments($documents);
-        }
-    }
-
-    /**
-     * @param int $genreId
-     */
-    public function updateGenre($genreId)
-    {
-        if (!$genreId) {
-            return;
-        }
-
-        $qb = $this->createQueryBuilder('Genre');
-        $genre = $qb
-            ->where($qb->expr()->eq('genre.id', ':genre_id'))
-            ->setParameter('genre_id', $genreId)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        if (!$genre) {
-            $genreDeleteQuery = new BoolQuery();
-            $genreDeleteQuery->addMust(new Term(['genres.genre_id' => $genreId]));
-
-            $this->routeType->deleteByQuery($genreDeleteQuery);
-            return;
-        }
-
-        $documents = $this->prepareDocuments($genre);
-        if ($documents) {
-            $this->routeType->addDocuments($documents);
-        }
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 }

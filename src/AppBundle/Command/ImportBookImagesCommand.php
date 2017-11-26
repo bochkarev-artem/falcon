@@ -35,7 +35,7 @@ class ImportBookImagesCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("<info>Import book images started.</info>");
+        $output->writeln('<info>Import book images started.</info>');
         $startTime = time();
         $force     = $input->getArgument('force') === 'n' ? false : true;
         $container = $this->getContainer();
@@ -52,9 +52,9 @@ class ImportBookImagesCommand extends ContainerAwareCommand
             $qb->andWhere($qb->expr()->isNull('b.coverPath'));
         }
 
-        $result    = $qb->getQuery()->iterate();
-        $batchSize = 100;
-        $i         = 0;
+        $result             = $qb->getQuery()->iterate();
+        $batchSize          = 100;
+        $i                  = 0;
         $imageUploadService = $container->get(ImageUploadService::class);
         foreach ($result as $row) {
             /** @var Book $book */

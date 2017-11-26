@@ -33,7 +33,7 @@ class BookProvider implements ProviderInterface
     private $em;
 
     /**
-     * @var integer
+     * @var int
      */
     private $batchSize;
 
@@ -46,7 +46,7 @@ class BookProvider implements ProviderInterface
      * @param Type            $bookType
      * @param EntityManager   $em
      * @param BookPageService $bookPageService
-     * @param integer         $batchSize
+     * @param int         $batchSize
      */
     public function __construct(
         Type $bookType,
@@ -70,11 +70,166 @@ class BookProvider implements ProviderInterface
     }
 
     /**
+     * @param int $bookId
+     */
+    public function updateBook($bookId)
+    {
+        $qb   = $this->createQueryBuilder();
+        $book = $qb
+            ->andWhere($qb->expr()->eq('b.id', ':book_id'))
+            ->setParameter('book_id', $bookId)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (!$book) {
+            try {
+                $this->bookType->deleteById($bookId);
+            } catch (NotFoundException $e) {
+            }
+
+            return;
+        }
+
+        $document = $this->prepareDocument($book);
+        if (!$document) {
+            return;
+        }
+
+        $this->bookType->addDocument($document);
+    }
+
+    /**
+     * @param int $authorId
+     *
+     * @return bool
+     */
+    public function updateAuthor($authorId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.authors', 'authors')
+            ->andWhere($qb->expr()->eq('authors.id', ':id'))
+            ->setParameter('id', $authorId)
+        ;
+
+        $this->updateDocumentsByQuery($qb);
+
+        return true;
+    }
+
+    /**
+     * @param int $sequenceId
+     *
+     * @return bool
+     */
+    public function updateSequence($sequenceId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.sequence', 'sequence')
+            ->andWhere($qb->expr()->eq('sequence.id', ':id'))
+            ->setParameter('id', $sequenceId)
+        ;
+
+        $this->updateDocumentsByQuery($qb);
+
+        return true;
+    }
+
+    /**
+     * @param int $genreId
+     *
+     * @return bool
+     */
+    public function updateGenre($genreId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.genres', 'genres')
+            ->andWhere($qb->expr()->eq('genres.id', ':id'))
+            ->setParameter('id', $genreId)
+        ;
+
+        $this->updateDocumentsByQuery($qb);
+
+        return true;
+    }
+
+    /**
+     * @param int $tagId
+     *
+     * @return bool
+     */
+    public function updateTag($tagId)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb
+            ->leftJoin('b.brand', 'tags')
+            ->andWhere($qb->expr()->eq('tags.id', ':id'))
+            ->setParameter('id', $tagId)
+        ;
+
+        $this->updateDocumentsByQuery($qb);
+
+        return true;
+    }
+
+    public function updateAllBooks()
+    {
+        $this->updateDocumentsByQuery($this->createQueryBuilder());
+        $this->em->clear();
+    }
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     *
+     * @return array|IterableResult
+     */
+    protected function getQueryIterator(QueryBuilder $queryBuilder)
+    {
+        try {
+            $objects = $queryBuilder->getQuery()->iterate();
+        } catch (QueryException $e) {
+            $aliases  = $queryBuilder->getRootAliases();
+            $entities = $queryBuilder->getRootEntities();
+
+            $idQb = clone $queryBuilder;
+            $res  = $idQb
+                ->select($aliases[0] . '.id')
+                ->add(
+                    'from',
+                    new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'),
+                    false
+                )
+                ->getQuery()
+                ->getResult()
+            ;
+
+            $ids = array_keys($res);
+            if (!$ids) {
+                return [];
+            }
+
+            $newQb   = $this->em->createQueryBuilder();
+            $objects = $newQb
+                ->select($aliases[0])
+                ->from($entities[0], $aliases[0], $aliases[0] . '.id')
+                ->where($queryBuilder->expr()->in($aliases[0] . '.id', $ids))
+                ->getQuery()
+                ->iterate()
+            ;
+        }
+
+        return $objects;
+    }
+
+    /**
      * @return QueryBuilder
      */
     private function createQueryBuilder()
     {
-        /* @var QueryBuilder $queryBuilder */
+        // @var QueryBuilder $queryBuilder
         $qb = $this->em->createQueryBuilder();
 
         return $qb
@@ -86,7 +241,7 @@ class BookProvider implements ProviderInterface
     /**
      * @param Book $book
      *
-     * @return Document|boolean
+     * @return bool|Document
      */
     private function prepareDocument(Book $book)
     {
@@ -193,7 +348,7 @@ class BookProvider implements ProviderInterface
                 'path'          => $author->getPath(),
             ];
             $authorData['full_name_' . $book->getLang()] = $author->getFullName();
-            $authorsData[] = $authorData;
+            $authorsData[]                               = $authorData;
         }
 
         $bookData['authors'] = $authorsData;
@@ -253,7 +408,7 @@ class BookProvider implements ProviderInterface
 
     /**
      * @param QueryBuilder  $queryBuilder
-     * @param \Closure|null $loggerClosure
+     * @param null|\Closure $loggerClosure
      *
      * @return bool
      */
@@ -274,8 +429,8 @@ class BookProvider implements ProviderInterface
             } else {
                 try {
                     $this->bookType->deleteById($book->getId());
+                } catch (NotFoundException $e) {
                 }
-                catch (NotFoundException $e) {}
             }
 
             $processed++;
@@ -305,7 +460,7 @@ class BookProvider implements ProviderInterface
                 $this->bookType->addDocuments($documents);
                 $this->em->clear();
 
-                $documents = [];
+                $documents      = [];
                 $lastCount      = $processed;
                 $stepStartTime  = microtime(true);
             }
@@ -344,49 +499,6 @@ class BookProvider implements ProviderInterface
     /**
      * @param QueryBuilder $queryBuilder
      *
-     * @return IterableResult|array
-     */
-    protected function getQueryIterator(QueryBuilder $queryBuilder)
-    {
-        try {
-            $objects = $queryBuilder->getQuery()->iterate();
-        } catch (QueryException $e) {
-            $aliases  = $queryBuilder->getRootAliases();
-            $entities = $queryBuilder->getRootEntities();
-
-            $idQb = clone $queryBuilder;
-            $res  = $idQb
-                ->select($aliases[0] . '.id')
-                ->add(
-                    'from',
-                    new Expr\From($entities[0], $aliases[0], $aliases[0] . '.id'),
-                    false
-                )
-                ->getQuery()
-                ->getResult()
-            ;
-
-            $ids = array_keys($res);
-            if (!$ids) {
-                return [];
-            }
-
-            $newQb   = $this->em->createQueryBuilder();
-            $objects = $newQb
-                ->select($aliases[0])
-                ->from($entities[0], $aliases[0], $aliases[0] . '.id')
-                ->where($queryBuilder->expr()->in($aliases[0] . '.id', $ids))
-                ->getQuery()
-                ->iterate()
-            ;
-        }
-
-        return $objects;
-    }
-
-    /**
-     * @param QueryBuilder $queryBuilder
-     *
      * @return int
      */
     private function countObjects(QueryBuilder $queryBuilder)
@@ -396,117 +508,6 @@ class BookProvider implements ProviderInterface
         $aliases = $qb->getRootAliases();
         $qb->select('COUNT(' . $aliases[0] . '.id)');
 
-        return (integer) $qb->getQuery()->getSingleScalarResult();
-    }
-
-    /**
-     * @param int $bookId
-     */
-    public function updateBook($bookId)
-    {
-        $qb   = $this->createQueryBuilder();
-        $book = $qb
-            ->andWhere($qb->expr()->eq('b.id', ':book_id'))
-            ->setParameter('book_id', $bookId)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        if (!$book) {
-            try {
-                $this->bookType->deleteById($bookId);
-            } catch (NotFoundException $e) {}
-
-            return;
-        }
-
-        $document = $this->prepareDocument($book);
-        if (!$document) {
-            return;
-        }
-
-        $this->bookType->addDocument($document);
-    }
-
-    /**
-     * @param int $authorId
-     *
-     * @return bool
-     */
-    public function updateAuthor($authorId)
-    {
-        $qb = $this->createQueryBuilder();
-        $qb
-            ->leftJoin('b.authors', 'authors')
-            ->andWhere($qb->expr()->eq('authors.id', ':id'))
-            ->setParameter('id', $authorId)
-        ;
-
-        $this->updateDocumentsByQuery($qb);
-
-        return true;
-    }
-
-    /**
-     * @param int $sequenceId
-     *
-     * @return bool
-     */
-    public function updateSequence($sequenceId)
-    {
-        $qb = $this->createQueryBuilder();
-        $qb
-            ->leftJoin('b.sequence', 'sequence')
-            ->andWhere($qb->expr()->eq('sequence.id', ':id'))
-            ->setParameter('id', $sequenceId)
-        ;
-
-        $this->updateDocumentsByQuery($qb);
-
-        return true;
-    }
-
-    /**
-     * @param int $genreId
-     *
-     * @return bool
-     */
-    public function updateGenre($genreId)
-    {
-        $qb = $this->createQueryBuilder();
-        $qb
-            ->leftJoin('b.genres', 'genres')
-            ->andWhere($qb->expr()->eq('genres.id', ':id'))
-            ->setParameter('id', $genreId)
-        ;
-
-        $this->updateDocumentsByQuery($qb);
-
-        return true;
-    }
-
-    /**
-     * @param int $tagId
-     *
-     * @return bool
-     */
-    public function updateTag($tagId)
-    {
-        $qb = $this->createQueryBuilder();
-        $qb
-            ->leftJoin('b.brand', 'tags')
-            ->andWhere($qb->expr()->eq('tags.id', ':id'))
-            ->setParameter('id', $tagId)
-        ;
-
-        $this->updateDocumentsByQuery($qb);
-
-        return true;
-    }
-
-    public function updateAllBooks()
-    {
-        $this->updateDocumentsByQuery($this->createQueryBuilder());
-        $this->em->clear();
+        return (int)$qb->getQuery()->getSingleScalarResult();
     }
 }

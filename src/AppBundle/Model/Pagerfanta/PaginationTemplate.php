@@ -14,14 +14,7 @@ class PaginationTemplate extends Template
      */
     protected $translator;
 
-    public function __construct(Translator $translator)
-    {
-        $this->translator = $translator;
-
-        parent::__construct();
-    }
-
-    static protected $defaultOptions = [
+    protected static $defaultOptions = [
         'dots_message'        => '&hellip;',
         'css_container_class' => 'pagination',
         'css_prev_class'      => 'fa fa-angle-left',
@@ -29,15 +22,23 @@ class PaginationTemplate extends Template
         'css_active_class'    => 'active pagination-link',
         'css_link_class'      => 'pagination-link',
         'rel_previous'        => 'prev',
-        'rel_next'            => 'next'
+        'rel_next'            => 'next',
     ];
+
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+
+        parent::__construct();
+    }
 
     /**
      * @return string
      */
     public function container()
     {
-        return sprintf('<ul class="%s">%%pages%%</ul>',
+        return sprintf(
+            '<ul class="%s">%%pages%%</ul>',
             $this->option('css_container_class')
         );
     }
@@ -63,21 +64,6 @@ class PaginationTemplate extends Template
     public function pageWithText($page, $text)
     {
         return $this->pageWithTextAndClass($page, $text);
-    }
-
-    /**
-     * @param string $page
-     * @param string $text
-     * @param string $class
-     * @param string $rel
-     *
-     * @return string
-     */
-    private function pageWithTextAndClass($page, $text, $class = null, $rel = null)
-    {
-        $href = $this->generateRoute($page);
-
-        return $this->linkLi($class, $href, $text, $rel);
     }
 
     /**
@@ -195,5 +181,20 @@ class PaginationTemplate extends Template
     protected function spanLi($text)
     {
         return sprintf('<li><span>%s</span></li>', $text);
+    }
+
+    /**
+     * @param string $page
+     * @param string $text
+     * @param string $class
+     * @param string $rel
+     *
+     * @return string
+     */
+    private function pageWithTextAndClass($page, $text, $class = null, $rel = null)
+    {
+        $href = $this->generateRoute($page);
+
+        return $this->linkLi($class, $href, $text, $rel);
     }
 }

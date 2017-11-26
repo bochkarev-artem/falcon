@@ -35,10 +35,10 @@ class Transliterator extends Urlizer
         'щ' => 'sh',
         'ь' => '',
         'ы' => 'y',
-        'ъ' => "",
+        'ъ' => '',
         'э' => 'e',
         'ю' => 'yu',
-        'я' => 'ya'
+        'я' => 'ya',
     ];
 
     public static function transliterate($text, $separator = '-')

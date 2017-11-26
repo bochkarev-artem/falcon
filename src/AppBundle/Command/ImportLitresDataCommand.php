@@ -35,7 +35,7 @@ class ImportLitresDataCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln("<info>Import data started.</info>");
+        $output->writeln('<info>Import data started.</info>');
         $startTime = time();
         $type      = $input->getArgument('type');
         $type      = $type ?: 'books';

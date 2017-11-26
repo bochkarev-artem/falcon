@@ -3,9 +3,9 @@
 namespace AppBundle\EventSubscriber;
 
 use AppBundle\Service\LocaleService;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class LocaleSubscriber implements EventSubscriberInterface
 {
@@ -29,7 +29,7 @@ class LocaleSubscriber implements EventSubscriberInterface
         } else {
             // if no explicit locale has been set on this request, use one from the session
             $session = $request->getSession();
-            $locale = $this->localeService->getLocale();
+            $locale  = $this->localeService->getLocale();
             if ($session) {
                 $request->setLocale($session->get('_locale', $locale));
             } else {

@@ -50,7 +50,7 @@ class RequestMatcher implements RequestMatcherInterface
         if (isset($this->cache[$requestHash])) {
             $collection = $this->cache[$requestHash];
         } else {
-            $collection = $this->routeProvider->getRouteCollectionForRequest($request);
+            $collection                = $this->routeProvider->getRouteCollectionForRequest($request);
             $this->cache[$requestHash] = $collection;
         }
         if (!count($collection)) {

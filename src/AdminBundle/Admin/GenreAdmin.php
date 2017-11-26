@@ -6,10 +6,10 @@
 namespace AdminBundle\Admin;
 
 use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class GenreAdmin extends AbstractAdmin
 {
@@ -62,7 +62,7 @@ class GenreAdmin extends AbstractAdmin
                     'show'   => [],
                     'edit'   => [],
                     'delete' => [],
-                ]
+                ],
             ])
         ;
     }

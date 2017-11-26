@@ -23,6 +23,34 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
+     */
+    protected $firstName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
+     */
+    protected $lastName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     */
+    protected $picture;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", length=255, nullable=true)
+     */
+    protected $gender;
+
+    /**
      * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
      */
     private $facebookId;
@@ -63,42 +91,14 @@ class User extends BaseUser
     private $googleAccessToken;
 
     /**
-     * @var string $firstName
-     *
-     * @ORM\Column(name="first_name", type="string", length=255, nullable=true)
-     */
-    protected $firstName;
-
-    /**
-     * @var string $lastName
-     *
-     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
-     */
-    protected $lastName;
-
-    /**
-     * @var string $picture
-     *
-     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
-     */
-    protected $picture;
-
-    /**
-     * @var string $gender
-     *
-     * @ORM\Column(name="gender", type="string", length=255, nullable=true)
-     */
-    protected $gender;
-
-    /**
-     * @var ArrayCollection $ratings
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="BookRating", mappedBy="user", fetch="EXTRA_LAZY")
      */
     private $ratings;
 
     /**
-     * @var ArrayCollection $reviews
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="BookReview", mappedBy="user", fetch="EXTRA_LAZY")
      */
@@ -116,7 +116,15 @@ class User extends BaseUser
     }
 
     /**
-     * @return integer
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getFullName() ?: $this->getUsername();
+    }
+
+    /**
+     * @return int
      */
     public function getId()
     {
@@ -168,20 +176,11 @@ class User extends BaseUser
      */
     public function getFullName()
     {
-        if (!empty($this->firstName) && !empty($this->lastName))
-        {
+        if (!empty($this->firstName) && !empty($this->lastName)) {
             return $this->firstName . ' ' . $this->lastName;
         }
 
         return $this->username;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getFullName() ?: $this->getUsername();
     }
 
     /**

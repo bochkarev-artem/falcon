@@ -21,7 +21,7 @@ class Book implements PageInterface
     use TimestampableTrait;
 
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -30,103 +30,103 @@ class Book implements PageInterface
     private $id;
 
     /**
-     * @var integer $litresHubId
+     * @var int
      *
      * @ORM\Column(name="litres_hub_id", type="integer")
      */
     private $litresHubId;
 
     /**
-     * @var string $price
+     * @var string
      *
      * @ORM\Column(name="price", type="string", nullable=true)
      */
     private $price;
 
     /**
-     * @var string $cover
+     * @var string
      *
      * @ORM\Column(name="cover", type="string", nullable=true)
      */
     private $cover;
 
     /**
-     * @var string $coverPath
+     * @var string
      *
      * @ORM\Column(name="cover_path", type="string", length=255, nullable=true)
      */
     private $coverPath;
 
     /**
-     * @var boolean $hasTrial
+     * @var bool
      *
      * @ORM\Column(name="has_trial", type="boolean", nullable=true)
      */
     private $hasTrial;
 
     /**
-     * @var boolean $enabled
+     * @var bool
      *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $enabled;
 
     /**
-     * @var boolean $featuredHome
+     * @var bool
      *
      * @ORM\Column(name="featured_home", type="boolean", nullable=true)
      */
     private $featuredHome;
 
     /**
-     * @var boolean $featuredMenu
+     * @var bool
      *
      * @ORM\Column(name="featured_menu", type="boolean", nullable=true)
      */
     private $featuredMenu;
 
     /**
-     * @var string $mainAuthorSlug
+     * @var string
      *
      * @ORM\Column(name="main_author_slug", type="string", nullable=true)
      */
     private $mainAuthorSlug;
 
     /**
-     * @var Genre[]|ArrayCollection $genres
+     * @var ArrayCollection|Genre[]
      *
      * @ORM\ManyToMany(targetEntity="Genre", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_genre",
-     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="genre_id", referencedColumnName="genre_id")}
      * )
      */
     private $genres;
 
     /**
-     * @var Author[]|ArrayCollection $authors
+     * @var ArrayCollection|Author[]
      *
      * @ORM\ManyToMany(targetEntity="Author", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_author",
-     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="author_id", referencedColumnName="author_id")}
      * )
      */
     private $authors;
 
     /**
-     * @var Tag[]|ArrayCollection $tags
+     * @var ArrayCollection|Tag[]
      *
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(name="book_tag",
-     *      joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
+     *     joinColumns={@ORM\JoinColumn(name="book_id", referencedColumnName="book_id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="tag_id")}
      * )
      */
     private $tags;
 
     /**
-     * @var Sequence $sequence
+     * @var Sequence
      *
      * @ORM\ManyToOne(targetEntity="Sequence", inversedBy="books", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(name="sequence_id", referencedColumnName="sequence_id")
@@ -134,28 +134,28 @@ class Book implements PageInterface
     private $sequence;
 
     /**
-     * @var BookRating[]|ArrayCollection $ratings
+     * @var ArrayCollection|BookRating[]
      *
      * @ORM\OneToMany(targetEntity="BookRating", mappedBy="book", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $ratings;
 
     /**
-     * @var BookReview[]|ArrayCollection $reviews
+     * @var ArrayCollection|BookReview[]
      *
      * @ORM\OneToMany(targetEntity="BookReview", mappedBy="book", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $reviews;
 
     /**
-     * @var string $title
+     * @var string
      *
      * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
 
     /**
-     * @var string $slug
+     * @var string
      *
      * @Gedmo\Slug(fields={"title"}, unique=true)
      * @ORM\Column(name="slug", type="string", nullable=true)
@@ -163,63 +163,63 @@ class Book implements PageInterface
     private $slug;
 
     /**
-     * @var string $annotation
+     * @var string
      *
      * @ORM\Column(name="annotation", type="text", nullable=true)
      */
     private $annotation;
 
     /**
-     * @var \DateTime $date
+     * @var \DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=true)
      */
     private $date;
 
     /**
-     * @var string $lang
+     * @var string
      *
      * @ORM\Column(name="lang", type="string", nullable=true)
      */
     private $lang;
 
     /**
-     * @var int $sequenceNumber
+     * @var int
      *
      * @ORM\Column(name="sequence_number", type="integer", nullable=true)
      */
     private $sequenceNumber;
 
     /**
-     * @var string $documentId
+     * @var string
      *
      * @ORM\Column(name="document_id", type="string", nullable=true)
      */
     private $documentId;
 
     /**
-     * @var string $publisher
+     * @var string
      *
      * @ORM\Column(name="publisher", type="string", nullable=true)
      */
     private $publisher;
 
     /**
-     * @var string $cityPublished
+     * @var string
      *
      * @ORM\Column(name="city_published", type="string", nullable=true)
      */
     private $cityPublished;
 
     /**
-     * @var string $yearPublished
+     * @var string
      *
      * @ORM\Column(name="year_published", type="string", length=4, nullable=true)
      */
     private $yearPublished;
 
     /**
-     * @var string $isbn
+     * @var string
      *
      * @ORM\Column(name="isbn", type="string", nullable=true)
      */
@@ -239,6 +239,14 @@ class Book implements PageInterface
         $this->enabled      = false;
         $this->featuredHome = false;
         $this->featuredMenu = false;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getTitle();
     }
 
     /**
@@ -562,7 +570,7 @@ class Book implements PageInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLitresHubId()
     {
@@ -570,7 +578,7 @@ class Book implements PageInterface
     }
 
     /**
-     * @param integer $litresHubId
+     * @param int $litresHubId
      *
      * @return Book
      */
@@ -602,7 +610,7 @@ class Book implements PageInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isHasTrial()
     {
@@ -610,7 +618,7 @@ class Book implements PageInterface
     }
 
     /**
-     * @param boolean $hasTrial
+     * @param bool $hasTrial
      *
      * @return Book
      */
@@ -755,14 +763,6 @@ class Book implements PageInterface
         $this->featuredMenu = $featuredMenu;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getTitle();
     }
 
     /**

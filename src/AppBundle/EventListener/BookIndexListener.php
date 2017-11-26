@@ -51,12 +51,12 @@ class BookIndexListener
     protected $uow;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $resetMenuCache = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isMessageQueueOn;
 
@@ -69,10 +69,10 @@ class BookIndexListener
         RouteProvider $routeProvider,
         $messageQueueOn
     ) {
-        $this->awsProducer = $awsProducer;
+        $this->awsProducer      = $awsProducer;
         $this->isMessageQueueOn = $messageQueueOn;
-        $this->bookProvider = $bookProvider;
-        $this->routeProvider = $routeProvider;
+        $this->bookProvider     = $bookProvider;
+        $this->routeProvider    = $routeProvider;
     }
 
     /**
@@ -249,7 +249,7 @@ class BookIndexListener
         }
 
         if ($messagesToSend && $this->resetMenuCache) {
-            $lastIndex = count($messagesToSend) - 1;
+            $lastIndex                                      = count($messagesToSend) - 1;
             $messagesToSend[$lastIndex]['reset_menu_cache'] = true;
         }
 

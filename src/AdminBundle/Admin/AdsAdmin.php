@@ -7,13 +7,33 @@ namespace AdminBundle\Admin;
 
 use AppBundle\Entity\Ads;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class AdsAdmin extends AbstractAdmin
 {
+    /**
+     * @param int $value
+     *
+     * @return string
+     */
+    public function getPositionLabel($value)
+    {
+        return $this->trans(array_search($value, self::getPositionChoices(), true));
+    }
+
+    /**
+     * @param int $value
+     *
+     * @return string
+     */
+    public function getLanguageLabel($value)
+    {
+        return $this->trans(array_search($value, self::getLanguageChoices(), true));
+    }
+
     /**
      * @param FormMapper $formMapper
      */
@@ -62,7 +82,10 @@ class AdsAdmin extends AbstractAdmin
             ->add('active')
             ->add('lang')
             ->add('priority')
-            ->add('position', null, [
+            ->add(
+                'position',
+                null,
+                [
                     'template' => 'AdminBundle:Ads:list_ads_custom.html.twig',
                     'widget'   => 'position',
                 ]
@@ -72,7 +95,7 @@ class AdsAdmin extends AbstractAdmin
                     'show'   => [],
                     'edit'   => [],
                     'delete' => [],
-                ]
+                ],
             ])
         ;
     }
@@ -87,7 +110,10 @@ class AdsAdmin extends AbstractAdmin
             ->add('name')
             ->add('active')
             ->add('lang')
-            ->add('position', null, [
+            ->add(
+                'position',
+                null,
+                [
                     'template' => 'AdminBundle:Ads:show_ads_custom.html.twig',
                     'widget'   => 'position',
                 ]
@@ -121,25 +147,5 @@ class AdsAdmin extends AbstractAdmin
             'choice.ads_lang.ru' => Ads::LANGUAGE_RU,
             'choice.ads_lang.en' => Ads::LANGUAGE_EN,
         ];
-    }
-
-    /**
-     * @param integer $value
-     *
-     * @return string
-     */
-    public function getPositionLabel($value)
-    {
-        return $this->trans(array_search($value, self::getPositionChoices()));
-    }
-
-    /**
-     * @param integer $value
-     *
-     * @return string
-     */
-    public function getLanguageLabel($value)
-    {
-        return $this->trans(array_search($value, self::getLanguageChoices()));
     }
 }

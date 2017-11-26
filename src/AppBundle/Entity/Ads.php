@@ -27,7 +27,7 @@ class Ads
     const LANGUAGE_EN = 'en';
 
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -36,42 +36,42 @@ class Ads
     private $id;
 
     /**
-     * @var integer $position
+     * @var int
      *
      * @ORM\Column(name="position", type="smallint", nullable=true)
      */
     private $position;
 
     /**
-     * @var string $name
+     * @var string
      *
      * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
     /**
-     * @var boolean $active
+     * @var bool
      *
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
-     * @var string $code
+     * @var string
      *
      * @ORM\Column(name="code", type="text", nullable=false)
      */
     private $code;
 
     /**
-     * @var string $lang
+     * @var string
      *
      * @ORM\Column(name="lang", type="string", length=2, nullable=false)
      */
     private $lang;
 
     /**
-     * @var integer $priority
+     * @var int
      *
      * @ORM\Column(name="priority", type="integer", nullable=true)
      */
@@ -86,7 +86,7 @@ class Ads
         $this->active   = true;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->name ?: '';
     }

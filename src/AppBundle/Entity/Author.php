@@ -15,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(
  *     name="author",
  *     uniqueConstraints={
- *           @ORM\UniqueConstraint(name="author_ids", columns={"document_id"})
+ *         @ORM\UniqueConstraint(name="author_ids", columns={"document_id"})
  *     }
  * )
  */
@@ -24,7 +24,7 @@ class Author implements PageInterface
     use TimestampableTrait;
 
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -33,42 +33,42 @@ class Author implements PageInterface
     private $id;
 
     /**
-     * @var string $documentId
+     * @var string
      *
      * @ORM\Column(name="document_id", type="string")
      */
     private $documentId;
 
     /**
-     * @var ArrayCollection $books
+     * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="authors", fetch="EXTRA_LAZY")
      */
     private $books;
 
     /**
-     * @var string $firstName
+     * @var string
      *
      * @ORM\Column(name="first_name", type="string", nullable=true)
      */
     private $firstName;
 
     /**
-     * @var string $lastName
+     * @var string
      *
      * @ORM\Column(name="last_name", type="string", nullable=true)
      */
     private $lastName;
 
     /**
-     * @var string $middleName
+     * @var string
      *
      * @ORM\Column(name="middle_name", type="string", nullable=true)
      */
     private $middleName;
 
     /**
-     * @var string $slug
+     * @var string
      *
      * @Gedmo\Slug(fields={"firstName", "lastName"}, unique=true)
      * @ORM\Column(name="slug", type="string", nullable=true)
@@ -76,7 +76,7 @@ class Author implements PageInterface
     private $slug;
 
     /**
-     * @var string $lang
+     * @var string
      *
      * @ORM\Column(name="lang", type="string", nullable=true)
      */
@@ -88,6 +88,14 @@ class Author implements PageInterface
     public function __construct()
     {
         $this->books = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getFullName();
     }
 
     /**
@@ -262,14 +270,6 @@ class Author implements PageInterface
         $this->slug = $slug;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getFullName();
     }
 
     /**

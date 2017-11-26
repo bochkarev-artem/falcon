@@ -35,7 +35,7 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $startTime = time();
-        $output->writeln("<info>Update featured menu started</info>");
+        $output->writeln('<info>Update featured menu started</info>');
         $container = $this->getContainer();
         $em        = $container->get('doctrine.orm.entity_manager');
         $qb        = $em->createQueryBuilder();
@@ -46,10 +46,9 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
         ;
         $qb->getQuery()->execute();
 
-        $qb = $this->buildQuery($em, 'ru');
+        $qb      = $this->buildQuery($em, 'ru');
         $booksRu = $qb->getQuery()->getResult();
-
-        $qb = $this->buildQuery($em, 'en');
+        $qb      = $this->buildQuery($em, 'en');
         $booksEn = $qb->getQuery()->getResult();
 
         $books = array_merge($booksEn, $booksRu);

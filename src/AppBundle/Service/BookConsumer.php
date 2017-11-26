@@ -17,6 +17,11 @@ class BookConsumer
     protected $em;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    protected $eventDispatcher;
+
+    /**
      * @var BookProvider
      */
     private $bookProvider;
@@ -25,11 +30,6 @@ class BookConsumer
      * @var RouteProvider
      */
     private $routeProvider;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
 
     /**
      * @param EntityManagerInterface   $em
@@ -57,7 +57,7 @@ class BookConsumer
     public function onMessageReceived(MessageEvent $event)
     {
         $message = $event->getMessage();
-        $body = $message->getBody();
+        $body    = $message->getBody();
         $this->em->clear();
 
         if (isset($body['command'])) {
@@ -66,36 +66,36 @@ class BookConsumer
                     case 'updateBook':
                         $this->bookProvider->updateBook($body['bookId']);
                         $this->routeProvider->updateBook($body['bookId']);
-                        break;
 
+                        break;
                     case 'updateAuthor':
                         $this->bookProvider->updateAuthor($body['authorId']);
                         $this->routeProvider->updateAuthor($body['authorId']);
-                        break;
 
+                        break;
                     case 'updateGenre':
                         $this->bookProvider->updateGenre($body['genreId']);
                         $this->routeProvider->updateGenre($body['genreId']);
-                        break;
 
+                        break;
                     case 'updateTag':
                         $this->bookProvider->updateTag($body['tagId']);
                         $this->routeProvider->updateTag($body['tagId']);
-                        break;
 
+                        break;
                     case 'updateSequence':
                         $this->bookProvider->updateSequence($body['sequenceId']);
                         $this->routeProvider->updateSequence($body['sequenceId']);
-                        break;
 
+                        break;
                     case 'updateAllBooks':
                         $this->bookProvider->updateAllBooks();
-                        break;
 
+                        break;
                     case 'resetAdCache':
                         $this->eventDispatcher->dispatch('reset_ads_cache');
-                        break;
 
+                        break;
                     default:
                 }
             } catch (DBALException $e) {

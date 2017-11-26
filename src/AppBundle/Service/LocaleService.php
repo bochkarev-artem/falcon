@@ -61,9 +61,9 @@ class LocaleService
      */
     public function getLocale()
     {
-        $request = $this->requestStack->getMasterRequest();
-        $host = $request ? $request->getHost() : false;
-        $this->locale = $host ? array_search($host, $this->hosts) : $this->getDefaultLocale();
+        $request      = $this->requestStack->getMasterRequest();
+        $host         = $request ? $request->getHost() : false;
+        $this->locale = $host ? array_search($host, $this->hosts, true) : $this->getDefaultLocale();
         $this->locale = $this->locale ?: $this->getDefaultLocale();
 
         return $this->locale;
@@ -80,13 +80,13 @@ class LocaleService
     /**
      * @param mixed       $object
      * @param string      $propertyPath
-     * @param string|null $locale
+     * @param null|string $locale
      *
      * @return mixed
      */
     public function getLocaleField($object, $propertyPath, $locale = null)
     {
-        $value = '';
+        $value  = '';
         $locale = $locale ?? $this->getLocale();
         if ($object instanceof Result) {
             $object = $object->getSource();

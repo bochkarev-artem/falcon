@@ -23,7 +23,7 @@ class BookReview
     const STATUS_REJECTED = 2;
 
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -32,7 +32,7 @@ class BookReview
     private $id;
 
     /**
-     * @var Book $book
+     * @var Book
      *
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="reviews", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id")
@@ -40,7 +40,7 @@ class BookReview
     private $book;
 
     /**
-     * @var User $user
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="reviews", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -48,21 +48,21 @@ class BookReview
     private $user;
 
     /**
-     * @var string $text
+     * @var string
      *
      * @ORM\Column(name="text", type="text")
      */
     private $text;
 
     /**
-     * @var integer $status
+     * @var int
      *
      * @ORM\Column(name="status", type="smallint")
      */
     private $status;
 
     /**
-     * @var string $rejectReason
+     * @var string
      *
      * @ORM\Column(name="reject_reason", type="string", nullable=true)
      */
@@ -74,6 +74,14 @@ class BookReview
     public function __construct()
     {
         $this->status = self::STATUS_PENDING;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getId();
     }
 
     /**
@@ -105,7 +113,7 @@ class BookReview
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getStatus()
     {
@@ -113,7 +121,7 @@ class BookReview
     }
 
     /**
-     * @param integer $status
+     * @param int $status
      *
      * @return BookReview
      */
@@ -182,13 +190,5 @@ class BookReview
         $this->rejectReason = $rejectReason;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    function __toString()
-    {
-        return (string) $this->getId();
     }
 }

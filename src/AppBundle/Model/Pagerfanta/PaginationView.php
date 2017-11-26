@@ -18,13 +18,21 @@ class PaginationView extends DefaultView
     /**
      * PaginationView constructor.
      * @param Translator $translator
-     * @param TemplateInterface|null $template
+     * @param null|TemplateInterface $template
      */
     public function __construct(Translator $translator, TemplateInterface $template = null)
     {
         $this->translator = $translator;
 
         parent::__construct($template);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'pagination_view';
     }
 
     protected function createDefaultTemplate()
@@ -35,13 +43,5 @@ class PaginationView extends DefaultView
     protected function getDefaultProximity()
     {
         return 2;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'pagination_view';
     }
 }

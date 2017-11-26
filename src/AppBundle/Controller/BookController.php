@@ -44,7 +44,7 @@ class BookController extends Controller
             $response   = [
                 'rating' => $ratingData['rating'],
                 'total'  => $ratingData['total'],
-                'status' => true
+                'status' => true,
             ];
         }
 

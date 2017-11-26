@@ -33,8 +33,8 @@ class AdsExtension extends \Twig_Extension
     }
 
     /**
-     * @param integer $position
-     * @param boolean $showToAll
+     * @param int $position
+     * @param bool $showToAll
      *
      * @return mixed
      */

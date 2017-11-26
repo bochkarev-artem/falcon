@@ -16,14 +16,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(
  *     name="sequence",
  *     uniqueConstraints={
- *           @ORM\UniqueConstraint(name="sequence_ids", columns={"litres_id"})
+ *         @ORM\UniqueConstraint(name="sequence_ids", columns={"litres_id"})
  *     }
  * )
  */
 class Sequence implements PageInterface
 {
     /**
-     * @var int $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -32,28 +32,28 @@ class Sequence implements PageInterface
     private $id;
 
     /**
-     * @var int $litresId
+     * @var int
      *
      * @ORM\Column(name="litres_id", type="integer")
      */
     private $litresId;
 
     /**
-     * @var ArrayCollection $books
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Book", mappedBy="sequence", fetch="EXTRA_LAZY")
      */
     private $books;
 
     /**
-     * @var string $name
+     * @var string
      *
      * @ORM\Column(name="name", type="string", nullable=true)
      */
     private $name;
 
     /**
-     * @var string $slug
+     * @var string
      *
      * @Gedmo\Slug(fields={"name"}, unique=true)
      * @ORM\Column(name="slug", type="string", nullable=true)
@@ -61,7 +61,7 @@ class Sequence implements PageInterface
     private $slug;
 
     /**
-     * @var string $lang
+     * @var string
      *
      * @ORM\Column(name="lang", type="string", nullable=true)
      */
@@ -73,6 +73,14 @@ class Sequence implements PageInterface
     public function __construct()
     {
         $this->books = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getName();
     }
 
     /**
@@ -104,7 +112,7 @@ class Sequence implements PageInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLitresId()
     {
@@ -112,7 +120,7 @@ class Sequence implements PageInterface
     }
 
     /**
-     * @param integer $litresId
+     * @param int $litresId
      *
      * @return Sequence
      */
@@ -161,14 +169,6 @@ class Sequence implements PageInterface
         $this->slug = $slug;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getName();
     }
 
     /**

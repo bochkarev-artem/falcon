@@ -23,7 +23,7 @@ class SeoData
     private $metaKeywords;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $indexPage;
 

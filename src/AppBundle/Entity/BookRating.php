@@ -19,7 +19,7 @@ class BookRating
     use TimestampableTrait;
 
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -28,14 +28,14 @@ class BookRating
     private $id;
 
     /**
-     * @var float $rating
+     * @var float
      *
      * @ORM\Column(name="rating", type="float", nullable=true)
      */
     private $rating;
 
     /**
-     * @var Book $book
+     * @var Book
      *
      * @ORM\ManyToOne(targetEntity="Book", inversedBy="ratings", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(name="book_id", referencedColumnName="book_id")
@@ -43,12 +43,20 @@ class BookRating
     private $book;
 
     /**
-     * @var User $user
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User", inversedBy="ratings", fetch="EXTRA_LAZY")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getId();
+    }
 
     /**
      * @return int
@@ -116,13 +124,5 @@ class BookRating
         $this->user = $user;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    function __toString()
-    {
-        return (string) $this->getId();
     }
 }

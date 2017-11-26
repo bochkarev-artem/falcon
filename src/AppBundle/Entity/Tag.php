@@ -16,14 +16,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(
  *     name="tag",
  *     uniqueConstraints={
- *           @ORM\UniqueConstraint(name="tag_ids", columns={"litres_id"})
+ *         @ORM\UniqueConstraint(name="tag_ids", columns={"litres_id"})
  *     }
  * )
  */
 class Tag implements PageInterface
 {
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -32,21 +32,21 @@ class Tag implements PageInterface
     private $id;
 
     /**
-     * @var integer $litresId
+     * @var int
      *
      * @ORM\Column(name="litres_id", type="integer")
      */
     private $litresId;
 
     /**
-     * @var string $title
+     * @var string
      *
      * @ORM\Column(name="title", type="string", nullable=true)
      */
     private $title;
 
     /**
-     * @var string $slug
+     * @var string
      *
      * @Gedmo\Slug(fields={"title"}, unique=true)
      * @ORM\Column(name="slug", type="string", nullable=true)
@@ -54,7 +54,7 @@ class Tag implements PageInterface
     private $slug;
 
     /**
-     * @var ArrayCollection $books
+     * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="tags", fetch="EXTRA_LAZY")
      */
@@ -63,6 +63,14 @@ class Tag implements PageInterface
     public function __construct()
     {
         $this->books = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getTitle();
     }
 
     /**
@@ -94,7 +102,7 @@ class Tag implements PageInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLitresId()
     {
@@ -102,7 +110,7 @@ class Tag implements PageInterface
     }
 
     /**
-     * @param integer $litresId
+     * @param int $litresId
      *
      * @return Tag
      */
@@ -131,14 +139,6 @@ class Tag implements PageInterface
         $this->slug = $slug;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getTitle();
     }
 
     /**

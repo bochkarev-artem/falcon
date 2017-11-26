@@ -23,14 +23,13 @@ use Symfony\Component\Routing\RouteCollection;
 class DynamicRouter extends BaseDynamicRouter
 {
     /**
-     * @var Type
-     */
-    private $repository;
-
-    /**
      * @var RequestContext
      */
     protected $context;
+    /**
+     * @var Type
+     */
+    private $repository;
 
     /**
      * @var LocaleService
@@ -42,7 +41,7 @@ class DynamicRouter extends BaseDynamicRouter
      * @param RequestMatcherInterface|UrlMatcherInterface $matcher
      * @param UrlGeneratorInterface                       $generator
      * @param string                                      $uriFilterRegexp
-     * @param EventDispatcherInterface|null               $eventDispatcher
+     * @param null|EventDispatcherInterface               $eventDispatcher
      * @param RouteProviderInterface                      $provider
      * @param Type                                        $repository
      * @param LocaleService $localeService
@@ -51,7 +50,7 @@ class DynamicRouter extends BaseDynamicRouter
         RequestContext $context,
         $matcher,
         UrlGeneratorInterface $generator,
-        $uriFilterRegexp = '',
+        $uriFilterRegexp,
         EventDispatcherInterface $eventDispatcher = null,
         RouteProviderInterface $provider = null,
         Type $repository,
@@ -93,9 +92,9 @@ class DynamicRouter extends BaseDynamicRouter
             $generator = new UrlGenerator($collection, $this->context);
 
             return $generator->generate($name, $parameters, $absolute);
-        } else {
-            return parent::generate($name, $parameters, $absolute);
         }
+
+        return parent::generate($name, $parameters, $absolute);
     }
 
     /**
@@ -105,9 +104,9 @@ class DynamicRouter extends BaseDynamicRouter
     {
         if ($name == 'dynamic_route') {
             return true;
-        } else {
-            return parent::supports($name);
         }
+
+        return parent::supports($name);
     }
 
     /**
@@ -120,7 +119,7 @@ class DynamicRouter extends BaseDynamicRouter
         $searchUrl = preg_replace('#^(.*?)(\/\d+)?$#iu', '$1', $parameters['_path']);
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
-        $pathName = 'path_' . $this->localeService->getLocale();
+        $pathName  = 'path_' . $this->localeService->getLocale();
         $pathQuery->setTerm($pathName, rawurldecode($searchUrl));
         $boolQuery->addMust($pathQuery);
 

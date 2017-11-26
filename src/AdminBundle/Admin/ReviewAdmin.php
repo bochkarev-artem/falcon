@@ -7,13 +7,22 @@ namespace AdminBundle\Admin;
 
 use AppBundle\Entity\BookReview;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class ReviewAdmin extends AbstractAdmin
 {
+    /**
+     * @param int $value
+     *
+     * @return string
+     */
+    public function getReviewStatusLabel($value)
+    {
+        return $this->trans(array_search($value, self::getReviewStatusChoices(), true));
+    }
     /**
      * @param FormMapper $formMapper
      */
@@ -47,9 +56,12 @@ class ReviewAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('status')
-            ->add('user', 'doctrine_orm_callback', [
-                    'callback' => function($queryBuilder, $alias, $field, $value) {
-                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
+            ->add(
+                'user',
+                'doctrine_orm_callback',
+                [
+                    'callback' => function ($queryBuilder, $alias, $field, $value) {
+                        // @var \Doctrine\ORM\QueryBuilder $queryBuilder
                         if (!isset($value['value']) || !$value['value']) {
                             return false;
                         }
@@ -78,9 +90,12 @@ class ReviewAdmin extends AbstractAdmin
                     },
                 ]
             )
-            ->add('book', 'doctrine_orm_callback', [
-                    'callback' => function($queryBuilder, $alias, $field, $value) {
-                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
+            ->add(
+                'book',
+                'doctrine_orm_callback',
+                [
+                    'callback' => function ($queryBuilder, $alias, $field, $value) {
+                        // @var \Doctrine\ORM\QueryBuilder $queryBuilder
                         if (!isset($value['value']) || !$value['value']) {
                             return false;
                         }
@@ -117,7 +132,10 @@ class ReviewAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('book')
             ->add('user')
-            ->add('status', null, [
+            ->add(
+                'status',
+                null,
+                [
                     'template' => 'AdminBundle:BookReview:list_review_custom.html.twig',
                     'widget'   => 'status',
                 ]
@@ -127,7 +145,7 @@ class ReviewAdmin extends AbstractAdmin
                     'show'   => [],
                     'edit'   => [],
                     'delete' => [],
-                ]
+                ],
             ])
         ;
     }
@@ -142,7 +160,10 @@ class ReviewAdmin extends AbstractAdmin
             ->add('book')
             ->add('user')
             ->add('text')
-            ->add('status', null, [
+            ->add(
+                'status',
+                null,
+                [
                     'template' => 'AdminBundle:BookReview:show_review_custom.html.twig',
                     'widget'   => 'status',
                 ]
@@ -163,15 +184,5 @@ class ReviewAdmin extends AbstractAdmin
             'choice.review_status.approved' => BookReview::STATUS_APPROVED,
             'choice.review_status.rejected' => BookReview::STATUS_REJECTED,
         ];
-    }
-
-    /**
-     * @param integer $value
-     *
-     * @return string
-     */
-    public function getReviewStatusLabel($value)
-    {
-        return $this->trans(array_search($value, self::getReviewStatusChoices()));
     }
 }

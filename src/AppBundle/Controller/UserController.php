@@ -40,14 +40,14 @@ class UserController extends Controller
         }
 
         $userReviewCount = $pageService->getUserReviewsStatistic($user->getId());
-        $reviewStats = $pageService->getReviewsStatistic(20);
+        $reviewStats     = $pageService->getReviewsStatistic(20);
         $seoManager->setUserProfileStatsSeoData();
 
         return $this->render(
             '@App/User/stats.html.twig',
             [
                 'user_review_count' => $userReviewCount,
-                'review_stats'      => $reviewStats
+                'review_stats'      => $reviewStats,
             ]
         );
     }

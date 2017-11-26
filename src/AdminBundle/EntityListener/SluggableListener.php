@@ -11,7 +11,8 @@ class SluggableListener extends GedmoListener
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         $this->setTransliterator(['AdminBundle\Utils\Transliterator', 'transliterate']);

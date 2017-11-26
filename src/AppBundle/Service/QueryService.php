@@ -19,7 +19,7 @@ class QueryService
     private $repository;
 
     /**
-     * @var integer
+     * @var int
      */
     private $perPage;
 
@@ -30,7 +30,7 @@ class QueryService
 
     /**
      * @param Type    $repository
-     * @param integer $perPage
+     * @param int $perPage
      * @param LocaleService $localeService
      */
     public function __construct(Type $repository, $perPage, LocaleService $localeService)
@@ -38,6 +38,23 @@ class QueryService
         $this->repository    = $repository;
         $this->perPage       = $perPage;
         $this->localeService = $localeService;
+    }
+
+    /**
+     * @param QueryParams $queryParams
+     *
+     * @return Pagerfanta
+     */
+    public function find(QueryParams $queryParams)
+    {
+        $perPage   = $queryParams->getSize() ?? $this->perPage;
+        $query     = $this->buildQuery($queryParams);
+        $adapter   = new ElasticaAdapter($this->repository, $query);
+        $paginator = new Pagerfanta($adapter);
+        $paginator->setCurrentPage($queryParams->getPage());
+        $paginator->setMaxPerPage($perPage);
+
+        return $paginator;
     }
 
     /**
@@ -58,23 +75,6 @@ class QueryService
         $this->applySorting($query, $queryParams);
 
         return $query;
-    }
-
-    /**
-     * @param QueryParams $queryParams
-     *
-     * @return Pagerfanta
-     */
-    public function find(QueryParams $queryParams)
-    {
-        $perPage   = $queryParams->getSize() ?? $this->perPage;
-        $query     = $this->buildQuery($queryParams);
-        $adapter   = new ElasticaAdapter($this->repository, $query);
-        $paginator = new Pagerfanta($adapter);
-        $paginator->setCurrentPage($queryParams->getPage());
-        $paginator->setMaxPerPage($perPage);
-
-        return $paginator;
     }
 
     /**
@@ -104,11 +104,11 @@ class QueryService
      */
     private function getSearchQuery(QueryParams $queryParams)
     {
-        $locale = $this->localeService->getLocale();
-        $bookLocale = "book_title_$locale.exact^3";
-        $authorLocale = "author_name_$locale.exact^6";
+        $locale         = $this->localeService->getLocale();
+        $bookLocale     = "book_title_$locale.exact^3";
+        $authorLocale   = "author_name_$locale.exact^6";
         $sequenceLocale = "sequence_title_$locale.exact";
-        $genreLocale = "genre_title_$locale.exact";
+        $genreLocale    = "genre_title_$locale.exact";
 
         $queryString = $queryParams->getSearchQuery();
 

@@ -41,7 +41,7 @@ class SiteController extends Controller
     }
 
     /**
-     * @param integer    $page
+     * @param int        $page
      * @param Request    $request
      * @param SeoManager $seoManager
      *
@@ -73,7 +73,7 @@ class SiteController extends Controller
     }
 
     /**
-     * @param integer    $page
+     * @param int        $page
      * @param Request    $request
      * @param SeoManager $seoManager
      *
@@ -102,7 +102,7 @@ class SiteController extends Controller
     }
 
     /**
-     * @param integer    $page
+     * @param int        $page
      * @param Request    $request
      * @param SeoManager $seoManager
      *
@@ -132,12 +132,12 @@ class SiteController extends Controller
 
     /**
      * @param Request       $request
-     * @param integer       $id
-     * @param integer       $page
+     * @param int           $id
+     * @param int           $page
      * @param SeoManager    $seoManager
      * @param LocaleService $localeService
      *
-     * @return Response|JsonResponse
+     * @return JsonResponse|Response
      */
     public function showGenreAction(Request $request, $id, $page, SeoManager $seoManager, LocaleService $localeService)
     {
@@ -159,7 +159,7 @@ class SiteController extends Controller
             'sort_order'   => $sortOrder,
             'route_params' => [
                 'slug'   => $localeService->getLocaleField($genre, 'slug', $request->getLocale()),
-                'prefix' => $genre->getPathPrefix()
+                'prefix' => $genre->getPathPrefix(),
             ],
         ]);
 
@@ -182,11 +182,11 @@ class SiteController extends Controller
 
     /**
      * @param Request    $request
-     * @param integer    $id
-     * @param integer    $page
+     * @param int        $id
+     * @param int        $page
      * @param SeoManager $seoManager
      *
-     * @return Response|JsonResponse
+     * @return JsonResponse|Response
      */
     public function showAuthorAction(Request $request, $id, $page, SeoManager $seoManager)
     {
@@ -208,7 +208,7 @@ class SiteController extends Controller
             'sort_order'   => $sortOrder,
             'route_params' => [
                 'slug'   => $author->getSlug(),
-                'prefix' => $author->getPathPrefix()
+                'prefix' => $author->getPathPrefix(),
             ],
         ]);
 
@@ -231,11 +231,11 @@ class SiteController extends Controller
 
     /**
      * @param Request    $request
-     * @param integer    $id
-     * @param integer    $page
+     * @param int        $id
+     * @param int        $page
      * @param SeoManager $seoManager
      *
-     * @return Response|JsonResponse
+     * @return JsonResponse|Response
      */
     public function showSequenceAction(Request $request, $id, $page, SeoManager $seoManager)
     {
@@ -259,7 +259,7 @@ class SiteController extends Controller
                 'sort_order'   => $sortOrder,
                 'route_params' => [
                     'slug'   => $sequence->getSlug(),
-                    'prefix' => $sequence->getPathPrefix()
+                    'prefix' => $sequence->getPathPrefix(),
                 ],
             ]
         );
@@ -283,11 +283,11 @@ class SiteController extends Controller
 
     /**
      * @param Request    $request
-     * @param integer    $id
-     * @param integer    $page
+     * @param int        $id
+     * @param int        $page
      * @param SeoManager $seoManager
      *
-     * @return Response|JsonResponse
+     * @return JsonResponse|Response
      */
     public function showTagAction(Request $request, $id, $page, SeoManager $seoManager)
     {
@@ -309,7 +309,7 @@ class SiteController extends Controller
             'sort_order'   => $sortOrder,
             'route_params' => [
                 'slug'   => $tag->getSlug(),
-                'prefix' => $tag->getPathPrefix()
+                'prefix' => $tag->getPathPrefix(),
             ],
         ]);
 
@@ -322,7 +322,8 @@ class SiteController extends Controller
         return $this->render(
             '@App/Site/list_page.html.twig',
             array_merge(
-                $data, [
+                $data,
+                [
                     'breadcrumbs' => $seoManager->buildBreadcrumbs($tag),
                 ]
             )
@@ -330,56 +331,7 @@ class SiteController extends Controller
     }
 
     /**
-     * @param Request     $request
-     * @param QueryParams $queryParams
-     *
-     * @return JsonResponse|array
-     */
-    protected function prepareViewData($request, $queryParams)
-    {
-        $defaultView = $this->getParameter('default_page_view');
-        $cookieName  = $this->getParameter('cookie.page_view_name');
-        $cookieView  = $request->cookies->get($cookieName, $defaultView);
-
-        return [
-            'books' => $this->get('AppBundle\Service\QueryService')->find($queryParams),
-            'view'  => $request->get('view', $cookieView),
-        ];
-    }
-
-    /**
-     * @param array $data
-     *
-     * @return JsonResponse
-     */
-    protected function prepareJsonResponse($data)
-    {
-        $cookieName = $this->getParameter('cookie.page_view_name');
-        $view       = $data['view'];
-        $templates  = [
-            'column' => 'AppBundle:Elements/View:column.html.twig',
-            'list'   => 'AppBundle:Elements/View:list.html.twig',
-            'grid'   => 'AppBundle:Elements/View:grid.html.twig',
-        ];
-
-        $template = $templates[$view] ?? 'AppBundle:Elements/View:column.html.twig';
-
-        $responseData = [
-            'page'   => $this->renderView($template, $data),
-            'status' => true,
-        ];
-
-        $timeToExpire = time() + 3600 * 24 * 30;
-        $response     = new JsonResponse($responseData);
-        $cookie       = new Cookie($cookieName, $view, $timeToExpire);
-
-        $response->headers->setCookie($cookie);
-
-        return $response;
-    }
-
-    /**
-     * @param integer $id
+     * @param int $id
      * @param QueryService $queryService
      * @param BookPageService $bookPageService
      * @param LitresBookManager $litresBookManager
@@ -411,7 +363,7 @@ class SiteController extends Controller
             $userRating = $bookPageService->getUserBookRating($user->getId(), $id);
         }
 
-        $asideFeaturedBooks = $bookPageService->getAsideFeaturedBooks($book);
+        $asideFeaturedBooks  = $bookPageService->getAsideFeaturedBooks($book);
         $sliderFeaturedBooks = $bookPageService->getSliderFeaturedBooks($book);
 
         return $this->render(
@@ -479,5 +431,54 @@ class SiteController extends Controller
     public function generateRouteAction()
     {
         return new RedirectResponse('/');
+    }
+
+    /**
+     * @param Request     $request
+     * @param QueryParams $queryParams
+     *
+     * @return array|JsonResponse
+     */
+    protected function prepareViewData($request, $queryParams)
+    {
+        $defaultView = $this->getParameter('default_page_view');
+        $cookieName  = $this->getParameter('cookie.page_view_name');
+        $cookieView  = $request->cookies->get($cookieName, $defaultView);
+
+        return [
+            'books' => $this->get('AppBundle\Service\QueryService')->find($queryParams),
+            'view'  => $request->get('view', $cookieView),
+        ];
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return JsonResponse
+     */
+    protected function prepareJsonResponse($data)
+    {
+        $cookieName = $this->getParameter('cookie.page_view_name');
+        $view       = $data['view'];
+        $templates  = [
+            'column' => 'AppBundle:Elements/View:column.html.twig',
+            'list'   => 'AppBundle:Elements/View:list.html.twig',
+            'grid'   => 'AppBundle:Elements/View:grid.html.twig',
+        ];
+
+        $template = $templates[$view] ?? 'AppBundle:Elements/View:column.html.twig';
+
+        $responseData = [
+            'page'   => $this->renderView($template, $data),
+            'status' => true,
+        ];
+
+        $timeToExpire = time() + 3600 * 24 * 30;
+        $response     = new JsonResponse($responseData);
+        $cookie       = new Cookie($cookieName, $view, $timeToExpire);
+
+        $response->headers->setCookie($cookie);
+
+        return $response;
     }
 }

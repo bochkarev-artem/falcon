@@ -27,14 +27,14 @@ class BookPageService
     protected $em;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $perPage;
 
     /**
      * @param QueryService  $queryService
      * @param EntityManager $em
-     * @param integer $perPage
+     * @param int $perPage
      */
     public function __construct(QueryService $queryService, EntityManager $em, $perPage)
     {
@@ -188,7 +188,7 @@ class BookPageService
     public function getUserReviews($userId, $page, $perPage = null)
     {
         $perPage = $perPage ?? $this->perPage;
-        $qb = $this->em->createQueryBuilder();
+        $qb      = $this->em->createQueryBuilder();
         $qb
             ->select('book, reviews, authors')
             ->from('AppBundle:BookReview', 'reviews')
@@ -219,7 +219,7 @@ class BookPageService
     public function getUserRatings($userId, $page, $perPage = null)
     {
         $perPage = $perPage ?? $this->perPage;
-        $qb = $this->em->createQueryBuilder();
+        $qb      = $this->em->createQueryBuilder();
         $qb
             ->select('book, ratings, authors')
             ->from('AppBundle:BookRating', 'ratings')

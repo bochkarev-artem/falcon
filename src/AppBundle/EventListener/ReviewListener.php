@@ -49,10 +49,10 @@ class ReviewListener
         $emailFromName,
         $emailTo
     ) {
-        $this->mailer = $mailer;
-        $this->emailFrom = $emailFrom;
+        $this->mailer        = $mailer;
+        $this->emailFrom     = $emailFrom;
         $this->emailFromName = $emailFromName;
-        $this->emailTo = $emailTo;
+        $this->emailTo       = $emailTo;
     }
 
     /**
@@ -88,11 +88,12 @@ class ReviewListener
     protected function sendMail()
     {
         foreach ($this->reviews as $review) {
-            $body = $review->getBook()->getTitle() . '<br><br>' . $review->getText();
+            $body    = $review->getBook()->getTitle() . '<br><br>' . $review->getText();
             $message = \Swift_Message::newInstance(
                 'New review pending moderation',
                 $body,
-                'text/html')
+                'text/html'
+            )
                 ->setFrom($this->emailFrom, $this->emailFromName)
                 ->setTo($this->emailTo)
             ;

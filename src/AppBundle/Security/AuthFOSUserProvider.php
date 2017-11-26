@@ -2,10 +2,10 @@
 namespace AppBundle\Security;
 
 use AppBundle\Entity\User;
+use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseFOSUBProvider;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
-use FOS\UserBundle\Model\UserInterface as FOSUserInterface;
 
 class AuthFOSUserProvider extends BaseFOSUBProvider
 {
@@ -26,9 +26,9 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        $user = $this->prepareUser($response);
+        $user        = $this->prepareUser($response);
         $serviceName = $response->getResourceOwner()->getName();
-        $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
+        $setter      = 'set' . ucfirst($serviceName) . 'AccessToken';
         $user->$setter($response->getAccessToken());
 
         return $user;
@@ -37,8 +37,8 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
     /**
      * @param UserResponseInterface $response
      *
-     * @return User
      * @throws \Exception
+     * @return User
      */
     protected function createUser(UserResponseInterface $response)
     {
@@ -53,7 +53,7 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
         $providerSetter = 'set' . ucfirst($property);
 
         if (!$id) {
-            throw new \Exception(sprintf("id is not set for %s and email %s", $property, $email), 500);
+            throw new \Exception(sprintf('id is not set for %s and email %s', $property, $email), 500);
         }
 
         $firstName   = $response->getFirstName();
@@ -78,8 +78,8 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
     /**
      * @param UserResponseInterface $response
      *
-     * @return FOSUserInterface|User
      * @throws \Exception
+     * @return FOSUserInterface|User
      */
     protected function prepareUser(UserResponseInterface $response)
     {
@@ -92,7 +92,7 @@ class AuthFOSUserProvider extends BaseFOSUBProvider
         $id         = $email ?? $responseId;
 
         if (!$id) {
-            throw new \Exception(sprintf("id is not set for %s and email %s", $property, $email), 500);
+            throw new \Exception(sprintf('id is not set for %s and email %s', $property, $email), 500);
         }
 
         if ($user = $this->userManager->findUserBy([$property => $id])) {

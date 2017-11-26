@@ -19,7 +19,7 @@ class AdsListener
     protected $uow;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $isMessageQueueOn;
 
@@ -30,11 +30,11 @@ class AdsListener
 
     /**
      * @param AwsProvider $awsProducer
-     * @param boolean     $messageQueueOn
+     * @param bool        $messageQueueOn
      */
     public function __construct(AwsProvider $awsProducer, $messageQueueOn)
     {
-        $this->awsProducer = $awsProducer;
+        $this->awsProducer      = $awsProducer;
         $this->isMessageQueueOn = $messageQueueOn;
     }
 
@@ -79,6 +79,7 @@ class AdsListener
         foreach ($entities as $entity) {
             if ($entity instanceof Ads) {
                 $this->command = 'resetAdCache';
+
                 break;
             }
         }

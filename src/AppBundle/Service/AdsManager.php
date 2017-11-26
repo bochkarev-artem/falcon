@@ -34,7 +34,7 @@ class AdsManager
     protected $localeService;
 
     /**
-     * @var User|null
+     * @var null|User
      */
     protected $user = null;
 
@@ -50,21 +50,61 @@ class AdsManager
         TokenStorageInterface $tokenStorage,
         $cacheDir
     ) {
-        $this->em = $em;
-        $cacheDir = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
-        $this->cacheDir = $cacheDir . '/adsCache';
-        $this->cacheFile = $this->cacheDir . '/%s_ads.%s.html';
+        $this->em            = $em;
+        $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
+        $this->cacheDir      = $cacheDir . '/adsCache';
+        $this->cacheFile     = $this->cacheDir . '/%s_ads.%s.html';
         $this->localeService = $localeService;
-        $token = $tokenStorage->getToken();
+        $token               = $tokenStorage->getToken();
         if (null !== $token && is_object($user = $token->getUser())) {
             $this->user = $user;
         }
     }
 
     /**
-     * @param integer $position
+     * @param int $position
+     * @param bool $showToAll
      *
-     * @return Ads|null
+     * @return string
+     */
+    public function getAdByPosition($position, $showToAll)
+    {
+        if ($showToAll || $this->user) {
+            $fileName = $this->getCacheFileName($position);
+            $cache    = new ConfigCache($fileName, false);
+
+            if (!$cache->isFresh()) {
+                $this->updateCache($cache, $position);
+            }
+
+            $ads = file_get_contents($cache->getPath());
+        } else {
+            $ads = '';
+        }
+
+        return $ads;
+    }
+
+    public function resetCache()
+    {
+        $this->checkCacheFolder();
+
+        $finder = new Finder();
+        $finder->files()->in($this->cacheDir);
+
+        // @var SplFileInfo $file
+        foreach ($finder as $file) {
+            $fullPath = $file->getRealPath();
+            if (\file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
+    }
+
+    /**
+     * @param int $position
+     *
+     * @return null|Ads
      */
     protected function findOneByPosition($position)
     {
@@ -85,31 +125,7 @@ class AdsManager
     }
 
     /**
-     * @param integer $position
-     * @param boolean $showToAll
-     *
-     * @return string
-     */
-    public function getAdByPosition($position, $showToAll)
-    {
-        if ($showToAll || $this->user) {
-            $fileName = $this->getCacheFileName($position);
-            $cache = new ConfigCache($fileName, false);
-
-            if (!$cache->isFresh()) {
-                $this->updateCache($cache, $position);
-            }
-
-            $ads = file_get_contents($cache->getPath());
-        } else {
-            $ads = '';
-        }
-
-        return $ads;
-    }
-
-    /**
-     * @param integer $position
+     * @param int $position
      *
      * @return string
      */
@@ -132,32 +148,16 @@ class AdsManager
 
     /**
      * @param ConfigCache $cache
-     * @param integer     $position
+     * @param int     $position
      *
      * @throws \RuntimeException
      */
     protected function updateCache(ConfigCache $cache, $position)
     {
-        $ad = $this->findOneByPosition($position);
+        $ad      = $this->findOneByPosition($position);
         $content = $ad ? $ad->getCode() : '';
 
         $this->checkCacheFolder();
         $cache->write($content);
-    }
-
-    public function resetCache()
-    {
-        $this->checkCacheFolder();
-
-        $finder = new Finder();
-        $finder->files()->in($this->cacheDir);
-
-        /* @var SplFileInfo $file */
-        foreach ($finder as $file) {
-            $fullPath = $file->getRealPath();
-            if (\file_exists($fullPath)) {
-                unlink($fullPath);
-            }
-        }
     }
 }

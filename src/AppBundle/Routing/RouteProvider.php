@@ -33,7 +33,7 @@ class RouteProvider implements RouteProviderInterface
      */
     public function __construct(Type $repository, LocaleService $localeService)
     {
-        $this->repository = $repository;
+        $this->repository    = $repository;
         $this->localeService = $localeService;
     }
 
@@ -53,7 +53,7 @@ class RouteProvider implements RouteProviderInterface
         $searchUrl = rtrim(preg_replace('#^(.*?)(\/\d+)?$#iu', '$1', $url), '/');
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
-        $pathName = 'path_' . $this->localeService->getLocale();
+        $pathName  = 'path_' . $this->localeService->getLocale();
         $pathQuery->setTerm($pathName, rawurldecode($searchUrl));
         $boolQuery->addMust($pathQuery);
 
@@ -75,7 +75,7 @@ class RouteProvider implements RouteProviderInterface
                         ],
                         'requirements' => [],
                         'options'      => [],
-                    ]
+                    ],
                 ];
             } else {
                 $routeData['params']['defaults']['page'] = $page;

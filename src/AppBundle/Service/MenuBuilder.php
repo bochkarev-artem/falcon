@@ -83,13 +83,33 @@ class MenuBuilder
     public function getMenu($type)
     {
         $fileName = $this->getCacheFileName($type);
-        $cache = new ConfigCache($fileName, false);
+        $cache    = new ConfigCache($fileName, false);
 
         if (!$cache->isFresh()) {
             $this->updateCache($cache, $type);
         }
 
         return file_get_contents($cache->getPath());
+    }
+
+    public function resetCache()
+    {
+        // ensure that elastica index is updated before resetting cache
+        sleep(1);
+        $this->bookIndex->refresh();
+
+        $this->checkCacheFolder();
+
+        $finder = new Finder();
+        $finder->files()->in($this->cacheDir);
+
+        // @var SplFileInfo $file
+        foreach ($finder as $file) {
+            $fullPath = $file->getRealPath();
+            if (\file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+        }
     }
 
     /**
@@ -133,7 +153,7 @@ class MenuBuilder
         $additionalData = [];
         if ($type == 'main') {
             $menuGenreBooks = [];
-            $qb = $this->em->createQueryBuilder();
+            $qb             = $this->em->createQueryBuilder();
             $qb
                 ->select('b, g')
                 ->from('AppBundle:Book', 'b')
@@ -153,6 +173,7 @@ class MenuBuilder
                     $genreId = $genre->getParent()->getId();
                     if (!array_key_exists($genreId, $menuGenreBooks)) {
                         $menuGenreBooks[$genreId] = $book;
+
                         break;
                     }
                 }
@@ -222,7 +243,7 @@ class MenuBuilder
         $qb = $this->em->createQueryBuilder();
         $qb
             ->select('g')
-            ->from("AppBundle:Genre", 'g', 'g.id')
+            ->from('AppBundle:Genre', 'g', 'g.id')
             ->leftJoin('g.books', 'b')
             ->andWhere($qb->expr()->eq('b.lang', ':locale'))
             ->setParameter('locale', $locale)
@@ -235,7 +256,7 @@ class MenuBuilder
         $qb = $this->em->createQueryBuilder();
         $qb
             ->select('g')
-            ->from("AppBundle:Genre", 'g')
+            ->from('AppBundle:Genre', 'g')
             ->where($qb->expr()->isNull('g.parent'))
             ->addOrderBy('g.title' . ucfirst($locale));
 
@@ -246,25 +267,5 @@ class MenuBuilder
         }
 
         return $categories;
-    }
-
-    public function resetCache()
-    {
-        // ensure that elastica index is updated before resetting cache
-        sleep(1);
-        $this->bookIndex->refresh();
-
-        $this->checkCacheFolder();
-
-        $finder = new Finder();
-        $finder->files()->in($this->cacheDir);
-
-        /* @var SplFileInfo $file */
-        foreach ($finder as $file) {
-            $fullPath = $file->getRealPath();
-            if (\file_exists($fullPath)) {
-                unlink($fullPath);
-            }
-        }
     }
 }

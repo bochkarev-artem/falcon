@@ -56,42 +56,42 @@ class LitresService
     private $logger;
 
     /**
-     * @var int $perPage
+     * @var int
      */
     private $perPage = 100;
 
     /**
-     * @var int $batchSize
+     * @var int
      */
     private $batchSize = 10;
 
     /**
-     * @var int $bookExistedCount
+     * @var int
      */
     private $bookExistedCount = 3000;
 
     /**
-     * @var bool $debug
+     * @var bool
      */
     private $debug;
 
     /**
-     * @var integer $skipped
+     * @var int
      */
     private $skipped;
 
     /**
-     * @var integer $step
+     * @var int
      */
     private $step;
 
     /**
-     * @var array $locales
+     * @var array
      */
     private $locales;
 
     /**
-     * @var ImageUploadService $imageUploadService
+     * @var ImageUploadService
      */
     private $imageUploadService;
 
@@ -101,21 +101,20 @@ class LitresService
      * @param ImageUploadService $imageUploadService
      * @param array              $locales
      */
-    public function __construct
-    (
+    public function __construct(
         EntityManager $em,
         Logger $logger,
         ImageUploadService $imageUploadService,
         $locales
     ) {
-        $this->em = $em;
-        $this->logger = $logger;
-        $this->authorRepo = $this->em->getRepository('AppBundle:Author');
-        $this->genreRepo = $this->em->getRepository('AppBundle:Genre');
-        $this->sequenceRepo = $this->em->getRepository('AppBundle:Sequence');
-        $this->bookRepo = $this->em->getRepository('AppBundle:Book');
-        $this->tagRepo = $this->em->getRepository('AppBundle:Tag');
-        $this->locales = $locales;
+        $this->em                 = $em;
+        $this->logger             = $logger;
+        $this->authorRepo         = $this->em->getRepository('AppBundle:Author');
+        $this->genreRepo          = $this->em->getRepository('AppBundle:Genre');
+        $this->sequenceRepo       = $this->em->getRepository('AppBundle:Sequence');
+        $this->bookRepo           = $this->em->getRepository('AppBundle:Book');
+        $this->tagRepo            = $this->em->getRepository('AppBundle:Tag');
+        $this->locales            = $locales;
         $this->imageUploadService = $imageUploadService;
     }
 
@@ -159,8 +158,8 @@ class LitresService
             $this->em->persist($parentGenre);
             $this->em->flush();
             foreach ($genreNode as $node) {
-                $id    = (integer) $node['id'];
-                $token = (string) $node['token'];
+                $id    = (int)$node['id'];
+                $token = (string)$node['token'];
                 $title = $this->mbUcfirstOnly($node['title']);
                 if (!is_null($id)) {
                     /** @var Genre $genre */
@@ -201,19 +200,19 @@ class LitresService
     /**
      * @param \SimpleXMLElement $sequence
      *
-     * @return Sequence|null
+     * @return null|Sequence
      */
     public function getSequence($sequence)
     {
-        $sequenceId   = (integer) $sequence['id'];
-        $sequenceName = (string) $sequence['name'];
+        $sequenceId   = (int)$sequence['id'];
+        $sequenceName = (string)$sequence['name'];
         $sequence     = $this->sequenceRepo->findOneBy(['litresId' => $sequenceId]);
 
         if (!$sequence && $sequenceId) {
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
-            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $sequenceName)) {
+            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $sequenceName)) {
                 $sequence->setLang('ru');
             } else {
                 $sequence->setLang('en');
@@ -236,9 +235,9 @@ class LitresService
     {
         $author = $this->authorRepo->findOneBy(['documentId' => $authorId]);
         if (!$author) {
-            $fName = (string) $subject->{'first-name'};
-            $mName = (string) $subject->{'middle-name'};
-            $lName = (string) $subject->{'last-name'};
+            $fName = (string)$subject->{'first-name'};
+            $mName = (string)$subject->{'middle-name'};
+            $lName = (string)$subject->{'last-name'};
 
             if (!($fName || $mName || $lName)) { // no real name
                 return false;
@@ -250,13 +249,13 @@ class LitresService
 
             $author = new Author;
             $author
-                ->setDocumentId((string) $authorId)
+                ->setDocumentId((string)$authorId)
                 ->setFirstName($fName)
                 ->setMiddleName($mName)
                 ->setLastName($lName)
             ;
 
-            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $fName . $lName)) {
+            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $fName . $lName)) {
                 $author->setLang('ru');
             } else {
                 $author->setLang('en');
@@ -272,7 +271,7 @@ class LitresService
     /**
      * @param string $genreToken
      *
-     * @return Genre|null
+     * @return null|Genre
      */
     public function getGenre($genreToken)
     {
@@ -284,7 +283,7 @@ class LitresService
     /**
      * @param \SimpleXMLElement $tag
      *
-     * @return Tag|null
+     * @return null|Tag
      */
     public function getTag($tag)
     {
@@ -352,30 +351,33 @@ class LitresService
             $hubId = (string)$data['hub_id'];
             if ($book = $this->bookRepo->findOneBy(['litresHubId' => $hubId])) {
                 $this->skipped++;
+
                 continue;
             }
 
             $annotation = '';
-            $book = new Book;
-            $titleInfo = $data->{'text_description'}->hidden->{'title-info'};
-            $title = (string)$titleInfo->{'book-title'};
+            $book       = new Book;
+            $titleInfo  = $data->{'text_description'}->hidden->{'title-info'};
+            $title      = (string)$titleInfo->{'book-title'};
             if (strlen($title) > 120) {
                 $this->skipped++;
+
                 continue;
             }
 
             $lang = (string)$titleInfo->lang;
-            if (strlen($lang) != 0 && !in_array($lang, $this->locales)) {
+            if (strlen($lang) != 0 && !in_array($lang, $this->locales, true)) {
                 $this->skipped++;
+
                 continue;
             }
             $documentInfo = $data->{'text_description'}->hidden->{'document-info'};
-            $publishInfo = $data->{'text_description'}->hidden->{'publish-info'};
+            $publishInfo  = $data->{'text_description'}->hidden->{'publish-info'};
 
             $author = null;
             foreach ($titleInfo->author as $author) {
                 $authorId = $author->id;
-                $author = $this->getAuthor($authorId, $author);
+                $author   = $this->getAuthor($authorId, $author);
                 if ($author) {
                     $book->addAuthor($author);
                 } else {
@@ -387,6 +389,7 @@ class LitresService
                     }
 
                     $this->skipped++;
+
                     continue 2;
                 }
             }
@@ -397,7 +400,7 @@ class LitresService
 
             $genres = [];
             foreach ($titleInfo->genre as $token) {
-                $token = (string)$token;
+                $token          = (string)$token;
                 $genres[$token] = $token; // To exclude duplicated
             }
 
@@ -414,6 +417,7 @@ class LitresService
                     }
 
                     $this->skipped++;
+
                     continue 2;
                 }
             }
@@ -427,11 +431,12 @@ class LitresService
 
             if ($data->{'sequences'}) {
                 foreach ($data->{'sequences'}->sequence as $sequence) {
-                    $sequenceNumber = (integer)$sequence['number'];
-                    $sequence = $this->getSequence($sequence);
+                    $sequenceNumber = (int)$sequence['number'];
+                    $sequence       = $this->getSequence($sequence);
                     if ($sequence) {
                         $book->setSequence($sequence);
                         $book->setSequenceNumber($sequenceNumber);
+
                         break;
                     }
                 }
@@ -443,8 +448,8 @@ class LitresService
 
             /** @var Author $mainAuthor */
             $mainAuthor = $book->getAuthors()->first();
-            $title = substr((string)$titleInfo->{'book-title'}, 0, 254);
-            if (preg_match("/[у|е|ы|а|о|э|я|и|ю]/", $title)) {
+            $title      = substr((string)$titleInfo->{'book-title'}, 0, 254);
+            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $title)) {
                 $bookLocale = 'ru';
             } else {
                 $bookLocale = 'en';
@@ -491,16 +496,6 @@ class LitresService
     }
 
     /**
-     * @param string $endpoint
-     *
-     * @return \SimpleXMLElement
-     */
-    private function getXml($endpoint)
-    {
-        return simplexml_load_string(mb_convert_encoding(gzdecode(file_get_contents($endpoint)), 'utf-8'));
-    }
-
-    /**
      * @param string $string
      *
      * @return string
@@ -520,5 +515,15 @@ class LitresService
     protected function mbUcfirst($string)
     {
         return mb_strtoupper(mb_substr($string, 0, 1)) . mb_substr($string, 1);
+    }
+
+    /**
+     * @param string $endpoint
+     *
+     * @return \SimpleXMLElement
+     */
+    private function getXml($endpoint)
+    {
+        return simplexml_load_string(mb_convert_encoding(gzdecode(file_get_contents($endpoint)), 'utf-8'));
     }
 }

@@ -7,10 +7,10 @@ namespace AdminBundle\Admin;
 
 use Doctrine\ORM\QueryBuilder;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class BookAdmin extends AbstractAdmin
 {
@@ -31,7 +31,7 @@ class BookAdmin extends AbstractAdmin
                 'property' => 'lastName',
                 'multiple' => true,
                 'required' => false,
-                'callback' => function(AuthorAdmin $admin, $property, $value) {
+                'callback' => function (AuthorAdmin $admin, $property, $value) {
                     /** @var QueryBuilder $qb */
                     $qb      = $admin->getDatagrid()->getQuery();
                     $aliases = $qb->getRootAliases();
@@ -224,7 +224,7 @@ class BookAdmin extends AbstractAdmin
                     'show'   => [],
                     'edit'   => [],
                     'delete' => [],
-                ]
+                ],
             ])
         ;
     }

@@ -16,14 +16,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(
  *     name="genre",
  *     uniqueConstraints={
- *           @ORM\UniqueConstraint(name="genre_ids", columns={"token"})
+ *         @ORM\UniqueConstraint(name="genre_ids", columns={"token"})
  *     }
  * )
  */
 class Genre implements LocalePageInterface
 {
     /**
-     * @var int $id
+     * @var int
      *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -32,21 +32,21 @@ class Genre implements LocalePageInterface
     private $id;
 
     /**
-     * @var int $litresId
+     * @var int
      *
      * @ORM\Column(name="litres_id", type="integer", nullable=true)
      */
     private $litresId;
 
     /**
-     * @var ArrayCollection $children
+     * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Genre", mappedBy="parent")
      */
     private $children;
 
     /**
-     * @var Genre $parent
+     * @var Genre
      *
      * @ORM\ManyToOne(targetEntity="Genre", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="genre_id")
@@ -54,42 +54,42 @@ class Genre implements LocalePageInterface
     private $parent;
 
     /**
-     * @var string $titleEn
+     * @var string
      *
      * @ORM\Column(name="title_en", type="string", nullable=true)
      */
     private $titleEn;
 
     /**
-     * @var string $titleRu
+     * @var string
      *
      * @ORM\Column(name="title_ru", type="string", nullable=true)
      */
     private $titleRu;
 
     /**
-     * @var string $descriptionEn
+     * @var string
      *
      * @ORM\Column(name="description_en", type="text", nullable=true)
      */
     private $descriptionEn;
 
     /**
-     * @var string $descriptionRu
+     * @var string
      *
      * @ORM\Column(name="description_ru", type="text", nullable=true)
      */
     private $descriptionRu;
 
     /**
-     * @var string $token
+     * @var string
      *
      * @ORM\Column(name="token", type="string", nullable=true)
      */
     private $token;
 
     /**
-     * @var string $slugEn
+     * @var string
      *
      * @Gedmo\Slug(fields={"titleEn"}, unique=true)
      * @ORM\Column(name="slug_en", type="string", nullable=true)
@@ -97,7 +97,7 @@ class Genre implements LocalePageInterface
     private $slugEn;
 
     /**
-     * @var string $slugRu
+     * @var string
      *
      * @Gedmo\Slug(fields={"titleRu"}, unique=true)
      * @ORM\Column(name="slug_ru", type="string", nullable=true)
@@ -105,7 +105,7 @@ class Genre implements LocalePageInterface
     private $slugRu;
 
     /**
-     * @var ArrayCollection $books
+     * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="genres", fetch="EXTRA_LAZY")
      */
@@ -119,6 +119,14 @@ class Genre implements LocalePageInterface
         $this->children = new ArrayCollection();
         $this->books    = new ArrayCollection();
         $this->parent   = null;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string)$this->getTitleRu();
     }
 
     /**
@@ -170,7 +178,7 @@ class Genre implements LocalePageInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLitresId()
     {
@@ -178,7 +186,7 @@ class Genre implements LocalePageInterface
     }
 
     /**
-     * @param integer $litresId
+     * @param int $litresId
      *
      * @return Genre
      */
@@ -347,14 +355,6 @@ class Genre implements LocalePageInterface
         $this->slugRu = $slugRu;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getTitleRu();
     }
 
     /**

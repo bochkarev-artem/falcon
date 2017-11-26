@@ -27,7 +27,7 @@ class ScheduleBookIndexCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $startTime = time();
-        $output->writeln("<info>Update book index started</info>");
+        $output->writeln('<info>Update book index started</info>');
         $container = $this->getContainer();
         $em        = $container->get('doctrine.orm.entity_manager');
         $qb        = $em->createQueryBuilder();
@@ -44,7 +44,7 @@ class ScheduleBookIndexCommand extends ContainerAwareCommand
             $book = $row[0];
             $i++;
             $book->setEnabled(true);
-            $output->writeln(sprintf("<info>Book %s reindexed</info>", $book->getId()));
+            $output->writeln(sprintf('<info>Book %s reindexed</info>', $book->getId()));
 
             if ($i % $batchSize == 0) {
                 $em->flush();

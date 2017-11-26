@@ -21,12 +21,12 @@ class SitemapListener implements SitemapListenerInterface
     protected $em;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $bookOffset = 0;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $authorOffset = 0;
 
@@ -81,7 +81,7 @@ class SitemapListener implements SitemapListenerInterface
         foreach ($queryBuilders as $section => $entityName) {
             $query = $this->getQuery($entityName, $locale);
             foreach ($query->iterate() as $row) {
-                /** @var PageInterface|LocalePageInterface $entity */
+                /** @var LocalePageInterface|PageInterface $entity */
                 $entity = array_shift($row);
                 if ($entity instanceof PageInterface) {
                     $event
