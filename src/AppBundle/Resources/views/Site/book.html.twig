@@ -175,8 +175,8 @@
                             <br>
                             <div class="text-center">
                                 <h4>{{ 'front.download_book'|trans }} {{ locale_field(book, 'title') }}</h4>
-                                <br>
                                 {% if app.user %}
+                                    <br>
                                     <a class="btn-partner" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
                                     <br>
                                     {% if download_links %}
