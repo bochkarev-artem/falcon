@@ -188,10 +188,11 @@
                                             {%- endfor -%}
                                         </ul>
                                     {% endif %}
-                                {% else %}
-                                    <span class="quote">{{ 'front.please_login'|trans|raw }}</span>
                                 {% endif %}
                                 {{ ad_by_position(constant('AppBundle\\Entity\\Ads::POSITION_BOOK_BOTTOM'))|raw }}
+                                {% if not app.user %}
+                                    <span class="quote">{{ 'front.please_login'|trans|raw }}</span>
+                                {% endif %}
                             </div>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="reviews">

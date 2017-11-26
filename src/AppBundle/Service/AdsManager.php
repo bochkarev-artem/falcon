@@ -69,7 +69,7 @@ class AdsManager
      */
     public function getAdByPosition($position, $showToAll)
     {
-        if ($showToAll || $this->user) {
+        if ($showToAll || !$this->user) {
             $fileName = $this->getCacheFileName($position);
             $cache    = new ConfigCache($fileName, false);
 
