@@ -37,7 +37,7 @@ class ScheduleBookIndexCommand extends ContainerAwareCommand
             ->where($qb->expr()->eq('b.enabled', ':enabled'))
             ->setParameter('enabled', false);
         $result    = $qb->getQuery()->iterate();
-        $batchSize = 10;
+        $batchSize = 50;
         $i         = 0;
         foreach ($result as $row) {
             /** @var Book $book */

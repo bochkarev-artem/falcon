@@ -121,9 +121,10 @@ class RouteProvider implements ProviderInterface
             return;
         }
 
-        $qb     = $this->createQueryBuilder('Author');
-        $author = $qb
-            ->where($qb->expr()->eq('author.id', ':author_id'))
+        $qb      = $this->createQueryBuilder('Author');
+        $aliases = $qb->getRootAliases();
+        $author  = $qb
+            ->where($qb->expr()->eq($aliases[0] . '.id', ':author_id'))
             ->setParameter('author_id', $authorId)
             ->getQuery()
             ->getOneOrNullResult()
@@ -153,9 +154,10 @@ class RouteProvider implements ProviderInterface
             return;
         }
 
-        $qb  = $this->createQueryBuilder('Tag');
-        $tag = $qb
-            ->where($qb->expr()->eq('tag.id', ':tag_id'))
+        $qb      = $this->createQueryBuilder('Tag');
+        $aliases = $qb->getRootAliases();
+        $tag     = $qb
+            ->where($qb->expr()->eq($aliases[0] . '.id', ':tag_id'))
             ->setParameter('tag_id', $tagId)
             ->getQuery()
             ->getOneOrNullResult()
@@ -186,8 +188,9 @@ class RouteProvider implements ProviderInterface
         }
 
         $qb       = $this->createQueryBuilder('Sequence');
+        $aliases  = $qb->getRootAliases();
         $sequence = $qb
-            ->where($qb->expr()->eq('sequence.id', ':sequence_id'))
+            ->where($qb->expr()->eq($aliases[0] . '.id', ':sequence_id'))
             ->setParameter('sequence_id', $sequenceId)
             ->getQuery()
             ->getOneOrNullResult()
