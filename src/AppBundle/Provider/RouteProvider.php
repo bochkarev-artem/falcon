@@ -5,6 +5,7 @@
 
 namespace AppBundle\Provider;
 
+use AppBundle\Entity\Book;
 use AppBundle\Entity\LocalePageInterface;
 use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
@@ -78,6 +79,7 @@ class RouteProvider implements ProviderInterface
         }
 
         $qb   = $this->createQueryBuilder('Book');
+        /** @var Book $book */
         $book = $qb
             ->andWhere($qb->expr()->eq('o.id', ':book_id'))
             ->setParameter('book_id', $bookId)
@@ -95,6 +97,18 @@ class RouteProvider implements ProviderInterface
             $bookDeleteQuery->addMust(new Term(['book' => $bookId]));
 
             $this->routeType->deleteByQuery($bookDeleteQuery);
+        }
+
+        foreach ($book->getAuthors() as $author) {
+            $this->updateAuthor($author->getId());
+        }
+
+        foreach ($book->getTags() as $tag) {
+            $this->updateTag($tag->getId());
+        }
+
+        if ($book->getSequence()) {
+            $this->updateSequence($book->getSequence()->getId());
         }
     }
 
