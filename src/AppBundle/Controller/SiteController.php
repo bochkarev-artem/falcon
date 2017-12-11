@@ -41,6 +41,14 @@ class SiteController extends Controller
     }
 
     /**
+     * @return Response
+     */
+    public function privacyAction()
+    {
+        return $this->render('@App/Site/privacy.html.twig');
+    }
+
+    /**
      * @param int        $page
      * @param Request    $request
      * @param SeoManager $seoManager

@@ -39,6 +39,12 @@ site_index:
     options:
         sitemap: true
 
+privacy:
+    path: /privacy
+    defaults: { _controller: AppBundle:Site:privacy }
+    options:
+        sitemap: true
+
 search:
     path: /search/{page}
     defaults: { _controller: AppBundle:Site:search, page: 1 }
