@@ -56,4 +56,19 @@ class ImageUploadService
 
         $book->setCoverPath($path);
     }
+
+    /**
+     * @param Book $book
+     */
+    public function removeImage(Book $book)
+    {
+        if (!$coverUrl = $book->getCover()) {
+            return;
+        }
+
+        $path = "$this->bookMapping/" . basename($coverUrl);
+        if ($this->s3Filesystem->has($path)) {
+            $this->s3Filesystem->delete($path);
+        }
+    }
 }
