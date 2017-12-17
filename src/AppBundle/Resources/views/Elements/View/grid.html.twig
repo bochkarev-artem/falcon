@@ -10,19 +10,19 @@
                             <a href="/{{ book.path }}">
                                 <img src="{{ book.cover_path is defined and book.cover_path
                                 ? book.cover_path|imagine_filter('book_list')
-                                : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ locale_field(book, 'title') }}" />
+                                : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ book.title }}" />
                             </a>
                         </figure>
                         <div class="text">
                             {% if show_genre is defined and show_genre and book.genres|length > 0 %}
                                 {% set genre = book.genres|first %}
-                                <small><a href="/{{ locale_field(genre, 'path') }}">{{ locale_field(genre, 'title') }}</a></small>
+                                <small><a href="/{{ genre.path }}">{{ genre.title }}</a></small>
                             {% endif %}
                             {% if show_author is defined and show_author and book.authors|length > 0 %}
                                 {% set author = book.authors|first %}
                                 <small><a href="/{{ author.path }}">{{ author.short_name }}</a></small>
                             {% endif %}
-                            <div class="h5"><a href="/{{ book.path }}">{{ locale_field(book, 'title')|truncate(40) }}</a></div>
+                            <div class="h5"><a href="/{{ book.path }}">{{ book.title|truncate(40) }}</a></div>
                         </div>
                     </div>
                 </div>

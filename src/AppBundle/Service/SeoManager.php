@@ -7,7 +7,6 @@ namespace AppBundle\Service;
 
 use AppBundle\Entity\Author;
 use AppBundle\Entity\Genre;
-use AppBundle\Entity\LocalePageInterface;
 use AppBundle\Entity\PageInterface;
 use AppBundle\Entity\Sequence;
 use AppBundle\Entity\Tag;
@@ -28,23 +27,15 @@ class SeoManager
     protected $translator;
 
     /**
-     * @var LocaleService
-     */
-    protected $localeService;
-
-    /**
      * @param SeoPage $seoPage
      * @param TranslatorInterface $translator
-     * @param LocaleService $localeService
      */
     public function __construct(
         SeoPage $seoPage,
-        TranslatorInterface $translator,
-        LocaleService $localeService
+        TranslatorInterface $translator
     ) {
-        $this->seoPage       = $seoPage;
-        $this->translator    = $translator;
-        $this->localeService = $localeService;
+        $this->seoPage    = $seoPage;
+        $this->translator = $translator;
     }
 
     /**
@@ -157,7 +148,7 @@ class SeoManager
     public function setGenreSeoData(Genre $genre, $page)
     {
         $seoData = new SeoData();
-        $title   = $this->localeService->getLocaleField($genre, 'title');
+        $title   = $genre->getTitle();
         $seoData->setTitle($this->translator->trans('front.genre_page.title', [
             '%genre_title%' => $title,
         ]));
@@ -202,8 +193,8 @@ class SeoManager
     {
         $seoData    = new SeoData();
         $author     = $book['authors'] ?? $book['authors'][0];
-        $title      = $this->localeService->getLocaleField($book, 'title');
-        $authorName = $this->localeService->getLocaleField($author, 'full_name');
+        $title      = $book['title'];
+        $authorName = $author['full_name'];
         $seoData->setTitle($this->translator->trans('front.book_page.title', [
             '%book_title%'  => $title,
             '%author_name%' => $authorName,
@@ -264,7 +255,7 @@ class SeoManager
     }
 
     /**
-     * @param array|LocalePageInterface|PageInterface $entity
+     * @param array|PageInterface $entity
      *
      * @return array
      */
@@ -278,19 +269,19 @@ class SeoManager
         if ($entity instanceof Sequence) {
             $name = $entity->getName();
         } elseif ($entity instanceof Genre) {
-            $name          = $this->localeService->getLocaleField($entity, 'title');
+            $name          = $entity->getTitle();
             $breadcrumbs[] = [
-                'name' => $this->localeService->getLocaleField($entity->getParent(), 'title'),
+                'name' => $entity->getParent()->getTitle(),
             ];
         } elseif ($entity instanceof Tag) {
             $name = $entity->getTitle();
         } elseif ($entity instanceof Author) {
             $name = $entity->getShortName();
         } else {
-            $name = $this->localeService->getLocaleField($entity, 'title');
+            $name = $entity['title'];
             if ($genre = array_shift($entity['genres'])) {
-                $genreTitle    = $this->localeService->getLocaleField($genre, 'title');
-                $genrePath     = $this->localeService->getLocaleField($genre, 'path');
+                $genreTitle    = $genre['title'];
+                $genrePath     = $genre['path'];
                 $breadcrumbs[] = [
                     'url'  => '/' . $genrePath,
                     'name' => $genreTitle,

@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManager;
 use Elastica\Index;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class MenuBuilder
 {
@@ -41,11 +40,6 @@ class MenuBuilder
     protected $queryService;
 
     /**
-     * @var LocaleService
-     */
-    protected $localeService;
-
-    /**
      * @var Index
      */
     protected $bookIndex;
@@ -55,7 +49,6 @@ class MenuBuilder
      * @param \Twig_Environment $twig
      * @param string            $cacheDir
      * @param QueryService      $queryService
-     * @param LocaleService     $localeService
      * @param Index             $bookIndex
      */
     public function __construct(
@@ -63,16 +56,14 @@ class MenuBuilder
         \Twig_Environment $twig,
         $cacheDir,
         QueryService $queryService,
-        LocaleService $localeService,
         Index $bookIndex
     ) {
-        $this->em            = $em;
-        $this->twig          = $twig;
-        $this->queryService  = $queryService;
-        $this->cacheDir      = $cacheDir . '/menuCache';
-        $this->cacheFile     = $this->cacheDir . '/%sMenu.%s.html';
-        $this->localeService = $localeService;
-        $this->bookIndex     = $bookIndex;
+        $this->em           = $em;
+        $this->twig         = $twig;
+        $this->queryService = $queryService;
+        $this->cacheDir     = $cacheDir . '/menuCache';
+        $this->cacheFile    = $this->cacheDir . '/%sMenu.html';
+        $this->bookIndex    = $bookIndex;
     }
 
     /**
@@ -119,7 +110,7 @@ class MenuBuilder
      */
     protected function getCacheFileName($type)
     {
-        $fileName = sprintf($this->cacheFile, $type, $this->localeService->getLocale());
+        $fileName = sprintf($this->cacheFile, $type);
 
         return $fileName;
     }
@@ -160,10 +151,8 @@ class MenuBuilder
                 ->leftJoin('b.genres', 'g')
                 ->leftJoin('b.ratings', 'rating')
                 ->andWhere($qb->expr()->eq('b.featuredMenu', ':featured_menu'))
-                ->andWhere($qb->expr()->eq('b.lang', ':locale'))
                 ->addOrderBy('rating.rating', 'DESC')
                 ->setParameter('featured_menu', true)
-                ->setParameter('locale', $this->localeService->getLocale())
             ;
 
             $books = $qb->getQuery()->getResult();
@@ -238,18 +227,15 @@ class MenuBuilder
      */
     protected function getAllGenres()
     {
-        $locale = $this->localeService->getLocale();
         $this->em->clear('AppBundle\Entity\Genre');
         $qb = $this->em->createQueryBuilder();
         $qb
             ->select('g')
             ->from('AppBundle:Genre', 'g', 'g.id')
             ->leftJoin('g.books', 'b')
-            ->andWhere($qb->expr()->eq('b.lang', ':locale'))
-            ->setParameter('locale', $locale)
             ->groupBy('g.id')
             ->having($qb->expr()->gt('COUNT(b)', 0))
-            ->addOrderBy('g.title' . ucfirst($locale));
+            ->addOrderBy('g.title');
 
         $categories = $qb->getQuery()->getResult() ?: [];
 
@@ -258,7 +244,7 @@ class MenuBuilder
             ->select('g')
             ->from('AppBundle:Genre', 'g')
             ->where($qb->expr()->isNull('g.parent'))
-            ->addOrderBy('g.title' . ucfirst($locale));
+            ->addOrderBy('g.title');
 
         $parentCategories = $qb->getQuery()->getResult() ?: [];
 

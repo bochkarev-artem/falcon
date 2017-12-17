@@ -25,16 +25,6 @@ class AdsAdmin extends AbstractAdmin
     }
 
     /**
-     * @param int $value
-     *
-     * @return string
-     */
-    public function getLanguageLabel($value)
-    {
-        return $this->trans(array_search($value, self::getLanguageChoices(), true));
-    }
-
-    /**
      * @param FormMapper $formMapper
      */
     protected function configureFormFields(FormMapper $formMapper)
@@ -42,10 +32,6 @@ class AdsAdmin extends AbstractAdmin
         $formMapper
             ->add('name')
             ->add('active')
-            ->add('lang', 'choice', [
-                'choices'            => $this->getLanguageChoices(),
-                'translation_domain' => 'AdminBundle',
-            ])
             ->add('code', null, [
                 'attr' => ['rows' => '7'],
             ])
@@ -65,7 +51,6 @@ class AdsAdmin extends AbstractAdmin
         $datagridMapper
             ->add('id')
             ->add('name')
-            ->add('lang')
             ->add('position')
             ->add('active')
         ;
@@ -80,7 +65,6 @@ class AdsAdmin extends AbstractAdmin
             ->addIdentifier('id')
             ->add('name')
             ->add('active')
-            ->add('lang')
             ->add('priority')
             ->add(
                 'position',
@@ -109,7 +93,6 @@ class AdsAdmin extends AbstractAdmin
             ->add('id')
             ->add('name')
             ->add('active')
-            ->add('lang')
             ->add(
                 'position',
                 null,
@@ -135,17 +118,6 @@ class AdsAdmin extends AbstractAdmin
             'choice.ads_position.catalog_side' => Ads::POSITION_CATALOG_SIDE,
             'choice.ads_position.catalog_top'  => Ads::POSITION_CATALOG_TOP,
             'choice.ads_position.book_mobile'  => Ads::POSITION_BOOK_MOBILE,
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    protected function getLanguageChoices()
-    {
-        return [
-            'choice.ads_lang.ru' => Ads::LANGUAGE_RU,
-            'choice.ads_lang.en' => Ads::LANGUAGE_EN,
         ];
     }
 }

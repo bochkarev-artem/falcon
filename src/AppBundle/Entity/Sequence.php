@@ -61,13 +61,6 @@ class Sequence implements PageInterface
     private $slug;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="lang", type="string", nullable=true)
-     */
-    private $lang;
-
-    /**
      * Initialize fields
      */
     public function __construct()
@@ -185,26 +178,6 @@ class Sequence implements PageInterface
     public function getPathPrefix()
     {
         return 'series';
-    }
-
-    /**
-     * @return string
-     */
-    public function getLang()
-    {
-        return $this->lang;
-    }
-
-    /**
-     * @param string $lang
-     *
-     * @return Sequence
-     */
-    public function setLang($lang)
-    {
-        $this->lang = $lang;
-
-        return $this;
     }
 
     /**

@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *     }
  * )
  */
-class Genre implements LocalePageInterface
+class Genre implements PageInterface
 {
     /**
      * @var int
@@ -56,30 +56,16 @@ class Genre implements LocalePageInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="title_en", type="string", nullable=true)
+     * @ORM\Column(name="title", type="string", nullable=true)
      */
-    private $titleEn;
+    private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title_ru", type="string", nullable=true)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $titleRu;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_en", type="text", nullable=true)
-     */
-    private $descriptionEn;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_ru", type="text", nullable=true)
-     */
-    private $descriptionRu;
+    private $description;
 
     /**
      * @var string
@@ -91,18 +77,10 @@ class Genre implements LocalePageInterface
     /**
      * @var string
      *
-     * @Gedmo\Slug(fields={"titleEn"}, unique=true)
-     * @ORM\Column(name="slug_en", type="string", nullable=true)
+     * @Gedmo\Slug(fields={"title"}, unique=true)
+     * @ORM\Column(name="slug", type="string", nullable=true)
      */
-    private $slugEn;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Slug(fields={"titleRu"}, unique=true)
-     * @ORM\Column(name="slug_ru", type="string", nullable=true)
-     */
-    private $slugRu;
+    private $slug;
 
     /**
      * @var ArrayCollection
@@ -126,7 +104,7 @@ class Genre implements LocalePageInterface
      */
     public function __toString()
     {
-        return (string)$this->getTitleRu();
+        return (string)$this->getTitle();
     }
 
     /**
@@ -240,19 +218,19 @@ class Genre implements LocalePageInterface
     /**
      * @return string
      */
-    public function getTitleEn()
+    public function getTitle()
     {
-        return $this->titleEn;
+        return $this->title;
     }
 
     /**
-     * @param string $titleEn
+     * @param string $title
      *
      * @return Genre
      */
-    public function setTitleEn($titleEn)
+    public function setTitle($title)
     {
-        $this->titleEn = $titleEn;
+        $this->title = $title;
 
         return $this;
     }
@@ -260,19 +238,19 @@ class Genre implements LocalePageInterface
     /**
      * @return string
      */
-    public function getTitleRu()
+    public function getDescription()
     {
-        return $this->titleRu;
+        return $this->description;
     }
 
     /**
-     * @param string $titleRu
+     * @param string $description
      *
      * @return Genre
      */
-    public function setTitleRu($titleRu)
+    public function setDescription($description)
     {
-        $this->titleRu = $titleRu;
+        $this->description = $description;
 
         return $this;
     }
@@ -280,79 +258,19 @@ class Genre implements LocalePageInterface
     /**
      * @return string
      */
-    public function getDescriptionEn()
+    public function getSlug()
     {
-        return $this->descriptionEn;
+        return $this->slug;
     }
 
     /**
-     * @param string $descriptionEn
+     * @param string $slug
      *
      * @return Genre
      */
-    public function setDescriptionEn($descriptionEn)
+    public function setSlug($slug)
     {
-        $this->descriptionEn = $descriptionEn;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescriptionRu()
-    {
-        return $this->descriptionRu;
-    }
-
-    /**
-     * @param string $descriptionRu
-     *
-     * @return Genre
-     */
-    public function setDescriptionRu($descriptionRu)
-    {
-        $this->descriptionRu = $descriptionRu;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlugEn()
-    {
-        return $this->slugEn;
-    }
-
-    /**
-     * @param string $slugEn
-     *
-     * @return Genre
-     */
-    public function setSlugEn($slugEn)
-    {
-        $this->slugEn = $slugEn;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlugRu()
-    {
-        return $this->slugRu;
-    }
-
-    /**
-     * @param string $slugRu
-     *
-     * @return Genre
-     */
-    public function setSlugRu($slugRu)
-    {
-        $this->slugRu = $slugRu;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -376,16 +294,8 @@ class Genre implements LocalePageInterface
     /**
      * @return string
      */
-    public function getPathRu()
+    public function getPath()
     {
-        return $this->getPathPrefix() . '/' . $this->getSlugRu();
-    }
-
-    /**
-     * @return string
-     */
-    public function getPathEn()
-    {
-        return $this->getPathPrefix() . '/' . $this->getSlugEn();
+        return $this->getPathPrefix() . '/' . $this->getSlug();
     }
 }

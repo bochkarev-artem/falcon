@@ -86,11 +86,6 @@ class LitresService
     private $step;
 
     /**
-     * @var array
-     */
-    private $locales;
-
-    /**
      * @var ImageUploadService
      */
     private $imageUploadService;
@@ -104,8 +99,7 @@ class LitresService
     public function __construct(
         EntityManager $em,
         Logger $logger,
-        ImageUploadService $imageUploadService,
-        $locales
+        ImageUploadService $imageUploadService
     ) {
         $this->em                 = $em;
         $this->logger             = $logger;
@@ -114,7 +108,6 @@ class LitresService
         $this->sequenceRepo       = $this->em->getRepository('AppBundle:Sequence');
         $this->bookRepo           = $this->em->getRepository('AppBundle:Book');
         $this->tagRepo            = $this->em->getRepository('AppBundle:Tag');
-        $this->locales            = $locales;
         $this->imageUploadService = $imageUploadService;
     }
 
@@ -153,7 +146,7 @@ class LitresService
         foreach ($xml->genre as $genreNode) {
             $parentGenre = new Genre();
             $parentTitle = $this->mbUcfirstOnly($genreNode['title']);
-            $parentGenre->setTitleRu($parentTitle);
+            $parentGenre->setTitle($parentTitle);
             $parentGenre->setLitresId(0);
             $this->em->persist($parentGenre);
             $this->em->flush();
@@ -164,8 +157,8 @@ class LitresService
                 if (!is_null($id)) {
                     /** @var Genre $genre */
                     if ($genre = $this->genreRepo->findOneBy(['token' => $token])) {
-                        if (!$genre->getTitleRu()) {
-                            $genre->setTitleRu($title);
+                        if (!$genre->getTitle()) {
+                            $genre->setTitle($title);
                         }
 
                         if (!$genre->getLitresId()) {
@@ -175,7 +168,7 @@ class LitresService
                         $genre = new Genre();
                         $genre
                             ->setLitresId($id)
-                            ->setTitleRu($title)
+                            ->setTitle($title)
                             ->setToken($token)
                             ->setParent($parentGenre)
                         ;
@@ -212,11 +205,6 @@ class LitresService
             $sequence = new Sequence();
             $sequence->setLitresId($sequenceId);
             $sequence->setName($sequenceName);
-            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $sequenceName)) {
-                $sequence->setLang('ru');
-            } else {
-                $sequence->setLang('en');
-            }
 
             $this->em->persist($sequence);
             $this->em->flush();
@@ -254,12 +242,6 @@ class LitresService
                 ->setMiddleName($mName)
                 ->setLastName($lName)
             ;
-
-            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $fName . $lName)) {
-                $author->setLang('ru');
-            } else {
-                $author->setLang('en');
-            }
 
             $this->em->persist($author);
             $this->em->flush();
@@ -366,7 +348,7 @@ class LitresService
             }
 
             $lang = (string)$titleInfo->lang;
-            if (strlen($lang) != 0 && !in_array($lang, $this->locales, true)) {
+            if (strlen($lang) != 0 && $lang != 'ru') {
                 $this->skipped++;
 
                 continue;
@@ -448,19 +430,6 @@ class LitresService
 
             /** @var Author $mainAuthor */
             $mainAuthor = $book->getAuthors()->first();
-            $title      = substr((string)$titleInfo->{'book-title'}, 0, 254);
-            if (preg_match('/[у|е|ы|а|о|э|я|и|ю]/', $title)) {
-                $bookLocale = 'ru';
-            } else {
-                $bookLocale = 'en';
-            }
-
-            $sequence = $book->getSequence();
-            if ($sequence && $sequence->getLang() == 'ru' || $mainAuthor->getLang() == 'ru' || $bookLocale == 'ru') {
-                $book->setLang('ru');
-            } else {
-                $book->setLang('en');
-            }
 
             $book
                 ->setLitresHubId($hubId)

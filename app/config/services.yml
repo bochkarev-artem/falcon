@@ -18,16 +18,6 @@ services:
           - "@doctrine.orm.default_entity_manager"
           - "@logger"
           - '@AppBundle\Service\ImageUploadService'
-          - "%locales%"
-        public: true
-
-    AppBundle\Service\LitresFileService:
-        arguments:
-          - "@doctrine.orm.default_entity_manager"
-          - "@logger"
-          - '@AppBundle\Service\ImageUploadService'
-          - "%kernel.root_dir%"
-          - "%locales%"
         public: true
 
     AppBundle\Service\BookPageService:
@@ -48,7 +38,6 @@ services:
             - "@twig"
             - "%kernel.cache_dir%"
             - '@AppBundle\Service\QueryService'
-            - '@AppBundle\Service\LocaleService'
             - '@fos_elastica.index.books'
         tags:
             - { name: kernel.event_listener, event: reset_menu_cache, method: resetCache }
@@ -62,7 +51,6 @@ services:
     AppBundle\Service\SitemapListener:
         arguments:
             - "@doctrine.orm.default_entity_manager"
-            - '@AppBundle\Service\LocaleService'
         tags:
             - { name: "presta.sitemap.listener", priority: 100 }
         public: true
@@ -95,7 +83,6 @@ services:
             - "@?event_dispatcher"
             - "@cmf_routing.route_provider"
             - "@fos_elastica.index.routes.route"
-            - '@AppBundle\Service\LocaleService'
 
     AppBundle\Routing\RequestMatcher:
         arguments:
@@ -107,7 +94,6 @@ services:
     AppBundle\Routing\RouteProvider:
         arguments:
             - "@fos_elastica.index.routes.route"
-            - '@AppBundle\Service\LocaleService'
 
     AppBundle\Service\QueryService:
         arguments:
@@ -128,17 +114,9 @@ services:
         tags:
             - { name: 'pagerfanta.view', alias: 'bookary_pagination' }
 
-    AppBundle\Service\LocaleService:
-        arguments:
-            - "@request_stack"
-            - "%hosts%"
-            - "%locales%"
-            - "%default_locale%"
-
     AppBundle\Service\AdsManager:
         arguments:
             - "@doctrine.orm.default_entity_manager"
-            - '@AppBundle\Service\LocaleService'
             - '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
             - "%kernel.cache_dir%"
         tags:

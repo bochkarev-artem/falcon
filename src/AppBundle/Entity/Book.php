@@ -177,13 +177,6 @@ class Book implements PageInterface
     private $date;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="lang", type="string", nullable=true)
-     */
-    private $lang;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="sequence_number", type="integer", nullable=true)
@@ -465,26 +458,6 @@ class Book implements PageInterface
     public function setDate($date)
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLang()
-    {
-        return $this->lang;
-    }
-
-    /**
-     * @param string $lang
-     *
-     * @return Book
-     */
-    public function setLang($lang)
-    {
-        $this->lang = $lang;
 
         return $this;
     }

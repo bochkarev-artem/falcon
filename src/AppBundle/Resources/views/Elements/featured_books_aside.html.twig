@@ -8,11 +8,11 @@
                 <div class="featured-dec3">
                     <figure>
                         <a href="/{{ aside_featured_book.path }}">
-                            <img src="{{ aside_featured_book.cover_path is defined and aside_featured_book.cover_path ? aside_featured_book.cover_path|imagine_filter('book_list') : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ locale_field(aside_featured_book, 'title') }}"/>
+                            <img src="{{ aside_featured_book.cover_path is defined and aside_featured_book.cover_path ? aside_featured_book.cover_path|imagine_filter('book_list') : asset('compiled/images/no-cover-small.jpg') }}" alt="{{ aside_featured_book.title }}"/>
                         </a>
                     </figure>
                     <div class="text">
-                        <a href="/{{ aside_featured_book.path }}">{{ locale_field(aside_featured_book, 'title') }}</a>
+                        <a href="/{{ aside_featured_book.path }}">{{ aside_featured_book.title }}</a>
                     </div>
                 </div>
             {% endfor %}

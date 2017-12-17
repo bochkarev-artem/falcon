@@ -6,7 +6,6 @@
 namespace AppBundle\Provider;
 
 use AppBundle\Entity\Book;
-use AppBundle\Entity\LocalePageInterface;
 use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Internal\Hydration\IterableResult;
@@ -39,7 +38,7 @@ class RouteProvider implements ProviderInterface
     /**
      * @param Type          $routeType
      * @param EntityManager $em
-     * @param int       $batchSize
+     * @param int           $batchSize
      */
     public function __construct(Type $routeType, EntityManager $em, $batchSize)
     {
@@ -309,7 +308,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param LocalePageInterface|PageInterface $object
+     * @param PageInterface $object
      *
      * @return array|bool
      */
@@ -325,7 +324,7 @@ class RouteProvider implements ProviderInterface
     }
 
     /**
-     * @param LocalePageInterface|PageInterface $object
+     * @param PageInterface $object
      *
      * @return array
      */
@@ -352,11 +351,7 @@ class RouteProvider implements ProviderInterface
         $routeData['params']['defaults']['_controller'] = "AppBundle:Site:show$className";
 
         if ($object instanceof PageInterface) {
-            $routeData['path_ru'] = $object->getPath();
-            $routeData['path_en'] = $object->getPath();
-        } elseif ($object instanceof LocalePageInterface) {
-            $routeData['path_en'] = $object->getPathEn();
-            $routeData['path_ru'] = $object->getPathRu();
+            $routeData['path'] = $object->getPath();
         }
         $routes[$routeId]  = $routeData;
 

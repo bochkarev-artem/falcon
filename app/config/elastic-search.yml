@@ -12,8 +12,7 @@ fos_elastica:
             types:
                 route:
                     properties:
-                        path_ru: { type: string, index: not_analyzed }
-                        path_en: { type: string, index: not_analyzed }
+                        path: { type: string, index: not_analyzed }
         books:
             index_name: books
             client:     default
@@ -32,14 +31,6 @@ fos_elastica:
                                 type: custom
                                 tokenizer: standard
                                 filter: [lowercase, russian_stop, russian_stemmer]
-                            english_exact:
-                                type: custom
-                                tokenizer: standard
-                                filter: [lowercase]
-                            english:
-                                type: custom
-                                tokenizer: standard
-                                filter: [lowercase, english_stop, english_stemmer]
                         filter:
                             russian_stop:
                                   type: stop
@@ -47,18 +38,11 @@ fos_elastica:
                             russian_stemmer:
                                   type: stemmer
                                   language: russian
-                            english_stop:
-                                  type: stop
-                                  stopwords: _english_
-                            english_stemmer:
-                                  type: stemmer
-                                  language: english
             types:
                 book:
                     properties:
                         book_id:              { type: integer }
-                        title_ru:             { type: string, analyzer: russian, copy_to: book_title_ru }
-                        title_en:             { type: string, analyzer: english, copy_to: book_title_en }
+                        title:                { type: string, analyzer: russian, copy_to: book_title }
                         rating:               { type: float }
                         annotation:           { type: string }
                         cover_path:           { type: string }
@@ -85,8 +69,7 @@ fos_elastica:
                                 first_name:    { type: string, analyzer: russian }
                                 middle_name:   { type: string, analyzer: russian }
                                 last_name:     { type: string, analyzer: russian }
-                                full_name_ru:  { type: string, analyzer: russian, copy_to: author_name_ru }
-                                full_name_en:  { type: string, analyzer: english, copy_to: author_name_en }
+                                full_name:     { type: string, analyzer: russian, copy_to: author_name }
                                 short_name:    { type: string, analyzer: russian }
                                 document_id:   { type: string }
                                 path:          { type: string, index: not_analyzed }
@@ -94,13 +77,10 @@ fos_elastica:
                             type: "nested"
                             properties:
                                 genre_id:       { type: integer }
-                                title_ru:       { type: string, analyzer: russian, copy_to: genre_title_ru }
-                                title_en:       { type: string, analyzer: english, copy_to: genre_title_en }
-                                description_ru: { type: string }
-                                description_en: { type: string }
+                                title:          { type: string, analyzer: russian, copy_to: genre_title }
+                                description:    { type: string }
                                 litres_id:      { type: integer }
-                                path_ru:        { type: string, index: not_analyzed }
-                                path_en:        { type: string, index: not_analyzed }
+                                path:           { type: string, index: not_analyzed }
                         tags:
                             type: "nested"
                             properties:
@@ -112,52 +92,30 @@ fos_elastica:
                             type: "nested"
                             properties:
                                 sequence_id:  { type: integer }
-                                name_ru:      { type: string, analyzer: russian, copy_to: sequence_title_ru }
-                                name_en:      { type: string, analyzer: english, copy_to: sequence_title_en }
+                                name:         { type: string, analyzer: russian, copy_to: sequence_title }
                                 litres_id:    { type: integer }
                                 path:         { type: string, index: not_analyzed }
-                        author_name_ru:
+                        author_name:
                             type: string
                             analyzer: russian
                             fields:
                                 exact:
                                     type: string
                                     analyzer: russian_exact
-                        author_name_en:
-                            type: string
-                            analyzer: english
-                            fields:
-                                exact:
-                                    type: string
-                                    analyzer: english_exact
-                        genre_title_ru:
+                        genre_title:
                             type: string
                             analyzer: russian
                             fields:
                                 exact:
                                     type: string
                                     analyzer: russian_exact
-                        genre_title_en:
-                            type: string
-                            analyzer: english
-                            fields:
-                                exact:
-                                    type: string
-                                    analyzer: english_exact
-                        sequence_title_ru:
+                        sequence_title:
                             type: string
                             analyzer: russian
                             fields:
                                 exact:
                                     type: string
                                     analyzer: russian_exact
-                        sequence_title_en:
-                            type: string
-                            analyzer: english
-                            fields:
-                                exact:
-                                    type: string
-                                    analyzer: english_exact
                         tag_title:
                             type: string
                             analyzer: russian
@@ -165,17 +123,10 @@ fos_elastica:
                                 exact:
                                     type: string
                                     analyzer: russian_exact
-                        book_title_ru:
+                        book_title:
                             type: string
                             analyzer: russian
                             fields:
                                 exact:
                                     type: string
                                     analyzer: russian_exact
-                        book_title_en:
-                            type: string
-                            analyzer: english
-                            fields:
-                                exact:
-                                    type: string
-                                    analyzer: english_exact

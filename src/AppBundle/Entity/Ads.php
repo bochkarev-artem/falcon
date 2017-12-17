@@ -23,9 +23,6 @@ class Ads
     const POSITION_CATALOG_TOP  = 5;
     const POSITION_BOOK_MOBILE  = 6;
 
-    const LANGUAGE_RU = 'ru';
-    const LANGUAGE_EN = 'en';
-
     /**
      * @var int
      *
@@ -62,13 +59,6 @@ class Ads
      * @ORM\Column(name="code", type="text", nullable=false)
      */
     private $code;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lang", type="string", length=2, nullable=false)
-     */
-    private $lang;
 
     /**
      * @var int
@@ -195,26 +185,6 @@ class Ads
     public function setActive(bool $active)
     {
         $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLang()
-    {
-        return $this->lang;
-    }
-
-    /**
-     * @param string $lang
-     *
-     * @return Ads
-     */
-    public function setLang($lang)
-    {
-        $this->lang = $lang;
 
         return $this;
     }

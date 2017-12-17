@@ -1,8 +1,8 @@
 {% spaceless %}
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="ru">
     <head>
-        <link rel="dns-prefetch" href="//{{ app.request.host }}">
+        <link rel="dns-prefetch" href="//bookary.ru">
         {% block title %}{{ sonata_seo_title() }}{% endblock %}
         {% block meta %}
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -62,27 +62,15 @@
         </div>
 
         {% block analytics %}
-            {% if app.request.locale == 'ru' %}
-                <script>
-                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-                    ga('create', 'UA-40513359-9', 'auto');
-                    ga('send', 'pageview');
-                </script>
-                <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter42824504 = new Ya.Metrika({ id:42824504, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/42824504" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-            {% else %}
-                <script>
-                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-                    ga('create', 'UA-40513359-10', 'auto');
-                    ga('send', 'pageview');
-                </script>
-                <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter45564603 = new Ya.Metrika({ id:45564603, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/45564603" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-            {% endif %}
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+                ga('create', 'UA-40513359-9', 'auto');
+                ga('send', 'pageview');
+            </script>
+            <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter42824504 = new Ya.Metrika({ id:42824504, clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/42824504" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         {% endblock %}
     </body>
 </html>

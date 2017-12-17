@@ -261,7 +261,6 @@ class BookProvider implements ProviderInterface
     private function collectData(Book $book)
     {
         $ratingData = $this->bookPageService->getBookRatingData($book->getId());
-        $lang       = $book->getLang();
         $bookData   = [
             'book_id'         => $book->getId(),
             'annotation'      => $book->getAnnotation(),
@@ -277,14 +276,13 @@ class BookProvider implements ProviderInterface
             'city_published'  => $book->getCityPublished(),
             'year_published'  => $book->getYearPublished(),
             'isbn'            => $book->getIsbn(),
-            'lang'            => $lang,
             'rating'          => $ratingData['rating'],
             'review_count'    => $book->getReviews()->count(),
             'path'            => $book->getPath(),
             'created_on'      => $book->getCreatedOn()->format('Y-m-d'),
         ];
 
-        $bookData['title_' . $lang] = $book->getTitle();
+        $bookData['title'] = $book->getTitle();
 
         if ($book->getDate()) {
             $bookData['date'] = $book->getDate()->format('Y-m-d');
@@ -310,14 +308,11 @@ class BookProvider implements ProviderInterface
         /** @var Genre $genre */
         foreach ($book->getGenres() as $genre) {
             $genreData = [
-                'genre_id'       => $genre->getId(),
-                'title_en'       => $genre->getTitleEn(),
-                'title_ru'       => $genre->getTitleRu(),
-                'description_en' => $genre->getDescriptionEn(),
-                'description_ru' => $genre->getDescriptionRu(),
-                'litres_id'      => $genre->getLitresId(),
-                'path_en'        => $genre->getPathEn(),
-                'path_ru'        => $genre->getPathRu(),
+                'genre_id'    => $genre->getId(),
+                'title'       => $genre->getTitle(),
+                'description' => $genre->getDescription(),
+                'litres_id'   => $genre->getLitresId(),
+                'path'        => $genre->getPath(),
             ];
             $genresData[] = $genreData;
         }
@@ -347,8 +342,8 @@ class BookProvider implements ProviderInterface
                 'document_id'   => $author->getDocumentId(),
                 'path'          => $author->getPath(),
             ];
-            $authorData['full_name_' . $book->getLang()] = $author->getFullName();
-            $authorsData[]                               = $authorData;
+            $authorData['full_name'] = $author->getFullName();
+            $authorsData[]           = $authorData;
         }
 
         $bookData['authors'] = $authorsData;
@@ -398,7 +393,7 @@ class BookProvider implements ProviderInterface
                 'litres_id'   => $sequence->getLitresId(),
                 'path'        => $sequence->getPath(),
             ];
-            $sequenceData['name_' . $book->getLang()] = $sequence->getName();
+            $sequenceData['name'] = $sequence->getName();
         }
 
         $bookData['sequence'] = $sequenceData;

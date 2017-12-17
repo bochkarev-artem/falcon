@@ -6,11 +6,11 @@
         {% set childGenres = [] %}
     {% endif %}
     {% if childGenres %}
-        <li class="menu-item kode-parent-menu"><a href="#">{{ locale_field(parentGenre, 'title') }}</a>
+        <li class="menu-item kode-parent-menu"><a href="#">{{ parentGenre.title }}</a>
             <ul class="dl-submenu">
                 {%- for childGenre in childGenres -%}
-                    {% set genreUrl = childGenre.pathPrefix ~ '/' ~ locale_field(childGenre, 'slug') %}
-                    <li><a href="/{{ genreUrl }}">{{ locale_field(childGenre, 'title') }}</a></li>
+                    {% set genreUrl = childGenre.pathPrefix ~ '/' ~ childGenre.slug %}
+                    <li><a href="/{{ genreUrl }}">{{ childGenre.title }}</a></li>
                 {%- endfor -%}
             </ul>
         </li>

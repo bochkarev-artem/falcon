@@ -5,7 +5,6 @@
 
 namespace AppBundle\Routing;
 
-use AppBundle\Service\LocaleService;
 use Elastica\Query\BoolQuery;
 use Elastica\Query\Term;
 use Elastica\Type;
@@ -32,11 +31,6 @@ class DynamicRouter extends BaseDynamicRouter
     private $repository;
 
     /**
-     * @var LocaleService
-     */
-    private $localeService;
-
-    /**
      * @param RequestContext                              $context
      * @param RequestMatcherInterface|UrlMatcherInterface $matcher
      * @param UrlGeneratorInterface                       $generator
@@ -44,7 +38,6 @@ class DynamicRouter extends BaseDynamicRouter
      * @param null|EventDispatcherInterface               $eventDispatcher
      * @param RouteProviderInterface                      $provider
      * @param Type                                        $repository
-     * @param LocaleService $localeService
      */
     public function __construct(
         RequestContext $context,
@@ -53,8 +46,7 @@ class DynamicRouter extends BaseDynamicRouter
         $uriFilterRegexp,
         EventDispatcherInterface $eventDispatcher = null,
         RouteProviderInterface $provider = null,
-        Type $repository,
-        LocaleService $localeService
+        Type $repository
     ) {
         parent::__construct(
             $context,
@@ -67,7 +59,6 @@ class DynamicRouter extends BaseDynamicRouter
 
         $this->context       = $context;
         $this->repository    = $repository;
-        $this->localeService = $localeService;
 
         $this->generator->setContext($context);
     }
@@ -119,8 +110,7 @@ class DynamicRouter extends BaseDynamicRouter
         $searchUrl = preg_replace('#^(.*?)(\/\d+)?$#iu', '$1', $parameters['_path']);
         $boolQuery = new BoolQuery();
         $pathQuery = new Term();
-        $pathName  = 'path_' . $this->localeService->getLocale();
-        $pathQuery->setTerm($pathName, rawurldecode($searchUrl));
+        $pathQuery->setTerm('path', rawurldecode($searchUrl));
         $boolQuery->addMust($pathQuery);
 
         $results = $this->repository->search($boolQuery)->getResults();

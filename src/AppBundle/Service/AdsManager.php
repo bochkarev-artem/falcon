@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AdsManager
@@ -29,33 +28,25 @@ class AdsManager
     protected $cacheFile;
 
     /**
-     * @var LocaleService
-     */
-    protected $localeService;
-
-    /**
      * @var null|User
      */
     protected $user = null;
 
     /**
      * @param EntityManagerInterface $em
-     * @param LocaleService          $localeService
      * @param TokenStorageInterface  $tokenStorage
      * @param string                 $cacheDir
      */
     public function __construct(
         EntityManagerInterface $em,
-        LocaleService $localeService,
         TokenStorageInterface $tokenStorage,
         $cacheDir
     ) {
-        $this->em            = $em;
-        $cacheDir            = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
-        $this->cacheDir      = $cacheDir . '/adsCache';
-        $this->cacheFile     = $this->cacheDir . '/%s_ads.%s.html';
-        $this->localeService = $localeService;
-        $token               = $tokenStorage->getToken();
+        $this->em        = $em;
+        $cacheDir        = preg_replace('/\/cache\/front\/dev/', '/cache/prod', $cacheDir);
+        $this->cacheDir  = $cacheDir . '/adsCache';
+        $this->cacheFile = $this->cacheDir . '/%s_ads.html';
+        $token           = $tokenStorage->getToken();
         if (null !== $token && is_object($user = $token->getUser())) {
             $this->user = $user;
         }
@@ -114,8 +105,6 @@ class AdsManager
             ->from('AppBundle:Ads', 'ads')
             ->andWhere($qb->expr()->eq('ads.position', ':position'))
             ->andWhere($qb->expr()->eq('ads.active', ':active'))
-            ->andWhere($qb->expr()->eq('ads.lang', ':language'))
-            ->setParameter('language', $this->localeService->getLocale())
             ->setParameter('position', $position)
             ->setParameter('active', true)
             ->orderBy('ads.priority', Criteria::ASC)
@@ -131,7 +120,7 @@ class AdsManager
      */
     protected function getCacheFileName($position)
     {
-        $fileName = sprintf($this->cacheFile, $position, $this->localeService->getLocale());
+        $fileName = sprintf($this->cacheFile, $position);
 
         return $fileName;
     }

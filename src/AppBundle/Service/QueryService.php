@@ -24,20 +24,13 @@ class QueryService
     private $perPage;
 
     /**
-     * @var LocaleService
+     * @param Type $repository
+     * @param int  $perPage
      */
-    private $localeService;
-
-    /**
-     * @param Type    $repository
-     * @param int $perPage
-     * @param LocaleService $localeService
-     */
-    public function __construct(Type $repository, $perPage, LocaleService $localeService)
+    public function __construct(Type $repository, $perPage)
     {
-        $this->repository    = $repository;
-        $this->perPage       = $perPage;
-        $this->localeService = $localeService;
+        $this->repository = $repository;
+        $this->perPage    = $perPage;
     }
 
     /**
@@ -104,20 +97,19 @@ class QueryService
      */
     private function getSearchQuery(QueryParams $queryParams)
     {
-        $locale         = $this->localeService->getLocale();
-        $bookLocale     = "book_title_$locale.exact^3";
-        $authorLocale   = "author_name_$locale.exact^6";
-        $sequenceLocale = "sequence_title_$locale.exact";
-        $genreLocale    = "genre_title_$locale.exact";
+        $book     = "book_title.exact^3";
+        $author   = "author_name.exact^6";
+        $sequence = "sequence_title.exact";
+        $genre    = "genre_title.exact";
 
         $queryString = $queryParams->getSearchQuery();
 
         $fields = [
-            $bookLocale,
-            $authorLocale,
-            $sequenceLocale,
+            $book,
+            $author,
+            $sequence,
             'tag_title.exact^2',
-            $genreLocale,
+            $genre,
         ];
 
         $query = new Query\MultiMatch();
@@ -174,7 +166,6 @@ class QueryService
         }
 
         $this->applyEnabledFilter($boolQuery);
-        $this->applyLocaleFilter($boolQuery);
     }
 
     /**
@@ -254,14 +245,6 @@ class QueryService
     private function applyHavingCover(Query\BoolQuery $query)
     {
         $query->addMust(new Query\Exists('cover_path'));
-    }
-
-    /**
-     * @param Query\BoolQuery $query
-     */
-    private function applyLocaleFilter(Query\BoolQuery $query)
-    {
-        $query->addMust(new Query\Term(['lang' => $this->localeService->getLocale()]));
     }
 
     private function applyEnabledFilter(Query\BoolQuery $query)

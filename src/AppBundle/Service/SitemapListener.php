@@ -5,7 +5,6 @@
 
 namespace AppBundle\Service;
 
-use AppBundle\Entity\LocalePageInterface;
 use AppBundle\Entity\PageInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
@@ -31,18 +30,11 @@ class SitemapListener implements SitemapListenerInterface
     protected $authorOffset = 0;
 
     /**
-     * @var LocaleService
-     */
-    protected $localeService;
-
-    /**
      * @param EntityManager $em
-     * @param LocaleService $localeService
      */
-    public function __construct(EntityManager $em, LocaleService $localeService)
+    public function __construct(EntityManager $em)
     {
-        $this->em            = $em;
-        $this->localeService = $localeService;
+        $this->em = $em;
     }
 
     /**
@@ -55,41 +47,26 @@ class SitemapListener implements SitemapListenerInterface
             'authors2' => 'Author',
             'authors3' => 'Author',
             'authors4' => 'Author',
-            'authors5' => 'Author',
-            'authors6' => 'Author',
-            'authors7' => 'Author',
-            'authors8' => 'Author',
             'series'   => 'Sequence',
+            'tags'     => 'Tag',
             'genres'   => 'Genre',
             'books'    => 'Book',
             'books2'   => 'Book',
             'books3'   => 'Book',
             'books4'   => 'Book',
             'books5'   => 'Book',
-            'books6'   => 'Book',
-            'books7'   => 'Book',
-            'books8'   => 'Book',
-            'books9'   => 'Book',
-            'books10'  => 'Book',
         ];
 
-        $locale = $event->getSection();
-        if ('ru' == $locale) {
-            $queryBuilders['tags'] = 'Tag';
-        }
-        $host = 'http://' . $this->localeService->getHosts()[$locale] . '/';
+        $host = 'http://bookary.ru/';
         foreach ($queryBuilders as $section => $entityName) {
-            $query = $this->getQuery($entityName, $locale);
+            $query = $this->getQuery($entityName);
             foreach ($query->iterate() as $row) {
-                /** @var LocalePageInterface|PageInterface $entity */
+                /** @var PageInterface $entity */
                 $entity = array_shift($row);
                 if ($entity instanceof PageInterface) {
                     $event
                         ->getUrlContainer()
-                        ->addUrl(new UrlConcrete($host . $entity->getPath()), $locale . '/' . $section);
-                } elseif ($entity instanceof LocalePageInterface) {
-                    $path = $this->localeService->getLocaleField($entity, 'path');
-                    $event->getUrlContainer()->addUrl(new UrlConcrete($host . $path), $locale . '/' . $section);
+                        ->addUrl(new UrlConcrete($host . $entity->getPath()), $section);
                 }
             }
             $query = null;
@@ -99,11 +76,10 @@ class SitemapListener implements SitemapListenerInterface
 
     /**
      * @param string $entityName
-     * @param string $locale
      *
      * @return Query
      */
-    protected function getQuery($entityName, $locale)
+    protected function getQuery($entityName)
     {
         $qb = $this->em->createQueryBuilder();
         $qb
@@ -113,13 +89,6 @@ class SitemapListener implements SitemapListenerInterface
 
         if ('Genre' == $entityName) {
             $qb->andWhere($qb->expr()->isNotNull('e.parent'));
-        }
-
-        if ('Book' == $entityName || 'Author' == $entityName || 'Sequence' == $entityName) {
-            $qb
-                ->andWhere($qb->expr()->eq('e.lang', ':lang'))
-                ->setParameter('lang', $locale)
-            ;
         }
 
         if ('Book' == $entityName) {
