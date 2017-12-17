@@ -42,6 +42,7 @@ class DeleteBookImagesCommand extends ContainerAwareCommand
             ->select('b')
             ->from('AppBundle:Book', 'b')
             ->where($qb->expr()->eq('b.lang', ':lang'))
+            ->andWhere($qb->expr()->isNotNull('b.coverPath'))
             ->setParameter('lang', 'en')
         ;
 
