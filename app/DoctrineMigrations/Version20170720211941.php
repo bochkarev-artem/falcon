@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Version20170720211941 extends AbstractMigration
 {
+
     /**
      * @param Schema $schema
      */
