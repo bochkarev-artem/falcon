@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/falcon
+    destination: /var/www/falcon
 hooks:
   AfterInstall:
     - location: /app/deployment/after_install.sh
