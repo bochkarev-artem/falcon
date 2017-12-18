@@ -33,10 +33,6 @@ DirectoryIndex app.php
     RewriteCond %{HTTP_HOST} ^www.bookary.ru$ [NC]
     RewriteRule ^(.*) http://bookary.ru/$1 [R=301,L]
 
-    # robots
-    RewriteCond %{HTTP_HOST} ^bookary\.([a-z\.]+)$
-    RewriteRule ^robots.txt /robots.%1.txt [L]
-
     # Sets the HTTP_AUTHORIZATION header removed by Apache
     RewriteCond %{HTTP:Authorization} .
     RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
