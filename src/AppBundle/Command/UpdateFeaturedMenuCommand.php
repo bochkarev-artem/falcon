@@ -46,12 +46,8 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
         ;
         $qb->getQuery()->execute();
 
-        $qb      = $this->buildQuery($em, 'ru');
-        $booksRu = $qb->getQuery()->getResult();
-        $qb      = $this->buildQuery($em, 'en');
-        $booksEn = $qb->getQuery()->getResult();
-
-        $books = array_merge($booksEn, $booksRu);
+        $qb    = $this->buildQuery($em);
+        $books = $qb->getQuery()->getResult();
 
         /** @var Book $book */
         foreach ($books as $book) {
@@ -68,11 +64,10 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
 
     /**
      * @param EntityManagerInterface $em
-     * @param string $locale
      *
      * @return QueryBuilder
      */
-    protected function buildQuery($em, $locale)
+    protected function buildQuery($em)
     {
         $qb = $em->createQueryBuilder();
 
@@ -81,9 +76,7 @@ class UpdateFeaturedMenuCommand extends ContainerAwareCommand
             ->from('AppBundle:Book', 'b')
             ->leftJoin('b.genres', 'g')
             ->leftJoin('b.ratings', 'rating')
-            ->andWhere($qb->expr()->eq('b.lang', ':locale'))
             ->andWhere($qb->expr()->gt('rating.rating', 0))
-            ->setParameter('locale', $locale)
             ->addOrderBy('rating.rating', 'DESC')
             ->addGroupBy('g.id')
             ->addGroupBy('b.id')
