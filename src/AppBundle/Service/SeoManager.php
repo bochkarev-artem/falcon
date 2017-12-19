@@ -192,9 +192,8 @@ class SeoManager
     public function setBookSeoData(array $book)
     {
         $seoData    = new SeoData();
-        $author     = $book['authors'] ?? $book['authors'][0];
         $title      = $book['title'];
-        $authorName = $author['full_name'];
+        $authorName = $book['authors'] ? $book['authors'][0]['full_name'] : '';
         $seoData->setTitle($this->translator->trans('front.book_page.title', [
             '%book_title%'  => $title,
             '%author_name%' => $authorName,

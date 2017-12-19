@@ -12,7 +12,7 @@ fos_elastica:
             types:
                 route:
                     properties:
-                        path: { type: string, index: not_analyzed }
+                        path: { type: keyword, index: true }
         books:
             index_name: books
             client:     default
@@ -42,91 +42,91 @@ fos_elastica:
                 book:
                     properties:
                         book_id:              { type: integer }
-                        title:                { type: string, analyzer: russian, copy_to: book_title }
+                        title:                { type: text, analyzer: russian, copy_to: book_title }
                         rating:               { type: float }
-                        annotation:           { type: string }
-                        cover_path:           { type: string }
-                        path:                 { type: string, index: not_analyzed }
+                        annotation:           { type: text }
+                        cover_path:           { type: text }
+                        path:                 { type: keyword, index: true }
                         price:                { type: float }
                         enabled:              { type: boolean }
                         has_trial:            { type: boolean }
                         featured_home:        { type: boolean }
                         date:                 { type: date, format: "yyyy-MM-dd" }
                         created_on:           { type: date, format: "yyyy-MM-dd" }
-                        lang:                 { type: string }
+                        lang:                 { type: text }
                         sequence_number:      { type: integer }
                         litres_hub_id:        { type: integer }
-                        document_id:          { type: string }
-                        publisher:            { type: string }
-                        city_published:       { type: string }
-                        year_published:       { type: string }
-                        isbn:                 { type: string }
+                        document_id:          { type: text }
+                        publisher:            { type: text }
+                        city_published:       { type: text }
+                        year_published:       { type: text }
+                        isbn:                 { type: text }
                         review_count:         { type: integer }
                         authors:
                             type: "nested"
                             properties:
                                 author_id:     { type: integer }
-                                first_name:    { type: string, analyzer: russian }
-                                middle_name:   { type: string, analyzer: russian }
-                                last_name:     { type: string, analyzer: russian }
-                                full_name:     { type: string, analyzer: russian, copy_to: author_name }
-                                short_name:    { type: string, analyzer: russian }
-                                document_id:   { type: string }
-                                path:          { type: string, index: not_analyzed }
+                                first_name:    { type: text, analyzer: russian }
+                                middle_name:   { type: text, analyzer: russian }
+                                last_name:     { type: text, analyzer: russian }
+                                full_name:     { type: text, analyzer: russian, copy_to: author_name }
+                                short_name:    { type: text, analyzer: russian }
+                                document_id:   { type: text }
+                                path:          { type: keyword, index: true }
                         genres:
                             type: "nested"
                             properties:
                                 genre_id:       { type: integer }
-                                title:          { type: string, analyzer: russian, copy_to: genre_title }
-                                description:    { type: string }
+                                title:          { type: text, analyzer: russian, copy_to: genre_title }
+                                description:    { type: text }
                                 litres_id:      { type: integer }
-                                path:           { type: string, index: not_analyzed }
+                                path:           { type: keyword, index: true }
                         tags:
                             type: "nested"
                             properties:
                                 tag_id:       { type: integer }
-                                title:        { type: string, analyzer: russian, copy_to: tag_title }
+                                title:        { type: text, analyzer: russian, copy_to: tag_title }
                                 litres_id:    { type: integer }
-                                path:         { type: string, index: not_analyzed }
+                                path:         { type: keyword, index: true }
                         sequence:
                             type: "nested"
                             properties:
                                 sequence_id:  { type: integer }
-                                name:         { type: string, analyzer: russian, copy_to: sequence_title }
+                                name:         { type: text, analyzer: russian, copy_to: sequence_title }
                                 litres_id:    { type: integer }
-                                path:         { type: string, index: not_analyzed }
+                                path:         { type: keyword, index: true }
                         author_name:
-                            type: string
+                            type: text
                             analyzer: russian
                             fields:
                                 exact:
-                                    type: string
+                                    type: text
                                     analyzer: russian_exact
                         genre_title:
-                            type: string
+                            type: text
                             analyzer: russian
                             fields:
                                 exact:
-                                    type: string
+                                    type: text
                                     analyzer: russian_exact
                         sequence_title:
-                            type: string
+                            type: text
                             analyzer: russian
                             fields:
                                 exact:
-                                    type: string
+                                    type: text
                                     analyzer: russian_exact
                         tag_title:
-                            type: string
+                            type: text
                             analyzer: russian
                             fields:
                                 exact:
-                                    type: string
+                                    type: text
                                     analyzer: russian_exact
                         book_title:
-                            type: string
+                            type: text
                             analyzer: russian
                             fields:
                                 exact:
-                                    type: string
+                                    type: text
                                     analyzer: russian_exact
