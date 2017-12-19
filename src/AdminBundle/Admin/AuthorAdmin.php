@@ -23,7 +23,6 @@ class AuthorAdmin extends AbstractAdmin
             ->add('firstName')
             ->add('lastName')
             ->add('middleName')
-            ->add('lang')
             ->add('books', 'sonata_type_model_autocomplete', [
                 'property' => 'title',
                 'required' => false,
@@ -44,7 +43,6 @@ class AuthorAdmin extends AbstractAdmin
             ->add('firstName')
             ->add('lastName')
             ->add('slug')
-            ->add('lang')
         ;
     }
 
@@ -58,7 +56,6 @@ class AuthorAdmin extends AbstractAdmin
             ->add('documentId')
             ->add('fullName')
             ->add('slug')
-            ->add('lang')
             ->add('updatedOn')
             ->add('createdOn')
             ->add('_action', 'actions', [
@@ -84,7 +81,6 @@ class AuthorAdmin extends AbstractAdmin
             ->add('lastName')
             ->add('middleName')
             ->add('slug')
-            ->add('lang')
             ->add('updatedOn')
             ->add('createdOn')
         ;
