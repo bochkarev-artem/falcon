@@ -66,7 +66,7 @@ class SitemapListener implements SitemapListenerInterface
                 if ($entity instanceof PageInterface) {
                     $event
                         ->getUrlContainer()
-                        ->addUrl(new UrlConcrete($host . $entity->getPath()), $section);
+                        ->addUrl(new UrlConcrete($host . $entity->getPath()), '/' . $section);
                 }
             }
             $query = null;
