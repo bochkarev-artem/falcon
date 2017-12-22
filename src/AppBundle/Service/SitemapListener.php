@@ -43,18 +43,18 @@ class SitemapListener implements SitemapListenerInterface
     public function populateSitemap(SitemapPopulateEvent $event)
     {
         $queryBuilders = [
-            'authors'  => 'Author',
-            'authors2' => 'Author',
-            'authors3' => 'Author',
-            'authors4' => 'Author',
-            'series'   => 'Sequence',
-            'tags'     => 'Tag',
-            'genres'   => 'Genre',
-            'books'    => 'Book',
-            'books2'   => 'Book',
-            'books3'   => 'Book',
-            'books4'   => 'Book',
-            'books5'   => 'Book',
+            'ru/authors'  => 'Author',
+            'ru/authors2' => 'Author',
+            'ru/authors3' => 'Author',
+            'ru/authors4' => 'Author',
+            'ru/series'   => 'Sequence',
+            'ru/tags'     => 'Tag',
+            'ru/genres'   => 'Genre',
+            'ru/books'    => 'Book',
+            'ru/books2'   => 'Book',
+            'ru/books3'   => 'Book',
+            'ru/books4'   => 'Book',
+            'ru/books5'   => 'Book',
         ];
 
         $host = 'http://bookary.ru/';
@@ -66,7 +66,7 @@ class SitemapListener implements SitemapListenerInterface
                 if ($entity instanceof PageInterface) {
                     $event
                         ->getUrlContainer()
-                        ->addUrl(new UrlConcrete($host . $entity->getPath()), '/' . $section);
+                        ->addUrl(new UrlConcrete($host . $entity->getPath()), $section);
                 }
             }
             $query = null;
