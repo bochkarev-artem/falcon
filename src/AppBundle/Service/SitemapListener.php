@@ -46,7 +46,6 @@ class SitemapListener implements SitemapListenerInterface
             'ru/authors'  => 'Author',
             'ru/authors2' => 'Author',
             'ru/authors3' => 'Author',
-            'ru/authors4' => 'Author',
             'ru/series'   => 'Sequence',
             'ru/tags'     => 'Tag',
             'ru/genres'   => 'Genre',
@@ -55,6 +54,7 @@ class SitemapListener implements SitemapListenerInterface
             'ru/books3'   => 'Book',
             'ru/books4'   => 'Book',
             'ru/books5'   => 'Book',
+            'ru/books6'   => 'Book',
         ];
 
         $host = 'http://bookary.ru/';
