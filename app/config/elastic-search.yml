@@ -12,9 +12,7 @@ fos_elastica:
             types:
                 route:
                     properties:
-                        path:
-                            type: keyword
-                            index: true
+                        path: { type: keyword, index: true }
         books:
             index_name: books
             client:     default
@@ -55,13 +53,14 @@ fos_elastica:
                         featured_home:        { type: boolean }
                         date:                 { type: date, format: "yyyy-MM-dd" }
                         created_on:           { type: date, format: "yyyy-MM-dd" }
+                        lang:                 { type: text }
                         sequence_number:      { type: integer }
                         litres_hub_id:        { type: integer }
-                        document_id:          { type: keyword }
-                        publisher:            { type: keyword }
-                        city_published:       { type: keyword }
-                        year_published:       { type: keyword }
-                        isbn:                 { type: keyword }
+                        document_id:          { type: text }
+                        publisher:            { type: text }
+                        city_published:       { type: text }
+                        year_published:       { type: text }
+                        isbn:                 { type: text }
                         review_count:         { type: integer }
                         authors:
                             type: "nested"
@@ -72,7 +71,7 @@ fos_elastica:
                                 last_name:     { type: text, analyzer: russian }
                                 full_name:     { type: text, analyzer: russian, copy_to: author_name }
                                 short_name:    { type: text, analyzer: russian }
-                                document_id:   { type: keyword }
+                                document_id:   { type: text }
                                 path:          { type: keyword, index: true }
                         genres:
                             type: "nested"

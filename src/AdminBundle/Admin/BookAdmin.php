@@ -66,7 +66,6 @@ class BookAdmin extends AbstractAdmin
             ->add('annotation', null, [
                 'attr' => ['rows' => '7'],
             ])
-            ->add('lang')
             ->add('publisher')
             ->add('cityPublished')
             ->add('yearPublished')
@@ -84,7 +83,6 @@ class BookAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('slug')
-            ->add('lang')
 //            ->add('authors', 'doctrine_orm_callback', [
 //                    'callback' => function($queryBuilder, $alias, $field, $value) {
 //                        /* @var \Doctrine\ORM\QueryBuilder $queryBuilder */
@@ -213,7 +211,6 @@ class BookAdmin extends AbstractAdmin
             ->add('litresHubId')
             ->add('documentId')
             ->add('title')
-            ->add('lang')
             ->add('enabled')
             ->add('featuredHome', null, ['editable' => true])
             ->add('path')
@@ -251,7 +248,6 @@ class BookAdmin extends AbstractAdmin
             ->add('sequence')
             ->add('annotation')
             ->add('date')
-            ->add('lang')
             ->add('publisher')
             ->add('cityPublished')
             ->add('yearPublished')
