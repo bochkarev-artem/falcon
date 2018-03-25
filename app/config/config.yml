@@ -20,7 +20,7 @@ parameters:
 
     cookie.page_view_name: "bookary_view"
 
-    router.request_context.host:   "%base_url_ru%"
+    router.request_context.host:   "%base_url%"
     router.request_context.scheme: "%base_scheme%"
 
     litres_partner_id: 67999
@@ -173,4 +173,4 @@ uecode_qpush:
                 push_notifications: true
                 message_expiration: 14400
                 subscribers:
-                    - { endpoint: "%base_scheme%://%base_url_ru%", protocol: http }
+                    - { endpoint: "%base_scheme%://%base_url%", protocol: http }
