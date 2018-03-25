@@ -2,8 +2,7 @@ imports:
     - { resource: config_dev.yml }
 
 parameters:
-    base_url_ru: bookary.dev
-    base_url_en: bookary-en.dev
+    base_url: bookary.dev
     message_queue_on: false
 
 framework:

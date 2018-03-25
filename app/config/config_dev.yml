@@ -3,8 +3,7 @@ imports:
     - { resource: liip/imagine-dev.yml }
 
 parameters:
-    base_url_ru: bookary.dev
-    base_url_en: bookary-en.dev
+    base_url: bookary.dev
     message_queue_on: true
 
 framework:
