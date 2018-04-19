@@ -22,6 +22,7 @@ class Ads
     const POSITION_CATALOG_SIDE = 4;
     const POSITION_CATALOG_TOP  = 5;
     const POSITION_BOOK_MOBILE  = 6;
+    const POSITION_HEADER       = 7;
 
     /**
      * @var int
