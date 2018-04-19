@@ -18,6 +18,7 @@ choice:
         book_top:     Книга (сверху)
         book_bottom:  Книга (внизу)
         book_mobile:  Книга (мобильный)
+        header:       Header
         catalog_side: Каталог (сбоку)
         catalog_top:  Каталог (сверху)
     ads_lang:

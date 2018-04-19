@@ -18,6 +18,7 @@ choice:
         book_top:     Book (top)
         book_bottom:  Book (bottom)
         book_mobile:  Book (mobile)
+        header:       Header
         catalog_side: Catalog (side)
         catalog_top:  Catalog (top)
     ads_lang:
