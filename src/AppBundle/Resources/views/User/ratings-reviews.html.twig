@@ -29,7 +29,7 @@
                                     {% if book.coverPath is defined %}
                                         <figure>
                                             <a href="/{{ book.path }}">
-                                                <img src="/{{ book.coverPath|imagine_filter('book_list') }}" alt="{{ book.title }}"/>
+                                                <img src="{{ book.coverPath|imagine_filter('book_list') }}" alt="{{ book.title }}"/>
                                             </a>
                                         </figure>
                                     {% endif %}
