@@ -294,7 +294,15 @@ class LitresService
     {
         for ($i = 0; $i < 1000; $i++) {
             $start = $i * $this->perPage + 1;
-            $xml   = $this->getXml($endpoint . "?limit=$start,$this->perPage");
+
+            try {
+                $xml = $this->getXml($endpoint . "?limit=$start,$this->perPage");
+            } catch (\Symfony\Component\Debug\Exception\ContextErrorException $exception) {
+                sleep(3600);
+                $i--;
+                continue;
+            }
+
             $this->iterateBooks($xml->{'fb2-book'});
 
             if ($this->skipped >= $this->bookExistedCount) {
