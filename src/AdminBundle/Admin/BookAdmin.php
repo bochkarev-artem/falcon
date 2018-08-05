@@ -60,6 +60,7 @@ class BookAdmin extends AbstractAdmin
                 'required' => false,
             ])
             ->add('coverPath')
+            ->add('enabled')
             ->add('hasTrial')
             ->add('featuredHome')
             ->add('featuredMenu')
