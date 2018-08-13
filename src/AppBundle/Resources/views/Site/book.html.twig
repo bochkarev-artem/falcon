@@ -174,7 +174,7 @@
                             {% endif %}
                             <br>
                             <div class="text-center">
-                                <h4>{{ 'front.download_book'|trans }} {{ book.title }}</h4>
+                                <h4>{{ 'front.download_book'|trans({'%title%': book.title}) }}</h4>
                                 {% if app.user %}
                                     <br>
                                     <a class="btn-partner" href="{{ read_link }}">{{ 'front.read_book'|trans }}</a>
