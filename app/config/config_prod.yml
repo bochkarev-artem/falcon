@@ -30,8 +30,8 @@ monolog:
             action_level: critical
             handler:      nested
         nested:
-            type:  stream
-            path: 'php://stderr'
+            type: stream
+            path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: critical
         console:
             type:  console
