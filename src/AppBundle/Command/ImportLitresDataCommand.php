@@ -25,7 +25,6 @@ class ImportLitresDataCommand extends ContainerAwareCommand
             ->setName('app:update-litres-data')
             ->setDescription('Update Litres Data.')
             ->addArgument('type', InputArgument::OPTIONAL, 'Type of entity to process. Allowed: "books", "genres"')
-            ->addArgument('file', InputArgument::OPTIONAL, 'Source from file. Allowed: "file, stream", "stream"')
             ->addArgument('debug', InputArgument::OPTIONAL, 'Debug flag. Allowed: "y", "n"', 'y')
         ;
     }
@@ -40,12 +39,7 @@ class ImportLitresDataCommand extends ContainerAwareCommand
         $type      = $input->getArgument('type');
         $type      = $type ?: 'books';
         $debug     = $input->getArgument('debug');
-        $file      = $input->getArgument('file');
-        if ('file' == $file) {
-            $litres = $this->getContainer()->get('AppBundle\Service\LitresFileService');
-        } else {
-            $litres = $this->getContainer()->get('AppBundle\Service\LitresService');
-        }
+        $litres    = $this->getContainer()->get('AppBundle\Service\LitresService');
         $result    = $litres->getData($type, $debug);
         $endTime   = time();
         $totalTime = $endTime - $startTime;
