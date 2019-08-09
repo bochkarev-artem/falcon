@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd /home/ubuntu/falcon/
+cd /home/falcon/
 php bin/console app:update-litres-data books
 sleep 10s
 php bin/console app:update-featured-menu
