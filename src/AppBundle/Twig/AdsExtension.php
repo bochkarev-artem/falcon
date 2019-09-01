@@ -6,7 +6,7 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Service\AdsManager;
-use AppBundle\Service\SAPE_client;
+use AppBundle\Service\Sape\SAPE_client;
 
 class AdsExtension extends \Twig_Extension
 {
