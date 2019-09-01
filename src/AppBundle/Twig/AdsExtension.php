@@ -6,7 +6,6 @@
 namespace AppBundle\Twig;
 
 use AppBundle\Service\AdsManager;
-use AppBundle\Service\Sape\SAPE_client;
 
 class AdsExtension extends \Twig_Extension
 {
@@ -51,7 +50,7 @@ class AdsExtension extends \Twig_Extension
             define('_SAPE_USER', '840de354d9079d45da2f27ecfb3445f0');
         }
 
-        $sape = new SAPE_client();
+        $sape = new \SAPE_client();
 
         return $sape->return_links($number);
     }
