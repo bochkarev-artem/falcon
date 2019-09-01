@@ -173,6 +173,9 @@
                                 }) }}</p>
                             {% endif %}
                             <br>
+                            <div class="ads">
+                                {{ init_sape(1)|raw }}
+                            </div>
                             <div class="text-center">
                                 <h4>{{ 'front.download_book'|trans({'%title%': book.title}) }}</h4>
                                 {% if app.user %}
