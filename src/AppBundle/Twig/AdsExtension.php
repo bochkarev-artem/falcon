@@ -45,7 +45,7 @@ class AdsExtension extends \Twig_Extension
         return $this->adsManager->getAdByPosition($position, $showToAll);
     }
 
-    public function initSape(int $number)
+    public function initSape()
     {
         if (!defined('_SAPE_USER')){
             define('_SAPE_USER', '840de354d9079d45da2f27ecfb3445f0');
@@ -53,7 +53,7 @@ class AdsExtension extends \Twig_Extension
 
         $sape = new SAPE_client();
 
-        return $sape->return_links($number);
+        return $sape->return_links();
     }
 
     /**
