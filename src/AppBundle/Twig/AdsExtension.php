@@ -50,8 +50,8 @@ class AdsExtension extends \Twig_Extension
         if (!defined('_SAPE_USER')){
             define('_SAPE_USER', '840de354d9079d45da2f27ecfb3445f0');
         }
-
-        $sape = new SAPE_client();
+        $options['charset'] = 'UTF-8';
+        $sape = new SAPE_client($options);
 
         return $sape->return_links();
     }

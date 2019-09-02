@@ -16,9 +16,9 @@
                 <div class="container">
                     <div class="row">
                         <aside class="col-md-3">
+                            {{ init_sape()|raw }}
                             {{ side_menu()|raw }}
                             {{ ad_by_position(constant('AppBundle\\Entity\\Ads::POSITION_CATALOG_SIDE'))|raw }}
-                            {{ init_sape()|raw }}
                         </aside>
                         <div class="col-md-9">
                             {{ ad_by_position(constant('AppBundle\\Entity\\Ads::POSITION_CATALOG_TOP'))|raw }}
