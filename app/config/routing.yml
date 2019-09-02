@@ -64,7 +64,7 @@ tags:
         sitemap: true
 
 sitemap:
-    path: /new-sitemap/{page}
+    path: /sitemap/{page}
     defaults: { _controller: AppBundle:Site:sitemap, page: 1 }
     options:
         sitemap: false
