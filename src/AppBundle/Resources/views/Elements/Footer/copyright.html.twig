@@ -7,7 +7,7 @@
             <li><a href="{{ path('popular_books') }}">{{ 'front.popular_books'|trans }}</a>
             <li><a href="{{ path('sitemap') }}">{{ 'front.sitemap'|trans }}</a>
             {% for i in 2..29 %}
-                <li><a href="{{ path('sitemap', {'page': i}) }}">{{ i }}</a>
+                <li><a href="{{ path('sitemap', {'page': i}) }}" style="color: #111111">{{ i }}</a>
             {% endfor %}
         </ul>
     </div>
