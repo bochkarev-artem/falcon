@@ -50,8 +50,8 @@ class AdsExtension extends \Twig_Extension
         if (!defined('_SAPE_USER')){
             define('_SAPE_USER', '840de354d9079d45da2f27ecfb3445f0');
         }
-        $o['force_show_code'] = true;
-        $sape = new SAPE_client($o);
+
+        $sape = new SAPE_client();
 
         return $sape->return_links($number);
     }
