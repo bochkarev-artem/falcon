@@ -46,6 +46,10 @@ front:
         title:          Новые книги, новинки литературы скачать бесплатно - электронная библиотека Bookary
         description:    Новые книги, новинки литературы скачать бесплатно - электронная библиотека Bookary
         keywords:       новые книги, новинки, литература, скачать бесплатно
+    sitemap_page:
+        title:          Карта сайта
+        description:    Карта сайта
+        keywords:       Карта сайта
     popular_books_page:
         title:          Популярные книги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
         description:    Популярные книги, бестселлеры, bestsellers скачать бесплатно - электронная библиотека Bookary
@@ -64,6 +68,7 @@ front:
     sequence:            Серия
     number_in_sequence:  " (%number%-ая книга)"
     tags:                Теги
+    sitemap:             Карта сайта
     email:               Email
     new_books:           Новые книги
     popular:             Популярное

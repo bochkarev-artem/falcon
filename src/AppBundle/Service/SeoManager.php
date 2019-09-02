@@ -119,6 +119,21 @@ class SeoManager
     /**
      * @param int $page
      */
+    public function setSitemapSeoData($page)
+    {
+        $seoData = new SeoData();
+        $seoData->setTitle($this->translator->trans('front.sitemap_page.title'));
+        $seoData->setMetaDescription($this->translator->trans('front.sitemap_page.description'));
+        $seoData->setMetaKeywords($this->translator->trans('front.sitemap_page.keywords'));
+        $doIndex = $page === 1;
+        $seoData->setIndexPage($doIndex);
+
+        $this->setBasicSeoData($seoData);
+    }
+
+    /**
+     * @param int $page
+     */
     public function setPopularBooksSeoData($page)
     {
         $doIndex = $page === 1;

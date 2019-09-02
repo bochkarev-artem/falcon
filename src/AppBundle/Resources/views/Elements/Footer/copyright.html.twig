@@ -1,12 +1,14 @@
 <div class="copy-right copy-right2">
     <div class="container">
-        <p>© 2016-2017, {{ 'front.footer.site_name'|trans }}</p>
+        <p>© 2016-{{ "now"|date("Y") }}, {{ 'front.footer.site_name'|trans }}</p>
         <ul class="ft-nav">
             <li><a href="{{ path('site_index') }}">{{ 'front.main'|trans }}</a></li>
-            <li><a href="{{ path('search_page') }}">{{ 'front.search'|trans }}</a></li>
             <li><a href="{{ path('new_books') }}">{{ 'front.new_books'|trans }}</a>
             <li><a href="{{ path('popular_books') }}">{{ 'front.popular_books'|trans }}</a>
-            <li><a href="{{ path('tags') }}">{{ 'front.tags'|trans }}</a>
+            <li><a href="{{ path('sitemap') }}">{{ 'front.sitemap'|trans }}</a>
+            {% for i in 2..29 %}
+                <li><a href="{{ path('sitemap', {'page': i}) }}">i</a>
+            {% endfor %}
         </ul>
     </div>
 </div>

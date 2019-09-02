@@ -63,6 +63,12 @@ tags:
     options:
         sitemap: true
 
+sitemap:
+    path: /new-sitemap/{page}
+    defaults: { _controller: AppBundle:Site:sitemap, page: 1 }
+    options:
+        sitemap: false
+
 search_page:
     path: /search-page
     defaults: { _controller: AppBundle:Site:searchPage }

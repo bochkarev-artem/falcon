@@ -5,6 +5,7 @@
             {% set routeParams = route_params ?? [] %}
             {{ pagerfanta(books, 'bookary_pagination', {
                 'routeName': route_name,
+                'proximity': 8,
                 'routeParams': {'page': books.currentPage}|merge(routeParams),
                 'omitFirstPage': true
             }) }}

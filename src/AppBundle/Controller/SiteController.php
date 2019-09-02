@@ -420,6 +420,36 @@ class SiteController extends Controller
     }
 
     /**
+     * @param int        $page
+     * @param Request    $request
+     * @param SeoManager $seoManager
+     *
+     * @return JsonResponse|Response
+     */
+    public function sitemapAction($page, Request $request, SeoManager $seoManager)
+    {
+        $queryParams = new QueryParams();
+        $queryParams
+            ->setSort(QueryParams::SORT_ADDED_ON_DESC)
+            ->setSize(310)
+            ->setPage($page);
+
+        $data = $this->prepareViewData($request, $queryParams);
+        $data = array_merge($data, [
+            'show_author' => true,
+            'route_name'  => 'sitemap',
+        ]);
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->prepareJsonResponse($data);
+        }
+
+        $seoManager->setNewBooksSeoData($page);
+
+        return $this->render('@App/Site/list_page.html.twig', $data);
+    }
+
+    /**
      * @param SeoManager $seoManager
      *
      * @return Response
