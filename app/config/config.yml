@@ -58,7 +58,6 @@ knp_menu:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    cache: false
     globals:
         review_minimum_char: "%review_minimum_char%"
 
