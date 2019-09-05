@@ -431,7 +431,7 @@ class SiteController extends Controller
         $queryParams = new QueryParams();
         $queryParams
             ->setSort(QueryParams::SORT_ADDED_ON_DESC)
-            ->setSize(310)
+            ->setSize(150)
             ->setPage($page);
 
         $data = $this->prepareViewData($request, $queryParams);
